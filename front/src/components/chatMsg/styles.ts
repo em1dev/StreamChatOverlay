@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 const easeIn = keyframes`
   from {
@@ -11,7 +11,7 @@ const easeIn = keyframes`
   }
 `;
 
-export const Message = styled.div`
+export const Message = styled.div<{ direction: 'left' | 'right' }>`
   animation: ${easeIn} 0.2s ease-in;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
@@ -20,7 +20,11 @@ export const Message = styled.div`
 
   display: flex;
   flex-direction: column;
-  align-items: end;
+  ${({ direction }) => direction === 'left' ?
+    css` align-items: start;` :
+    css` align-items: end; `
+  }
+
   margin: 0.3em 0;
   font-size: 0.9em;
 
@@ -29,7 +33,10 @@ export const Message = styled.div`
   border-radius: 0.5em;
 `;
 
-export const Content = styled.div`
+export const Content = styled.div<{ direction: 'left' | 'right'}>`
   word-break: break-word;
-  text-align: end;
+  ${({ direction }) => direction === 'left' ?
+    css` text-align: start;` :
+    css` text-align: end; `
+  }
 `;

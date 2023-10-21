@@ -1,3 +1,4 @@
+import { useChatConfig } from "../../hooks/useChatConfig";
 import { ChatMessageData } from "../../types";
 import ChatMsgHeader from "./chatHeader";
 import ChatMsgContent from "./chatMsgContent";
@@ -7,10 +8,12 @@ export interface ChatMsgProps extends ChatMessageData {
 }
 
 const ChatMsg = (props: ChatMsgProps) => {
+  const config = useChatConfig();
+
   return (
-    <S.Message>
+    <S.Message direction={config.direction}>
       <ChatMsgHeader {...props} />
-      <S.Content>
+      <S.Content direction={config.direction}>
         <ChatMsgContent {...props} />
       </S.Content>
     </S.Message>

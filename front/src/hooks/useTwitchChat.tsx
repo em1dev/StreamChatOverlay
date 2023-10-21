@@ -56,7 +56,7 @@ export const useTwitchChat = (channel: string) => {
         }
         const pronoun = await getPronounsFromTwitchName(user);
         setChatMessages((msgs) => {
-          const newArray = [...msgs, {
+          const newArray = [{
             id: msg.id,
             content: msg.text,
             userDisplayName: msg.userInfo.displayName,
@@ -64,8 +64,8 @@ export const useTwitchChat = (channel: string) => {
             color: msg.userInfo.color,
             emoteOffsets: msg.emoteOffsets,
             badges: parseBadges(msg.userInfo.badges)
-          }];
-          return newArray.slice(-MAX_MESSAGES);
+          }, ...msgs];
+          return newArray.slice(0, MAX_MESSAGES);
         });
     };
   }, [getPronounsFromTwitchName, parseBadges, channelId]);

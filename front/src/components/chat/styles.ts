@@ -1,8 +1,11 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const Container = styled.div`
+export const Container = styled.div<{ direction: 'left' | 'right'}>`
   max-width: 500px;
   display: flex;
-  flex-direction: column;
-  align-items: end;
+  flex-direction: column-reverse;
+  ${({ direction }) => direction === 'left' ? 
+    css`align-items:start;` :
+    css`align-items:end;`
+  }
 `;

@@ -1,18 +1,22 @@
+import { ChatConfiguration, ChatConfigurationProvider, defaultChatConfiguration } from "../../hooks/useChatConfig";
 import { ChatMessageData } from "../../types";
 import ChatMsg from "../chatMsg";
 import * as S from './styles';
 
 export interface ChatProps {
   msgs: Array<ChatMessageData>,
+  config?: ChatConfiguration
 }
 
-const Chat = ({ msgs }: ChatProps) => {
+const Chat = ({ msgs, config = defaultChatConfiguration }: ChatProps) => {
   return (
-    <S.Container>
-      {msgs.map((msg) => (
-        <ChatMsg key={ msg.id } {...msg}   />
-      ))}
-    </S.Container>
+    <ChatConfigurationProvider config={config}>
+      <S.Container direction={config.direction}>
+        {msgs.map((msg) => (
+          <ChatMsg key={ msg.id } {...msg}   />
+        ))}
+      </S.Container>
+    </ChatConfigurationProvider>
   );
 }
 

@@ -47,6 +47,7 @@ const parseMessage = ({ content, emoteOffsets }: ChatMsgContentProps):Array<Mess
     type: 'text',
     content: content.substring(i).trim(),
   };
+
   if (textContent.content.length) {
     parsedMessage.push(textContent);
   }

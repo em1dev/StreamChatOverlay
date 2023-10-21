@@ -25,11 +25,12 @@ export const Page = styled.div`
 `;
 
 export const Input = styled.input`
-  padding: 1em;
+  padding: 0.5em 1em;
   font-size: 1.2em;
   border: none;
-  border-radius: 0.5em;
+  border-radius: 0.3em;
   margin: 1em;
+  background-color: white;
 `;
 
 export const GlobalStyles = createGlobalStyle`
@@ -51,3 +52,13 @@ export const GlobalStyles = createGlobalStyle`
     margin-bottom: 2em;
   }
 `;
+
+export const SettingsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8em;
+`;
+
+export const Subtitle = styled.p``;
+export const Label = styled.label``;
