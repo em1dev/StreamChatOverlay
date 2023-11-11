@@ -11,7 +11,7 @@ const getEmoteUrl = (id:string, format = "default", theme: "dark" | 'light' = "d
 const EmoteContainer = styled.img`
   width: 28px;
   height: 28px;
-  margin: 0 0.1em;
+  margin: 0.1em;
   vertical-align: middle;
   position: relative;
   top: -5px;
