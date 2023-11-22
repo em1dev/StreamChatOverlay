@@ -7,6 +7,8 @@ import { useBadges } from "./useBadges";
 import { UserInformation } from "../api/elpatoApi/types";
 
 const MAX_MESSAGES = 20;
+// TODO - move to config
+const IGNORED_USERS = ['el_pato_bot', 'nightbot', 'ckmu_bot', 'streamelements'];
 
 type OnChatMessageEventHandler = (channel: string, user:string, text:string, msg: TwurpleChatMessage) => Promise<void>;
 
@@ -36,6 +38,7 @@ export const useTwitchChat = (channel: UserInformation) => {
     if (!chat) return;
     chat.onMessage(async (channel: string, user: string, text: string, msg: TwurpleChatMessage) => {
       if (!onMessageHandlerRef.current) return;
+      if (IGNORED_USERS.includes(user)) return;
       await onMessageHandlerRef.current(channel, user, text, msg);
     });
 

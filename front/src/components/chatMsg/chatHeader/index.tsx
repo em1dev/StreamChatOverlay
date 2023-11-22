@@ -4,7 +4,7 @@ import * as S from './styles';
 const ChatMsgHeader = ({ badges, displayPronoun, color, userDisplayName }: ChatMessageData) => (
   <S.Container>
     { badges.map((badge) => (
-        <img height={18} width={18} src={badge.url} key={badge.id} alt={badge.id} />
+        <S.Badge height={18} width={18} src={badge.url} key={badge.id} alt={badge.id} />
       ))
     }
 
