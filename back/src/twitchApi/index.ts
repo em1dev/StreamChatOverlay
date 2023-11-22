@@ -1,4 +1,4 @@
-import { ApiParams, ApiResponse, TwitchAuthResponse, TwitchBadgeResponse } from "../types";
+import { ApiParams, ApiResponse, TwitchAuthResponse, TwitchBadgeResponse, UserInformationResponse } from "../types";
 import 'dotenv/config';
 
 const TWITCH_AUTH_URL = 'https://id.twitch.tv/oauth2/token';
@@ -41,6 +41,17 @@ const getGlobalBadges = async (appToken: string) => {
     token: appToken
   }); 
 }
+
+const getUserInformation = async (channelName: string, appToken: string) => {
+  const url = HELIX_BASE_URL + 'users';
+  return await callApi<UserInformationResponse>({
+    url,
+    params: {
+      login: channelName.toLowerCase()
+    },
+    token: appToken
+  });
+};
 
 const callApi = async <R, T = unknown>({
   url,
@@ -94,5 +105,6 @@ const createAuthHeaders = (token: string, type: 'Bearer' | 'OAuth' = 'Bearer', a
 export const twitchApi = {
   getChannelBadges,
   getGlobalBadges,
-  getAppToken
+  getAppToken,
+  getUserInformation
 };

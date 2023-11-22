@@ -1,5 +1,5 @@
 import { twitchApi } from "../twitchApi";
-import { ElPatoApiResponse, TwitchBadgeResponse } from "../types";
+import { ElPatoApiResponse, TwitchBadgeResponse, UserInformation } from "../types";
 
 export class ApiHandler {
   private _appToken: string | null = null;
@@ -53,6 +53,33 @@ export class ApiHandler {
       const newToken = await this.authenticateApp();
       if (newToken) {
         return await this.onGetChannelBadge(channelId);
+      }
+      return { status: 500 };
+    }
+
+    return {
+      status: resp.error?.status ?? 500,
+    }
+  }
+
+  public onGetUserInformation = async (userName: string): Promise<ElPatoApiResponse<UserInformation>> => {
+    if (!this._appToken) return { status: 500 };
+
+    const resp = await twitchApi.getUserInformation(userName, this._appToken);
+
+    if (resp.data) {
+      const foundUser = resp.data.data.find((item) => item.login === userName.toLowerCase());
+      if (!foundUser) return { status: 404 };
+      return {
+        status: 200,
+        body: foundUser
+      };
+    }
+
+    if (resp.error?.status === 403 || resp.error?.status === 401) {
+      const newToken = await this.authenticateApp();
+      if (newToken) {
+        return await this.onGetUserInformation(userName);
       }
       return { status: 500 };
     }

@@ -25,6 +25,11 @@ patoApi.get('/badge', async (_, res) => {
   res.status(resp.status).send(resp.body);
 });
 
+patoApi.get('/users/:userName', async (req, res) => {
+  const resp = await apiHandler.onGetUserInformation(req.params.userName);
+  res.status(resp.status).send(resp.body);
+});
+
 patoApi.listen(PORT, 'localhost', () => {
-  console.log(`Started server at http://localhot:${PORT}`)
+  console.log(`Started server at http://localhost:${PORT}`)
 });
