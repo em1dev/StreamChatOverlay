@@ -7,6 +7,7 @@ export const ChatContainer = styled.div`
   margin-bottom: 1em;
 
   > * {
+    -webkit-mask-image: none;
     box-shadow: 0px 0px 20px 17px #00000026;
     overflow: hidden;
     width: 500px;

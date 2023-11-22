@@ -2,9 +2,9 @@ import { ChatMessageData } from "../types";
 import { pickRandom } from "../utils/randomUtils";
 
 export const users = [
-  { userDisplayName: 'Niv3k_El_Pato', displayPronoun: 'any', color: 'yellow' },
-  { userDisplayName: 'bulbsum', displayPronoun: 'any', color: 'orange' },
-  { userDisplayName: 'ckmu32', displayPronoun: 'she/her', color: 'pink' },
+  { userDisplayName: 'Niv3k_El_Pato', displayPronoun: 'Any', color: 'yellow' },
+  { userDisplayName: 'bulbsum', displayPronoun: 'Any', color: 'orange' },
+  { userDisplayName: 'ckmu32', displayPronoun: 'She/Her', color: 'pink' },
   { userDisplayName: 'hellsing2030' },
   { userDisplayName: 'danirod_', color: 'cyan' },
 ] satisfies Array<Pick<ChatMessageData, 'userDisplayName' | 'displayPronoun' | 'color'>>

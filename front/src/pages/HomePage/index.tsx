@@ -15,11 +15,8 @@ const HomePage = () => {
   useEffect(() => {
     const onInterval = () => {
       setMessages((prevMessages) => (
-        [
-          {
-          ...pickRandom(testMessages),
-          id: `${Math.random()}`
-        },
+      [
+        { ...pickRandom(testMessages), id: `${Math.random()}` },
         ...prevMessages
       ].splice(0, 10)
       ));
@@ -28,6 +25,8 @@ const HomePage = () => {
 
     return () => { clearInterval(intervalRef) };
   }, []);
+
+  const url = `${window.location.href}?direction=${chatConfig.direction}#${channel}`;
 
   return (
     <S.Page>
@@ -40,17 +39,23 @@ const HomePage = () => {
       <S.Input value={channel} onChange={(e) => setChannel(e.target.value)} placeholder="Nombre de twitch" />
 
       <S.SettingsContainer>
-        <ClickToCopy content={`http://localhost:3080/#${channel}`} />
+        <ClickToCopy content={url} />
         <div>Copia este link en OBS como browser source</div>
         <div>
-          <S.Input onClick={() => setChatConfig((prev) => ({...prev, direction: 'left'}))} checked={chatConfig.direction === 'left'} id="left" type="radio" name="direction" />
+          <S.Input 
+            onClick={() => setChatConfig((prev) => ({...prev, direction: 'left'}))}
+            defaultChecked={chatConfig.direction === 'left'}
+            id="left" type="radio" name="direction" />
           <S.Label htmlFor="left">Left</S.Label>
-          <S.Input onClick={() => setChatConfig((prev) => ({...prev, direction: 'right'}))} checked={chatConfig.direction === 'right'} id="right" type="radio" name="direction" />
+
+          <S.Input 
+            onClick={() => setChatConfig((prev) => ({...prev, direction: 'right'}))}
+            defaultChecked={chatConfig.direction === 'right'}
+            id="right" type="radio" name="direction" />
           <S.Label htmlFor="right">Right</S.Label>
+
         </div>
       </S.SettingsContainer>
-
-
     </S.Page>
   );
 }

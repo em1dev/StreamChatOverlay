@@ -4,15 +4,14 @@ import { ChatMessageData } from "../types";
 import { TwurpleChatMessage } from "../twurpleTypes";
 import { usePronouns } from "./usePronouns";
 import { useBadges } from "./useBadges";
+import { UserInformation } from "../api/elpatoApi/types";
 
-const MAX_MESSAGES = 10;
+const MAX_MESSAGES = 20;
 
 type OnChatMessageEventHandler = (channel: string, user:string, text:string, msg: TwurpleChatMessage) => Promise<void>;
 
-export const useTwitchChat = (channel: string) => {
-  // todo - calculate at api
-  const [ channelId, setChannelId ] = useState<string | null>(null);
-  const { parseBadges } = useBadges(channelId);
+export const useTwitchChat = (channel: UserInformation) => {
+  const { parseBadges } = useBadges(channel.id);
   const { getPronounsFromTwitchName } = usePronouns();
   const [chat, setChat] = useState<ChatClient | null>(null);
   const [chatMessages, setChatMessages] = useState<Array<ChatMessageData> | []>([]);
@@ -20,7 +19,7 @@ export const useTwitchChat = (channel: string) => {
 
   useEffect(() => {
     const chatClient = new ChatClient({
-      channels: [channel]
+      channels: [channel.login]
     });
     chatClient.connect();
     setChat(chatClient);
@@ -51,9 +50,6 @@ export const useTwitchChat = (channel: string) => {
 
   useEffect(() => {
     onMessageHandlerRef.current = async (channel: string, user: string, text: string, msg: TwurpleChatMessage) => {
-        if (!channelId) {
-          setChannelId(msg.channelId);
-        }
         const pronoun = await getPronounsFromTwitchName(user);
         setChatMessages((msgs) => {
           const newArray = [{
@@ -68,7 +64,7 @@ export const useTwitchChat = (channel: string) => {
           return newArray.slice(0, MAX_MESSAGES);
         });
     };
-  }, [getPronounsFromTwitchName, parseBadges, channelId]);
+  }, [getPronounsFromTwitchName, parseBadges]);
 
   return {
     chat,
