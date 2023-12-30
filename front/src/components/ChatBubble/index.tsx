@@ -14,7 +14,7 @@ const ChatMsg = (props: ChatMsgProps) => {
     <S.Message direction={config.direction}>
       <ChatMsgHeader {...props} />
       <S.Content direction={config.direction}>
-        <ChatMsgContent {...props} />
+        <ChatMsgContent messageParts={props.contentParts} />
       </S.Content>
     </S.Message>
   )

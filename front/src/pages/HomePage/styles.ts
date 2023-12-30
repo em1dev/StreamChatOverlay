@@ -20,7 +20,6 @@ export const ChatContainer = styled.div`
 
 export const Page = styled.div`
   height: 100%;
-  font-family: Arial, Helvetica, sans-serif;
   color: white;
   text-align: center;
 `;
@@ -51,6 +50,7 @@ export const GlobalStyles = createGlobalStyle`
   }
   h2 {
     margin-bottom: 2em;
+    font-weight: normal;
   }
 `;
 

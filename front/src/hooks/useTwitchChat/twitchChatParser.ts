@@ -1,29 +1,6 @@
-import { ChatMessageData } from "../../../types";
-import Emote from "../emote";
+import { MessagePart } from "../../types";
 
-export type ChatMsgContentProps = Pick<ChatMessageData,
-  'content' | 'emoteOffsets'
->;
-
-export type MessagePart = {
-  type: 'text' | 'emote',
-  content: string
-}
-
-const ChatMsgContent = (props: ChatMsgContentProps) => {
-  const parsedContent = parseMessage(props);
-
-  return (
-      parsedContent.map(({ content, type }, index) => {
-        if (type === 'emote') {
-          return <Emote key={index} id={content} />
-        }
-        return <span key={index}>{content}</span>
-      })
-  );
-};
-
-const parseMessage = ({ content, emoteOffsets }: ChatMsgContentProps):Array<MessagePart> => {
+const parseMessage = (content: string, emoteOffsets: Map<string, Array<string>>):Array<MessagePart> => {
   const parsedMessage: Array<MessagePart> = [];
   const emotes = createEmoteArray(emoteOffsets);
 
@@ -55,7 +32,7 @@ const parseMessage = ({ content, emoteOffsets }: ChatMsgContentProps):Array<Mess
   return parsedMessage;
 }
 
-const createEmoteArray = (emoteOffsets: ChatMsgContentProps['emoteOffsets']) => {
+const createEmoteArray = (emoteOffsets: Map<string, Array<string>>) => {
   const data: Array<{
     start: number,
     end: number,
@@ -83,4 +60,7 @@ const createEmoteArray = (emoteOffsets: ChatMsgContentProps['emoteOffsets']) => 
   return emotesSorted;
 }
 
-export default ChatMsgContent;
+export const TwitchChatParser = {
+  createEmoteArray,
+  parseMessage
+}

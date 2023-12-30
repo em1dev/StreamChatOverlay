@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { UserInformation } from "../../api/elpatoApi/types";
 import Chat from "../../components/chat";
-import { useTwitchChat } from "../../hooks/useTwitchChat";
+import { useTwitchChat } from "../../hooks/useTwitchChat/useTwitchChat";
 import { BaseCSS } from "./styles";
 import { ChatConfiguration } from "../../hooks/useChatConfig";
 

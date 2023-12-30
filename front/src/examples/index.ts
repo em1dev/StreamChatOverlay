@@ -29,6 +29,10 @@ export const testMessages = messageContents.map((content, index) => (
     content,
     id: `${index}`,
     emoteOffsets: new Map(),
+    contentParts: [{
+      content,
+      type: 'text'
+    }],
     ...pickRandom(users),
-  }
+  } satisfies ChatMessageData
 )) satisfies Array<ChatMessageData>;

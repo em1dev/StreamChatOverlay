@@ -1,3 +1,8 @@
+export type MessagePart = {
+  type: 'text' | 'emote',
+  content: string
+}
+
 export interface ChatMessageData {
   id: string,
   content: string,
@@ -9,4 +14,5 @@ export interface ChatMessageData {
     id: string,
     url: string
   }>,
+  contentParts: Array<MessagePart>,
 }

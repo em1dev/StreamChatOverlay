@@ -13,8 +13,6 @@ const easeIn = keyframes`
 
 export const Message = styled.div<{ direction: 'left' | 'right' }>`
   animation: ${easeIn} 0.2s ease-in;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: bold;
   text-align: end;
   color: white;
 

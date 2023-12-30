@@ -1,6 +1,6 @@
 import { ChatConfiguration, ChatConfigurationProvider, defaultChatConfiguration } from "../../hooks/useChatConfig";
 import { ChatMessageData } from "../../types";
-import ChatMsg from "../chatMsg";
+import ChatMsg from "../ChatBubble";
 import * as S from './styles';
 
 export interface ChatProps {

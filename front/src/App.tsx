@@ -3,6 +3,7 @@ import ChatOverlay from "./pages/ChatOverlay";
 import HomePage from "./pages/HomePage";
 import { UserInformation } from "./api/elpatoApi/types";
 import { elPatoApi } from "./api/elpatoApi";
+import { GlobalStyle } from "./globalStyle";
 
 const App = () => {
   const [channel, setChannel] = useState<UserInformation | null>(null);
@@ -34,19 +35,14 @@ const App = () => {
     }
   }, []);
 
-  if (error) return (
-    <h1>{error}</h1>
-  )
-
-  if (channel) return (
-    <ChatOverlay userInformation={channel}  />
-  )
-  
-  if (!location.hash.replace('#', '')) {
-    return ( <HomePage /> );
-  }
-
-  return null;
+  return (
+    <>
+      <GlobalStyle/>
+      { error && (<h1>Error</h1>) }
+      { channel && (<ChatOverlay userInformation={channel} />) }
+      { (!location.hash.replace('#', '')) && ( <HomePage /> ) }
+    </>
+  );
 }
 
 export default App

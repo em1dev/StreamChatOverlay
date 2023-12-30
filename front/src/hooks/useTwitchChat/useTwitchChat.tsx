@@ -1,10 +1,11 @@
 import { ChatClient } from "@twurple/chat";
 import { useEffect, useRef, useState } from "react";
-import { ChatMessageData } from "../types";
-import { TwurpleChatMessage } from "../twurpleTypes";
-import { usePronouns } from "./usePronouns";
-import { useBadges } from "./useBadges";
-import { UserInformation } from "../api/elpatoApi/types";
+import { ChatMessageData } from "../../types";
+import { TwurpleChatMessage } from "../../twurpleTypes";
+import { usePronouns } from "../usePronouns";
+import { useBadges } from "../useBadges";
+import { UserInformation } from "../../api/elpatoApi/types";
+import { TwitchChatParser } from "./twitchChatParser";
 
 const MAX_MESSAGES = 20;
 // TODO - move to config
@@ -54,6 +55,7 @@ export const useTwitchChat = (channel: UserInformation) => {
   useEffect(() => {
     onMessageHandlerRef.current = async (channel: string, user: string, text: string, msg: TwurpleChatMessage) => {
         const pronoun = await getPronounsFromTwitchName(user);
+        const msgParts = TwitchChatParser.parseMessage(msg.text, msg.emoteOffsets);
         setChatMessages((msgs) => {
           const newArray = [{
             id: msg.id,
@@ -62,8 +64,9 @@ export const useTwitchChat = (channel: UserInformation) => {
             displayPronoun: pronoun,
             color: msg.userInfo.color,
             emoteOffsets: msg.emoteOffsets,
-            badges: parseBadges(msg.userInfo.badges)
-          }, ...msgs];
+            badges: parseBadges(msg.userInfo.badges),
+            contentParts: msgParts
+          } satisfies ChatMessageData, ...msgs];
           return newArray.slice(0, MAX_MESSAGES);
         });
     };
