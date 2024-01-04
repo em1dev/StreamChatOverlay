@@ -1,3 +1,30 @@
+export interface BetterTTVEmote {
+  id:string,
+  /**
+   * emote code
+   */
+  code:string,
+  imageType: 'png' | 'webp' | 'gif',
+  animated: boolean
+  user: {
+    id: string,
+    name: string,
+    displayName: string,
+    /**
+     * twitch / yotube user id
+     */
+    providerId: string
+  }
+}
+
+export interface BetterTTVUserEmoteResponse {
+  id: string
+  bots: Array<string>,
+  avatar: string,
+  channelEmotes: Array<BetterTTVEmote>,
+  sharedEmotes: Array<BetterTTVEmote>
+}
+
 export interface TwitchPaginatedResponse<T> {
   data: Array<T>
 }
@@ -61,6 +88,15 @@ export interface ApiParams<T> {
   body?: T;
   token?: string;
   headers?: Record<string, string>,
+}
+
+export interface ElPatoEmote {
+  id: string,
+  code: string,
+  animated: boolean,
+  url1x: string,
+  url2x: string,
+  url3x: string
 }
 
 export interface ApiResponse<T> {

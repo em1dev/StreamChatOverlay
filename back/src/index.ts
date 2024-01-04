@@ -2,6 +2,7 @@ import cors from 'cors';
 import express from 'express';
 import { ApiHandler } from './apiHandler';
 import 'dotenv/config';
+import { betterTTVApi } from './betterTTVApi';
 const PORT = parseInt(process.env['SERVER_PORT'] ?? '8080');
 
 const patoApi = express();
@@ -29,6 +30,12 @@ patoApi.get('/users/:userName', async (req, res) => {
   const resp = await apiHandler.onGetUserInformation(req.params.userName);
   res.status(resp.status).send(resp.body);
 });
+
+patoApi.get('/:channelId/emotes', async (req, res) => {
+  const resp = await apiHandler.getEmotes(req.params.channelId);
+  res.status(resp.status).send(resp.body);
+});
+
 
 patoApi.listen(PORT, 'localhost', () => {
   console.log(`Started server at http://localhost:${PORT}`)

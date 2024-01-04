@@ -1,5 +1,6 @@
+import { betterTTVApi } from "../betterTTVApi";
 import { twitchApi } from "../twitchApi";
-import { ElPatoApiResponse, TwitchBadgeResponse, UserInformation } from "../types";
+import { ElPatoApiResponse, ElPatoEmote, TwitchBadgeResponse, UserInformation } from "../types";
 
 export class ApiHandler {
   private _appToken: string | null = null;
@@ -87,5 +88,42 @@ export class ApiHandler {
     return {
       status: resp.error?.status ?? 500,
     }
+  }
+
+  public getEmotes = async (channelId: string): Promise<ElPatoApiResponse<Array<ElPatoEmote>>> => {
+    const globalEmotes = await betterTTVApi.getGlobalEmotes();
+    const userEmotes = await betterTTVApi.getUserEmotes(channelId);
+
+    if (!globalEmotes.data) return { status: 500 };
+    let patoEmotes:Array<ElPatoEmote> = globalEmotes.data.map((emote) => ({
+      id: emote.id,
+      code: emote.code,
+      animated: emote.animated,
+      url1x: `https://cdn.betterttv.net/emote/${emote.id}/1x`,
+      url2x: `https://cdn.betterttv.net/emote/${emote.id}/2x`,
+      url3x: `https://cdn.betterttv.net/emote/${emote.id}/3x`
+    }));
+
+    if (userEmotes.data) {
+      patoEmotes = patoEmotes.concat(userEmotes.data.sharedEmotes.map((emote) => ({
+        id: emote.id,
+        animated: emote.animated,
+        code: emote.code,
+        url1x: `https://cdn.betterttv.net/emote/${emote.id}/1x`,
+        url2x: `https://cdn.betterttv.net/emote/${emote.id}/2x`,
+        url3x: `https://cdn.betterttv.net/emote/${emote.id}/3x`
+      })));
+
+      patoEmotes = patoEmotes.concat(userEmotes.data.channelEmotes.map((emote) => ({
+        id: emote.id,
+        animated: emote.animated,
+        code: emote.code,
+        url1x: `https://cdn.betterttv.net/emote/${emote.id}/1x`,
+        url2x: `https://cdn.betterttv.net/emote/${emote.id}/2x`,
+        url3x: `https://cdn.betterttv.net/emote/${emote.id}/3x`
+      })));
+    }
+
+    return { status: 200, body: patoEmotes };
   }
 }
