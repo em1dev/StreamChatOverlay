@@ -1,7 +1,11 @@
 import { ApiResponse } from "../ApiResponse";
-import { Badge, UserInformation } from "./types";
+import { Badge, CustomEmote, UserInformation } from "./types";
 
 const BASE_URL = 'https://api.niv3kelpato.com/api/';
+
+const getEmotes = async (channelId: string):Promise<ApiResponse<Array<CustomEmote>>> => {
+  return await fetchApi(`${BASE_URL}${channelId}/emotes`)
+};
 
 const getGlobalBadges = async ():Promise<ApiResponse<Array<Badge>>> => (
   fetchApi(BASE_URL + 'badge')
@@ -35,5 +39,6 @@ const fetchApi = async <T>(url:string):Promise<ApiResponse<T>> => {
 export const elPatoApi = {
   getGlobalBadges,
   getChannelBadges,
-  getUserDetails
+  getUserDetails,
+  getEmotes
 }

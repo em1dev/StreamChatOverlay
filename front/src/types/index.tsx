@@ -1,6 +1,9 @@
+import { CustomEmote } from "../api/elpatoApi/types"
+
 export type MessagePart = {
   type: 'text' | 'emote',
-  content: string
+  content: string,
+  customEmote?: CustomEmote
 }
 
 export interface ChatMessageData {

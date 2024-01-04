@@ -1,3 +1,12 @@
+export interface CustomEmote {
+  id: string,
+  code: string,
+  animated: boolean,
+  url1x: string,
+  url2x: string,
+  url3x: string
+}
+
 export interface Badge {
   set_id: string,
   versions: Array<BadgeVersion>,

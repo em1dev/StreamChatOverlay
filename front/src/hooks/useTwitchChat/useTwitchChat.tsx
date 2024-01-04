@@ -6,6 +6,7 @@ import { usePronouns } from "../usePronouns";
 import { useBadges } from "../useBadges";
 import { UserInformation } from "../../api/elpatoApi/types";
 import { TwitchChatParser } from "./twitchChatParser";
+import { useCustomEmotes } from "../useCustomEmotes";
 
 const MAX_MESSAGES = 20;
 // TODO - move to config
@@ -14,6 +15,7 @@ const IGNORED_USERS = ['el_pato_bot', 'nightbot', 'ckmu_bot', 'streamelements'];
 type OnChatMessageEventHandler = (channel: string, user:string, text:string, msg: TwurpleChatMessage) => Promise<void>;
 
 export const useTwitchChat = (channel: UserInformation) => {
+  const customEmotes = useCustomEmotes(channel.id);
   const { parseBadges } = useBadges(channel.id);
   const { getPronounsFromTwitchName } = usePronouns();
   const [chat, setChat] = useState<ChatClient | null>(null);
@@ -55,7 +57,7 @@ export const useTwitchChat = (channel: UserInformation) => {
   useEffect(() => {
     onMessageHandlerRef.current = async (channel: string, user: string, text: string, msg: TwurpleChatMessage) => {
         const pronoun = await getPronounsFromTwitchName(user);
-        const msgParts = TwitchChatParser.parseMessage(msg.text, msg.emoteOffsets);
+        const msgParts = TwitchChatParser.parseMessage(msg.text, msg.emoteOffsets, customEmotes);
         setChatMessages((msgs) => {
           const newArray = [{
             id: msg.id,
@@ -70,7 +72,7 @@ export const useTwitchChat = (channel: UserInformation) => {
           return newArray.slice(0, MAX_MESSAGES);
         });
     };
-  }, [getPronounsFromTwitchName, parseBadges]);
+  }, [getPronounsFromTwitchName, parseBadges, customEmotes]);
 
   return {
     chat,

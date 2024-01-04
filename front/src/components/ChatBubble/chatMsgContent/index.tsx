@@ -6,9 +6,9 @@ export type ChatMsgContentProps = {
 }
 
 const ChatMsgContent = ({ messageParts }: ChatMsgContentProps) => (
-  messageParts.map(({ content, type }, index) => {
+  messageParts.map(({ content, type, customEmote }, index) => {
     if (type === 'emote') {
-      return <Emote key={index} id={content} />
+      return <Emote key={index} id={content} customEmote={customEmote} scale={messageParts.length === 1 ? 3 : 1} />
     }
     return <span key={index}>{content}</span>
   })
