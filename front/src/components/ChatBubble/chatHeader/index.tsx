@@ -9,7 +9,7 @@ const ChatMsgHeader = ({ badges, displayPronoun, color, userDisplayName }: ChatM
     }
 
     { displayPronoun && (
-      <S.Pronouns> { displayPronoun } </S.Pronouns>
+      <S.Pronouns>({ displayPronoun })</S.Pronouns>
     )}
     <S.UserName color={color}>{ userDisplayName }</S.UserName>
   </S.Container>
