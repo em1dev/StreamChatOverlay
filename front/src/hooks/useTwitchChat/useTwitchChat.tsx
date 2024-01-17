@@ -57,7 +57,7 @@ export const useTwitchChat = (channel: UserInformation) => {
   useEffect(() => {
     onMessageHandlerRef.current = async (channel: string, user: string, text: string, msg: TwurpleChatMessage) => {
         const pronoun = await getPronounsFromTwitchName(user);
-        const msgParts = TwitchChatParser.parseMessage(msg.text, msg.emoteOffsets, customEmotes);
+        const msgParts = TwitchChatParser.parseMessage(msg.text, msg.emoteOffsets, customEmotes, msg);
         setChatMessages((msgs) => {
           const newArray = [{
             id: msg.id,

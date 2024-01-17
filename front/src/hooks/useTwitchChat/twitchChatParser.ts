@@ -1,9 +1,49 @@
 import { CustomEmote } from "../../api/elpatoApi/types";
+import { TwurpleChatMessage } from "../../twurpleTypes";
 import { MessagePart } from "../../types";
 
-const parseMessage = (content: string, emoteOffsets: Map<string, Array<string>>, customEmotes: Array<CustomEmote>):Array<MessagePart> => {
-  const messageParts = parseTwitchEmotes(content, emoteOffsets);
-  return parseCustomEmotes(messageParts, customEmotes);
+const parseMessage = (content: string, emoteOffsets: Map<string, Array<string>>, customEmotes: Array<CustomEmote>, twurpleMsg: TwurpleChatMessage):Array<MessagePart> => {
+  let messageParts = parseTwitchEmotes(content, emoteOffsets);
+  messageParts = parseCustomEmotes(messageParts, customEmotes);
+  messageParts = parseExtras(messageParts, twurpleMsg);
+  return messageParts;
+}
+
+const parseExtras = (messageParts: Array<MessagePart>, twurpleMsg: TwurpleChatMessage) => {
+    // mentions
+    let newParts = [...messageParts].flatMap((part) => {
+      if (part.type !== 'text') return [part];
+
+      return part.content.split(' ')
+        .map((txt) => (
+          /@.*?(?=\s|@|$)/g.test(txt) ? 
+            { content: txt, type: 'mention' } satisfies MessagePart :
+            { content: txt, type: 'text'} satisfies MessagePart
+        ));
+    });
+
+    if (twurpleMsg.isReply) {
+      const firstMention = newParts
+        .find((item) => item.type === 'mention');
+      if (firstMention) {
+        let parentMsg = twurpleMsg.parentMessageText?.replace(/@.*?(?=\s|@|$)/, '') ?? '';
+        parentMsg = parentMsg.length > 5 ? parentMsg.slice(0, 5) + '...' : parentMsg;
+
+        firstMention.type = 'reply';
+        firstMention.content = `
+          Replying to: ${firstMention.content} ${parentMsg}
+        `;
+      }
+    }
+
+    if (twurpleMsg.isRedemption) {
+      newParts = [...newParts, {
+        content: 'Channel Point Redemption',
+        type: 'redeption',
+      }];
+    }
+
+    return newParts;
 }
 
 const parseCustomEmotes = (messageParts: Array<MessagePart>, customEmotes: Array<CustomEmote>) => {
