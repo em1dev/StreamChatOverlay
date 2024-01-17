@@ -18,7 +18,7 @@ const parseExtras = (messageParts: Array<MessagePart>, twurpleMsg: TwurpleChatMe
         .map((txt) => (
           /@.*?(?=\s|@|$)/g.test(txt) ? 
             { content: txt, type: 'mention' } satisfies MessagePart :
-            { content: txt, type: 'text'} satisfies MessagePart
+            { content: txt + ' ', type: 'text'} satisfies MessagePart
         ));
     });
 
