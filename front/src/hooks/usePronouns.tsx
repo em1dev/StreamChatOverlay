@@ -1,21 +1,27 @@
 import { useCallback, useEffect, useState } from "react";
 import { pronounsApi } from "../api/pronounsApi";
-import { Pronoun } from "../api/pronounsApi/types";
+import { PronounResponse } from "../api/pronounsApi/types";
 
 export const usePronouns = () => {
-  const [pronouns, setPronouns] = useState<Array<Pronoun>>([]);
+  const [pronouns, setPronouns] = useState<PronounResponse | null>(null);
 
   const getPronounsFromTwitchName = useCallback(async (userName: string) => {
-    if (!pronouns.length) return;
+    if (!pronouns) return;
 
     const { data } = await pronounsApi.getUser(userName);
     if (!data) return;
 
-    const userPronoun = data.find((item) => item.login === userName);
-    if (!userPronoun) return;
+    const primary = pronouns[data.pronoun_id];
+    const secondary = data.alt_pronoun_id ? pronouns[data.alt_pronoun_id] : undefined;
 
-    const pronoun = pronouns.find((item) => item.name === userPronoun.pronoun_id);
-    return pronoun?.display;
+    // if user does not have secondary pronoun or we can't find secondary in memory fallback to primary only
+    if (primary && !secondary) {
+      return primary.singular ? primary.subject : `${primary.subject}/${primary.object}`;
+    }
+
+    if (secondary) {
+      return `${primary.subject}/${secondary.subject}`;
+    }
   }, [pronouns]);
 
   useEffect(() => {
