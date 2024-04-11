@@ -1,50 +1,50 @@
-import { CustomEmote } from "../../api/elpatoApi/types";
-import { TwurpleChatMessage } from "../../twurpleTypes";
-import { MessagePart } from "../../types";
+import { CustomEmote } from '../../api/elpatoApi/types';
+import { TwurpleChatMessage } from '../../twurpleTypes';
+import { MessagePart } from '../../types';
 
 const parseMessage = (content: string, emoteOffsets: Map<string, Array<string>>, customEmotes: Array<CustomEmote>, twurpleMsg: TwurpleChatMessage):Array<MessagePart> => {
   let messageParts = parseTwitchEmotes(content, emoteOffsets);
   messageParts = parseCustomEmotes(messageParts, customEmotes);
   messageParts = parseExtras(messageParts, twurpleMsg);
   return messageParts;
-}
+};
 
 const parseExtras = (messageParts: Array<MessagePart>, twurpleMsg: TwurpleChatMessage) => {
-    // mentions
-    let newParts = [...messageParts].flatMap((part) => {
-      if (part.type !== 'text') return [part];
+  // mentions
+  let newParts = [...messageParts].flatMap((part) => {
+    if (part.type !== 'text') return [part];
 
-      return part.content.split(' ')
-        .map((txt) => (
-          /@.*?(?=\s|@|$)/g.test(txt) ? 
+    return part.content.split(' ')
+      .map((txt) => (
+        /@.*?(?=\s|@|$)/g.test(txt) ? 
             { content: txt, type: 'mention' } satisfies MessagePart :
             { content: txt + ' ', type: 'text'} satisfies MessagePart
-        ));
-    });
+      ));
+  });
 
-    if (twurpleMsg.isReply) {
-      const firstMention = newParts
-        .find((item) => item.type === 'mention');
-      if (firstMention) {
-        let parentMsg = twurpleMsg.parentMessageText?.replace(/@.*?(?=\s|@|$)/, '') ?? '';
-        parentMsg = parentMsg.length > 5 ? parentMsg.slice(0, 5) + '...' : parentMsg;
+  if (twurpleMsg.isReply) {
+    const firstMention = newParts
+      .find((item) => item.type === 'mention');
+    if (firstMention) {
+      let parentMsg = twurpleMsg.parentMessageText?.replace(/@.*?(?=\s|@|$)/, '') ?? '';
+      parentMsg = parentMsg.length > 5 ? parentMsg.slice(0, 5) + '...' : parentMsg;
 
-        firstMention.type = 'reply';
-        firstMention.content = `
+      firstMention.type = 'reply';
+      firstMention.content = `
           Replying to: ${firstMention.content} ${parentMsg}
         `;
-      }
     }
+  }
 
-    if (twurpleMsg.isRedemption) {
-      newParts = [...newParts, {
-        content: 'Channel Point Redemption',
-        type: 'redeption',
-      }];
-    }
+  if (twurpleMsg.isRedemption) {
+    newParts = [...newParts, {
+      content: 'Channel Point Redemption',
+      type: 'redeption',
+    }];
+  }
 
-    return newParts;
-}
+  return newParts;
+};
 
 const parseCustomEmotes = (messageParts: Array<MessagePart>, customEmotes: Array<CustomEmote>) => {
   let newMessageParts = [...messageParts];
@@ -100,7 +100,7 @@ const parseTwitchEmotes = (content: string, emoteOffsets: Map<string, Array<stri
   }
 
   return parsedMessage;
-}
+};
 
 
 const createEmoteArray = (emoteOffsets: Map<string, Array<string>>) => {
@@ -111,27 +111,27 @@ const createEmoteArray = (emoteOffsets: Map<string, Array<string>>) => {
   }> = [];
 
   for (const emoteId of emoteOffsets.keys()) {
-      const offset = emoteOffsets.get(emoteId);
-      if (!offset) continue;
+    const offset = emoteOffsets.get(emoteId);
+    if (!offset) continue;
 
-      for (const emotePart of offset) {
-        const [start, end] = emotePart.split('-');
-        const startParsed = parseInt(start);
-        const endParsed = parseInt(end);
-        if (isNaN(startParsed) || isNaN(endParsed)) continue;
-        data.push({
-          emoteId,
-          end: endParsed,
-          start: startParsed,
-        });
-      }
+    for (const emotePart of offset) {
+      const [start, end] = emotePart.split('-');
+      const startParsed = parseInt(start);
+      const endParsed = parseInt(end);
+      if (isNaN(startParsed) || isNaN(endParsed)) continue;
+      data.push({
+        emoteId,
+        end: endParsed,
+        start: startParsed,
+      });
+    }
   }
 
   const emotesSorted = data.sort((a,b) => a.start - b.start);
   return emotesSorted;
-}
+};
 
 export const TwitchChatParser = {
   createEmoteArray,
   parseMessage
-}
+};

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const ContentExtras = styled.span`
   padding: 0.5em;
@@ -14,7 +14,7 @@ export const ContentExtras = styled.span`
 export const Reply = styled(ContentExtras)`
   color: #2a2a2a;
   background-color: #bea088;
-`
+`;
 
 export const Redemption = styled(ContentExtras)`
   display: block;

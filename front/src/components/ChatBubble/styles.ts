@@ -8,7 +8,7 @@ export const Message = styled.div<{ direction: 'left' | 'right' }>`
   ${({ direction }) => direction === 'left' ?
     css` align-items: start;` :
     css` align-items: end; `
-  }
+}
 
   margin: 0.3em 0;
 
@@ -28,5 +28,5 @@ export const Content = styled.div<{ direction: 'left' | 'right'}>`
   ${({ direction }) => direction === 'left' ?
     css` text-align: start;` :
     css` text-align: end; `
-  }
+}
 `;

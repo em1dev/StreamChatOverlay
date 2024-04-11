@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
-import { pronounsApi } from "../api/pronounsApi";
-import { PronounResponse } from "../api/pronounsApi/types";
+import { useCallback, useEffect, useState } from 'react';
+import { pronounsApi } from '../api/pronounsApi';
+import { PronounResponse } from '../api/pronounsApi/types';
 
 export const usePronouns = () => {
   const [pronouns, setPronouns] = useState<PronounResponse | null>(null);

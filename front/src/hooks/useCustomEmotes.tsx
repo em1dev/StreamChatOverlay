@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { CustomEmote } from "../api/elpatoApi/types";
-import { elPatoApi } from "../api/elpatoApi";
+import { useEffect, useState } from 'react';
+import { CustomEmote } from '../api/elpatoApi/types';
+import { elPatoApi } from '../api/elpatoApi';
 
 export const useCustomEmotes = (channelId: string) => {
   const [customEmotes, setCustomEmotes] = useState<Array<CustomEmote>>([]);

@@ -1,5 +1,5 @@
-import { ApiResponse } from "../ApiResponse";
-import { PronounResponse, PronounUser } from "./types";
+import { ApiResponse } from '../ApiResponse';
+import { PronounResponse, PronounUser } from './types';
 
 const BASE_URL = 'https://api.pronouns.alejo.io/v1/';
 
@@ -12,15 +12,15 @@ const getPronouns = async (): Promise<ApiResponse<PronounResponse>> => {
       hasError: false,
       status: resp.status,
       data
-    }
+    };
   } catch (err) {
     console.log(err);
     return {
       status: 500,
       hasError: true
-    }
+    };
   }
-}
+};
 
 const getUser = async (userLogin: string): Promise<ApiResponse<PronounUser>> => {
   try {
@@ -30,7 +30,7 @@ const getUser = async (userLogin: string): Promise<ApiResponse<PronounUser>> => 
       return {
         hasError: true,
         status: resp.status
-      }
+      };
     }
 
     const data = (await resp.json()) as PronounUser;
@@ -38,15 +38,15 @@ const getUser = async (userLogin: string): Promise<ApiResponse<PronounUser>> => 
       hasError: false,
       status: resp.status,
       data
-    }
+    };
   } catch (err) {
     console.log(err);
     return {
       status: 500,
       hasError: true
-    }
+    };
   }
-}
+};
 
 export const pronounsApi = {
   getPronouns,

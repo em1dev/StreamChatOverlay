@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 
 export const BaseCSS = createGlobalStyle`
   html, body, body > * {

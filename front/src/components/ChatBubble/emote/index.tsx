@@ -8,7 +8,7 @@ export interface EmoteProps {
   alignCorrection?: boolean
 }
 
-const getEmoteUrl = (id:string, format = "default", theme: "dark" | 'light' = "dark", scale: '1.0' | '2.0' | '3.0' = "3.0") => {
+const getEmoteUrl = (id:string, format = 'default', theme: 'dark' | 'light' = 'dark', scale: '1.0' | '2.0' | '3.0' = '3.0') => {
   return `https://static-cdn.jtvnw.net/emoticons/v2/${id}/${format}/${theme}/${scale}`;
 };
 
@@ -26,7 +26,7 @@ const Emote = ({ id, customEmote, scale = 1, alignCorrection } : EmoteProps) => 
   return <EmoteContainer 
     alignCorrection={alignCorrection} 
     src={customEmote?.[`url${scale}x`] ?? getEmoteUrl(id, undefined, undefined, `${scale}.0`)} 
-  />
+  />;
 };
 
 export default Emote;

@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useState } from "react";
-import { Badge } from "../api/elpatoApi/types";
-import { elPatoApi } from "../api/elpatoApi";
-import { ChatMessageData } from "../types";
+import { useCallback, useEffect, useState } from 'react';
+import { Badge } from '../api/elpatoApi/types';
+import { elPatoApi } from '../api/elpatoApi';
+import { ChatMessageData } from '../types';
 
 export const useBadges = (channelId?: string | null) => {
   const [badges, setBadges] = useState<Array<Badge>>([]);
@@ -19,7 +19,7 @@ export const useBadges = (channelId?: string | null) => {
         ...respGlobalBadges.data
       ]);
     })();
-  }, [channelId])
+  }, [channelId]);
 
   const parseBadges = useCallback((twitchBadges: Map<string, string>):ChatMessageData['badges']  => {
     if (!badges.length) return [];

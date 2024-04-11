@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import ChatOverlay from "./pages/ChatOverlay";
-import HomePage from "./pages/HomePage";
-import { UserInformation } from "./api/elpatoApi/types";
-import { elPatoApi } from "./api/elpatoApi";
-import { GlobalStyle } from "./globalStyle";
+import { useEffect, useState } from 'react';
+import ChatOverlay from './pages/ChatOverlay';
+import HomePage from './pages/HomePage';
+import { UserInformation } from './api/elpatoApi/types';
+import { elPatoApi } from './api/elpatoApi';
+import { GlobalStyle } from './globalStyle';
 
 const App = () => {
   const [channel, setChannel] = useState<UserInformation | null>(null);
@@ -23,7 +23,7 @@ const App = () => {
       }
       if (resp.status === 404) {
         setError('User not found');
-        return
+        return;
       }
       setError('Unexpected error');
     };
@@ -32,7 +32,7 @@ const App = () => {
     window.addEventListener('hashchange', onHashChange);
     return () => {
       window.removeEventListener('hashchange', onHashChange);
-    }
+    };
   }, []);
 
   return (
@@ -43,6 +43,6 @@ const App = () => {
       { (!location.hash.replace('#', '')) && ( <HomePage /> ) }
     </>
   );
-}
+};
 
-export default App
+export default App;

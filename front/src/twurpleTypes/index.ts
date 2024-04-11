@@ -1,4 +1,4 @@
-import { ChatMessage } from "@twurple/chat";
+import { ChatMessage } from '@twurple/chat';
 
 export interface TwurpleChatMessage extends ChatMessage {
   id: string,

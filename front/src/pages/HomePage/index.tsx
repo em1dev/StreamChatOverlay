@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
-import Chat from "../../components/chat";
-import { testMessages } from "../../examples";
-import { ChatMessageData } from "../../types";
-import { pickRandom } from "../../utils/randomUtils";
+import { useEffect, useState } from 'react';
+import Chat from '../../components/chat';
+import { testMessages } from '../../examples';
+import { ChatMessageData } from '../../types';
+import { pickRandom } from '../../utils/randomUtils';
 import * as S from './styles';
-import { ChatConfiguration, defaultChatConfiguration } from "../../hooks/useChatConfig";
-import ClickToCopy from "../../components/ClickToCopy";
+import { ChatConfiguration, defaultChatConfiguration } from '../../hooks/useChatConfig';
+import ClickToCopy from '../../components/ClickToCopy';
 
 const HomePage = () => {
   const [messages, setMessages] = useState<Array<ChatMessageData>>([]);
@@ -15,15 +15,15 @@ const HomePage = () => {
   useEffect(() => {
     const onInterval = () => {
       setMessages((prevMessages) => (
-      [
-        { ...pickRandom(testMessages), id: `${Math.random()}` },
-        ...prevMessages
-      ].splice(0, 10)
+        [
+          { ...pickRandom(testMessages), id: `${Math.random()}` },
+          ...prevMessages
+        ].splice(0, 10)
       ));
     };
     const intervalRef = setInterval(onInterval, 1000);
 
-    return () => { clearInterval(intervalRef) };
+    return () => { clearInterval(intervalRef); };
   }, []);
 
   const url = `${window.location.href}?direction=${chatConfig.direction}#${channel}`;
@@ -34,7 +34,7 @@ const HomePage = () => {
       <h1>El Pato Chat</h1>
       <h2>Twitch chat overlay con pronombres</h2>
       <S.ChatContainer>
-          <Chat msgs={messages} config={chatConfig} />
+        <Chat msgs={messages} config={chatConfig} />
       </S.ChatContainer>
       <S.Input value={channel} onChange={(e) => setChannel(e.target.value)} placeholder="Nombre de twitch" />
 
@@ -58,6 +58,6 @@ const HomePage = () => {
       </S.SettingsContainer>
     </S.Page>
   );
-}
+};
 
 export default HomePage;

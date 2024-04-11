@@ -1,12 +1,12 @@
-import { ChatClient } from "@twurple/chat";
-import { useEffect, useRef, useState } from "react";
-import { ChatMessageData } from "../../types";
-import { TwurpleChatMessage } from "../../twurpleTypes";
-import { usePronouns } from "../usePronouns";
-import { useBadges } from "../useBadges";
-import { UserInformation } from "../../api/elpatoApi/types";
-import { TwitchChatParser } from "./twitchChatParser";
-import { useCustomEmotes } from "../useCustomEmotes";
+import { ChatClient } from '@twurple/chat';
+import { useEffect, useRef, useState } from 'react';
+import { ChatMessageData } from '../../types';
+import { TwurpleChatMessage } from '../../twurpleTypes';
+import { usePronouns } from '../usePronouns';
+import { useBadges } from '../useBadges';
+import { UserInformation } from '../../api/elpatoApi/types';
+import { TwitchChatParser } from './twitchChatParser';
+import { useCustomEmotes } from '../useCustomEmotes';
 
 const MAX_MESSAGES = 20;
 // TODO - move to config
@@ -56,21 +56,21 @@ export const useTwitchChat = (channel: UserInformation) => {
 
   useEffect(() => {
     onMessageHandlerRef.current = async (channel: string, user: string, text: string, msg: TwurpleChatMessage) => {
-        const pronoun = await getPronounsFromTwitchName(user);
-        const msgParts = TwitchChatParser.parseMessage(msg.text, msg.emoteOffsets, customEmotes, msg);
-        setChatMessages((msgs) => {
-          const newArray = [{
-            id: msg.id,
-            content: msg.text,
-            userDisplayName: msg.userInfo.displayName,
-            displayPronoun: pronoun,
-            color: msg.userInfo.color,
-            emoteOffsets: msg.emoteOffsets,
-            badges: parseBadges(msg.userInfo.badges),
-            contentParts: msgParts
-          } satisfies ChatMessageData, ...msgs];
-          return newArray.slice(0, MAX_MESSAGES);
-        });
+      const pronoun = await getPronounsFromTwitchName(user);
+      const msgParts = TwitchChatParser.parseMessage(msg.text, msg.emoteOffsets, customEmotes, msg);
+      setChatMessages((msgs) => {
+        const newArray = [{
+          id: msg.id,
+          content: msg.text,
+          userDisplayName: msg.userInfo.displayName,
+          displayPronoun: pronoun,
+          color: msg.userInfo.color,
+          emoteOffsets: msg.emoteOffsets,
+          badges: parseBadges(msg.userInfo.badges),
+          contentParts: msgParts
+        } satisfies ChatMessageData, ...msgs];
+        return newArray.slice(0, MAX_MESSAGES);
+      });
     };
   }, [getPronounsFromTwitchName, parseBadges, customEmotes]);
 

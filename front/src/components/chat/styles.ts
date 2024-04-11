@@ -10,5 +10,5 @@ export const Container = styled.div<{ direction: 'left' | 'right'}>`
   ${({ direction }) => direction === 'left' ? 
     css`align-items:start;` :
     css`align-items:end;`
-  }
+}
 `;

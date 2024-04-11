@@ -1,5 +1,5 @@
-import { ChatMessageData } from "../types";
-import { pickRandom } from "../utils/randomUtils";
+import { ChatMessageData } from '../types';
+import { pickRandom } from '../utils/randomUtils';
 
 export const users = [
   { userDisplayName: 'Niv3k_El_Pato', displayPronoun: 'Any', color: 'yellow' },
@@ -7,7 +7,7 @@ export const users = [
   { userDisplayName: 'ckmu32', displayPronoun: 'She/Her', color: 'pink' },
   { userDisplayName: 'hellsing2030' },
   { userDisplayName: 'danirod_', color: 'cyan' },
-] satisfies Array<Pick<ChatMessageData, 'userDisplayName' | 'displayPronoun' | 'color'>>
+] satisfies Array<Pick<ChatMessageData, 'userDisplayName' | 'displayPronoun' | 'color'>>;
 
 const messageContents:Array<string> = [
   'Buenos dias buenas tardes buenas noches',
