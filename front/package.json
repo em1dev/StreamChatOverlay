@@ -13,6 +13,7 @@
     "@twurple/api": "^7.0.4",
     "@twurple/auth": "^7.0.4",
     "@twurple/chat": "^7.0.4",
+    "framer-motion": "^11.0.28",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "styled-components": "^6.1.0"

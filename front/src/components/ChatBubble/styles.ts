@@ -1,18 +1,6 @@
-import styled, { css, keyframes } from 'styled-components';
-
-const easeIn = keyframes`
-  from {
-    opacity: 0;
-    transform: translateX(500px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-`;
+import styled, { css } from 'styled-components';
 
 export const Message = styled.div<{ direction: 'left' | 'right' }>`
-  animation: ${easeIn} 0.2s ease-in;
   text-align: end;
 
   display: flex;
