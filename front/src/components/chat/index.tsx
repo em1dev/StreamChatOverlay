@@ -11,7 +11,7 @@ export interface ChatProps {
 
 const Chat = ({ msgs, config = defaultChatConfiguration }: ChatProps) => (
   <ChatConfigurationProvider config={config}>
-    <S.Container direction={config.direction}>
+    <S.Container $direction={config.direction}>
       <LayoutGroup>
         <AnimatePresence mode="popLayout" >
           {msgs.map((msg) => (

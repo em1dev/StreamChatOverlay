@@ -11,9 +11,9 @@ const ChatMsg = (props: ChatMsgProps) => {
   const config = useChatConfig();
 
   return (
-    <S.Message direction={config.direction}>
+    <S.Message $direction={config.direction}>
       <ChatMsgHeader {...props} />
-      <S.Content direction={config.direction}>
+      <S.Content $direction={config.direction}>
         <ChatMsgContent messageParts={props.contentParts} />
       </S.Content>
     </S.Message>

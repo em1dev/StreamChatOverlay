@@ -18,11 +18,11 @@ const ChatMsgContent = ({ messageParts }: ChatMsgContentProps) => (
         alignCorrection={messageParts.length > 1}
       />;
     case 'redeption':
-      return <S.Redemption>{ content }</S.Redemption>;
+      return <S.Redemption key={index}>{ content }</S.Redemption>;
     case 'reply':
-      return <S.Reply>{ content }</S.Reply>;
+      return <S.Reply key={index}>{ content }</S.Reply>;
     case 'mention':
-      return <S.ContentExtras>{ content }</S.ContentExtras>;
+      return <S.ContentExtras key={index}>{ content }</S.ContentExtras>;
     default:
       return <span key={index}>{content}</span>;
     }

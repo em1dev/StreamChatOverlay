@@ -12,19 +12,19 @@ const getEmoteUrl = (id:string, format = 'default', theme: 'dark' | 'light' = 'd
   return `https://static-cdn.jtvnw.net/emoticons/v2/${id}/${format}/${theme}/${scale}`;
 };
 
-const EmoteContainer = styled.img<{ alignCorrection?: boolean }>`
+const EmoteContainer = styled.img<{ $alignCorrection?: boolean }>`
   border-radius: 0.5em;
   margin: 0.1em;
   vertical-align: middle;
   position: relative;
-  ${props => props.alignCorrection && css`
+  ${props => props.$alignCorrection && css`
     top: -5px;
   `}
 `;
 
 const Emote = ({ id, customEmote, scale = 1, alignCorrection } : EmoteProps) => {
   return <EmoteContainer 
-    alignCorrection={alignCorrection} 
+    $alignCorrection={alignCorrection} 
     src={customEmote?.[`url${scale}x`] ?? getEmoteUrl(id, undefined, undefined, `${scale}.0`)} 
   />;
 };
