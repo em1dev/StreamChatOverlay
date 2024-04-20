@@ -1,3 +1,9 @@
+export interface EmoteConfiguration {
+  betterTTV: boolean,
+  frankerFace: boolean,
+  sevenTV: boolean
+}
+
 export interface BetterTTVEmote {
   id:string,
   /**

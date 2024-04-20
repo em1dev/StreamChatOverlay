@@ -1,17 +1,18 @@
 import { AnimatePresence, LayoutGroup, motion } from 'framer-motion';
-import { ChatConfiguration, ChatConfigurationProvider, defaultChatConfiguration } from '../../hooks/useChatConfig';
 import { ChatMessageData } from '../../types';
 import ChatMsg from '../ChatBubble';
 import * as S from './styles';
+import { useConfiguration } from '../../store/configuration';
 
 export interface ChatProps {
   msgs: Array<ChatMessageData>,
-  config?: ChatConfiguration
 }
 
-const Chat = ({ msgs, config = defaultChatConfiguration }: ChatProps) => (
-  <ChatConfigurationProvider config={config}>
-    <S.Container $direction={config.direction}>
+const Chat = ({ msgs }: ChatProps) => {
+  const chatDirection = useConfiguration(state => state.chatDirection);
+
+  return (
+    <S.Container $direction={chatDirection}>
       <LayoutGroup>
         <AnimatePresence mode="popLayout" >
           {msgs.map((msg) => (
@@ -28,7 +29,7 @@ const Chat = ({ msgs, config = defaultChatConfiguration }: ChatProps) => (
         </AnimatePresence>
       </LayoutGroup>
     </S.Container>
-  </ChatConfigurationProvider>
-);
+  );
+};
 
 export default Chat;

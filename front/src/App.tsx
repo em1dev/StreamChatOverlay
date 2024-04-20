@@ -4,19 +4,22 @@ import HomePage from './pages/HomePage';
 import { UserInformation } from './api/elpatoApi/types';
 import { elPatoApi } from './api/elpatoApi';
 import { GlobalStyle } from './globalStyle';
+import { useConfiguration } from './store/configuration';
+
+const isObs = () => !!(window as { obsstudio?: unknown })['obsstudio'];
 
 const App = () => {
+  const channelName = useConfiguration(state => state.channelName);
   const [channel, setChannel] = useState<UserInformation | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+
   useEffect(() => {
-    const onHashChange = async () => {
-      const hash = window.location.hash.replace('#', '');
-      if (!hash) {
-        setChannel(null);
-        return;
-      }
-      const resp = await elPatoApi.getUserDetails(hash);
+
+    const load = async () => {
+      if (!isObs()) return;
+
+      const resp = await elPatoApi.getUserDetails(channelName);
       if (resp.data) {
         setChannel(resp.data);
         return;
@@ -28,19 +31,15 @@ const App = () => {
       setError('Unexpected error');
     };
 
-    onHashChange();
-    window.addEventListener('hashchange', onHashChange);
-    return () => {
-      window.removeEventListener('hashchange', onHashChange);
-    };
-  }, []);
+    load();
+  }, [channelName]);
 
   return (
     <>
       <GlobalStyle/>
-      { error && (<h1>Error</h1>) }
-      { channel && (<ChatOverlay userInformation={channel} />) }
-      { (!location.hash.replace('#', '')) && ( <HomePage /> ) }
+      { error && (<h1>{error}</h1>) }
+      { channel && isObs() && (<ChatOverlay userInformation={channel} />) }
+      { !isObs() && ( <HomePage /> ) }
     </>
   );
 };

@@ -16,9 +16,9 @@ const parseExtras = (messageParts: Array<MessagePart>, twurpleMsg: TwurpleChatMe
 
     return part.content.split(' ')
       .map((txt) => (
-        /@.*?(?=\s|@|$)/g.test(txt) ? 
-            { content: txt, type: 'mention' } satisfies MessagePart :
-            { content: txt + ' ', type: 'text'} satisfies MessagePart
+        /@.*?(?=\s|@|$)/g.test(txt) 
+          ? { content: txt, type: 'mention', originalContent: txt } satisfies MessagePart
+          : { content: txt + ' ', type: 'text', originalContent: txt } satisfies MessagePart
       ));
   });
 
@@ -40,7 +40,8 @@ const parseExtras = (messageParts: Array<MessagePart>, twurpleMsg: TwurpleChatMe
     newParts = [...newParts, {
       content: 'Channel Point Redemption',
       type: 'redeption',
-    }];
+      originalContent: '',
+    } satisfies MessagePart];
   }
 
   return newParts;
@@ -56,14 +57,15 @@ const parseCustomEmotes = (messageParts: Array<MessagePart>, customEmotes: Array
 
     newMessageParts = newMessageParts.flatMap((part) => {
       if (part.type === 'emote') return part;
-      return part.content
+      const parts: Array<MessagePart> = part.content
         .split(new RegExp(`\\b${emote.code}\\b`, 'g'))
         .flatMap((txt) => ([
-          { content: txt, type: 'text' } satisfies MessagePart,
-          { content: emote.code, type: 'emote', customEmote: emote } satisfies MessagePart
+          { content: txt, type: 'text', originalContent: txt } satisfies MessagePart,
+          { content: emote.code, type: 'emote', customEmote: emote, originalContent: emote.code } satisfies MessagePart
         ]))
         .filter(part => part.content)
         .slice(0, -1);
+      return parts;
     });
   }
 
@@ -79,13 +81,15 @@ const parseTwitchEmotes = (content: string, emoteOffsets: Map<string, Array<stri
     const textContent: MessagePart = {
       type: 'text',
       content: content.substring(i, start).trim(),
+      originalContent: content.substring(i, start).trim()
     };
     if (textContent.content.length) {
       parsedMessage.push(textContent);
     }
     parsedMessage.push({
       content: emoteId,
-      type: 'emote'
+      type: 'emote',
+      originalContent: content.substring(start, end + 1),
     });
     i = end + 1;
   });
@@ -93,6 +97,7 @@ const parseTwitchEmotes = (content: string, emoteOffsets: Map<string, Array<stri
   const textContent: MessagePart = {
     type: 'text',
     content: content.substring(i).trim(),
+    originalContent: content.substring(i).trim()
   };
 
   if (textContent.content.length) {

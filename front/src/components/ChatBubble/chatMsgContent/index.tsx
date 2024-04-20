@@ -26,7 +26,6 @@ const ChatMsgContent = ({ messageParts }: ChatMsgContentProps) => (
     default:
       return <span key={index}>{content}</span>;
     }
-
   })
 );
 

@@ -1,5 +1,19 @@
 import styled, { createGlobalStyle } from 'styled-components';
 
+export const Page = styled.div`
+  padding: 2em;
+  color: #818181;
+  display: flex;
+  flex-direction: row;
+  max-height: 100vh;
+  overflow-y: hidden;
+`;
+
+export const Info = styled.div`
+  color: #eee1b4;
+  margin-top: 1em;
+`;
+
 export const ChatContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -8,58 +22,151 @@ export const ChatContainer = styled.div`
 
   > * {
     -webkit-mask-image: none;
-    box-shadow: 0px 0px 20px 17px #00000026;
     overflow: hidden;
     width: 500px;
-    height: 792px;
+    height: 100%;
     padding: 0.5em;
     border-radius: 0.5em;
-    background-color: white;
+    background-color: #818181;
   }
-`;
-
-export const Page = styled.div`
-  height: 100%;
-  color: white;
-  text-align: center;
-`;
-
-export const Input = styled.input`
-  padding: 0.5em 1em;
-  font-size: 1.2em;
-  border: none;
-  border-radius: 0.3em;
-  margin: 1em;
-  background-color: white;
 `;
 
 export const GlobalStyles = createGlobalStyle`
   html, body {
-    height: 100%;
     margin: 0;
     display: flex;
     flex-direction: column;
   }
 
   body {
-    background-color: #201f1f;
+    background-color: #1A1A1A;
   }
 
-  h1 {
-    margin-top: 2em;
-  }
-  h2 {
-    margin-bottom: 2em;
-    font-weight: normal;
+  h1, h2 {
+    margin: 0;
+    font-weight: 500;
+    font-size: 1.2em;
+    color: #B9B9B9;
   }
 `;
 
 export const SettingsContainer = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 0 2em;
+  gap: 1em;
+  flex-wrap: wrap;
+`;
+
+export const FullSection = styled.div`
+  flex: 1 100%;
+`;
+
+export const SettingSectionCard = styled.div`
+  overflow: auto;
+  min-width: 400px;
+  padding: 1.5em;
+  background-color: #151515;
+  color: #B9B9B9;
+  border-radius: 0.8em;
+`;
+
+export const ChatSettings = styled(SettingSectionCard)`
+  flex: 1;
+`;
+
+export const TTSSettings = styled(SettingSectionCard)`
+  flex: 1 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 2em;
+  > * {
+    overflow: auto;
+    padding-right: 0.8em;
+  }
+`;
+
+export const RowGroup = styled.div`
+  display: flex;
   align-items: center;
-  gap: 0.8em;
+  gap: 0.3em;
+`;
+
+export const InputSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+`;
+
+export const DirectionContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1em;
+`;
+
+export const TextInput = styled.input`
+  background-color: #272727;
+  color: #818181;
+  font-size: 0.5em;
+  padding: 0.8em;
+  font-size: 1.2em;
+  border: none;
+  border-radius: 0.3em;
+`;
+
+export const Radio = styled.input`
+  transform: scale(1.2);
+`;
+
+export const Checkbox = styled.input`
+  transform: scale(1.2);
 `;
 
 export const Subtitle = styled.p``;
 export const Label = styled.label``;
+
+
+export const InputWithButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+
+  > input {
+    flex: 1;
+  }
+
+  > button {
+    margin-right: -0.5em;
+    cursor: pointer;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    padding: 0.2em;
+    background-color: transparent;
+    border: none;
+
+    border-radius: 0.8em;
+    &:hover {
+      background-color: #822929;
+    }
+
+    img {
+      height: 2em;
+    }
+  }
+`;
+
+export const AddBtn = styled.button`
+  border-radius: 50%;
+  border: none;
+  margin: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5em;
+  background-color: #ECF67C;
+  cursor: pointer;
+  &:hover {
+    background-color: #e9fa31;
+  }
+`;

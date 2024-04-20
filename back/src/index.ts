@@ -3,6 +3,7 @@ import express from 'express';
 import { ApiHandler } from './apiHandler';
 import 'dotenv/config';
 import { betterTTVApi } from './betterTTVApi';
+import { EmoteConfiguration } from './types';
 const PORT = parseInt(process.env['SERVER_PORT'] ?? '8080');
 
 const patoApi = express();
@@ -32,7 +33,13 @@ patoApi.get('/users/:userName', async (req, res) => {
 });
 
 patoApi.get('/:channelId/emotes', async (req, res) => {
-  const resp = await apiHandler.getEmotes(req.params.channelId);
+  const emoteConfig:EmoteConfiguration = {
+    betterTTV: req.query['betterTTV'] === 'true',
+    frankerFace: req.query['frankerFace'] === 'true',
+    sevenTV: req.query['sevenTV'] === 'true',
+  }
+
+  const resp = await apiHandler.getEmotes(req.params.channelId, emoteConfig);
   res.status(resp.status).send(resp.body);
 });
 

@@ -1,4 +1,4 @@
-import { useChatConfig } from '../../hooks/useChatConfig';
+import { useConfiguration } from '../../store/configuration';
 import { ChatMessageData } from '../../types';
 import ChatMsgHeader from './chatHeader';
 import ChatMsgContent from './chatMsgContent';
@@ -8,12 +8,12 @@ export interface ChatMsgProps extends ChatMessageData {
 }
 
 const ChatMsg = (props: ChatMsgProps) => {
-  const config = useChatConfig();
+  const chatDirection = useConfiguration(state => state.chatDirection);
 
   return (
-    <S.Message $direction={config.direction}>
+    <S.Message $direction={chatDirection}>
       <ChatMsgHeader {...props} />
-      <S.Content $direction={config.direction}>
+      <S.Content $direction={chatDirection}>
         <ChatMsgContent messageParts={props.contentParts} />
       </S.Content>
     </S.Message>

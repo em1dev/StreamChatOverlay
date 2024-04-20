@@ -1,6 +1,6 @@
 import { betterTTVApi } from "../betterTTVApi";
 import { twitchApi } from "../twitchApi";
-import { ElPatoApiResponse, ElPatoEmote, TwitchBadgeResponse, UserInformation } from "../types";
+import { ElPatoApiResponse, ElPatoEmote, EmoteConfiguration, TwitchBadgeResponse, UserInformation } from "../types";
 
 export class ApiHandler {
   private _appToken: string | null = null;
@@ -90,11 +90,25 @@ export class ApiHandler {
     }
   }
 
-  public getEmotes = async (channelId: string): Promise<ElPatoApiResponse<Array<ElPatoEmote>>> => {
+  public getEmotes = async (channelId: string, emoteConfig: EmoteConfiguration): Promise<ElPatoApiResponse<Array<ElPatoEmote>>> => {
+    const patoEmotes:Array<ElPatoEmote> = [];
+
+    if (emoteConfig.betterTTV) {
+        patoEmotes.concat(await getBetterTTVEmotes(channelId));
+    }
+
+    // TODO - implement other emotes
+
+    return { status: 200, body: patoEmotes };
+  }
+}
+
+const getBetterTTVEmotes = async (channelId: string) => {
+  try {
     const globalEmotes = await betterTTVApi.getGlobalEmotes();
     const userEmotes = await betterTTVApi.getUserEmotes(channelId);
 
-    if (!globalEmotes.data) return { status: 500 };
+    if (!globalEmotes.data) return [];
     let patoEmotes:Array<ElPatoEmote> = globalEmotes.data.map((emote) => ({
       id: emote.id,
       code: emote.code,
@@ -123,7 +137,8 @@ export class ApiHandler {
         url3x: `https://cdn.betterttv.net/emote/${emote.id}/3x`
       })));
     }
-
-    return { status: 200, body: patoEmotes };
+    return patoEmotes;
+  } catch {
+    return []
   }
 }

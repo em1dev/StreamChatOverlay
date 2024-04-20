@@ -10,13 +10,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fontsource/poppins": "^5.0.13",
     "@twurple/api": "^7.0.4",
     "@twurple/auth": "^7.0.4",
     "@twurple/chat": "^7.0.4",
+    "@uidotdev/usehooks": "^2.4.1",
     "framer-motion": "^11.0.28",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "styled-components": "^6.1.0"
+    "styled-components": "^6.1.0",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

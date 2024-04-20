@@ -30,6 +30,7 @@ export const testMessages = messageContents.map((content, index) => (
     id: `${index}`,
     emoteOffsets: new Map(),
     contentParts: [{
+      originalContent: content,
       content,
       type: 'text'
     }],

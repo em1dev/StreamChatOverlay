@@ -3,8 +3,12 @@ import { Badge, CustomEmote, UserInformation } from './types';
 
 const BASE_URL = 'https://api.niv3kelpato.com/api/';
 
-const getEmotes = async (channelId: string):Promise<ApiResponse<Array<CustomEmote>>> => {
-  return await fetchApi(`${BASE_URL}${channelId}/emotes`);
+const getEmotes = async (channelId: string, 
+  isBetterTTVEnabled: boolean,
+  isFrankerTTEnabled: boolean,
+  isSevenTVEnabled: boolean
+):Promise<ApiResponse<Array<CustomEmote>>> => {
+  return await fetchApi(`${BASE_URL}${channelId}/emotes?betterTTV=${isBetterTTVEnabled}&frankerFace=${isFrankerTTEnabled}&sevenTV=${isSevenTVEnabled}`);
 };
 
 const getGlobalBadges = async ():Promise<ApiResponse<Array<Badge>>> => (
