@@ -60,10 +60,28 @@ export const useTwitchChat = (channel: UserInformation) => {
       setChatMessages([]);
     });
 
+    chat.onBan((channel, user) => {
+      setChatMessages(prev => prev.filter(item => {
+        const shouldKeep = item.userDisplayName.toLowerCase() !== user;
+
+        if (!shouldKeep && onMessageRemovedRef.current) {
+          onMessageRemovedRef.current(item.id);
+        }
+
+        return shouldKeep;
+      }));
+    });
+
     chat.onTimeout((channel, user) => {
-      setChatMessages(prev => prev.filter(item => (
-        item.userDisplayName.toLowerCase() !== user
-      )));
+      setChatMessages(prev => prev.filter(item => {
+        const shouldKeep = item.userDisplayName.toLowerCase() !== user;
+
+        if (!shouldKeep && onMessageRemovedRef.current) {
+          onMessageRemovedRef.current(item.id);
+        }
+
+        return shouldKeep;
+      }));
     });
 
     chat.onMessageRemove((channel: string, messageId: string) => {
