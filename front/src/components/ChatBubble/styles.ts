@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { ChatMessageData } from '../../types';
 
 export const Message = styled.div<{ $direction: 'left' | 'right' }>`
   text-align: end;
@@ -16,7 +17,9 @@ export const Message = styled.div<{ $direction: 'left' | 'right' }>`
   font-weight: bold;
 `;
 
-export const Content = styled.div<{ $direction: 'left' | 'right'}>`
+export const Content = styled.div<{ $direction: 'left' | 'right', $effect: ChatMessageData['effect']}>`
+  z-index: 0;
+  position: relative;
   background-color: #F6D6BD;
   color: #08141E;
   padding: 0.5em 0.8em;
@@ -29,4 +32,32 @@ export const Content = styled.div<{ $direction: 'left' | 'right'}>`
     css` text-align: start;` :
     css` text-align: end; `
 }
+
+  ${({ $effect }) => ($effect === 'rainbow' || $effect === 'simmer') && css`
+
+    &:before {
+      content: "";
+      position: absolute;
+      z-index: -2;
+      inset: -2px;
+      transform: translate(0, 0);
+      filter: blur(5px);
+      border-radius: 12px;
+
+      background: rgb(131,58,180);
+      background: conic-gradient(#ff0041, #ff00fd, #00b1ff, #00ffc6);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      /* Inherit all the decorations defined on the main element */
+      background: inherit;
+      border: inherit;
+      box-shadow: inherit;
+      border-radius: inherit;
+    }
+  `}
 `;

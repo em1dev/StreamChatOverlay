@@ -1,7 +1,7 @@
 import { ChatClient } from '@twurple/chat';
 import { useEffect, useRef, useState } from 'react';
 import { ChatMessageData } from '../../types';
-import { TwurpleChatMessage } from '../../twurpleTypes';
+import { TwurpleChatMessage } from './types';
 import { usePronouns } from '../usePronouns';
 import { useBadges } from '../useBadges';
 import { UserInformation } from '../../api/elpatoApi/types';
@@ -48,6 +48,10 @@ export const useTwitchChat = (channel: UserInformation) => {
   // twurple does not allow us to disconnect events for some reason... :/ so this works
   useEffect(() => {
     if (!chat) return;
+    chat.irc.onAnyMessage((e) => {
+      console.log(e);
+    });
+
     chat.onMessage(async (channel: string, user: string, text: string, msg: TwurpleChatMessage) => {
       if (!onMessageHandlerRef.current) return;
       await onMessageHandlerRef.current(channel, user, text, msg);
@@ -98,8 +102,11 @@ export const useTwitchChat = (channel: UserInformation) => {
       const pronoun = await getPronounsFromTwitchName(user);
       const msgParts = TwitchChatParser.parseMessage(msg.text, msg.emoteOffsets, customEmotes, msg);
 
+      const effect = TwitchChatParser.parseMessageEffect(msg);
+
       const newMessage: ChatMessageData = {
         id: msg.id,
+        effect,
         content: msg.text,
         userDisplayName: msg.userInfo.displayName,
         displayPronoun: pronoun,

@@ -1,6 +1,6 @@
 import { CustomEmote } from '../../api/elpatoApi/types';
-import { TwurpleChatMessage } from '../../twurpleTypes';
-import { MessagePart } from '../../types';
+import { SpecialMsgId, TwitchAnimationId, TwitchMsgTags, TwurpleChatMessage } from './types';
+import { ChatMessageData, MessagePart } from '../../types';
 
 const parseMessage = (content: string, emoteOffsets: Map<string, Array<string>>, customEmotes: Array<CustomEmote>, twurpleMsg: TwurpleChatMessage):Array<MessagePart> => {
   let messageParts = parseTwitchEmotes(content, emoteOffsets);
@@ -136,7 +136,31 @@ const createEmoteArray = (emoteOffsets: Map<string, Array<string>>) => {
   return emotesSorted;
 };
 
+
+const parseMessageEffect = (msg: TwurpleChatMessage): ChatMessageData['effect'] => {
+  const msgId = msg.tags.get(TwitchMsgTags.MsgId);
+
+  if (msgId === SpecialMsgId.BigEmote) {
+    return 'big-emote';
+  }
+
+  const animationId = msg.tags.get(TwitchMsgTags.AnimationId);
+  if (msgId === SpecialMsgId.AnimatedMsg && animationId) {
+    switch (animationId) {
+    case TwitchAnimationId.Rainbow:
+      return 'rainbow';
+    case TwitchAnimationId.Simmer:
+      return 'simmer';
+    default:
+      console.log(`received a unhandled msg animation id : ${animationId}`);
+    }
+  }
+
+  return 'normal';
+};
+
 export const TwitchChatParser = {
   createEmoteArray,
-  parseMessage
+  parseMessage,
+  parseMessageEffect
 };

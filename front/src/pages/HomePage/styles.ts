@@ -25,7 +25,7 @@ export const ChatContainer = styled.div`
     overflow: hidden;
     width: 500px;
     height: 100%;
-    padding: 0.5em;
+    padding: 0.6em;
     border-radius: 0.5em;
     background-color: #818181;
   }

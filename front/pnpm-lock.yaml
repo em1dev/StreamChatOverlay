@@ -9,13 +9,13 @@ dependencies:
     specifier: ^5.0.13
     version: 5.0.13
   '@twurple/api':
-    specifier: ^7.0.4
+    specifier: ^7.1.0
     version: 7.1.0(@twurple/auth@7.1.0)
   '@twurple/auth':
-    specifier: ^7.0.4
+    specifier: ^7.1.0
     version: 7.1.0
   '@twurple/chat':
-    specifier: ^7.0.4
+    specifier: ^7.1.0
     version: 7.1.0(@twurple/auth@7.1.0)
   '@uidotdev/usehooks':
     specifier: ^2.4.1
