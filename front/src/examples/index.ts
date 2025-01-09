@@ -28,6 +28,7 @@ export const testMessages = messageContents.map((content, index) => (
     badges: [],
     content,
     id: `${index}`,
+    effect: 'normal',
     emoteOffsets: new Map(),
     contentParts: [{
       originalContent: content,
