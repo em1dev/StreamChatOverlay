@@ -20,8 +20,9 @@ const HomePage = () => {
 
   const [channelDetails, setChannelDetails] = useState<UserInformation | null>(null);
   const channelId = useConfiguration(state => state.channelId);
+  const channelName = useConfiguration(state => state.channelName);
   const udpateConfiguration = useConfiguration(state => state.updateUserConfiguration);
-  const [channel, setChannel] = useState<string>(channelId);
+  const [channel, setChannel] = useState<string>(channelName);
   const debouncedChannel = useDebounce(channel, 500);
   const [messages, setMessages] = useState<Array<ChatMessageData>>([]);
 
