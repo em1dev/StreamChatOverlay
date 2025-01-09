@@ -12,8 +12,12 @@ import { ChatVisualizerSettings } from './ChatVisualizerSettings.ts';
 import { TTSSettings } from './TTSSettings/index.tsx';
 import { UserReplacementSettings } from './UserReplacementSettings.ts/index.tsx';
 import { useConfiguration } from '../../store/configuration.ts';
+import { ConfigurationSection } from './ConfigurationSection.ts';
+import { SideBar } from './SideBar/index.tsx';
 
 const HomePage = () => {
+  const [selectedConfiguration, setSelectedConfiguration] = useState<ConfigurationSection>(ConfigurationSection.ChatVisual);
+
   const [channelDetails, setChannelDetails] = useState<UserInformation | null>(null);
   const channelId = useConfiguration(state => state.channelId);
   const udpateConfiguration = useConfiguration(state => state.updateUserConfiguration);
@@ -74,14 +78,31 @@ const HomePage = () => {
           )}
         </S.SettingSectionCard>
 
-        <S.ChatSettings>
-          <ChatVisualizerSettings />
-        </S.ChatSettings>
+        <div className='flex flex-row flex-1 gap-2 overflow-auto'>
+          <SideBar
+            onChange={setSelectedConfiguration}
+            selectedSection={selectedConfiguration}
+          />
 
-        <S.TTSSettings>
-          <TTSSettings />
-          <UserReplacementSettings />
-        </S.TTSSettings>
+          { selectedConfiguration === ConfigurationSection.ChatVisual && (
+
+            <S.ChatSettings>
+              <ChatVisualizerSettings />
+            </S.ChatSettings>
+          )}
+
+          { selectedConfiguration === ConfigurationSection.TTS && (
+            <S.ChatSettings>
+              <TTSSettings />
+            </S.ChatSettings>
+          )}
+
+          { selectedConfiguration === ConfigurationSection.NameReplacement && (
+            <S.ChatSettings>
+              <UserReplacementSettings />
+            </S.ChatSettings>
+          )}
+        </div>
 
       </S.SettingsContainer>
     </S.Page>

@@ -10,7 +10,7 @@ export const UserReplacementSettings = () => {
 
   return (
     <S.Container>
-      <h2>Chatter name replacement</h2>
+      <h2>TTS Chatter name replacement</h2>
 
       {
         ttsConfiguration.userReplacement

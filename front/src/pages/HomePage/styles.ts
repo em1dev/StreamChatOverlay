@@ -1,6 +1,8 @@
 import styled, { createGlobalStyle } from 'styled-components';
 
 export const Page = styled.div`
+  height: 100%;
+  justify-content: center;
   padding: 2em;
   color: #818181;
   display: flex;
@@ -19,23 +21,28 @@ export const ChatContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin-bottom: 1em;
+  background-color: #818181;
+  border-radius: 0.5em;
 
   > * {
-    -webkit-mask-image: none;
     overflow: hidden;
     width: 500px;
     height: 100%;
     padding: 0.6em;
-    border-radius: 0.5em;
     background-color: #818181;
   }
 `;
 
 export const GlobalStyles = createGlobalStyle`
+  #root {
+    height: 100%;
+  }
+
   html, body {
     margin: 0;
     display: flex;
     flex-direction: column;
+    height: 100%;
   }
 
   body {
@@ -55,7 +62,6 @@ export const SettingsContainer = styled.div`
   flex-direction: column;
   padding: 0 2em;
   gap: 1em;
-  flex-wrap: wrap;
 `;
 
 export const FullSection = styled.div`
@@ -63,7 +69,6 @@ export const FullSection = styled.div`
 `;
 
 export const SettingSectionCard = styled.div`
-  overflow: auto;
   min-width: 400px;
   padding: 1.5em;
   background-color: #151515;
@@ -73,6 +78,9 @@ export const SettingSectionCard = styled.div`
 
 export const ChatSettings = styled(SettingSectionCard)`
   flex: 1;
+  overflow: auto;
+  width: 500px;
+  max-width: 500px;
 `;
 
 export const TTSSettings = styled(SettingSectionCard)`
