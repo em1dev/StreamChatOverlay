@@ -13,6 +13,7 @@ const getEmoteUrl = (id:string, format = 'default', theme: 'dark' | 'light' = 'd
 };
 
 const EmoteContainer = styled.img<{ $alignCorrection?: boolean }>`
+  display: inline-block;
   border-radius: 0.5em;
   margin: 0.1em;
   vertical-align: middle;
