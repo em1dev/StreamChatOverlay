@@ -3,24 +3,28 @@ import styled from 'styled-components';
 export const Container = styled.div`
   margin-right: 8px;
   margin-bottom: -8px;
-  border-radius: 12px;
-  padding: 0.5em 0.8em 0.8em 0.8em;
+  padding: 0.4em 0.8em 0.8em 0.8em;
 
-  background-color: #2a2a2a;
   display: flex;
   align-items: center;
   justify-content: end;
-  min-height: 30px;
-  color: #F6D6BD;
+  min-height: 40px;
+
+  gap: 0.5em;
+
+  background-color: ${(prorps) => prorps.theme.chat.header.bg};
+  color: ${(prorps) => prorps.theme.chat.header.text};
+  border: ${(prorps) => prorps.theme.chat.header.border};
+  border-radius: ${(prorps) => prorps.theme.chat.header.borderRadius};
 `;
 
 export const Badge = styled.img`
-  margin: 0 0.2em;
+  //margin: 0 0.2em;
 `;
 
 export const Pronouns = styled.div`
   font-weight: 600;
-  margin: 0 0.5ch;
+  //margin: 0 0.5ch;
 `;
 
 export const UserName = styled.div<{color?: string}>`

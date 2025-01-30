@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import Chat from '../../components/chat';
-import { testMessages } from '../../examples';
 import { ChatMessageData } from '../../types';
 import { pickRandom } from '../../utils/randomUtils';
 import * as S from './styles';
@@ -14,6 +13,7 @@ import { UserReplacementSettings } from './UserReplacementSettings.ts/index.tsx'
 import { useConfiguration } from '../../store/configuration.ts';
 import { ConfigurationSection } from './ConfigurationSection.ts';
 import { SideBar } from './SideBar/index.tsx';
+import { SampleMessages } from '../../examples/sampleMessages.ts';
 
 const HomePage = () => {
   const [selectedConfiguration, setSelectedConfiguration] = useState<ConfigurationSection>(ConfigurationSection.ChatVisual);
@@ -41,7 +41,7 @@ const HomePage = () => {
     const onInterval = () => {
       setMessages((prevMessages) => (
         [
-          { ...pickRandom(testMessages), id: `${Math.random()}` },
+          { ...pickRandom(SampleMessages), id: `${Math.random()}` },
           ...prevMessages
         ].splice(0, 10)
       ));

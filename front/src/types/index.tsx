@@ -56,6 +56,7 @@ export interface UserConfiguration {
     value: string
   }>
   ttsConfiguration: TTSConfiguration,
+  chatTheme?: string
 }
 
 export interface TTSMessage {

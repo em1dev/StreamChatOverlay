@@ -19,12 +19,13 @@ const EmoteContainer = styled.img<{ $alignCorrection?: boolean }>`
   vertical-align: middle;
   position: relative;
   ${props => props.$alignCorrection && css`
+    margin-top: 8px;
     top: -5px;
   `}
 `;
 
 const Emote = ({ id, customEmote, scale = 1, alignCorrection } : EmoteProps) => {
-  return <EmoteContainer 
+  return <EmoteContainer
     $alignCorrection={alignCorrection} 
     src={customEmote?.[`url${scale}x`] ?? getEmoteUrl(id, undefined, undefined, `${scale}.0`)} 
   />;

@@ -15,16 +15,19 @@ export const Message = styled.div<{ $direction: 'left' | 'right' }>`
 
   font-size: 12px;
   font-weight: bold;
+
+  font-family: ${(props) => props.theme.chat.font};
 `;
 
 export const Content = styled.div<{ $direction: 'left' | 'right', $effect: ChatMessageData['effect']}>`
+  background-color: ${(props) => props.theme.chat.content.bg};
+  color: ${(props) => props.theme.chat.content.text};
+  border-radius: ${(props) => props.theme.chat.content.borderRadius};
+  border: ${(props) => props.theme.chat.content.border};
+
   z-index: 0;
   position: relative;
-  background-color: #F6D6BD;
-  color: #08141E;
   padding: 0.5em 0.8em;
-  border-radius: 12px;
-  border: solid 1px #2a2a2a;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
   word-break: break-word;

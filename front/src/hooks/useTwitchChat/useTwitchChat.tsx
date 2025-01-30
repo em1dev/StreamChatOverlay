@@ -48,9 +48,11 @@ export const useTwitchChat = (channel: UserInformation) => {
   // twurple does not allow us to disconnect events for some reason... :/ so this works
   useEffect(() => {
     if (!chat) return;
+    /*
     chat.irc.onAnyMessage((e) => {
       console.log(e);
     });
+    */
 
     chat.onMessage(async (channel: string, user: string, text: string, msg: TwurpleChatMessage) => {
       if (!onMessageHandlerRef.current) return;

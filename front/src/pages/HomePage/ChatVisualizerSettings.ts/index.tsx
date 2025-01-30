@@ -151,6 +151,28 @@ export const ChatVisualizerSettings = () => {
         }
       </Select>
 
+      <div className='flex gap-2 flex-col mt-2'>
+        <label 
+          htmlFor='config-chat-theme-select'
+        >
+        Theme
+        </label>
+
+        <Select
+          id="config-chat-theme-select"
+          value={configuration.chatTheme}
+          onChange={(e) => {
+            updateUserConfiguration({
+              chatTheme: e.target.value
+            });
+          }}
+        >
+          <option value='1'>Theme A</option>
+          <option value='2'>Theme B</option>
+          <option value='3'>Theme C</option>
+        </Select>
+      </div>
+
     </S.FullSection>
   );
 };
