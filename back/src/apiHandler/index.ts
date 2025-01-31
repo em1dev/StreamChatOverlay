@@ -1,4 +1,6 @@
+import { get7TVEmotes } from "../api/7tvApi";
 import { betterTTVApi } from "../api/betterTTVApi";
+import { getFrankerEmotes } from "../api/frankerfacezApi";
 import { twitchApi } from "../api/twitchApi";
 import { ElPatoApiResponse, ElPatoEmote, EmoteConfiguration, TwitchBadgeResponse, UserInformation } from "../types";
 
@@ -97,7 +99,13 @@ export class ApiHandler {
         patoEmotes = patoEmotes.concat(await getBetterTTVEmotes(channelId));
     }
 
-    // TODO - implement other emotes
+    if (emoteConfig.sevenTV) {
+      patoEmotes = patoEmotes.concat(await get7TVEmotes(channelId));
+    }
+
+    if (emoteConfig.frankerFace) {
+      patoEmotes = patoEmotes.concat(await getFrankerEmotes(channelId));
+    }
 
     return { status: 200, body: patoEmotes };
   }
@@ -111,6 +119,7 @@ const getBetterTTVEmotes = async (channelId: string) => {
     if (!globalEmotes.data) return [];
     let patoEmotes:Array<ElPatoEmote> = globalEmotes.data.map((emote) => ({
       id: emote.id,
+      type: 'BetterTTV',
       code: emote.code,
       animated: emote.animated,
       url1x: `https://cdn.betterttv.net/emote/${emote.id}/1x`,
@@ -121,6 +130,7 @@ const getBetterTTVEmotes = async (channelId: string) => {
     if (userEmotes.data) {
       patoEmotes = patoEmotes.concat(userEmotes.data.sharedEmotes.map((emote) => ({
         id: emote.id,
+        type: 'BetterTTV',
         animated: emote.animated,
         code: emote.code,
         url1x: `https://cdn.betterttv.net/emote/${emote.id}/1x`,
@@ -130,6 +140,7 @@ const getBetterTTVEmotes = async (channelId: string) => {
 
       patoEmotes = patoEmotes.concat(userEmotes.data.channelEmotes.map((emote) => ({
         id: emote.id,
+        type: 'BetterTTV',
         animated: emote.animated,
         code: emote.code,
         url1x: `https://cdn.betterttv.net/emote/${emote.id}/1x`,

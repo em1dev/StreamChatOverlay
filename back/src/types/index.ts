@@ -74,6 +74,7 @@ export interface ApiParams<T> {
 export interface ElPatoEmote {
   id: string,
   code: string,
+  type: 'BetterTTV' | '7TV' | 'FFZ'
   animated: boolean,
   url1x: string,
   url2x: string,
