@@ -91,10 +91,10 @@ export class ApiHandler {
   }
 
   public getEmotes = async (channelId: string, emoteConfig: EmoteConfiguration): Promise<ElPatoApiResponse<Array<ElPatoEmote>>> => {
-    const patoEmotes:Array<ElPatoEmote> = [];
+    let patoEmotes:Array<ElPatoEmote> = [];
 
     if (emoteConfig.betterTTV) {
-        patoEmotes.concat(await getBetterTTVEmotes(channelId));
+        patoEmotes = patoEmotes.concat(await getBetterTTVEmotes(channelId));
     }
 
     // TODO - implement other emotes
@@ -138,7 +138,7 @@ const getBetterTTVEmotes = async (channelId: string) => {
       })));
     }
     return patoEmotes;
-  } catch {
+  } catch (e) {
     return []
   }
 }
