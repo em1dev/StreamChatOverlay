@@ -12,8 +12,16 @@ declare module 'styled-components' {
   export interface DefaultTheme {
     chat: {
       font: string,
-      header: Box,
+
+      header: Box & {
+        fontSize: string,
+        fontWeight: string,
+      },
+
       content: Box & {
+        fontSize: string,
+        fontWeight: string,
+
         reply: Box,
         reward: Box
         mention: Box,

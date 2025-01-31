@@ -13,9 +13,6 @@ export const Message = styled.div<{ $direction: 'left' | 'right' }>`
 
   margin: 0.3em 0;
 
-  font-size: 12px;
-  font-weight: bold;
-
   font-family: ${(props) => props.theme.chat.font};
 `;
 
@@ -24,6 +21,9 @@ export const Content = styled.div<{ $direction: 'left' | 'right', $effect: ChatM
   color: ${(props) => props.theme.chat.content.text};
   border-radius: ${(props) => props.theme.chat.content.borderRadius};
   border: ${(props) => props.theme.chat.content.border};
+
+  font-weight: ${(props) => props.theme.chat.content.fontWeight};
+  font-size: ${(props) => props.theme.chat.content.fontSize};
 
   z-index: 0;
   position: relative;

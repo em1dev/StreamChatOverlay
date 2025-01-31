@@ -15,7 +15,9 @@ const ChatMsgContent = ({ messageParts }: ChatMsgContentProps) => (
         id={content}
         customEmote={customEmote} 
         scale={messageParts.length === 1 ? 3 : 1}
-        alignCorrection={messageParts.length > 1}
+        alignCorrection={
+          messageParts.filter(p => p.type === 'reply').length > 1
+        }
       />;
     case 'redeption':
       return <S.Redemption key={index}>{ content }</S.Redemption>;
