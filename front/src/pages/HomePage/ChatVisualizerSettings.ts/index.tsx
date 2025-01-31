@@ -88,7 +88,6 @@ export const ChatVisualizerSettings = () => {
 
       <div className='flex gap-1'>
         <S.Checkbox 
-          disabled
           id='config-checkbox-franker'
           type='checkbox'
           checked={configuration.frankerFaceEnabled}
@@ -103,7 +102,6 @@ export const ChatVisualizerSettings = () => {
 
       <div className='flex gap-1'>
         <S.Checkbox
-          disabled
           id='config-checkbox-7tv'
           type='checkbox'
           checked={configuration.sevenTVEnabled}

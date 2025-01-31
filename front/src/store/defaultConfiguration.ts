@@ -47,8 +47,8 @@ export const defaultUserConfiguration: UserConfiguration = {
   ],
   betterTTVEnabled: true,
   chatDirection: 'right',
-  frankerFaceEnabled: false,
-  sevenTVEnabled: false,
+  frankerFaceEnabled: true,
+  sevenTVEnabled: true,
   isTTSEnabled: true,
   ttsConfiguration: ttsDefaultConfig
 };
