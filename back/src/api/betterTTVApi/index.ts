@@ -1,4 +1,5 @@
-import { ApiResponse, BetterTTVEmote, BetterTTVUserEmoteResponse } from "../types";
+import { ApiResponse } from "../../types";
+import { BetterTTVEmote, BetterTTVUserEmoteResponse } from "./types";
 
 const BASE_URL = 'https://api.betterttv.net/3/';
 const PROVIDER = 'twitch';

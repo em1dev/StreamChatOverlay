@@ -2,7 +2,6 @@ import cors from 'cors';
 import express from 'express';
 import { ApiHandler } from './apiHandler';
 import 'dotenv/config';
-import { betterTTVApi } from './betterTTVApi';
 import { EmoteConfiguration } from './types';
 const PORT = parseInt(process.env['SERVER_PORT'] ?? '8080');
 

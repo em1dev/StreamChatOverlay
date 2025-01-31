@@ -1,4 +1,4 @@
-import { ApiParams, ApiResponse, TwitchAuthResponse, TwitchBadgeResponse, UserInformationResponse } from "../types";
+import { ApiParams, ApiResponse, TwitchAuthResponse, TwitchBadgeResponse, UserInformationResponse } from "../../types";
 import 'dotenv/config';
 
 const TWITCH_AUTH_URL = 'https://id.twitch.tv/oauth2/token';

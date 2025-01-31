@@ -1,5 +1,5 @@
-import { betterTTVApi } from "../betterTTVApi";
-import { twitchApi } from "../twitchApi";
+import { betterTTVApi } from "../api/betterTTVApi";
+import { twitchApi } from "../api/twitchApi";
 import { ElPatoApiResponse, ElPatoEmote, EmoteConfiguration, TwitchBadgeResponse, UserInformation } from "../types";
 
 export class ApiHandler {
