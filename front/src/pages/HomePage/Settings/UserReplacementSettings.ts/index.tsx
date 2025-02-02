@@ -1,7 +1,7 @@
+import { IconButton } from '../../../../components/IconButton';
+import { NameReplacementBlock } from '../../../../components/NameReplacementBlock';
+import { useConfiguration } from '../../../../store/configuration';
 import * as S from './styles';
-import { NameReplacementBlock } from '../../../components/NameReplacementBlock';
-import { useConfiguration } from '../../../store/configuration';
-import { IconButton } from '../../../components/IconButton';
 
 
 export const UserReplacementSettings = () => {

@@ -1,7 +1,7 @@
+import { IconButton } from '../../../../components/IconButton';
+import { TTSReplacementBlock } from '../../../../components/TTSReplacementBlock';
+import { useConfiguration } from '../../../../store/configuration';
 import * as S from './styles';
-import { useConfiguration } from '../../../store/configuration';
-import { TTSReplacementBlock } from '../../../components/TTSReplacementBlock';
-import { IconButton } from '../../../components/IconButton';
 
 export const TTSSettings = () => {
   const { 

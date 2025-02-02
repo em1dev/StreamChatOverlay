@@ -1,4 +1,4 @@
-import { AnimatePresence, LayoutGroup, motion } from 'framer-motion';
+import { AnimatePresence, LayoutGroup, motion } from 'motion/react';
 import { ChatMessageData } from '../../types';
 import ChatMsg from '../ChatBubble';
 import * as S from './styles';

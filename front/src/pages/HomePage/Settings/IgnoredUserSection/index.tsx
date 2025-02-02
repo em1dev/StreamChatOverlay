@@ -1,5 +1,5 @@
-import { useConfiguration } from '../../../store/configuration';
-import * as S from '../styles';
+import { useConfiguration } from '../../../../store/configuration';
+import * as S from '../../styles';
 
 export const IgnoredUserSection = () => {
   const { 
@@ -8,7 +8,7 @@ export const IgnoredUserSection = () => {
   } = useConfiguration(state => state);
 
   return (
-    <S.FullSection>
+    <S.FullSection className='flex flex-col gap-2'>
 
       <h2 className='mb-2'>Ignored Users</h2>
       {
