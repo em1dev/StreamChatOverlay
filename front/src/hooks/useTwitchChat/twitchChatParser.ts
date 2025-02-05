@@ -2,10 +2,15 @@ import { CustomEmote } from '../../api/elpatoApi/types';
 import { SpecialMsgId, TwitchAnimationId, TwitchMsgTags, TwurpleChatMessage } from './types';
 import { ChatMessageData, MessagePart } from '../../types';
 
+const UNDEFINED_UNICODE_CHARACTER = '󠀀';
+
 const parseMessage = (content: string, emoteOffsets: Map<string, Array<string>>, customEmotes: Array<CustomEmote>, twurpleMsg: TwurpleChatMessage):Array<MessagePart> => {
-  let messageParts = parseTwitchEmotes(content, emoteOffsets);
+  const contentWithoutHiddenCharacter = content.replace(UNDEFINED_UNICODE_CHARACTER, '');
+
+  let messageParts = parseTwitchEmotes(contentWithoutHiddenCharacter, emoteOffsets);
   messageParts = parseCustomEmotes(messageParts, customEmotes);
   messageParts = parseExtras(messageParts, twurpleMsg);
+
   return messageParts;
 };
 
