@@ -9,7 +9,9 @@ interface SevenTVEmoteResponse {
 interface SevenTVUserEmoteResponse {
   id: string,
   username: string,
-  emotes: Array<SevenTVEmote>
+  emote_set: {
+    emotes: Array<SevenTVEmote>
+  }
 }
 
 interface SevenTVEmote {
@@ -35,7 +37,7 @@ interface SevenTVEmote {
 
 const get7TVEmotes = async (userId: string) => {
   const globalEmotes = (await fetchApi<SevenTVEmoteResponse>("https://7tv.io/v3/emote-sets/global"))?.data?.emotes ?? [];
-  const userEmotes = (await fetchApi<SevenTVUserEmoteResponse>(`https://7tv.io/v3/users/twitch/${userId}`))?.data?.emotes ?? [];
+  const userEmotes = (await fetchApi<SevenTVUserEmoteResponse>(`https://7tv.io/v3/users/twitch/${userId}`))?.data?.emote_set.emotes ?? [];
 
   const allEmotes = [...globalEmotes, ...userEmotes];
 
