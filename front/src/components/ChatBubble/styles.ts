@@ -20,7 +20,6 @@ export const Content = styled.div<{ $direction: 'left' | 'right', $effect: ChatM
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: flex-end;
   gap: 0.3ch;
 
   background-color: ${(props) => props.theme.chat.content.bg};
@@ -38,8 +37,14 @@ export const Content = styled.div<{ $direction: 'left' | 'right', $effect: ChatM
 
   word-break: break-word;
   ${({ $direction }) => $direction === 'left' ?
-    css` text-align: start;` :
-    css` text-align: end; `
+    css` 
+      text-align: start;
+      justify-content: flex-start;
+    ` :
+    css` 
+      text-align: end; 
+      justify-content: flex-end;
+    `
 }
 
   ${({ $effect }) => ($effect === 'rainbow' || $effect === 'simmer') && css`
