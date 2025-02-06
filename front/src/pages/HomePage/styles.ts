@@ -153,7 +153,7 @@ export const InputWithButtonContainer = styled.div`
     background-color: transparent;
     border: none;
 
-    border-radius: 0.8em;
+    border-radius: 0.5em;
     &:hover {
       background-color: #822929;
     }

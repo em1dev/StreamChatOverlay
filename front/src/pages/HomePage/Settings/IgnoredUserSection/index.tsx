@@ -9,7 +9,6 @@ export const IgnoredUserSection = () => {
 
   return (
     <S.FullSection className='flex flex-col gap-2'>
-
       <h2 className='mb-2'>Ignored Users</h2>
       {
         configuration.ignoredUsers
@@ -17,7 +16,10 @@ export const IgnoredUserSection = () => {
             <S.InputWithButtonContainer
               key={value.id}
             >
-              <S.TextInput
+              <input
+                className='
+                bg-[#272727] text-[#818181] p-3 rounded
+                '
                 title='ignored user'
                 value={value.value}
                 onChange={(e) => (

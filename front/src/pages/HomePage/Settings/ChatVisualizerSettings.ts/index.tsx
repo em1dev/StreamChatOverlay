@@ -34,9 +34,10 @@ export const ChatVisualizerSettings = () => {
 
   return (
     <S.FullSection className='flex flex-col gap-2'>
+      <h2>Basic configuration</h2>
 
       <div role="radiogroup">
-        <h2 className='mb-2'>Chat Direction</h2>
+        <h3 className='mb-2'>Chat Direction</h3>
 
         <div className='flex gap-5'>
           <button 
@@ -81,77 +82,80 @@ export const ChatVisualizerSettings = () => {
             });
           }}
         >
-          <option value='1'>Theme A</option>
-          <option value='2'>Theme B</option>
-          <option value='3'>Theme C</option>
+          <option value='1'>Coffee</option>
+          <option value='2'>Pato</option>
+          <option value='3'>High contrast</option>
         </Select>
       </div>
 
       <div>
-        <h2 className='my-2'>Emotes</h2>
+        <h3 className='my-2'>Emotes</h3>
 
-        <div className='flex gap-1 items-center'>
-          <button 
-            id='config-checkbox-betterttv' 
-            type='button'
-            aria-labelledby='config-checkbox-bettertv-label'
-            aria-checked={configuration.betterTTVEnabled}
-            role='checkbox' 
-            className='flex items-center' 
-            onClick={() => updateUserConfiguration({ betterTTVEnabled : !configuration.betterTTVEnabled })}
-          >
-            {configuration.betterTTVEnabled ?
-              <span className="icon-[mingcute--toggle-right-fill] text-[2em]" role="img" aria-hidden="true" />
-              :
-              <span className="icon-[mingcute--toggle-left-line] text-[2em]" role="img" aria-hidden="true" />
-            }
-          </button>
+        <div className='flex gap-5 flex-wrap'>
 
-          <S.Label id='config-checkbox-bettertv-label' htmlFor='config-checkbox-betterttv'>BetterTTV</S.Label>
-        </div>
+          <div className='flex gap-1 items-center'>
+            <button 
+              id='config-checkbox-betterttv' 
+              type='button'
+              aria-labelledby='config-checkbox-bettertv-label'
+              aria-checked={configuration.betterTTVEnabled}
+              role='checkbox' 
+              className='flex items-center' 
+              onClick={() => updateUserConfiguration({ betterTTVEnabled : !configuration.betterTTVEnabled })}
+            >
+              {configuration.betterTTVEnabled ?
+                <span className="icon-[mingcute--toggle-right-fill] text-[2em]" role="img" aria-hidden="true" />
+                :
+                <span className="icon-[mingcute--toggle-left-line] text-[2em]" role="img" aria-hidden="true" />
+              }
+            </button>
 
-        <div className='flex gap-1 items-center'>
-          <button 
-            id='config-checkbox-franker' 
-            type='button'
-            aria-labelledby='config-checkbox-franker-label'
-            aria-checked={configuration.frankerFaceEnabled}
-            role='checkbox' 
-            className='flex items-center' 
-            onClick={() => updateUserConfiguration({ frankerFaceEnabled : !configuration.frankerFaceEnabled })}
-          >
-            {configuration.frankerFaceEnabled ?
-              <span className="icon-[mingcute--toggle-right-fill] text-[2em]" role="img" aria-hidden="true" />
-              :
-              <span className="icon-[mingcute--toggle-left-line] text-[2em]" role="img" aria-hidden="true" />
-            }
-          </button>
-          <S.Label id='config-checkbox-franker-label' htmlFor='config-checkbox-franker'>FrankerFaceZ</S.Label>
-        </div>
+            <S.Label id='config-checkbox-bettertv-label' htmlFor='config-checkbox-betterttv'>BetterTTV</S.Label>
+          </div>
+
+          <div className='flex gap-1 items-center'>
+            <button 
+              id='config-checkbox-franker' 
+              type='button'
+              aria-labelledby='config-checkbox-franker-label'
+              aria-checked={configuration.frankerFaceEnabled}
+              role='checkbox' 
+              className='flex items-center' 
+              onClick={() => updateUserConfiguration({ frankerFaceEnabled : !configuration.frankerFaceEnabled })}
+            >
+              {configuration.frankerFaceEnabled ?
+                <span className="icon-[mingcute--toggle-right-fill] text-[2em]" role="img" aria-hidden="true" />
+                :
+                <span className="icon-[mingcute--toggle-left-line] text-[2em]" role="img" aria-hidden="true" />
+              }
+            </button>
+            <S.Label id='config-checkbox-franker-label' htmlFor='config-checkbox-franker'>FrankerFaceZ</S.Label>
+          </div>
 
 
-        <div className='flex gap-1 items-center'>
-          <button 
-            id='config-checkbox-7tv' 
-            type='button'
-            aria-labelledby='config-checkbox-7tv-label'
-            aria-checked={configuration.sevenTVEnabled}
-            role='checkbox' 
-            className='flex items-center' 
-            onClick={() => updateUserConfiguration({ sevenTVEnabled : !configuration.sevenTVEnabled })}
-          >
-            {configuration.sevenTVEnabled ?
-              <span className="icon-[mingcute--toggle-right-fill] text-[2em]" role="img" aria-hidden="true" />
-              :
-              <span className="icon-[mingcute--toggle-left-line] text-[2em]" role="img" aria-hidden="true" />
-            }
-          </button>
-          <S.Label id='config-checkbox-7tv-label' htmlFor='config-checkbox-7tv'>7TV</S.Label>
+          <div className='flex gap-1 items-center'>
+            <button 
+              id='config-checkbox-7tv' 
+              type='button'
+              aria-labelledby='config-checkbox-7tv-label'
+              aria-checked={configuration.sevenTVEnabled}
+              role='checkbox' 
+              className='flex items-center' 
+              onClick={() => updateUserConfiguration({ sevenTVEnabled : !configuration.sevenTVEnabled })}
+            >
+              {configuration.sevenTVEnabled ?
+                <span className="icon-[mingcute--toggle-right-fill] text-[2em]" role="img" aria-hidden="true" />
+                :
+                <span className="icon-[mingcute--toggle-left-line] text-[2em]" role="img" aria-hidden="true" />
+              }
+            </button>
+            <S.Label id='config-checkbox-7tv-label' htmlFor='config-checkbox-7tv'>7TV</S.Label>
+          </div>
         </div>
       </div>
 
       <div>
-        <h2 className='my-2'>Text to speech (TTS)</h2>
+        <h3 className='my-2'>Text to speech (TTS)</h3>
 
         <div className='mb-2 flex gap-1 items-center'>
           <button 
@@ -173,26 +177,29 @@ export const ChatVisualizerSettings = () => {
           <label id='config-checkbox-tts-label' htmlFor='config-checkbox-tts'>Enable TTS</label>
         </div>
 
-        <label htmlFor='config-tts-voice'>Voice</label>
-        <Select
-          id='config-tts-voice'
-          value={configuration.ttsConfiguration.selectedVoice}
-          onChange={(e) => {
-            const newVoice = voices.find(v => v.voiceURI === e.target.value);
-            updateUserConfiguration({
-              ttsConfiguration: {
-                ...configuration.ttsConfiguration,
-                selectedVoice: newVoice?.voiceURI
-              }
-            });
-          }}
-        >
-          {
-            voices.map((voice) => (
-              <option key={voice.voiceURI} value={voice.voiceURI}>{voice.name}</option>
-            ))
-          }
-        </Select>
+        <div className='flex flex-col gap-2'>
+          <label htmlFor='config-tts-voice'>Voice</label>
+          <Select
+            id='config-tts-voice'
+            value={configuration.ttsConfiguration.selectedVoice}
+            onChange={(e) => {
+              const newVoice = voices.find(v => v.voiceURI === e.target.value);
+              updateUserConfiguration({
+                ttsConfiguration: {
+                  ...configuration.ttsConfiguration,
+                  selectedVoice: newVoice?.voiceURI
+                }
+              });
+            }}
+          >
+            {
+              voices.map((voice) => (
+                <option key={voice.voiceURI} value={voice.voiceURI}>{voice.name}</option>
+              ))
+            }
+          </Select>
+        </div>
+
       </div>
 
     </S.FullSection>

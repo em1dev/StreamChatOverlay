@@ -40,10 +40,10 @@ export const defaultUserConfiguration: UserConfiguration = {
   channelName: '',
   channelId: '',
   ignoredUsers: [
-    { id: crypto.randomUUID(), value: 'el_pato_bot' },
     { id: crypto.randomUUID(), value: 'nightbot' },
-    { id: crypto.randomUUID(), value: 'ckmu_bot' },
     { id: crypto.randomUUID(), value: 'streamelements' },
+    { id: crypto.randomUUID(), value: 'el_pato_bot' },
+    { id: crypto.randomUUID(), value: 'ckmu_bot' },
   ],
   betterTTVEnabled: true,
   chatDirection: 'right',
