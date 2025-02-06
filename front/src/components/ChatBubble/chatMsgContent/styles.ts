@@ -5,11 +5,11 @@ export const ContentExtras = styled.span`
   background-color: ${(props) => props.theme.chat.content.mention.bg};
   border-radius: ${(props) => props.theme.chat.content.mention.borderRadius};
   border: ${(props) => props.theme.chat.content.mention.border};
+  padding: ${(props) => props.theme.chat.content.mention.padding};
 
-  padding: 0.5em;
   display: inline-block;
   + * {
-    margin: 0.3em;
+    margin-left: 0.3em;
   }
 `;
 
@@ -18,6 +18,7 @@ export const Reply = styled(ContentExtras)`
   background-color: ${(props) => props.theme.chat.content.reply.bg};
   border-radius: ${(props) => props.theme.chat.content.reply.borderRadius};
   border: ${(props) => props.theme.chat.content.reply.border};
+  padding: ${(props) => props.theme.chat.content.reply.padding};
 `;
 
 export const Redemption = styled(ContentExtras)`
@@ -27,4 +28,5 @@ export const Redemption = styled(ContentExtras)`
   background-color: ${(props) => props.theme.chat.content.reward.bg};
   border-radius: ${(props) => props.theme.chat.content.reward.borderRadius};
   border: ${(props) => props.theme.chat.content.reward.border};
+  padding: ${(props) => props.theme.chat.content.reward.padding};
 `;

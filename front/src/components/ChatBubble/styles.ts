@@ -17,17 +17,23 @@ export const Message = styled.div<{ $direction: 'left' | 'right' }>`
 `;
 
 export const Content = styled.div<{ $direction: 'left' | 'right', $effect: ChatMessageData['effect']}>`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.3ch;
+
   background-color: ${(props) => props.theme.chat.content.bg};
   color: ${(props) => props.theme.chat.content.text};
   border-radius: ${(props) => props.theme.chat.content.borderRadius};
   border: ${(props) => props.theme.chat.content.border};
+  padding: ${(props) => props.theme.chat.content.padding};
 
   font-weight: ${(props) => props.theme.chat.content.fontWeight};
   font-size: ${(props) => props.theme.chat.content.fontSize};
 
   z-index: 0;
   position: relative;
-  padding: 0.5em 0.8em;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
   word-break: break-word;

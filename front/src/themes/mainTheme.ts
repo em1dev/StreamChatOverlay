@@ -11,7 +11,8 @@ const theme1: DefaultTheme = {
       borderRadius: '12px',
       border: 'none',
       fontSize: '12px',
-      fontWeight: 'bold'
+      fontWeight: 'bold',
+      padding: '0.4em 1.5em 0.8em 1.5em'
     },
 
     content: {
@@ -21,12 +22,14 @@ const theme1: DefaultTheme = {
       borderRadius: '12px',
       fontSize: '12px',
       fontWeight: 'bold',
+      padding: '0.5em 0.8em',
 
       mention: {
         bg: '#2a2a2a',
         text: '#F6D6BD',
         border: 'none',
         borderRadius: '0.8em',
+        padding: '0.5em',
       },
 
       reply: {
@@ -34,6 +37,7 @@ const theme1: DefaultTheme = {
         text: '#F6D6BD',
         border: 'none',
         borderRadius: '0.8em',
+        padding: '0.5em',
       },
 
       reward: {
@@ -41,6 +45,7 @@ const theme1: DefaultTheme = {
         text: '#F6D6BD',
         border: 'none',
         borderRadius: '0.8em',
+        padding: '0.5em',
       },
     }
   }
@@ -56,8 +61,8 @@ const theme3: DefaultTheme = {
       borderRadius: '0',
       border: '1px white solid',
       fontSize: '12px',
-      fontWeight: 'bold'
-
+      fontWeight: 'bold',
+      padding: '0.4em 1.5em 0.8em 1.5em'
     },
     content: {
       bg: 'white',
@@ -66,12 +71,14 @@ const theme3: DefaultTheme = {
       borderRadius: '0',
       fontSize: '12px',
       fontWeight: 'bold',
+      padding: '0.5em 0.8em',
 
       mention: {
         bg: 'black',
         text: 'white',
         border: '3px solid black',
         borderRadius: '0',
+        padding: '0.5em',
       },
 
       reply: {
@@ -79,6 +86,7 @@ const theme3: DefaultTheme = {
         text: 'white',
         border: '3px solid black',
         borderRadius: '0',
+        padding: '0.5em',
       },
 
       reward: {
@@ -86,6 +94,7 @@ const theme3: DefaultTheme = {
         text: 'white',
         border: '3px solid black',
         borderRadius: '0',
+        padding: '0.5em',
       },
     }
   }
@@ -100,7 +109,8 @@ const theme2: DefaultTheme = {
       borderRadius: '2em',
       border: '0px #fff8ea solid',
       fontSize: '12px',
-      fontWeight: '500'
+      fontWeight: '500',
+      padding: '0.4em 1.5em 0.8em 1.5em'
     },
 
     content: {
@@ -110,12 +120,14 @@ const theme2: DefaultTheme = {
       borderRadius: '1em',
       fontSize: '13px',
       fontWeight: '500',
+      padding: '0.5em 0.8em',
 
       mention: {
         bg: 'none',
         text: '#f82b2b',
         border: 'none',
         borderRadius: '0',
+        padding: '0',
       },
 
       reply: {
@@ -123,6 +135,7 @@ const theme2: DefaultTheme = {
         text: 'black',
         border: 'none',
         borderRadius: '0.8em',
+        padding: '0.5em',
       },
 
       reward: {
@@ -130,6 +143,7 @@ const theme2: DefaultTheme = {
         text: 'black',
         border: 'none',
         borderRadius: '0.8em',
+        padding: '0.5em',
       },
     }
   }

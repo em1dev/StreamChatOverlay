@@ -94,6 +94,42 @@ export const SampleMessages: Array<ChatMessageData> = [
     ]
   },
   {
+    'id': '913650a6-cf9c-4a59-b587-9685814ece73',
+    'effect': 'normal',
+    'content': '@Raupulus patito70Rose',
+    'userDisplayName': 'PatitoDev',
+    'displayPronoun': 'Any',
+    'color': '#F9C8E0',
+    'emoteOffsets': new Map(),
+    'badges': [
+      {
+        'id': 'moderator',
+        'url': 'https://static-cdn.jtvnw.net/badges/v1/3267646d-33f0-4b17-b3df-f923a41db1d0/2'
+      },
+      {
+        'id': 'artist-badge',
+        'url': 'https://static-cdn.jtvnw.net/badges/v1/4300a897-03dc-4e83-8c0e-c332fee7057f/2'
+      }
+    ],
+    'contentParts': [
+      {
+        'content': '\n          Replying to: @Raupulus un pa...\n        ',
+        'type': 'reply',
+        'originalContent': '@Raupulus'
+      },
+      {
+        'content': 'bom ',
+        'type': 'text',
+        'originalContent': 'bom'
+      },
+      {
+        'content': 'dia ',
+        'type': 'text',
+        'originalContent': 'dia'
+      }
+    ]
+  },
+  {
     'id': 'ea08c270-01c2-442e-bf4c-1b4ef8ea5a50',
     'effect': 'normal',
     'content': 'que va bailando',
