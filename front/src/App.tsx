@@ -6,7 +6,7 @@ import { elPatoApi } from './api/elpatoApi';
 import { GlobalStyle } from './globalStyle';
 import { useConfiguration } from './store/configuration';
 import { ThemeProvider } from 'styled-components';
-import { theme1, theme2, theme3 } from './themes/mainTheme';
+import { pinkTheme, theme1, theme2, theme3 } from './themes/mainTheme';
 
 const isObs = () => !!(window as { obsstudio?: unknown })['obsstudio'];
 
@@ -16,6 +16,8 @@ const getTheme = (value?: string) => {
     return theme2;
   case '3':
     return theme3;
+  case '4':
+    return pinkTheme;
   case '1':
   default:
     return theme1;

@@ -149,5 +149,19 @@ const theme2: DefaultTheme = {
   }
 };
 
+const pinkTheme:DefaultTheme = {
+  ...theme2,
+  chat: {
+    ...theme2.chat,
+    header: {
+      ...theme2.chat.header,
+      bg: '#ffb7f2',
+    },
+    content: {
+      ...theme2.chat.content,
+      bg: '#fff2f2'
+    }
+  }
+};
 
-export { theme1, theme2, theme3 };
+export { theme1, theme2, theme3, pinkTheme };
