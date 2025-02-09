@@ -1,6 +1,7 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { THEME_USER_COLOR } from '../../../themes/mainTheme';
 
-export const Container = styled.div`
+export const Container = styled.div<{ $userColor: string }>`
   margin-right: 8px;
   margin-bottom: -8px;
 
@@ -11,10 +12,20 @@ export const Container = styled.div`
 
   gap: 0.5em;
 
-  background-color: ${(prorps) => prorps.theme.chat.header.bg};
-  color: ${(prorps) => prorps.theme.chat.header.text};
-  border: ${(prorps) => prorps.theme.chat.header.border};
-  border-radius: ${(prorps) => prorps.theme.chat.header.borderRadius};
+  background-color: ${(props) => props.theme.chat.header.bg.replace(THEME_USER_COLOR, props.$userColor)};
+  color: ${(props) => props.theme.chat.header.text.replace(THEME_USER_COLOR, props.$userColor)};
+
+  ${(props) => props.theme.chat.header.textShadow && css`
+    text-shadow: ${props.theme.chat.header.textShadow.replace(THEME_USER_COLOR, props.$userColor)};
+  `}
+
+  ${(props) => props.theme.chat.header.boxShadow && css`
+    box-shadow: ${props.theme.chat.header.boxShadow};
+  `}
+
+  border: ${(props) => props.theme.chat.header.border.replace(THEME_USER_COLOR, props.$userColor)};
+
+  border-radius: ${(props) => props.theme.chat.header.borderRadius};
   padding: ${(props) => props.theme.chat.header.padding};
 
   font-weight: ${(props) => props.theme.chat.header.fontWeight};
@@ -29,5 +40,5 @@ export const Pronouns = styled.div`
   //margin: 0 0.5ch;
 `;
 
-export const UserName = styled.div<{color?: string}>`
+export const UserName = styled.div`
 `;

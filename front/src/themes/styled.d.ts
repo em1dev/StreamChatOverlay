@@ -6,7 +6,9 @@ interface Box {
   text: string,
   borderRadius: string,
   border: string,
-  padding: string
+  padding: string,
+  boxShadow?: string,
+  textShadow?: string
 }
 
 declare module 'styled-components' {

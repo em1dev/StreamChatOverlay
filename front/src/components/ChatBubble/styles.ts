@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import { ChatMessageData } from '../../types';
+import { THEME_USER_COLOR } from '../../themes/mainTheme';
 
 export const Message = styled.div<{ $direction: 'left' | 'right' }>`
   text-align: end;
@@ -16,7 +17,11 @@ export const Message = styled.div<{ $direction: 'left' | 'right' }>`
   font-family: ${(props) => props.theme.chat.font};
 `;
 
-export const Content = styled.div<{ $direction: 'left' | 'right', $effect: ChatMessageData['effect']}>`
+export const Content = styled.div<{ 
+    $direction: 'left' | 'right',
+    $effect: ChatMessageData['effect'],
+    $userColor: string
+  }>`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -31,10 +36,16 @@ export const Content = styled.div<{ $direction: 'left' | 'right', $effect: ChatM
   font-weight: ${(props) => props.theme.chat.content.fontWeight};
   font-size: ${(props) => props.theme.chat.content.fontSize};
 
+  ${(props) => props.theme.chat.content.textShadow && css`
+    text-shadow: ${props.theme.chat.content.textShadow.replace(THEME_USER_COLOR, props.$userColor)};
+  `}
+
+  ${(props) => props.theme.chat.content.boxShadow && css`
+    box-shadow: ${props.theme.chat.content.boxShadow};
+  `}
+
   z-index: 0;
   position: relative;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-
   word-break: break-word;
   ${({ $direction }) => $direction === 'left' ?
     css` 

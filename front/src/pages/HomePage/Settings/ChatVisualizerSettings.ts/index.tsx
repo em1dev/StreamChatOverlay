@@ -85,6 +85,7 @@ export const ChatVisualizerSettings = () => {
           <option value='1'>Coffee</option>
           <option value='2'>Pato</option>
           <option value='4'>Pink</option>
+          <option value='5'>Floating</option>
           <option value='3'>High contrast</option>
         </Select>
       </div>

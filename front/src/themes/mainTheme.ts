@@ -1,5 +1,6 @@
 import { DefaultTheme } from 'styled-components';
 
+export const THEME_USER_COLOR = '$userColor';
 
 const theme1: DefaultTheme = {
   chat: {
@@ -23,6 +24,7 @@ const theme1: DefaultTheme = {
       fontSize: '12px',
       fontWeight: 'bold',
       padding: '0.5em 0.8em',
+      boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
 
       mention: {
         bg: '#2a2a2a',
@@ -72,6 +74,7 @@ const theme3: DefaultTheme = {
       fontSize: '12px',
       fontWeight: 'bold',
       padding: '0.5em 0.8em',
+      boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
 
       mention: {
         bg: 'black',
@@ -121,6 +124,7 @@ const theme2: DefaultTheme = {
       fontSize: '13px',
       fontWeight: '500',
       padding: '0.5em 0.8em',
+      boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
 
       mention: {
         bg: 'none',
@@ -149,6 +153,57 @@ const theme2: DefaultTheme = {
   }
 };
 
+const floating:DefaultTheme = {
+  chat: {
+    font: 'poppins',
+    header: {
+      bg: 'transparent',
+      text: THEME_USER_COLOR,
+      textShadow: `0 0 3px ${THEME_USER_COLOR}`,
+      borderRadius: '0',
+      border: 'none',
+      fontSize: '13px',
+      fontWeight: '500',
+      padding: '0'
+    },
+
+    content: {
+      bg: 'transparent',
+      text: 'white',
+      border: 'none',
+      borderRadius: '0',
+      fontSize: '13px',
+      fontWeight: '500',
+      padding: '0.2em 0',
+      textShadow: '0 0 2px black',
+
+      mention: {
+        bg: 'transparent',
+        text: '#fffbae',
+        border: 'none',
+        borderRadius: '0',
+        padding: '0',
+      },
+
+      reply: {
+        bg: 'transparent',
+        text: '#fffbae',
+        border: 'none',
+        borderRadius: '0',
+        padding: '0',
+      },
+
+      reward: {
+        bg: '#ffcaad',
+        text: '#fffbae',
+        border: 'none',
+        borderRadius: '0',
+        padding: '0',
+      },
+    }
+  }
+};
+
 const pinkTheme:DefaultTheme = {
   ...theme2,
   chat: {
@@ -164,4 +219,4 @@ const pinkTheme:DefaultTheme = {
   }
 };
 
-export { theme1, theme2, theme3, pinkTheme };
+export { theme1, theme2, theme3, pinkTheme, floating };

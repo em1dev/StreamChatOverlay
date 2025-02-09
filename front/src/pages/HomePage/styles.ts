@@ -21,7 +21,7 @@ export const ChatContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin-bottom: 1em;
-  background-color: #818181;
+  background-color: #3f3f3f;
   border-radius: 0.5em;
 
   > * {
@@ -29,7 +29,7 @@ export const ChatContainer = styled.div`
     width: 500px;
     height: 100%;
     padding: 0.6em;
-    background-color: #818181;
+    background-color: #3f3f3f;
   }
 `;
 

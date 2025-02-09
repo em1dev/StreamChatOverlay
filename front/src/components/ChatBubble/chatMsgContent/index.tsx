@@ -4,9 +4,10 @@ import * as S from './styles';
 
 export type ChatMsgContentProps = {
   messageParts: Array<MessagePart>,
+  userColor: string | undefined
 }
 
-const ChatMsgContent = ({ messageParts }: ChatMsgContentProps) => (
+const ChatMsgContent = ({ messageParts, userColor = 'black' }: ChatMsgContentProps) => (
   messageParts.map(({ content, type, customEmote }, index) => {
     switch (type) {
     case 'emote':
@@ -20,11 +21,11 @@ const ChatMsgContent = ({ messageParts }: ChatMsgContentProps) => (
         }
       />;
     case 'redeption':
-      return <S.Redemption key={index}>{ content }</S.Redemption>;
+      return <S.Redemption $userColor={userColor} key={index}>{ content }</S.Redemption>;
     case 'reply':
-      return <S.Reply key={index}>{ content }</S.Reply>;
+      return <S.Reply $userColor={userColor} key={index}>{ content }</S.Reply>;
     case 'mention':
-      return <S.ContentExtras key={index}>{ content }</S.ContentExtras>;
+      return <S.ContentExtras $userColor={userColor} key={index}>{ content }</S.ContentExtras>;
     default:
       return <span key={index}>{content}</span>;
     }
