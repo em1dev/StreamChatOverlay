@@ -13,8 +13,8 @@ const ChatMsg = (props: ChatMsgProps) => {
   return (
     <S.Message $direction={chatDirection}>
       <ChatMsgHeader {...props} />
-      <S.Content $effect={props.effect} $direction={chatDirection}>
-        <ChatMsgContent messageParts={props.contentParts} />
+      <S.Content $userColor={props.color ?? 'black'} $effect={props.effect} $direction={chatDirection}>
+        <ChatMsgContent userColor={props.color} messageParts={props.contentParts} />
       </S.Content>
     </S.Message>
   );
