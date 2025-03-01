@@ -3,7 +3,7 @@ import { TTSConfiguration, TTSMessage, TTSReplacement } from '../../types';
 
 
 export const applyTTSMessageTransformations = (message: TTSMessage, configuration: TTSConfiguration) => {
-  const emotesToRead = 1;
+  const emotesToRead = configuration.emotesToRead;
   let emotesCount = 0;
 
   let messageToRead = message.parts

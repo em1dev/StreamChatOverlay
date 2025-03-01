@@ -2,6 +2,7 @@ import { TTSConfiguration, UserConfiguration } from '../types';
 
 
 const ttsDefaultConfig: TTSConfiguration = {
+  emotesToRead: 1,
   ignoredUsers: [],
   selectedVoice: 'Microsoft Sabina - Spanish (Mexico)',
   userReplacement: [

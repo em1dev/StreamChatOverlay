@@ -202,6 +202,25 @@ export const ChatVisualizerSettings = () => {
           </Select>
         </div>
 
+        <div className='flex flex-col gap-2 my-2'>
+          <label htmlFor='config-tts-emotes-to-read'>Number of emotes to read</label>
+          <input 
+            id="config-tts-emotes-to-read" 
+            className='p-[1em] color-[#818181] bg-[#272727] rounded-[8px]'
+            type="number" 
+            min="0"
+            value={configuration.ttsConfiguration.emotesToRead}
+            onChange={(e) => {
+              updateUserConfiguration({
+                ttsConfiguration: {
+                  ...configuration.ttsConfiguration,
+                  emotesToRead: parseInt(e.target.value)
+                }
+              });
+            }}
+          />
+        </div>
+
       </div>
 
     </S.FullSection>

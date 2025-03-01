@@ -40,7 +40,8 @@ export interface TTSConfiguration {
   ignoredUsers: Array<{
     id: string,
     userName: string
-  }>
+  }>,
+  emotesToRead: number
 }
 
 export interface UserConfiguration {

@@ -11,7 +11,10 @@ export const userConfigurationStore = create<UserConfigurationStore>()((set, get
   const hash = location.hash.slice(1);
   let config = defaultUserConfiguration;
   if (hash) {
-    config = JSON.parse(decodeURIComponent(hash));
+    config = {
+      ...config,
+      ...JSON.parse(decodeURIComponent(hash))
+    };
   }
 
   return {
