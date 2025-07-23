@@ -25,6 +25,7 @@ declare module 'styled-components' {
       content: Box & {
         fontSize: string,
         fontWeight: string,
+        marginHorizontal?: string,
 
         reply: Box,
         reward: Box

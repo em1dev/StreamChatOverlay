@@ -36,6 +36,10 @@ export const Content = styled.div<{
   font-weight: ${(props) => props.theme.chat.content.fontWeight};
   font-size: ${(props) => props.theme.chat.content.fontSize};
 
+  ${(props) => props.theme.chat.content.marginHorizontal && css`
+    ${ props.$direction  === 'left' ? 'margin-left' : 'margin-right' } : ${props.theme.chat.content.marginHorizontal};
+  `}
+
   ${(props) => props.theme.chat.content.textShadow && css`
     text-shadow: ${props.theme.chat.content.textShadow.replace(THEME_USER_COLOR, props.$userColor)};
   `}

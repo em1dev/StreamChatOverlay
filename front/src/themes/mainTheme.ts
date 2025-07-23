@@ -213,10 +213,12 @@ const pinkTheme:DefaultTheme = {
     ...theme2.chat,
     header: {
       ...theme2.chat.header,
+      marginHorizontal: undefined,
       bg: '#ffb7f2',
     },
     content: {
       ...theme2.chat.content,
+      marginHorizontal: '8px',
       bg: '#fff2f2'
     }
   }
