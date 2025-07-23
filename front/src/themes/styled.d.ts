@@ -19,6 +19,7 @@ declare module 'styled-components' {
       header: Box & {
         fontSize: string,
         fontWeight: string,
+        marginHorizontal?: string,
       },
 
       content: Box & {

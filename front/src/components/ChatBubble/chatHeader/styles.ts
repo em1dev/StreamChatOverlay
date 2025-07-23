@@ -1,8 +1,11 @@
 import styled, { css } from 'styled-components';
 import { THEME_USER_COLOR } from '../../../themes/mainTheme';
 
-export const Container = styled.div<{ $userColor: string }>`
-  margin-right: 8px;
+export const Container = styled.div<{ $userColor: string, $direction: 'left' | 'right' }>`
+  ${(props) => props.theme.chat.header.marginHorizontal && css`
+    ${ props.$direction  === 'left' ? 'margin-left' : 'margin-right' } : ${props.theme.chat.header.marginHorizontal};
+  `}
+
   margin-bottom: -8px;
 
   display: flex;

@@ -13,7 +13,8 @@ const theme1: DefaultTheme = {
       border: 'none',
       fontSize: '12px',
       fontWeight: 'bold',
-      padding: '0.4em 1.5em 0.8em 1.5em'
+      padding: '0.4em 1.5em 0.8em 1.5em',
+      marginHorizontal: '8px',
     },
 
     content: {
@@ -64,7 +65,8 @@ const theme3: DefaultTheme = {
       border: '1px white solid',
       fontSize: '12px',
       fontWeight: 'bold',
-      padding: '0.4em 1.5em 0.8em 1.5em'
+      padding: '0.4em 1.5em 0.8em 1.5em',
+      marginHorizontal: '8px',
     },
     content: {
       bg: 'white',
@@ -113,7 +115,8 @@ const theme2: DefaultTheme = {
       border: '0px #fff8ea solid',
       fontSize: '12px',
       fontWeight: '500',
-      padding: '0.4em 1.5em 0.8em 1.5em'
+      padding: '0.4em 1.5em 0.8em 1.5em',
+      marginHorizontal: '8px',
     },
 
     content: {
@@ -164,7 +167,7 @@ const floating:DefaultTheme = {
       border: 'none',
       fontSize: '13px',
       fontWeight: '500',
-      padding: '0'
+      padding: '0',
     },
 
     content: {
