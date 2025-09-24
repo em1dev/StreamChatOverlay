@@ -3,6 +3,10 @@ import { CustomEmote } from '../api/elpatoApi/types';
 import { elPatoApi } from '../api/elpatoApi';
 import { useConfiguration } from '../store/configuration';
 
+const escapeRegex = (text: string) => (
+  text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+);
+
 export const useCustomEmotes = (channelId: string) => {
   const [customEmotes, setCustomEmotes] = useState<Array<CustomEmote>>([]);
   const isBetterTTVEnabled = useConfiguration(state => state.betterTTVEnabled);
@@ -22,7 +26,7 @@ export const useCustomEmotes = (channelId: string) => {
 
       const emotes = resp.data.map(e => ({
         ...e,
-        code: RegExp.escape(e.code)
+        code: escapeRegex(e.code)
       }));
 
       setCustomEmotes(emotes);
