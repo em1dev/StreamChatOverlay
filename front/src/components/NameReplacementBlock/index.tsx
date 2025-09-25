@@ -26,7 +26,7 @@ export const NameReplacementBlock = ({ onChange, onDelete, replacement }: NameRe
 
       <S.Header>
         <label htmlFor={`user-replacement-${replacement.id}-regex`}>
-        Chatter name
+          Chatter name
         </label>
         <IconButton type='close' onClick={onDelete} />
       </S.Header>

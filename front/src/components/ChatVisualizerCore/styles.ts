@@ -9,7 +9,7 @@ export const Container = styled.div<{ $direction: 'left' | 'right'}>`
   display: flex;
   flex-direction: column-reverse;
   ${({ $direction }) => $direction === 'left' ? 
-    css`align-items:start;` :
-    css`align-items:end;`
-}
+      css`align-items:start;` :
+      css`align-items:end;`
+  }
 `;

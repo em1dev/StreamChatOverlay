@@ -152,12 +152,12 @@ const parseMessageEffect = (msg: TwurpleChatMessage): ChatMessageData['effect'] 
   const animationId = msg.tags.get(TwitchMsgTags.AnimationId);
   if (msgId === SpecialMsgId.AnimatedMsg && animationId) {
     switch (animationId) {
-    case TwitchAnimationId.Rainbow:
-      return 'rainbow';
-    case TwitchAnimationId.Simmer:
-      return 'simmer';
-    default:
-      console.log(`received a unhandled msg animation id : ${animationId}`);
+      case TwitchAnimationId.Rainbow:
+        return 'rainbow';
+      case TwitchAnimationId.Simmer:
+        return 'simmer';
+      default:
+        console.log(`received a unhandled msg animation id : ${animationId}`);
     }
   }
 

@@ -1,5 +1,5 @@
 import { UserInformation } from '../../api/elpatoApi/types';
-import Chat from '../../components/chat';
+import Chat from '../../components/ChatVisualizerCore';
 import { useTwitchChat } from '../../hooks/useTwitchChat/useTwitchChat';
 import { BaseCSS } from './styles';
 

@@ -70,7 +70,7 @@ export const ChatVisualizerSettings = () => {
         <label 
           htmlFor='config-chat-theme-select'
         >
-        Theme
+          Theme
         </label>
 
         <Select

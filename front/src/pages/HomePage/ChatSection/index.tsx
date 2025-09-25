@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { UserInformation } from '../../../api/elpatoApi/types';
-import Chat from '../../../components/chat';
-import { ChatWithTwitch } from '../../../components/chat/ChatWithTwitch';
+import Chat from '../../../components/ChatVisualizerCore';
+import { ChatWithTwitch } from '../../../components/ChatVisualizerCore/ChatWithTwitch';
 import * as S from '../styles';
 import { ChatMessageData } from '../../../types';
 import { pickRandom } from '../../../utils/randomUtils';
