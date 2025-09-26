@@ -1,4 +1,4 @@
-import { MessagePart } from '../../../types';
+import { MessagePart } from '@/types';
 import Emote from '../emote';
 import * as S from './styles';
 

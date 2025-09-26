@@ -1,4 +1,4 @@
-import { ChatMessageData } from '../../../types';
+import { ChatMessageData } from '@/types';
 import * as S from './styles';
 
 export interface ChatMsgHeaderProps

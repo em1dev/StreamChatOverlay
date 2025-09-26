@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { THEME_USER_COLOR } from '../../../themes/mainTheme';
+import { THEME_USER_COLOR } from '@/themes/chatThemes';
 
 export const Container = styled.div<{ $userColor: string, $direction: 'left' | 'right' }>`
   ${(props) => props.theme.chat.header.marginHorizontal && css`

@@ -1,5 +1,5 @@
 import { useConfiguration } from '../../../store/configuration';
-import { ChatMessageData } from '../../../types';
+import { ChatMessageData } from '@/types';
 import ChatMsgHeader from './chatHeader';
 import ChatMsgContent from './chatMsgContent';
 import * as S from './styles';

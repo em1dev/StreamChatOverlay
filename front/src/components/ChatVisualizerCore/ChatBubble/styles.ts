@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
-import { ChatMessageData } from '../../types';
-import { THEME_USER_COLOR } from '../../themes/mainTheme';
+import { ChatMessageData } from '@/types';
+import { THEME_USER_COLOR } from '@/themes/chatThemes';
 
 export const Message = styled.div<{ $direction: 'left' | 'right' }>`
   text-align: end;

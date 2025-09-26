@@ -1,5 +1,5 @@
+import { THEME_USER_COLOR } from '@/themes/chatThemes';
 import styled, { css } from 'styled-components';
-import { THEME_USER_COLOR } from '../../../themes/mainTheme';
 
 export const ContentExtras = styled.span<{ $userColor: string }>`
   color: ${(props) => props.theme.chat.content.mention.text};

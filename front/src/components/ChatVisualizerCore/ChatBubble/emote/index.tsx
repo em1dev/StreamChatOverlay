@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { CustomEmote } from '../../../api/elpatoApi/types';
+import { CustomEmote } from '@/api/elpatoApi/types';
 
 export interface EmoteProps {
   id: string,
