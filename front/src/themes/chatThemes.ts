@@ -213,4 +213,14 @@ const pinkTheme:ChatTheme = {
   }
 };
 
+export type ThemeKeys = 'duck' | 'coffee' | 'pink' | 'floating' |  'contrast' ;
+
+export const themeKeyMap: Record<ThemeKeys, ChatTheme> = {
+  'duck': theme2,
+  'coffee': theme1,
+  'pink': pinkTheme,
+  'floating': floating,
+  'contrast': theme3,
+};
+
 export { theme1, theme2, theme3, pinkTheme, floating };

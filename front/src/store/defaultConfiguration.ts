@@ -1,7 +1,11 @@
-import { TTSConfiguration, UserConfiguration } from '../types';
-
+import { TTSConfiguration, UserConfiguration } from '@/types/userConfigurationTypes';
 
 const ttsDefaultConfig: TTSConfiguration = {
+  readBots: false,
+  readCommands: false,
+  readEmotes: true,
+  readUnderscoresAsSpaces: true,
+  isTTSEnabled: true,
   emotesToRead: 1,
   ignoredUsers: [],
   selectedVoice: 'Microsoft Sabina - Spanish (Mexico)',
@@ -32,16 +36,19 @@ const ttsDefaultConfig: TTSConfiguration = {
 };
 
 export const defaultUserConfiguration: UserConfiguration = {
-  channelName: '',
-  channelId: '',
+  chatTheme: 'duck',
   ignoredUsers: [
     { id: crypto.randomUUID(), value: 'nightbot' },
     { id: crypto.randomUUID(), value: 'streamelements' },
   ],
-  betterTTVEnabled: true,
   chatDirection: 'right',
-  frankerFaceEnabled: true,
-  sevenTVEnabled: true,
-  isTTSEnabled: true,
+  emotes: {
+    isBetterTTVEnabled: true,
+    isFrankerFaceEnabled: true,
+    isSevenTVEnabled: true,
+  },
+  hideBotMessages: true,
+  hideCommands: true,
+  showChatterBadges: true,
   ttsConfiguration: ttsDefaultConfig
 };

@@ -16,6 +16,7 @@
     "@fontsource-variable/caveat": "^5.2.8",
     "@fontsource/itim": "^5.2.7",
     "@fontsource/poppins": "^5.2.7",
+    "@iconify/react": "^6.0.2",
     "@stylistic/eslint-plugin": "^5.4.0",
     "@twurple/api": "^7.4.0",
     "@twurple/auth": "^7.4.0",

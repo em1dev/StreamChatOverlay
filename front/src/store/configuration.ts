@@ -1,6 +1,6 @@
 import { create, useStore } from 'zustand';
-import { UserConfiguration } from '../types';
 import { defaultUserConfiguration } from './defaultConfiguration';
+import { UserConfiguration } from '@/types/userConfigurationTypes';
 
 
 interface UserConfigurationStore extends UserConfiguration {
@@ -8,19 +8,7 @@ interface UserConfigurationStore extends UserConfiguration {
 }
 
 export const userConfigurationStore = create<UserConfigurationStore>()((set, get) => {
-  const hash = location.hash.slice(1);
-  let config = defaultUserConfiguration;
-  if (hash) {
-    const hashConfig = JSON.parse(decodeURIComponent(hash)) as UserConfiguration;
-    config = {
-      ...config,
-      ...hashConfig,
-      ttsConfiguration: {
-        ...config.ttsConfiguration,
-        ...hashConfig.ttsConfiguration
-      }
-    };
-  }
+  const config = defaultUserConfiguration;
 
   return {
     ...config,
@@ -29,9 +17,6 @@ export const userConfigurationStore = create<UserConfigurationStore>()((set, get
       const newConfig = { ...prev, ...values};
 
       set(() => ({ ...newConfig }));
-
-      const queryString = encodeURIComponent(JSON.stringify(newConfig));
-      location.hash = queryString;
     },
   };
 });
