@@ -18,7 +18,7 @@ const chatThemes = [
 
 export const Landing = () =>
 {
-  const [selectedThemeIndex, setSelectedThemeIndex] = useState(1);
+  const [selectedThemeIndex, setSelectedThemeIndex] = useState(0);
   const theme = useTheme();
 
   const chatTheme: DefaultTheme = useMemo(() => {
