@@ -5,6 +5,7 @@ import { useConfiguration } from '@/store/configuration';
 import { useTtsVoices } from '@/store/ttsVoices';
 import { SettingsTemplate } from '@/templates/SettingsTemplate';
 import { useEffect } from 'react';
+import { UserPronunciationBlock } from './UserPronounciationBlock';
 
 export const TextToSpeechSettings = () => {
   const ttsConfiguration = useConfiguration(c => c.ttsConfiguration);
@@ -115,6 +116,10 @@ export const TextToSpeechSettings = () => {
       >
         Read underscores as spaces
       </ToggleInput>
+
+      <h2>Change how a chatter name is pronounce</h2>
+      <UserPronunciationBlock />
+
     </SettingsTemplate>
   );
 };
