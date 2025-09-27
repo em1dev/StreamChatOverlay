@@ -3,8 +3,8 @@ import { Landing } from './pages/Landing';
 import { mainTheme } from './themes/mainTheme';
 import { GlobalStyle } from './globalStyle';
 import { Route, Routes } from 'react-router';
-import { BasicSettings } from './pages/BasicSettings';
-import { TextToSpeechSettings } from './pages/TextToSpeechSettings';
+import { BasicSettings } from './pages/Settings/BasicSettings';
+import { TextToSpeechSettings } from './pages/Settings/TextToSpeechSettings';
 
 const App = () => {
   return (

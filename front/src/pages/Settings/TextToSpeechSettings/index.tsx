@@ -78,16 +78,18 @@ export const TextToSpeechSettings = () => {
         </ToggleInput>
       </div>
 
-      <S.EmotesToReadContainer>
-        <span>Read a maximun of</span>
-        <input
-          type='number'
-          min={1}
-          value={ttsConfiguration.emotesToRead}
-          onChange={(e) => { updateConfig({ ttsConfiguration: { ...ttsConfiguration, emotesToRead: parseInt(e.target.value) }}); }}
-        />
-        <span>emote per message</span>
-      </S.EmotesToReadContainer>
+      { ttsConfiguration.readEmotes && (
+        <S.EmotesToReadContainer>
+          <span>Read a maximun of</span>
+          <input
+            type='number'
+            min={1}
+            value={ttsConfiguration.emotesToRead}
+            onChange={(e) => { updateConfig({ ttsConfiguration: { ...ttsConfiguration, emotesToRead: parseInt(e.target.value) }}); }}
+          />
+          <span>emote per message</span>
+        </S.EmotesToReadContainer>
+      )}
 
       <div>
         <ToggleInput
@@ -102,7 +104,7 @@ export const TextToSpeechSettings = () => {
         isChecked={ttsConfiguration.readCommands} 
         onChange={(value) => { updateConfig({ ttsConfiguration: {...ttsConfiguration, readCommands: value } }); }}
       >
-        Read commands
+        Read commands ( messages starting with ! )
       </ToggleInput>
 
       <h2>Extra</h2>
@@ -111,7 +113,7 @@ export const TextToSpeechSettings = () => {
         isChecked={ttsConfiguration.readUnderscoresAsSpaces}
         onChange={(value) => { updateConfig({ ttsConfiguration: {...ttsConfiguration, readUnderscoresAsSpaces: value } }); }}
       >
-        Read underscore as spaces
+        Read underscores as spaces
       </ToggleInput>
     </SettingsTemplate>
   );
