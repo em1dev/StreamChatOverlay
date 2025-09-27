@@ -24,4 +24,10 @@ export const GlobalStyle = createGlobalStyle`
     background: #ff7878;
     border-radius: 2em;
   }
+
+  button {
+    cursor: pointer;
+    font-size: inherit;
+    font-family: inherit;
+  }
 `;

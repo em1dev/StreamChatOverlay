@@ -5,6 +5,7 @@ import { GlobalStyle } from './globalStyle';
 import { Route, Routes } from 'react-router';
 import { BasicSettings } from './pages/Settings/BasicSettings';
 import { TextToSpeechSettings } from './pages/Settings/TextToSpeechSettings';
+import { AddToStream } from './pages/Settings/AddToStream';
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         <Route index element={ <Landing /> } />
 
         <Route path="/settings/" element={ <BasicSettings /> } />
+        <Route path="/settings/add-to-stream" element={ <AddToStream /> } />
         <Route path="/settings/tts" element={ <TextToSpeechSettings /> } />
         <Route path="/settings/advance" element={ <BasicSettings /> } />
         <Route path="/settings/custom-theme" element={ <BasicSettings /> } />

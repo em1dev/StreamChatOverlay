@@ -5,7 +5,7 @@ import { NavLink } from 'react-router';
 export const SideNav = () =>
   (
     <S.NavContainer>
-      <NavLink end to='/add-to-stream' >
+      <NavLink end to='/settings/add-to-stream' >
         <Icon aria-hidden icon="mingcute:live-line" />
         Add to stream 
       </NavLink>
