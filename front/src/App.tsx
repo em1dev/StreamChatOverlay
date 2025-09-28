@@ -7,6 +7,7 @@ import { BasicSettings } from './pages/Settings/BasicSettings';
 import { TextToSpeechSettings } from './pages/Settings/TextToSpeechSettings';
 import { AddToStream } from './pages/Settings/AddToStream';
 import { AdvanceSettings } from './pages/Settings/AdvanceSettings';
+import { CustomThemeSettings } from './pages/Settings/CustomThemeSettings';
 
 const App = () => {
   return (
@@ -19,7 +20,7 @@ const App = () => {
         <Route path="/settings/add-to-stream" element={ <AddToStream /> } />
         <Route path="/settings/tts" element={ <TextToSpeechSettings /> } />
         <Route path="/settings/advance-settings" element={ <AdvanceSettings /> } />
-        <Route path="/settings/custom-theme" element={ <BasicSettings /> } />
+        <Route path="/settings/custom-theme" element={ <CustomThemeSettings /> } />
 
         <Route path="/l/:magicLink" element={ <div>asd</div> } />
       </Routes>

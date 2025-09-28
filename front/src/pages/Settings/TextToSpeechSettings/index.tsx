@@ -127,7 +127,7 @@ export const TextToSpeechSettings = () => {
         { ttsConfiguration.readEmotes && (
           <S.EmotesToReadContainer>
             <span>Read a maximun of</span>
-            <input
+            <Input
               type='number'
               min={1}
               value={ttsConfiguration.emotesToRead}

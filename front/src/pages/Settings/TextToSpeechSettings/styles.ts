@@ -28,15 +28,9 @@ export const TryTtsContainer = styled.div`
 export const EmotesToReadContainer = styled.p`
   margin: 0;
   input {
-    padding: 0.5em 1em;
     margin: 0.5em;
-    width: 10ch;
-    border: none;
-    background-color: #E2ABB4;
-    border-radius: 0.8em;
-    font-family: inherit;
+    width: 7ch;
     font-size: 0.8em;
-    color: #681018;
   }
 `;
 
