@@ -3,8 +3,8 @@ import { TTSConfiguration, UserConfiguration } from '@/types/userConfigurationTy
 const ttsDefaultConfig: TTSConfiguration = {
   isTTSEnabled: false,
 
-  readBots: false,
-  readCommands: false,
+  ignoreBotMessages: true,
+  ignoreCommandMessages: true,
   readUnderscoresAsSpaces: true,
   allowRoleplay: true,
 

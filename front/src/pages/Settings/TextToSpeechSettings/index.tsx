@@ -143,16 +143,16 @@ export const TextToSpeechSettings = () => {
         <h2>Ignore messages</h2>
         <div>
           <ToggleInput
-            isChecked={ttsConfiguration.readBots}
-            onChange={(value) => { updateConfig({ ttsConfiguration: {...ttsConfiguration, readBots: value } }); }}
+            isChecked={ttsConfiguration.ignoreBotMessages}
+            onChange={(value) => { updateConfig({ ttsConfiguration: {...ttsConfiguration, ignoreBotMessages: value } }); }}
           >
             Don't read bot messages
           </ToggleInput>
         </div>
 
         <ToggleInput
-          isChecked={ttsConfiguration.readCommands} 
-          onChange={(value) => { updateConfig({ ttsConfiguration: {...ttsConfiguration, readCommands: value } }); }}
+          isChecked={ttsConfiguration.ignoreCommandMessages} 
+          onChange={(value) => { updateConfig({ ttsConfiguration: {...ttsConfiguration, ignoreCommandMessages: value } }); }}
         >
           Don't read commands ( messages starting with ! )
         </ToggleInput>

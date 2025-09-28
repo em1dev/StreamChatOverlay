@@ -23,8 +23,8 @@ export interface TTSConfiguration {
   }>,
   emotesToRead: number
   readEmotes: boolean,
-  readBots: boolean,
-  readCommands: boolean,
+  ignoreBotMessages: boolean,
+  ignoreCommandMessages: boolean,
   readUnderscoresAsSpaces: boolean,
   allowRoleplay: boolean
 }

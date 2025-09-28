@@ -14,7 +14,7 @@ const roleplay = { id: crypto.randomUUID(), isEnabled: true, ordinal: 9, regex: 
 const buildInternalReplacementRules = (configuration: TTSConfiguration) => {
   const replacementRules: Array<TTSReplacement> = [];
 
-  if (!configuration.readCommands) {
+  if (configuration.ignoreCommandMessages) {
     replacementRules.push(ignoreCommands);
   }
 
