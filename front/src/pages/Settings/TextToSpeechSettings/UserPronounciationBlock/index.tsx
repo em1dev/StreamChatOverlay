@@ -43,6 +43,7 @@ export const UserPronunciationBlock = () => {
           ...userReplacementOrdered,
           {
             id: crypto.randomUUID(),
+            isEnabled: true,
             description: '',
             ordinal: newOrdinal,
             regex: '',

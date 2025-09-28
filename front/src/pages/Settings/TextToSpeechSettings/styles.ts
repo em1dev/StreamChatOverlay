@@ -21,3 +21,19 @@ export const EmotesToReadContainer = styled.p`
     color: #681018;
   }
 `;
+
+export const Block = styled.div`
+  margin: 1.5em 0;
+  > p {
+    margin: 0;
+    color: #a16c6c;
+  }
+`; 
+
+export const RolePlayExampleBlock = styled.div`
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin: auto;
+  gap: 0.2em;
+`;

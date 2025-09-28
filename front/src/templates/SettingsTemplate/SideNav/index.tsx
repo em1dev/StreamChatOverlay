@@ -17,10 +17,12 @@ export const SideNav = () =>
         <Icon aria-hidden icon="mingcute:announcement-line" />
         Text to speech
       </NavLink>
-      <NavLink end to='/settings/advance' >
+      {/* 
+      <NavLink end to='/settings/advance-settings' >
         <Icon aria-hidden icon="mingcute:tool-line" />
         Advance settings
       </NavLink>
+      */}
       <NavLink end to='/settings/custom-theme' >
         <Icon aria-hidden icon="mingcute:palette-line" />
         Custom theme

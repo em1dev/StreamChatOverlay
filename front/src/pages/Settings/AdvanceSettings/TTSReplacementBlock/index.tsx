@@ -1,8 +1,9 @@
 import { useCallback } from 'react';
-import { TTSReplacement } from '../../types';
 import * as S from './styles';
-import { Divider } from '../Divider';
-import { IconButton } from '../IconButton';
+import { TTSReplacement } from '@/types/userConfigurationTypes';
+import { Divider } from '@/components/Divider';
+import { Icon } from '@iconify/react';
+import { ToggleInput } from '@/components/ToggleInput';
 
 
 export interface TTSReplacementBlockProps {
@@ -26,7 +27,21 @@ export const TTSReplacementBlock = ({ replacement, onChange, onDelete, canAddSub
 
   return (
     <S.Container>
-      <IconButton style={{ marginLeft: 'auto' }} type='close' onClick={onDelete} />
+      <header>
+        {canAddSubReplacement && (
+
+          <ToggleInput 
+            isChecked={replacement.isEnabled}
+            onChange={(v) => {update({ isEnabled:  v });}}
+          >
+            Enable
+          </ToggleInput>
+        )}
+
+        <button style={{ marginLeft: 'auto' }} onClick={onDelete}>
+          <Icon icon="mingcute:delete-2-line" />
+        </button>
+      </header>
 
       <S.MultiLabelContainer>
         <label htmlFor={`replacement-${replacement.id}-regex`} >Regex</label>
@@ -49,24 +64,16 @@ export const TTSReplacementBlock = ({ replacement, onChange, onDelete, canAddSub
         />
       </S.RegexInputContainer>
 
-      <S.CheckboxContainer>
-        <input
-          id={`replacement-${replacement.id}-replaceFullMsg`}
-          type='checkbox'
-          checked={!!replacement.replaceFullMessage}
-          onChange={(e) => {
-            update({ replaceFullMessage: e.target.checked });
-          }}
-        />
-        <label htmlFor={`replacement-${replacement.id}-replaceFullMsg`}>
-          Replace full message
-        </label>
-      </S.CheckboxContainer>
+      <ToggleInput isChecked={!!replacement.replaceFullMessage} onChange={(v) => {
+        update({ replaceFullMessage: v });
+      }}>
+        Replace full message
+      </ToggleInput>
 
       <Divider />
 
       <label htmlFor={`replacement-${replacement.id}-replacementWith`}>
-        Replace with (blank if you want to remove it)
+        Replace with. (Keep it blank if you want to remove the text)
       </label>
       <input
         id={`replacement-${replacement.id}-replacementWith`}
@@ -101,6 +108,7 @@ export const TTSReplacementBlock = ({ replacement, onChange, onDelete, canAddSub
           update({
             replacement: {
               description: '',
+              isEnabled: true,
               id: crypto.randomUUID(), // get a random id,
               ordinal: 0,
               regex: '',

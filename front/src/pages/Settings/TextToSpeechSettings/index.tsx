@@ -4,10 +4,14 @@ import { ToggleInput } from '@/components/ToggleInput';
 import { useConfiguration } from '@/store/configuration';
 import { useTtsVoices } from '@/store/ttsVoices';
 import { SettingsTemplate } from '@/templates/SettingsTemplate';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { UserPronunciationBlock } from './UserPronounciationBlock';
+import { Icon } from '@iconify/react';
+import { useTTS } from '@/hooks/useTTS/useTTS';
+import { IconButton } from '@/components/IconButton';
 
 export const TextToSpeechSettings = () => {
+  const tts = useTTS();
   const ttsConfiguration = useConfiguration(c => c.ttsConfiguration);
   const updateConfig = useConfiguration(c => c.updateUserConfiguration);
 
@@ -32,6 +36,19 @@ export const TextToSpeechSettings = () => {
       speechSynthesis.removeEventListener('voiceschanged', onVoicesChange);
     };
   }, [setVoices]);
+
+  const onRoleplayTest = useCallback(() => {
+    tts.speak({
+      content: '*says hi*',
+      id: crypto.randomUUID(),
+      sentBy: 'emydev',
+      parts: [{
+        content: '*says hi*',
+        originalContent: '*says hi*',
+        type: 'text',
+      }]
+    });
+  }, [tts]);
 
   return (
     <SettingsTemplate>
@@ -68,7 +85,6 @@ export const TextToSpeechSettings = () => {
           ))}
         </Select>
       </S.VoiceSelectContainer>
-
 
       <div>
         <ToggleInput
@@ -108,8 +124,6 @@ export const TextToSpeechSettings = () => {
         Read commands ( messages starting with ! )
       </ToggleInput>
 
-      <h2>Extra</h2>
-
       <ToggleInput
         isChecked={ttsConfiguration.readUnderscoresAsSpaces}
         onChange={(value) => { updateConfig({ ttsConfiguration: {...ttsConfiguration, readUnderscoresAsSpaces: value } }); }}
@@ -117,7 +131,26 @@ export const TextToSpeechSettings = () => {
         Read underscores as spaces
       </ToggleInput>
 
-      <h2>Change how a chatter name is pronounce</h2>
+
+      <S.Block>
+        <ToggleInput 
+          isChecked={ttsConfiguration.allowRoleplay} 
+          onChange={(value) => { updateConfig({ ttsConfiguration: { ...ttsConfiguration, allowRoleplay: value }}); }}
+        >
+          Allow roleplay
+        </ToggleInput>
+        <p>Messages surrounded by asterisks will be read with the chatter name prepended</p>
+
+        <S.RolePlayExampleBlock>
+          <span>*says hi*</span>
+          <IconButton onClick={onRoleplayTest}>
+            <Icon icon="mingcute:announcement-line" />
+          </IconButton>
+        </S.RolePlayExampleBlock>
+      </S.Block>
+
+
+      <h2>Change how a chatter name is pronounced</h2>
       <UserPronunciationBlock />
 
     </SettingsTemplate>

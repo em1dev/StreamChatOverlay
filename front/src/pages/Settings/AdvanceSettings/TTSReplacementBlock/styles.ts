@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  background-color: #1A1A1A;
-  border: solid 1px #585858;
+  background-color: #FFEEEE;
+  border: solid 1px #B65770;
   padding: 1em;
   border-radius: 0.8em;
 
@@ -15,23 +15,41 @@ export const Container = styled.div`
     border-radius: 0.5em;
     padding: 0.8em;
     border: none;
-    background-color: #151515;
-    color: #B9B9B9;
+    background-color: #F1D1D9;
+    color: #5F5F5F;
   }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+
+    button {
+      padding: 0.4em;
+      background-color: transparent;
+      border: none;
+      color: inherit;
+      display: flex;
+      align-items: center;
+      justify-items: center;
+      border-radius: 100%;
+      &:hover {
+        background-color: #FFD9DF;
+      }
+    }
+  }
+
 `;
 
 export const AddSubReplacementBtn = styled.button`
-  padding: 1em;
-  display: flex;
-  border: none;
+  text-align: center;
+  padding: 0.5em;
   border-radius: 0.5em;
-  background-color: #818181;
-  font-family: inherit;
-  font-weight: 600;
-  color: #151515;
-  cursor: pointer;
+  border: solid #E2ABB3 1px;
+  background-color: #FFD9DF;
+  color: #681018;
+
   &:hover {
-    background-color: #a5a5a5;
+    background-color: #e4bdc3ff;
   }
 `;
 

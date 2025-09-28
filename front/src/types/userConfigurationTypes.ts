@@ -2,6 +2,7 @@ import { ThemeKeys } from '@/themes/chatThemes';
 
 export interface TTSReplacement {
   id: string,
+  isEnabled: boolean,
   ordinal: number,
   regex: string,
   regexFlags: string,
@@ -25,6 +26,7 @@ export interface TTSConfiguration {
   readBots: boolean,
   readCommands: boolean,
   readUnderscoresAsSpaces: boolean,
+  allowRoleplay: boolean
 }
 
 export interface UserConfiguration {
