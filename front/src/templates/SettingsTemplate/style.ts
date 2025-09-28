@@ -24,12 +24,22 @@ export const Container = styled.main`
         font-family: inherit;
         font-size: inherit;
         margin-top: 0;
+        color: #66364B;
       }
 
       h2 {
         font-size: inherit;
         font-weight: inherit;
         margin: 0.5em 0;
+        color: #66364B;
+      }
+
+      section {
+        margin-bottom: 1.5em;
+        p {
+          margin: 0;
+          color: #A16C6C;
+        }
       }
     }
   }

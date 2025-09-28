@@ -1,13 +1,16 @@
 import { TTSConfiguration, UserConfiguration } from '@/types/userConfigurationTypes';
 
 const ttsDefaultConfig: TTSConfiguration = {
+  isTTSEnabled: false,
+
   readBots: false,
   readCommands: false,
-  readEmotes: true,
   readUnderscoresAsSpaces: true,
   allowRoleplay: true,
-  isTTSEnabled: true,
+
+  readEmotes: true,
   emotesToRead: 1,
+
   ignoredUsers: [],
   selectedVoice: 'Microsoft Sabina - Spanish (Mexico)',
   userReplacement: [
@@ -24,10 +27,7 @@ const ttsDefaultConfig: TTSConfiguration = {
 
 export const defaultUserConfiguration: UserConfiguration = {
   chatTheme: 'duck',
-  ignoredUsers: [
-    { id: crypto.randomUUID(), value: 'nightbot' },
-    { id: crypto.randomUUID(), value: 'streamelements' },
-  ],
+  ignoredUsers: [],
   chatDirection: 'right',
   emotes: {
     isBetterTTVEnabled: true,

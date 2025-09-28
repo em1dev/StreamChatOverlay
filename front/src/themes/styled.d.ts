@@ -46,6 +46,8 @@ declare module 'styled-components' {
         secondary_text: string,
         select_bg: string,
         select_text: string
+        input_bg: string,
+        input_text: string
       }
     }
   }

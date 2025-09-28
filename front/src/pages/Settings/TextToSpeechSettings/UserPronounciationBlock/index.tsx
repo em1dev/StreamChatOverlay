@@ -4,6 +4,8 @@ import { useConfiguration } from '@/store/configuration';
 import { Icon } from '@iconify/react';
 import { useCallback, useMemo } from 'react';
 import { TTSReplacement } from '@/types/userConfigurationTypes';
+import { Input } from '@/components/Input';
+import { IconButton } from '@/components/IconButton';
 
 export const UserPronunciationBlock = () => {
   const updateConfig = useConfiguration(c => c.updateUserConfiguration);
@@ -85,26 +87,26 @@ export const UserPronunciationBlock = () => {
             .map(item => (
               <tr>
                 <td>
-                  <button title='remove row' type='button' onClick={() => removeReplacement(item)}>
+                  <IconButton title='remove row' onClick={() => removeReplacement(item)}>
                     <Icon icon="mingcute:close-fill" />
-                  </button>
+                  </IconButton>
                 </td>
                 <td>
-                  <input
+                  <Input
                     onChange={(e) => updateReplacement({ ...item, regex: e.target.value })}
                     value={item.regex}
                   />
                 </td>
                 <td>
-                  <input
+                  <Input
                     onChange={(e) => updateReplacement({ ...item, replaceWith: e.target.value })}
                     value={item.replaceWith} 
                   />
                 </td>
                 <td>
-                  <button title='speak name' type='button' onClick={() => speak(item.replaceWith)} >
+                  <IconButton title='speak name' onClick={() => speak(item.replaceWith)} >
                     <Icon icon="mingcute:announcement-line" />
-                  </button>
+                  </IconButton>
                 </td>
               </tr>
             ))

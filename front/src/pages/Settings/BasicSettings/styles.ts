@@ -14,6 +14,8 @@ export const ChatContainer = styled.div`
 `;
 
 export const DirectionContainer = styled.div`
+  display: flex;
+  align-items: center;
   button {
     cursor: pointer;
     font-size: 1.5em;
@@ -21,5 +23,7 @@ export const DirectionContainer = styled.div`
     background-color: transparent;
     border: none;
     color: inherit;
+    display: flex;
+    align-items: center;
   }
 `;

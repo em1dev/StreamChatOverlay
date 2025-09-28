@@ -15,8 +15,11 @@ export const mainTheme: DefaultTheme = {
       secondary_bg: '',
       secondary_text: '',
 
-      select_bg: '#E2ABB4',
-      select_text: '#681018'
+      select_bg: '#FFC9DD',
+      select_text: '#a3575e',
+
+      input_bg: '#FFC9DD',
+      input_text: '#a3575e'
     }
   }
 };
