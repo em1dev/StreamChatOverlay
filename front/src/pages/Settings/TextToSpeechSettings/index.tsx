@@ -163,7 +163,7 @@ export const TextToSpeechSettings = () => {
         >
           Don't read underscores
         </ToggleInput>
-        <p>Underscores will be subtituted by spaces improving the readability of names like 'potatoe_is_here'</p>
+        <p>Underscores will be subtituted by spaces improving the readability of names like 'emy_is_here'</p>
         <S.TTSExampleBlock>
           <span>emy_is_here</span>
           <IconButton onClick={() => speak('emy_is_here')}>
