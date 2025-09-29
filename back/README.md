@@ -4,11 +4,11 @@ Used to get emote, badges and channel information while also authenticating and 
 
 ## Environmental variables needed
 
-CLIENT_ID -> Twitch client id
-
-CLIENT_SECRET -> Twitch client secret
-
 SERVER_PORT -> Port for the server to run at
+
+APP_ID -> App name used within auth service
+
+AUTH_API_URL -> The auth server url
 
 ## Endpoints
 

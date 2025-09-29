@@ -5,18 +5,10 @@ import { ChatApiResponse, TwitchBadgeResponse } from '../../../types';
 export const getChannelBadgesHandler = async (channelId: string)
 : Promise<ChatApiResponse<TwitchBadgeResponse['data']>> => {
   const twitchTokenStore = TwitchTokenStore.getInstance();
-  const appToken = await twitchTokenStore.getToken();
+  const twitchCredentials = await twitchTokenStore.getCredentials();
 
-  let globalBadgesResp = await twitchApi.getGlobalBadges(appToken);
-  let channelBadges = await twitchApi.getChannelBadges(channelId, appToken);
-
-  if (globalBadgesResp.error?.status == 401 || channelBadges.error?.status == 401)
-  {
-    // app token has expired so refresh and try again
-    await twitchTokenStore.updateToken();
-    globalBadgesResp = await twitchApi.getGlobalBadges(appToken);
-    channelBadges = await twitchApi.getChannelBadges(channelId, appToken);
-  }
+  const globalBadgesResp = await twitchApi.getGlobalBadges(twitchCredentials);
+  const channelBadges = await twitchApi.getChannelBadges(channelId, twitchCredentials);
 
   if (globalBadgesResp.error || channelBadges.error) {
     console.error(`Error fetching badges for id ${channelId}, resp1: ${channelBadges.data}`);

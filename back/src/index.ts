@@ -1,6 +1,6 @@
+import 'dotenv/config';
 import cors from 'cors';
 import express from 'express';
-import 'dotenv/config';
 const PORT = parseInt(process.env['SERVER_PORT'] ?? '8080');
 
 export const api = express();
@@ -14,6 +14,7 @@ api.use((req, res, next) => {
 });
 
 import './routes/channel/routes';
+import './routes/authentication/routes';
 
 api.listen(PORT, 'localhost', () => {
   console.log(`Started server at http://localhost:${PORT}`);

@@ -22,14 +22,6 @@ export interface TwitchAuthResponse {
   token_type: 'bearer'
 }
 
-export interface ApiParams<T> {
-  url: string;
-  params?: Record<string, string | number>;
-  method?: 'GET' | 'POST' | 'DELETE' | 'PATCH' | 'PUT';
-  body?: T;
-  token?: string;
-  headers?: Record<string, string>,
-}
 
 export interface ChatEmote {
   id: string,
