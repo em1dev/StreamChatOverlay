@@ -85,7 +85,7 @@ export const UserPronunciationBlock = () => {
         {
           userReplacementOrdered
             .map(item => (
-              <tr>
+              <tr key={item.id}>
                 <td>
                   <IconButton title='remove row' onClick={() => removeReplacement(item)}>
                     <Icon icon="mingcute:close-fill" />
