@@ -1,4 +1,4 @@
-import { ApiResponse, ElPatoEmote } from '../../types';
+import { ApiResponse, ChatEmote } from '../../types';
 
 interface SevenTVEmoteResponse {
   id: string,
@@ -49,7 +49,7 @@ const get7TVEmotes = async (userId: string) => {
     url1x: 'http:' + e.data.host.url + '/' + e.data.host.files[0]?.name,
     url2x: 'http:' + e.data.host.url + '/' + e.data.host.files[1]?.name,
     url3x: 'http:' + e.data.host.url + '/' + e.data.host.files[2]?.name,
-  } satisfies ElPatoEmote));
+  } satisfies ChatEmote));
 };
 
 const fetchApi = async <T>(url:string):Promise<ApiResponse<T>> => {
