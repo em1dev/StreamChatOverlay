@@ -1,4 +1,4 @@
-import { ApiResponse, ElPatoEmote } from "../../types";
+import { ApiResponse, ElPatoEmote } from '../../types';
 
 interface SevenTVEmoteResponse {
   id: string,
@@ -36,7 +36,7 @@ interface SevenTVEmote {
 }
 
 const get7TVEmotes = async (userId: string) => {
-  const globalEmotes = (await fetchApi<SevenTVEmoteResponse>("https://7tv.io/v3/emote-sets/global"))?.data?.emotes ?? [];
+  const globalEmotes = (await fetchApi<SevenTVEmoteResponse>('https://7tv.io/v3/emote-sets/global'))?.data?.emotes ?? [];
   const userEmotes = (await fetchApi<SevenTVUserEmoteResponse>(`https://7tv.io/v3/users/twitch/${userId}`))?.data?.emote_set.emotes ?? [];
 
   const allEmotes = [...globalEmotes, ...userEmotes];
@@ -46,11 +46,11 @@ const get7TVEmotes = async (userId: string) => {
     type: '7TV',
     code: e.name,
     animated: e.data.animated,
-    url1x: "http:" + e.data.host.url + "/" + e.data.host.files[0]?.name,
-    url2x: "http:" + e.data.host.url + "/" + e.data.host.files[1]?.name,
-    url3x: "http:" + e.data.host.url + "/" + e.data.host.files[2]?.name,
-  } satisfies ElPatoEmote))
-}
+    url1x: 'http:' + e.data.host.url + '/' + e.data.host.files[0]?.name,
+    url2x: 'http:' + e.data.host.url + '/' + e.data.host.files[1]?.name,
+    url3x: 'http:' + e.data.host.url + '/' + e.data.host.files[2]?.name,
+  } satisfies ElPatoEmote));
+};
 
 const fetchApi = async <T>(url:string):Promise<ApiResponse<T>> => {
   const resp = await fetch(url, {
@@ -61,11 +61,11 @@ const fetchApi = async <T>(url:string):Promise<ApiResponse<T>> => {
   if (!resp.ok) {
     return {
       error: { status: resp.status, description: '7TV error' }
-    }
+    };
   }
 
   const data = await resp.json() as T;
   return { data };
-}
+};
 
-export { get7TVEmotes }
+export { get7TVEmotes };

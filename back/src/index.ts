@@ -36,7 +36,7 @@ patoApi.get('/:channelId/emotes', async (req, res) => {
     betterTTV: req.query['betterTTV'] === 'true',
     frankerFace: req.query['frankerFace'] === 'true',
     sevenTV: req.query['sevenTV'] === 'true',
-  }
+  };
 
   const resp = await apiHandler.getEmotes(req.params.channelId, emoteConfig);
   res.status(resp.status).send(resp.body);
@@ -44,5 +44,5 @@ patoApi.get('/:channelId/emotes', async (req, res) => {
 
 
 patoApi.listen(PORT, 'localhost', () => {
-  console.log(`Started server at http://localhost:${PORT}`)
+  console.log(`Started server at http://localhost:${PORT}`);
 });

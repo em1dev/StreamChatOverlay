@@ -1,8 +1,8 @@
-import { get7TVEmotes } from "../api/7tvApi";
-import { betterTTVApi } from "../api/betterTTVApi";
-import { getFrankerEmotes } from "../api/frankerfacezApi";
-import { twitchApi } from "../api/twitchApi";
-import { ElPatoApiResponse, ElPatoEmote, EmoteConfiguration, TwitchBadgeResponse, UserInformation } from "../types";
+import { get7TVEmotes } from '../api/7tvApi';
+import { betterTTVApi } from '../api/betterTTVApi';
+import { getFrankerEmotes } from '../api/frankerfacezApi';
+import { twitchApi } from '../api/twitchApi';
+import { ElPatoApiResponse, ElPatoEmote, EmoteConfiguration, TwitchBadgeResponse, UserInformation } from '../types';
 
 export class ApiHandler {
   private _appToken: string | null = null;
@@ -17,7 +17,7 @@ export class ApiHandler {
       this._appToken = resp.data.access_token;
       return resp.data.access_token;
     }
-    console.error(`Failed to authenticate`);
+    console.error('Failed to authenticate');
   };
 
   public onGetGlobalBadges = async ():Promise<ElPatoApiResponse<TwitchBadgeResponse['data']>> => {
@@ -28,7 +28,7 @@ export class ApiHandler {
     if (resp.data) return {
       status: 200,
       body: resp.data.data
-    }
+    };
 
     if (resp.error?.status === 403 || resp.error?.status === 401) {
       const newToken = await this.authenticateApp();
@@ -40,8 +40,8 @@ export class ApiHandler {
 
     return {
       status: resp.error?.status ?? 500,
-    }
-  }
+    };
+  };
 
   public onGetChannelBadge = async (channelId: string): Promise<ElPatoApiResponse<TwitchBadgeResponse['data']>> => {
     if (!this._appToken) return { status: 500 };
@@ -50,7 +50,7 @@ export class ApiHandler {
     if (resp.data) return {
       status: 200,
       body: resp.data.data
-    }
+    };
 
     if (resp.error?.status === 403 || resp.error?.status === 401) {
       const newToken = await this.authenticateApp();
@@ -62,8 +62,8 @@ export class ApiHandler {
 
     return {
       status: resp.error?.status ?? 500,
-    }
-  }
+    };
+  };
 
   public onGetUserInformation = async (userName: string): Promise<ElPatoApiResponse<UserInformation>> => {
     if (!this._appToken) return { status: 500 };
@@ -89,14 +89,14 @@ export class ApiHandler {
 
     return {
       status: resp.error?.status ?? 500,
-    }
-  }
+    };
+  };
 
   public getEmotes = async (channelId: string, emoteConfig: EmoteConfiguration): Promise<ElPatoApiResponse<Array<ElPatoEmote>>> => {
     let patoEmotes:Array<ElPatoEmote> = [];
 
     if (emoteConfig.betterTTV) {
-        patoEmotes = patoEmotes.concat(await getBetterTTVEmotes(channelId));
+      patoEmotes = patoEmotes.concat(await getBetterTTVEmotes(channelId));
     }
 
     if (emoteConfig.sevenTV) {
@@ -108,7 +108,7 @@ export class ApiHandler {
     }
 
     return { status: 200, body: patoEmotes };
-  }
+  };
 }
 
 const getBetterTTVEmotes = async (channelId: string) => {
@@ -149,7 +149,7 @@ const getBetterTTVEmotes = async (channelId: string) => {
       })));
     }
     return patoEmotes;
-  } catch (e) {
-    return []
+  } catch {
+    return [];
   }
-}
+};

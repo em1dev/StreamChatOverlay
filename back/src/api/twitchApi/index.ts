@@ -1,4 +1,4 @@
-import { ApiParams, ApiResponse, TwitchAuthResponse, TwitchBadgeResponse, UserInformationResponse } from "../../types";
+import { ApiParams, ApiResponse, TwitchAuthResponse, TwitchBadgeResponse, UserInformationResponse } from '../../types';
 import 'dotenv/config';
 
 const TWITCH_AUTH_URL = 'https://id.twitch.tv/oauth2/token';
@@ -40,7 +40,7 @@ const getGlobalBadges = async (appToken: string) => {
     url,
     token: appToken
   }); 
-}
+};
 
 const getUserInformation = async (channelName: string, appToken: string) => {
   const url = HELIX_BASE_URL + 'users';
@@ -76,10 +76,10 @@ const callApi = async <R, T = unknown>({
       return {
         error: {
           status: resp.status,
-          description: data as any
+          description: data as unknown
         }
+      };
     }
-  }
 
     return { data };
   } catch (err) {
@@ -89,14 +89,14 @@ const callApi = async <R, T = unknown>({
         status: 500,
         description: 'Internal error'
       }
-    }
+    };
   }
-}
+};
 
 const createAuthHeaders = (token: string, type: 'Bearer' | 'OAuth' = 'Bearer', additionalHeaders: Record<string, string> = {}) => (
   new Headers({
     'Client-Id': CLIENT_ID,
-    'Authorization': `Bearer ${token}`,
+    'Authorization': `${type} ${token}`,
     'Content-Type': 'application/json',
     ...additionalHeaders
   })
