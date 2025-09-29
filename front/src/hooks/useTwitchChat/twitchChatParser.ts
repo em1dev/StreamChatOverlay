@@ -1,4 +1,4 @@
-import { CustomEmote } from '../../api/elpatoApi/types';
+import { CustomEmote } from '../../api/chatApi/types';
 import { SpecialMsgId, TwitchAnimationId, TwitchMsgTags, TwurpleChatMessage } from './types';
 import { ChatMessageData, MessagePart } from '../../types';
 

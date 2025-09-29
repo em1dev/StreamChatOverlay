@@ -1,5 +1,5 @@
 import Chat from '..';
-import { UserInformation } from '../../../api/elpatoApi/types';
+import { UserInformation } from '../../../api/chatApi/types';
 import { useTwitchChat } from '../../../hooks/useTwitchChat/useTwitchChat';
 
 export interface ChatWithTwitchProps {

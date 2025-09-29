@@ -4,7 +4,7 @@ import { ChatMessageData } from '../../types';
 import { TwurpleChatMessage } from './types';
 import { usePronouns } from '../usePronouns';
 import { useBadges } from '../useBadges';
-import { UserInformation } from '../../api/elpatoApi/types';
+import { UserInformation } from '../../api/chatApi/types';
 import { TwitchChatParser } from './twitchChatParser';
 import { useCustomEmotes } from '../useCustomEmotes';
 import { useTTS } from '../useTTS/useTTS';

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { CustomEmote } from '../api/elpatoApi/types';
-import { elPatoApi } from '../api/elpatoApi';
+import { CustomEmote } from '../api/chatApi/types';
+import { elPatoApi } from '../api/chatApi';
 import { useConfiguration } from '../store/configuration';
 
 const escapeRegex = (text: string) => (

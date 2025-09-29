@@ -7,6 +7,8 @@ import { ThemeProvider, useTheme } from 'styled-components';
 import { DefaultTheme } from 'styled-components/dist/types';
 
 import * as S from './styles';
+import { useAuth } from '@/authContext/useAuth';
+import { useNavigate } from 'react-router';
 
 const chatThemes = [
   theme2,
@@ -18,6 +20,8 @@ const chatThemes = [
 
 export const Landing = () =>
 {
+  const navigate = useNavigate();
+  const { session, signIn } = useAuth();
   const [selectedThemeIndex, setSelectedThemeIndex] = useState(0);
   const theme = useTheme();
 
@@ -70,7 +74,15 @@ export const Landing = () =>
             </Select>
           </S.ColumnContainer>
 
-          <button>Log in to get started</button>
+          { !session ? (
+            <button onClick={signIn}>
+              Log in to get started
+            </button>
+          ): (
+            <button onClick={() => { navigate('settings'); }}>
+              Go to settings
+            </button>
+          )}
         </div>
 
         <S.ChatContainer aria-hidden>

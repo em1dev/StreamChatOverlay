@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Badge } from '../api/elpatoApi/types';
-import { elPatoApi } from '../api/elpatoApi';
+import { Badge } from '../api/chatApi/types';
+import { elPatoApi } from '../api/chatApi';
 import { ChatMessageData } from '../types';
 
 export const useBadges = (channelId?: string | null) => {

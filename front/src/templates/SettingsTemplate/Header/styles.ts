@@ -8,6 +8,12 @@ export const Header = styled.header`
   justify-content: space-between;
   margin: auto;
 
+  button {
+    border: none;
+    background-color: transparent;
+    color: inherit;
+  }
+
   a {
     text-decoration: none;
     color: inherit;
@@ -21,5 +27,14 @@ export const Header = styled.header`
     text-decoration: none;
     font-weight: bold;
   }
+`;
 
+export const ProfileDetailsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+  img {
+    border-radius: 100%;
+    border: solid 2px ${({ theme }) => theme.page.colors.text };
+  }
 `;

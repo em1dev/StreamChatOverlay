@@ -22,6 +22,7 @@
     "@twurple/auth": "^7.4.0",
     "@twurple/chat": "^7.4.0",
     "@uidotdev/usehooks": "^2.4.1",
+    "jose": "^6.1.0",
     "motion": "^12.23.22",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",

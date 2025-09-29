@@ -1,4 +1,4 @@
-import { CustomEmote } from '../api/elpatoApi/types';
+import { CustomEmote } from '../api/chatApi/types';
 
 export type MessagePart = {
   type: 'text' | 'emote' | 'mention' | 'reply' | 'redeption',
