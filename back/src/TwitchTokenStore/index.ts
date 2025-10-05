@@ -19,25 +19,6 @@ export class TwitchTokenStore {
     return this._instance;
   };
 
-  public updateAppToken = async () => {
-    if (this._twitchCredentials == null)
-    {
-      return this.getCredentials();
-    }
-
-    const resp = await twitchApi.getAppToken(
-      this._twitchCredentials.clientId,
-      this._twitchCredentials.clientSecret
-    );
-
-    if (resp.data) {
-      this._twitchCredentials.appToken = resp.data.access_token;
-      return resp.data.access_token;
-    }
-
-    throw new Error(`Failed twitch authentication. Reason ${resp.error}`);
-  };
-
   public getCredentials = async () => {
     if (!this._twitchCredentials) {
       const result = await AuthApi.getAppCredentials();
