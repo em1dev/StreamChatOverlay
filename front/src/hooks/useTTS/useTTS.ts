@@ -40,8 +40,11 @@ export const useTTS = () => {
     const voices = speechSynthesis.getVoices();
     const foundVoice = voices.find(v => (v.voiceURI === configuration.selectedVoice));
     utterance.voice = foundVoice ?? null;
-    speechSynthesis.speak(utterance);
     utterance.addEventListener('end', onEnd);
+    // clear queue on error anyway to try again on next message
+    //   it usually errors if the user has not interacted with the page
+    utterance.addEventListener('error', onEnd);
+    speechSynthesis.speak(utterance);
   }, [configuration]);
 
   useEffect(() => {

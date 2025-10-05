@@ -103,8 +103,11 @@ export const useTwitchChat = (channelId: string, channelLogin: string) => {
       const pronoun = await getPronounsFromTwitchName(user);
       const msgParts = TwitchChatParser.parseMessage(msg.text, msg.emoteOffsets, customEmotes, msg);
 
-      const effect = TwitchChatParser.parseMessageEffect(msg);
+      const isBot = msg.userInfo.badges.get('bot-badge') == '1';
+      const isCommand = text.trim().startsWith('!');
 
+      const badges = configuration.userConfiguration.showChatterBadges ? parseBadges(msg.userInfo.badges) : [];
+      const effect = TwitchChatParser.parseMessageEffect(msg);
       const newMessage: ChatMessageData = {
         id: msg.id,
         effect,
@@ -113,11 +116,17 @@ export const useTwitchChat = (channelId: string, channelLogin: string) => {
         displayPronoun: pronoun,
         color: msg.userInfo.color,
         emoteOffsets: msg.emoteOffsets,
-        badges: parseBadges(msg.userInfo.badges),
+        badges: badges,
         contentParts: msgParts
       };
 
-      if (configuration.userConfiguration.ttsConfiguration.isTTSEnabled) {
+      const shouldIgnoreBotTTS = configuration.userConfiguration.ttsConfiguration.ignoreBotMessages && isBot;
+      const shouldIgnoreCommandTTS = configuration.userConfiguration.ttsConfiguration.ignoreCommandMessages && isCommand;
+      if (
+        configuration.userConfiguration.ttsConfiguration.isTTSEnabled &&
+        !shouldIgnoreBotTTS &&
+        !shouldIgnoreCommandTTS
+      ) {
         ttsSpeak({
           parts: msgParts,
           content: newMessage.content,
@@ -126,9 +135,14 @@ export const useTwitchChat = (channelId: string, channelLogin: string) => {
         });
       }
 
-      setChatMessages((msgs) => (
-        [newMessage, ...msgs].slice(0, MAX_MESSAGES)
-      ));
+      const shouldIgnoreBotMsgDisplay = configuration.userConfiguration.hideBotMessages && isBot;
+      const shouldIgnoreCommandMsgDisplay = configuration.userConfiguration.hideCommands && isCommand;
+
+      if (!shouldIgnoreBotMsgDisplay && !shouldIgnoreCommandMsgDisplay){
+        setChatMessages((msgs) => (
+          [newMessage, ...msgs].slice(0, MAX_MESSAGES)
+        ));
+      }
     };
   }, [getPronounsFromTwitchName, parseBadges, customEmotes, ttsSpeak, configuration]);
 

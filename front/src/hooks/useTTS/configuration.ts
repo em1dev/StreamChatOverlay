@@ -2,7 +2,6 @@ import { TTSConfiguration, TTSReplacement } from '@/types/userConfigurationTypes
 import { TTSMessage } from '../../types';
 
 
-const ignoreCommands = { id: crypto.randomUUID(), isEnabled: true, ordinal: 0, regex: '^!.*', replaceFullMessage: true, replaceWith: '', regexFlags: '', description: 'Don\'t read messages starting with !'  };
 const ignoreUnderscores =  { id: crypto.randomUUID(), isEnabled: true, ordinal: 5, regex: '_', regexFlags: 'g', replaceWith: ' ', description: 'Read undescores as spaces' };
 const linkReplacement = { id: crypto.randomUUID(), isEnabled: true, ordinal: 8, regex: '[0-9a-zA-z]\\.[a-zA-Z][a-zA-Z]', replaceFullMessage: true, replaceWith: '$who a enviado un link.',  regexFlags: '', description: 'Replace links' };
 const roleplay = { id: crypto.randomUUID(), isEnabled: true, ordinal: 9, regex: '^\\*.+\\*$', replaceWith: '$who $msg', replaceFullMessage: true, description: 'Allows roleplay by sending messages surrounded by asterisks', regexFlags: '',
@@ -13,10 +12,6 @@ const roleplay = { id: crypto.randomUUID(), isEnabled: true, ordinal: 9, regex: 
 
 const buildInternalReplacementRules = (configuration: TTSConfiguration) => {
   const replacementRules: Array<TTSReplacement> = [];
-
-  if (configuration.ignoreCommandMessages) {
-    replacementRules.push(ignoreCommands);
-  }
 
   if (configuration.readUnderscoresAsSpaces)
   {
@@ -94,7 +89,7 @@ const applyReplacements = (msg: string, replacement: TTSReplacement, sentBy?: st
     if (!exp.test(messageToRead)) return messageToRead;
     messageToRead = applyTokenReplacements(replacement.replaceWith, messageToRead, sentBy);
     if (replacement.replacement) {
-      // do recurvie
+      // do recursive
       return applyReplacements(messageToRead, replacement.replacement, sentBy);
     }
     return messageToRead;
