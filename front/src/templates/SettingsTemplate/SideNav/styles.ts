@@ -16,16 +16,14 @@ export const NavContainer = styled.nav`
     text-decoration: none;
     border-radius: 3em;
     padding: 0.8em 2em;
-    color: #B65770;
+    color: inherit;
 
     &.active {
-      color: #582D38;
-      background-color: #FFC9DD;
+      background-color: #fde7ef;
     }
 
     &:hover:not(.active) {
       background-color: #ffe0eb;
     }
   }
-
 `;

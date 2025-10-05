@@ -57,15 +57,22 @@ export const Landing = () =>
             </Select>
           </S.ColumnContainer>
 
-          { !session ? (
-            <button onClick={signIn}>
-              Log in to get started
-            </button>
-          ): (
-            <button onClick={() => { navigate('settings'); }}>
-              Go to settings
-            </button>
-          )}
+          <S.CTAContainer>
+
+            { !session ? (
+              <button onClick={signIn}>
+                Log in
+              </button>
+            ): (
+              <button onClick={() => { navigate('settings'); }}>
+                Go to settings
+              </button>
+            )}
+
+            <a target='_blank' href='https://ko-fi.com/emydev'>
+              Support me :3
+            </a>
+          </S.CTAContainer>
         </div>
 
         <S.ChatContainer aria-hidden>

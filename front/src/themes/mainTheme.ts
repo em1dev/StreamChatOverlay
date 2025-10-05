@@ -9,17 +9,27 @@ export const mainTheme: DefaultTheme = {
       text: '#B65770',
       bg: '#FBF5EB',
 
-      primary_bg: '#FF94B8',
-      primary_text: '#681018',
+      primary_bg: '#ffc9dd',
+      primary_bg_hover: '#ffa5c6',
+      primary_text: '#51273d',
 
-      secondary_bg: '',
-      secondary_text: '',
+      secondary_bg: '#ffe7f4',
+      secondary_bg_hover: '#fff6fb',
+      secondary_text: '#993a3a',
+      secondary_border: 'solid 1px #f5c3ed',
 
-      select_bg: '#FFC9DD',
-      select_text: '#a3575e',
+      select_bg: '#ffc9dd',
+      select_text: '#51273d',
 
-      input_bg: '#FFC9DD',
-      input_text: '#a3575e'
+      input_bg: '#ffc9dd',
+      input_text: '#51273d',
+
+      warning_bg: '#fdffd5',
+      warning_text: '#514d44',
+
+      danger_bg: '#ff898b',
+      danger_text: '#572e2e',
+      danger_bg_hover: '#ff6b79'
     }
   }
 };

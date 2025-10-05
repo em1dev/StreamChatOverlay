@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 
 export const WarningContainer = styled.div`
-  background-color: #FCFFB1;
   padding: 1em;
-  border-radius: 0.5em;
+  border-radius: 1em;
 
   display: flex;
   flex-direction: row;
@@ -11,7 +10,8 @@ export const WarningContainer = styled.div`
   gap: 1em;
   margin: 1em 0;
 
-  color: #AC7B53;
+  color: ${({ theme }) => theme.page.colors.warning_text };
+  background-color: ${({ theme }) => theme.page.colors.warning_bg };
 
   svg {
     font-size: 1.8em;
@@ -26,8 +26,14 @@ export const WarningContainer = styled.div`
     border: none;
     border-radius: 1em;
     padding: 0.8em 1em;
-    color: #70000A;
-    background-color: #FF8284;
+
+    color: ${({ theme }) => theme.page.colors.danger_text };
+    background-color: ${({ theme }) => theme.page.colors.danger_bg };
+    &:hover:not(:disabled)
+    {
+      background-color: ${({ theme }) => theme.page.colors.danger_bg_hover };
+    }
+
     &:disabled {
       cursor: not-allowed;
       opacity: 0.5;
@@ -40,9 +46,14 @@ export const ClickToCopyBtn = styled.button`
   display: block;
   padding: 1em;
   border-radius: 2em;
-  color: #681018;
-  background-color: #FFD9DF;
-  border: 0.1em solid #E2ABB3;
+  border: none;
+
+  color: ${({ theme }) => theme.page.colors.primary_text };
+  background-color: ${({ theme }) => theme.page.colors.primary_bg };
+  &:hover:not(:disabled)
+  {
+    background-color: ${({ theme }) => theme.page.colors.primary_bg_hover };
+  }
 
   &:disabled {
     opacity: 0.5;

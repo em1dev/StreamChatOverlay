@@ -35,19 +35,30 @@ export const Main = styled.main`
     margin: auto;
     display: flex;
     gap: 5em;
+    padding: 1em;
     padding-bottom: 5em;
+    max-width: 100%;
 
     > div {
       display: flex;
       flex-direction: column;
       gap: 1em;
+    }
 
+    @media screen and (max-width: 1200px) {
+      flex-direction: column;
     }
   }
+`;
 
-  button {
-    color: ${({ theme }) => theme.page.colors.primary_text };
-    background-color: ${({ theme }) => theme.page.colors.primary_bg };
+export const CTAContainer = styled.div`
+  display: flex;
+  gap: 0.5em;
+  margin-top: 1em;
+
+  button, a {
+    text-align: center;
+    text-decoration: none;
     border: none;
     border-radius: 5em;
     padding: 1em;
@@ -55,10 +66,27 @@ export const Main = styled.main`
     display: block;
     font-size: inherit;
     font-family: inherit;
-    margin-top: 1em;
     cursor: pointer;
   }
 
+  button {
+    color: ${({ theme }) => theme.page.colors.primary_text };
+    background-color: ${({ theme }) => theme.page.colors.primary_bg };
+    &:hover
+    {
+      background-color: ${({ theme }) => theme.page.colors.primary_bg_hover };
+    }
+  }
+
+  a {
+    color: ${({ theme }) => theme.page.colors.secondary_text };
+    background-color: ${({ theme }) => theme.page.colors.secondary_bg };
+    border: ${({ theme }) => theme.page.colors.secondary_border };
+    &:hover
+    {
+      background-color: ${({ theme }) => theme.page.colors.secondary_bg_hover };
+    }
+  }
 `;
 
 export const ColumnContainer = styled.div`
