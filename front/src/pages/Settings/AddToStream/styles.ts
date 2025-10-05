@@ -28,6 +28,10 @@ export const WarningContainer = styled.div`
     padding: 0.8em 1em;
     color: #70000A;
     background-color: #FF8284;
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
   }
 `;
 
@@ -39,6 +43,11 @@ export const ClickToCopyBtn = styled.button`
   color: #681018;
   background-color: #FFD9DF;
   border: 0.1em solid #E2ABB3;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 `;
 
 export const StepContainer = styled.div`
