@@ -6,7 +6,7 @@ import { useTtsVoices } from '../../store/ttsVoices';
 
 
 export const useTTS = () => {
-  const configuration = useConfiguration(state => state.ttsConfiguration);
+  const configuration = useConfiguration(state => state.userConfiguration.ttsConfiguration);
   const [messagesToRead, setMessagesToRead] = useState<Array<TTSMessage>>([]);
   const [currentMessageId, setCurrentMessageId] = useState<string | null>(null);
   const { setVoices, voices } = useTtsVoices(state => state);

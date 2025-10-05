@@ -8,7 +8,7 @@ export interface ChatMsgProps extends ChatMessageData {
 }
 
 const ChatMsg = (props: ChatMsgProps) => {
-  const chatDirection = useConfiguration(state => state.chatDirection);
+  const chatDirection = useConfiguration(state => state.userConfiguration.chatDirection);
 
   return (
     <S.Message $direction={chatDirection}>

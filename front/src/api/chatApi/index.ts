@@ -37,7 +37,7 @@ const authenticateWithCode = async (code: string) => {
 
 const verifyToken = async (token: string) => {
   const resp = await fetchApi(`${BASE_URL}/token/verify`, 'POST', token);
-  return resp.hasError == true;
+  return resp.hasError != true;
 };
 
 const getAuthLoginUrl = async () => {
@@ -48,16 +48,49 @@ const getAuthLoginUrl = async () => {
   }
 };
 
-const fetchApi = async <T>(url:string, method: string, token?: string):Promise<ApiResponse<T>> => {
+const getUserSettings = (token: string) => {
+  const resp = fetchApi<{
+    id: number,
+    userId: string,
+    settingsJson: string,
+    secretKey: string
+  }>(`${BASE_URL}/settings`, 'GET', token);
+  return resp;
+};
+
+const updateUserSettings = async (settings: string, token:string) => {
+  const body = {
+    settingsJsonString: settings
+  };
+  return await fetchApi(`${BASE_URL}/settings`, 'POST', token, JSON.stringify(body));
+};
+
+const revokeSecret = async (token: string) => {
+  return await fetchApi<{ secret: string }>(`${BASE_URL}/settings/secret`, 'DELETE', token);
+};
+
+const getConnectionDetailsFromSecret = async (userId: number, secret: string) =>
+{
+  const body = JSON.stringify({ userId, secret });
+  return await fetchApi<{
+    accessToken: string,
+    clientId: string,
+    twitchUserId: string,
+    twitchUsername: string,
+    settingsJsonString: string
+  }>(`${BASE_URL}/secret`, 'POST', undefined, body);
+};
+
+const fetchApi = async <T>(url:string, method: string, token?: string, body?: string):Promise<ApiResponse<T>> => {
   const headers = new Headers({
     'content-type': 'application/json',
   }) ;
 
   if (token) {
-    headers.append('Authorization', token);
+    headers.append('Authorization', `Bearer ${token}`);
   }
 
-  const resp = await fetch(url, { headers, method });
+  const resp = await fetch(url, { headers, method, body });
   if (!resp.ok) {
     return {
       status: resp.status,
@@ -65,8 +98,17 @@ const fetchApi = async <T>(url:string, method: string, token?: string):Promise<A
     };
   }
 
-  const data = await resp.json() as T;
-  return { data, status: resp.status };
+  try {
+    return {
+      data: await resp.json(),
+      status: resp.status
+    };
+  } catch {
+    return {
+      data: null as T,
+      status: resp.status
+    };
+  }
 };
 
 export const chatApi = {
@@ -74,5 +116,9 @@ export const chatApi = {
   getEmotes,
   authenticateWithCode,
   verifyToken,
-  getAuthLoginUrl
+  getAuthLoginUrl,
+  getUserSettings,
+  updateUserSettings,
+  revokeSecret,
+  getConnectionDetailsFromSecret
 };

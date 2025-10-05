@@ -1,23 +1,53 @@
 import { create, useStore } from 'zustand';
-import { defaultUserConfiguration } from './defaultConfiguration';
 import { UserConfiguration } from '@/types/userConfigurationTypes';
+import { defaultUserConfiguration } from './defaultConfiguration';
 
 
-interface UserConfigurationStore extends UserConfiguration {
+interface UserConfigurationStore {
+  hasLoaded: boolean,
+  secretKey: string | null,
+  userConfiguration: UserConfiguration,
   updateUserConfiguration: (values: Partial<UserConfiguration>) => void,
+  setSecret: (value: string | null) => void,
+  setInitialState: (userConfiguration: UserConfiguration, secret: string) => void,
+  resetState: () => void,
 }
 
 export const userConfigurationStore = create<UserConfigurationStore>()((set, get) => {
-  const config = defaultUserConfiguration;
-
   return {
-    ...config,
-    updateUserConfiguration: (values) => {
-      const prev = get();
-      const newConfig = { ...prev, ...values};
+    hasLoaded: false,
+    secretKey: null,
+    userConfiguration: defaultUserConfiguration,
 
-      set(() => ({ ...newConfig }));
+    setSecret: (value) => {
+      set(() => ({ secretKey: value }));
     },
+    updateUserConfiguration: (values) => {
+      if (!get().hasLoaded) return;
+      const prev = get().userConfiguration!;
+      const newConfig: UserConfiguration = { ...prev, ...values};
+
+      set(() => ({
+        userConfiguration: newConfig
+      }));
+
+      // call api to update
+      console.log('updated config');
+    },
+    setInitialState: (userConfiguration, secret) => {
+      set({
+        secretKey: secret,
+        userConfiguration: userConfiguration,
+        hasLoaded: true
+      });
+    },
+    resetState: () => {
+      set({
+        secretKey: null,
+        userConfiguration: defaultUserConfiguration,
+        hasLoaded: false
+      });
+    }
   };
 });
 

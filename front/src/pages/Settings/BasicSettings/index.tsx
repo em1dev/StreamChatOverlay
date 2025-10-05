@@ -3,36 +3,29 @@ import Chat from '@/components/ChatVisualizerCore';
 import { Select } from '@/components/Select';
 import { ToggleInput } from '@/components/ToggleInput';
 import { landingExamplesMessages } from '@/examples/landingExamplesMessages';
+import { useChatTheme } from '@/hooks/useChatTheme';
 import { useConfiguration } from '@/store/configuration';
-import { SettingsTemplate } from '@/templates/SettingsTemplate';
-import { themeKeyMap, ThemeKeys } from '@/themes/chatThemes';
+import { ThemeKeys } from '@/themes/chatThemes';
 import { Icon } from '@iconify/react';
-import { useMemo } from 'react';
-import { ThemeProvider, useTheme } from 'styled-components';
-import { DefaultTheme } from 'styled-components/dist/types';
+import { ThemeProvider } from 'styled-components';
 
 export const BasicSettings = () => {
-  const themeKey = useConfiguration(s => s.chatTheme);
-  const chatDirection = useConfiguration(s => s.chatDirection);
+  const configuration = useConfiguration(state => state.userConfiguration);
+  const updateConfig = useConfiguration(state => state.updateUserConfiguration);
 
-  const emoteConfiguration = useConfiguration(s => s.emotes);
+  const themeKey = configuration?.chatTheme;
+  const chatTheme = useChatTheme(configuration?.chatTheme);
 
-  const showChatterBadges = useConfiguration(s => s.showChatterBadges);
-  const hideBotMessages = useConfiguration(s => s.hideBotMessages);
-  const hideCommands = useConfiguration(s => s.hideCommands);
+  if (configuration == null) return null;
 
-  const updateConfig = useConfiguration(s => s.updateUserConfiguration);
-
-  const theme = useTheme();
-  const chatTheme: DefaultTheme = useMemo(() => (
-    {
-      ...theme,
-      chat: themeKeyMap[themeKey]
-    }
-  ), [themeKey, theme]);
+  const chatDirection = configuration.chatDirection;
+  const emoteConfiguration = configuration.emotes;
+  const showChatterBadges = configuration.showChatterBadges;
+  const hideBotMessages = configuration.hideBotMessages;
+  const hideCommands = configuration.hideCommands;
 
   return (
-    <SettingsTemplate>
+    <>
       <h1>Basic Settings</h1>
 
       <S.ChatContainer>
@@ -148,6 +141,6 @@ export const BasicSettings = () => {
           Show chatter badges
         </ToggleInput>
       </section>
-    </SettingsTemplate>
+    </>
   );
 };

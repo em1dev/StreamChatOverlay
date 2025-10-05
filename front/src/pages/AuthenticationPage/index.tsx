@@ -1,5 +1,5 @@
 import { chatApi } from '@/api/chatApi';
-import { useAuth } from '@/authContext/useAuth';
+import { useAuth } from '@/context/authContext/useAuth';
 import { Icon } from '@iconify/react';
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router';

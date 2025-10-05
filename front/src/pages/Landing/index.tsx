@@ -1,38 +1,21 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import Chat from '@/components/ChatVisualizerCore';
 import { Select } from '@/components/Select';
 import { landingExamplesMessages } from '@/examples/landingExamplesMessages';
-import { theme1, theme2, theme3, floating, pinkTheme } from '@/themes/chatThemes';
-import { ThemeProvider, useTheme } from 'styled-components';
-import { DefaultTheme } from 'styled-components/dist/types';
+import { ThemeKeys } from '@/themes/chatThemes';
+import { ThemeProvider } from 'styled-components';
+import { useAuth } from '@/context/authContext/useAuth';
+import { useNavigate } from 'react-router';
+import { useChatTheme } from '@/hooks/useChatTheme';
 
 import * as S from './styles';
-import { useAuth } from '@/authContext/useAuth';
-import { useNavigate } from 'react-router';
-
-const chatThemes = [
-  theme2,
-  theme1,
-  pinkTheme,
-  floating,
-  theme3,
-];
 
 export const Landing = () =>
 {
   const navigate = useNavigate();
   const { session, signIn } = useAuth();
-  const [selectedThemeIndex, setSelectedThemeIndex] = useState(0);
-  const theme = useTheme();
-
-  const chatTheme: DefaultTheme = useMemo(() => {
-    return {
-      ...theme,
-      chat: {
-        ...chatThemes[selectedThemeIndex],
-      }
-    };
-  }, [theme, selectedThemeIndex]);
+  const [themeKey, setThemeKey] = useState<ThemeKeys>('duck');
+  const chatTheme = useChatTheme(themeKey);
 
   return (
     <S.Main>
@@ -61,16 +44,12 @@ export const Landing = () =>
               Theme preview
             </label>
 
-            <Select
-              id="theme-selector-landing"
-              value={selectedThemeIndex} 
-              onChange={(e) => setSelectedThemeIndex(parseInt(e.target.value))}
-            >
-              <option value={0}>Duck</option>
-              <option value={1}>Coffee</option>
-              <option value={2}>Pink</option>
-              <option value={3}>Floating</option>
-              <option value={4}>High Contrast</option>
+            <Select id='theme-selector-landing' value={themeKey} onChange={(e) => {setThemeKey( e.target.value as ThemeKeys);}} >
+              <option value={'duck' satisfies ThemeKeys}>Duck</option>
+              <option value={'coffee' satisfies ThemeKeys}>Coffee</option>
+              <option value={'pink' satisfies ThemeKeys}>Pink</option>
+              <option value={'floating' satisfies ThemeKeys}>Floating</option>
+              <option value={'contrast' satisfies ThemeKeys}>Contrast</option>
             </Select>
           </S.ColumnContainer>
 

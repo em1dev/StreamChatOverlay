@@ -1,15 +1,44 @@
 import { Icon } from '@iconify/react';
 import * as S from './styles';
-import { SettingsTemplate } from '@/templates/SettingsTemplate';
+import { useConfiguration } from '@/store/configuration';
+import { useCallback } from 'react';
+import { useAuth } from '@/context/authContext/useAuth';
+import { chatApi } from '@/api/chatApi';
 
 export const AddToStream = () => 
 {
+  const { session, logOut } = useAuth();
+  const secretKey = useConfiguration(s => s.secretKey);
+  const setSecret = useConfiguration(s => s.setSecret);
+
+  const onResetSecretKey = useCallback(() => {
+    (async () => {
+      if (!session) return;
+      const resp = await chatApi.revokeSecret(session.token);
+      if (resp.status == 403) {
+        logOut();
+        return;
+      }
+
+      if (!resp.hasError && resp.data) {
+        setSecret(resp.data.secret);
+      }
+    })();
+  }, [session, logOut, setSecret]);
+
+  const onCopySecretUrlClick = useCallback(() => {
+    if (!session) return;
+    if (!secretKey) return;
+
+    const url = `${location.origin}/o/${session.user.id}/?s=${secretKey}`;
+    navigator.clipboard.writeText(url);
+  }, [session, secretKey]);
 
   return (
-    <SettingsTemplate>
+    <>
       <h1>Add chat overlay to stream</h1>
 
-      <S.ClickToCopyBtn type='button'>
+      <S.ClickToCopyBtn onClick={onCopySecretUrlClick} type='button'>
         Click to copy the magic link
       </S.ClickToCopyBtn>
 
@@ -21,7 +50,7 @@ export const AddToStream = () =>
           <p>The magic link contains your credential information</p>
           <p>This link should not be shared with anyone or exposed to your stream</p>
           <p>In the case of leaking the magic link. Generate a new magic link to destroy the old one.</p>
-          <button>Generate new magic link</button>
+          <button type='button' onClick={onResetSecretKey}>Generate new magic link</button>
         </div>
       </S.WarningContainer>
 
@@ -50,7 +79,7 @@ export const AddToStream = () =>
         <p>Remember to refresh your browser source after changing any settings</p>
       </S.StepContainer>
 
-    </SettingsTemplate>
+    </>
   );
 
 };

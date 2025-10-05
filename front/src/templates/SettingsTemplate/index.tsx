@@ -1,15 +1,12 @@
 import * as S from './style';
 import { Header } from '@/templates/SettingsTemplate/Header';
 import { SideNav } from './SideNav';
-import { useAuth } from '@/authContext/useAuth';
-import { useNavigate } from 'react-router';
+import { useAuth } from '@/context/authContext/useAuth';
+import { Outlet, useNavigate } from 'react-router';
 import { useEffect } from 'react';
 
-export interface SettingsTemplateProps {
-  children: React.ReactNode
-}
 
-export const SettingsTemplate = ({ children }: SettingsTemplateProps) => {
+export const SettingsTemplate = () => {
   const { session, isLoading } = useAuth();
   const navigate = useNavigate();
 
@@ -25,7 +22,7 @@ export const SettingsTemplate = ({ children }: SettingsTemplateProps) => {
       <div>
         <SideNav />
         <div>
-          {children}
+          <Outlet />
         </div>
       </div>
     </S.Container>

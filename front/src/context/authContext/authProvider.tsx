@@ -6,7 +6,7 @@ import { chatApi } from '@/api/chatApi';
 
 const LOCAL_STORAGE_AUTH_KEY = 'CHAT_SESSION';
 
-export const AuthProvider = ({ children }: { children: React.ReactNode}) => {
+export const AuthProvider = ({children}: { children: React.ReactNode }) => {
   const [authUrl, setAuthUrl] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [session, setSession] = useState<Session | null>(null);
@@ -38,6 +38,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode}) => {
   };
 
   useEffect(() => {
+    if (session) return;
+
     const loadToken = async () => {
       setIsLoading(true);
       const token = localStorage.getItem(LOCAL_STORAGE_AUTH_KEY);
@@ -46,7 +48,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode}) => {
         return;
       }
 
-      const isValid = chatApi.verifyToken(token);
+      const isValid = await chatApi.verifyToken(token);
       if (!isValid) {
         localStorage.removeItem(LOCAL_STORAGE_AUTH_KEY);
         setIsLoading(false);
@@ -71,7 +73,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode}) => {
     return () => {
       window.addEventListener('storage', onStorageChange);
     };
-  }, [navigate]);
+  }, [navigate, session]);
 
   return (
     <authContext.Provider value={{

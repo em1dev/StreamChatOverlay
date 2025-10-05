@@ -4,7 +4,6 @@ import { ChatMessageData } from '../../types';
 import { TwurpleChatMessage } from './types';
 import { usePronouns } from '../usePronouns';
 import { useBadges } from '../useBadges';
-import { UserInformation } from '../../api/chatApi/types';
 import { TwitchChatParser } from './twitchChatParser';
 import { useCustomEmotes } from '../useCustomEmotes';
 import { useTTS } from '../useTTS/useTTS';
@@ -14,7 +13,7 @@ const MAX_MESSAGES = 20;
 
 type OnChatMessageEventHandler = (channel: string, user:string, text:string, msg: TwurpleChatMessage) => Promise<void>;
 
-export const useTwitchChat = (channel: UserInformation) => {
+export const useTwitchChat = (channelId: string, channelLogin: string) => {
   const configuration = useConfiguration(state => state);
 
   const { 
@@ -22,8 +21,8 @@ export const useTwitchChat = (channel: UserInformation) => {
     onRemoveMessage: ttsRemoveMessage,
     speak: ttsSpeak
   } = useTTS();
-  const customEmotes = useCustomEmotes(channel.id);
-  const { parseBadges } = useBadges(channel.id);
+  const customEmotes = useCustomEmotes(channelId);
+  const { parseBadges } = useBadges(channelId);
   const { getPronounsFromTwitchName } = usePronouns();
   const [chat, setChat] = useState<ChatClient | null>(null);
   const [chatMessages, setChatMessages] = useState<Array<ChatMessageData> | []>([]);
@@ -33,7 +32,7 @@ export const useTwitchChat = (channel: UserInformation) => {
 
   useEffect(() => {
     const chatClient = new ChatClient({
-      channels: [channel.login]
+      channels: [channelLogin]
     });
     chatClient.connect();
     setChat(chatClient);
@@ -42,7 +41,7 @@ export const useTwitchChat = (channel: UserInformation) => {
       chatClient.quit();
       setChat(null);
     };
-  }, [channel]);
+  }, [channelLogin]);
 
   // avoids reconnection on callback changes by keeping them on ref
   // twurple does not allow us to disconnect events for some reason... :/ so this works
@@ -100,7 +99,7 @@ export const useTwitchChat = (channel: UserInformation) => {
 
   useEffect(() => {
     onMessageHandlerRef.current = async (channel: string, user: string, text: string, msg: TwurpleChatMessage) => {
-      if (configuration.ignoredUsers.find(ignoredUser => ignoredUser.value === user)) return;
+      if (configuration.userConfiguration.ignoredUsers.find(ignoredUser => ignoredUser.value === user)) return;
       const pronoun = await getPronounsFromTwitchName(user);
       const msgParts = TwitchChatParser.parseMessage(msg.text, msg.emoteOffsets, customEmotes, msg);
 
@@ -118,7 +117,7 @@ export const useTwitchChat = (channel: UserInformation) => {
         contentParts: msgParts
       };
 
-      if (configuration.isTTSEnabled) {
+      if (configuration.userConfiguration.ttsConfiguration.isTTSEnabled) {
         ttsSpeak({
           parts: msgParts,
           content: newMessage.content,
@@ -135,7 +134,7 @@ export const useTwitchChat = (channel: UserInformation) => {
 
   useEffect(() => {
     onMessageRemovedRef.current = (msgId: string) => {
-      if (configuration.isTTSEnabled) {
+      if (configuration.userConfiguration.ttsConfiguration.isTTSEnabled) {
         ttsRemoveMessage([msgId]);
       }
     };

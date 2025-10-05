@@ -1,16 +1,15 @@
 import * as S from './style';
 import { useConfiguration } from '@/store/configuration';
-import { SettingsTemplate } from '@/templates/SettingsTemplate';
 import { TTSReplacementBlock } from './TTSReplacementBlock';
 
 export const AdvanceSettings = () => {
-  const { 
-    updateUserConfiguration,
-    ...configuration
-  } = useConfiguration(state => state);
+  const configuration = useConfiguration(state => state.userConfiguration);
+  const updateUserConfiguration = useConfiguration(state => state.updateUserConfiguration);
+
+  if (configuration == null) return null;
 
   return (
-    <SettingsTemplate>
+    <>
       <h1>Advance Settings</h1>
 
       <p>TTS Replacement Rules</p>
@@ -83,7 +82,7 @@ export const AdvanceSettings = () => {
           Add new block
         </button>
       </S.BlockContainer>
-    </SettingsTemplate>
+    </>
   );
 
 };

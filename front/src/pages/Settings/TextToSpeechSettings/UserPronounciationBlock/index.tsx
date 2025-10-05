@@ -9,8 +9,8 @@ import { IconButton } from '@/components/IconButton';
 
 export const UserPronunciationBlock = () => {
   const updateConfig = useConfiguration(c => c.updateUserConfiguration);
-  const ttsConfiguration = useConfiguration(c => c.ttsConfiguration);
-  const userReplacement = useConfiguration(c => c.ttsConfiguration.userReplacement);
+  const ttsConfiguration = useConfiguration(c => c.userConfiguration!.ttsConfiguration);
+  const userReplacement = useConfiguration(c => c.userConfiguration!.ttsConfiguration.userReplacement);
   const tts = useTTS();
 
   const userReplacementOrdered = useMemo(() => (

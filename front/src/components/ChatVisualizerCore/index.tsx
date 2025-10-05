@@ -9,7 +9,7 @@ export interface ChatProps {
 }
 
 const Chat = ({ msgs }: ChatProps) => {
-  const chatDirection = useConfiguration(state => state.chatDirection);
+  const chatDirection = useConfiguration(state => state.userConfiguration.chatDirection);
 
   return (
     <S.Container $direction={chatDirection}>

@@ -3,7 +3,6 @@ import { Select } from '@/components/Select';
 import { ToggleInput } from '@/components/ToggleInput';
 import { useConfiguration } from '@/store/configuration';
 import { useTtsVoices } from '@/store/ttsVoices';
-import { SettingsTemplate } from '@/templates/SettingsTemplate';
 import { useCallback, useEffect, useState } from 'react';
 import { UserPronunciationBlock } from './UserPronounciationBlock';
 import { Icon } from '@iconify/react';
@@ -12,8 +11,8 @@ import { IconButton } from '@/components/IconButton';
 import { Input } from '@/components/Input';
 
 export const TextToSpeechSettings = () => {
-  const ttsConfiguration = useConfiguration(c => c.ttsConfiguration);
-  const updateConfig = useConfiguration(c => c.updateUserConfiguration);
+  const ttsConfiguration = useConfiguration(state => state.userConfiguration?.ttsConfiguration);
+  const updateConfig = useConfiguration(state => state.updateUserConfiguration);
 
   const tts = useTTS();
   const { voices, setVoices } = useTtsVoices(state => state);
@@ -66,8 +65,10 @@ export const TextToSpeechSettings = () => {
     });
   }, [testTtsMessage, tts]);
 
+  if (!ttsConfiguration) return null;
+
   return (
-    <SettingsTemplate>
+    <>
       <section>
 
         <h1>Text to speech</h1>
@@ -197,6 +198,6 @@ export const TextToSpeechSettings = () => {
         <UserPronunciationBlock />
       </section>
 
-    </SettingsTemplate>
+    </>
   );
 };
