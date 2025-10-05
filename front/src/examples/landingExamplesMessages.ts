@@ -4,7 +4,7 @@ export const landingExamplesMessages: Array<ChatMessageData> = [
   {
     'id': '5f7b389d-9284-4f97-8a1b-28c57d910a71',
     'effect': 'normal',
-    'content': 'yeifuvTelapuso',
+    'content': 'RainbowPls',
     'userDisplayName': 'EmyDev',
     'displayPronoun': 'she/her',
     'color': '#F9C8E0',
@@ -17,9 +17,17 @@ export const landingExamplesMessages: Array<ChatMessageData> = [
     ],
     'contentParts': [
       {
-        'content': 'emotesv2_1398480876384bddbf9f5c16e1bddb2e',
+        'content': 'RainbowPls',
         'type': 'emote',
-        'originalContent': 'yeifuvTelapuso'
+        'originalContent': 'RainbowPls',
+        'customEmote': {
+          'animated': true,
+          'code': 'RainbowPls',
+          'id': '5b35cae2f3a33e2b6f0058ef',
+          'url1x': 'https://cdn.betterttv.net/emote/5b35cae2f3a33e2b6f0058ef/1x',
+          'url2x': 'https://cdn.betterttv.net/emote/5b35cae2f3a33e2b6f0058ef/2x',
+          'url3x': 'https://cdn.betterttv.net/emote/5b35cae2f3a33e2b6f0058ef/3x'
+        }
       }
     ]
   },
@@ -55,7 +63,7 @@ export const landingExamplesMessages: Array<ChatMessageData> = [
   {
     'id': '913650a6-cf9c-4a59-b587-9685814ece73',
     'effect': 'normal',
-    'content': '@bulbsum patito70Rose',
+    'content': '@bulbsum JinxLUL',
     'userDisplayName': 'EmyDev',
     'displayPronoun': 'she/her',
     'color': '#F9C8E0',
@@ -77,9 +85,9 @@ export const landingExamplesMessages: Array<ChatMessageData> = [
         'originalContent': '@bulbsum'
       },
       {
-        'content': 'emotesv2_aa379c7254844534aee8d858b2fd0b51',
+        'content': 'emotesv2_4e1c5651219a462894aefa8b6720efc5',
         'type': 'emote',
-        'originalContent': 'patito70Rose'
+        'originalContent': 'JinxLUL'
       }
     ]
   },
