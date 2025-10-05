@@ -62,8 +62,8 @@ const ChatOverlay = () => {
 
   if (hasError) return (
     <div style={{ background: '#ffd0d0', color: '#934040', padding: '1em', borderRadius: '1em', border: 'solid 2px #bd8888'}}>
-      <h1>Something has gone wrong</h1>
-      <p>Make sure you copied the url correctly, if you have recently changed your twitch password you might have to recreate the url. At https://chat.elpato.dev</p>
+      <h1>Something has gone wrong with the chat visualizer</h1>
+      <p>Make sure you copied the url correctly, if you have recently changed your twitch password you might have to recreate the url at https://chat.elpato.dev</p>
     </div>
   );
 

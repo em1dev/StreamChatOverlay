@@ -19,7 +19,7 @@ export const NavContainer = styled.nav`
     color: inherit;
 
     &.active {
-      background-color: #fde7ef;
+      background-color: #ffe0eb;
     }
 
     &:hover:not(.active) {
