@@ -1,4 +1,3 @@
-import * as S from './styles';
 import { Select } from '@/components/Select';
 import { ToggleInput } from '@/components/ToggleInput';
 import { useConfiguration } from '@/store/configuration';
@@ -9,6 +8,8 @@ import { Icon } from '@iconify/react';
 import { useTTS } from '@/hooks/useTTS/useTTS';
 import { IconButton } from '@/components/IconButton';
 import { Input } from '@/components/Input';
+
+import * as S from './styles';
 
 export const TextToSpeechSettings = () => {
   const ttsConfiguration = useConfiguration(state => state.userConfiguration?.ttsConfiguration);
@@ -21,7 +22,7 @@ export const TextToSpeechSettings = () => {
 
   useEffect(() => {
     if (typeof speechSynthesis === 'undefined') {
-      console.log('speach synthesis is not suported');
+      console.log('speech synthesis is not suported');
       return;
     }
 
@@ -140,7 +141,6 @@ export const TextToSpeechSettings = () => {
       </section>
 
       <section>
-
         <h2>Ignore messages</h2>
         <div>
           <ToggleInput
@@ -197,7 +197,6 @@ export const TextToSpeechSettings = () => {
         <p>Change how a chatter name is pronounced</p>
         <UserPronunciationBlock />
       </section>
-
     </>
   );
 };

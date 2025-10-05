@@ -1,5 +1,5 @@
 import { decodeJwt } from 'jose';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { authContext, Session, User } from './authContext';
 import { chatApi } from '@/api/chatApi';
@@ -22,20 +22,20 @@ export const AuthProvider = ({children}: { children: React.ReactNode }) => {
     })();
   }, []);
 
-  const signIn = () => {
+  const signIn = useCallback(() => {
     if (!authUrl) return;
     window.open(authUrl, 'popup', 'toolbar=0,status=0,width=626,height=636');
-  };
+  }, [authUrl]);
 
-  const logOut = () => {
+  const logOut = useCallback(() => {
     localStorage.removeItem(LOCAL_STORAGE_AUTH_KEY);
     setSession(null);
-    navigate('/');
-  };
+    location.assign('/');
+  }, []);
 
-  const setToken = (token: string) => {
+  const setToken = useCallback((token: string) => {
     localStorage.setItem(LOCAL_STORAGE_AUTH_KEY, token);
-  };
+  }, []);
 
   useEffect(() => {
     if (session) return;

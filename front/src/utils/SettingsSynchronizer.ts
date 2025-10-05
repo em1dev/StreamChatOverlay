@@ -8,7 +8,6 @@ import { useDebounce } from './useDebounce';
 
 export const SettingsSynchronizer = () => {
   const { session, logOut } = useAuth();
-  const hasLoaded = userConfigurationStore(c => c.hasLoaded);
   const resetState = userConfigurationStore(c => c.resetState);
   const setInitialState = userConfigurationStore(c => c.setInitialState);
   const userConfiguration = userConfigurationStore(c => c.userConfiguration);
@@ -39,6 +38,8 @@ export const SettingsSynchronizer = () => {
   useEffect(() => {
     if (!debouncedUserConfiguration) return;
     if (!session) return;
+
+    const hasLoaded = userConfigurationStore.getState().hasLoaded;
     if (!hasLoaded) return;
 
     console.log('Saving configuration...');
@@ -50,7 +51,7 @@ export const SettingsSynchronizer = () => {
         logOut();
       }
     })();
-  }, [debouncedUserConfiguration, session, hasLoaded, logOut]);
+  }, [debouncedUserConfiguration, session, logOut]);
 
   return null;
 };

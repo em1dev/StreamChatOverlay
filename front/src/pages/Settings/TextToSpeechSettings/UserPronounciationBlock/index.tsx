@@ -1,11 +1,12 @@
 import { useTTS } from '@/hooks/useTTS/useTTS';
-import * as S from './styles';
 import { useConfiguration } from '@/store/configuration';
 import { Icon } from '@iconify/react';
 import { useCallback, useMemo } from 'react';
 import { TTSReplacement } from '@/types/userConfigurationTypes';
 import { Input } from '@/components/Input';
 import { IconButton } from '@/components/IconButton';
+
+import * as S from './styles';
 
 export const UserPronunciationBlock = () => {
   const updateConfig = useConfiguration(c => c.updateUserConfiguration);

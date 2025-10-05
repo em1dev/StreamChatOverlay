@@ -1,4 +1,3 @@
-import * as S from './styles';
 import Chat from '@/components/ChatVisualizerCore';
 import { Select } from '@/components/Select';
 import { ToggleInput } from '@/components/ToggleInput';
@@ -8,6 +7,8 @@ import { useConfiguration } from '@/store/configuration';
 import { ThemeKeys } from '@/themes/chatThemes';
 import { Icon } from '@iconify/react';
 import { ThemeProvider } from 'styled-components';
+
+import * as S from './styles';
 
 export const BasicSettings = () => {
   const configuration = useConfiguration(state => state.userConfiguration);
@@ -129,7 +130,6 @@ export const BasicSettings = () => {
         >
           Hide commands ( messages starting with ! )
         </ToggleInput>
-
       </section>
 
       <section>

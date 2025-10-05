@@ -15,9 +15,9 @@ import ChatOverlay from './pages/ChatOverlay';
 import { SettingsTemplate } from './templates/SettingsTemplate';
 
 const Providers = () => (
-  <AuthProvider >
-    <Outlet />
+  <AuthProvider>
     <SettingsSynchronizer />
+    <Outlet />
   </AuthProvider>
 );
 

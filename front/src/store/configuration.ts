@@ -30,9 +30,6 @@ export const userConfigurationStore = create<UserConfigurationStore>()((set, get
       set(() => ({
         userConfiguration: newConfig
       }));
-
-      // call api to update
-      console.log('updated config');
     },
     setInitialState: (userConfiguration, secret) => {
       set({
