@@ -26,13 +26,19 @@ export const getSecretTokensHandler = async (userId: number, secret: string): Pr
 
   // secret valid at this stage
   const connections = await AuthApi.getConnections(userId);
-  if (!connections) return {
-    status: 404
+  if (!connections) {
+    console.log(`User ${userId} with valid secret is missing a connection`);
+    return {
+      status: 404
+    };
   };
 
   const twitchConnection = connections.find(c => c.type == 'twitch');
-  if (!twitchConnection) return {
-    status: 404
+  if (!twitchConnection) {
+    console.log(`User ${userId} with valid secret is missing a connection`);
+    return {
+      status: 404
+    };
   };
 
   const twitchCredentials = await TwitchTokenStore.getInstance().getCredentials();
