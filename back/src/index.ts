@@ -15,6 +15,7 @@ api.use((req, res, next) => {
 
 import './routes/channel/routes';
 import './routes/authentication/routes';
+import './routes/settings/routes';
 
 api.listen(PORT, 'localhost', () => {
   console.log(`Started server at http://localhost:${PORT}`);

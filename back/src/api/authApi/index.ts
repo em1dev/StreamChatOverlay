@@ -79,9 +79,17 @@ export const getConnections = async (userId: number) => {
   return await resp.json() as Array<UserConnection>;
 };
 
+export const revokeConnectionToken = async (userId: number) => {
+  const resp = await fetch(AUTH_API_URL + `/${APP_ID}/user/${userId}/connection/twitch/revoke`, {
+    method: 'DELETE'
+  });
+  return resp.ok;
+};
+
 export const AuthApi = {
   getAppCredentials,
   authenticate,
   verifyToken,
-  getConnections
+  getConnections,
+  revokeConnectionToken
 };
