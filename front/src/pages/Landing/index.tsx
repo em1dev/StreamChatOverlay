@@ -31,10 +31,14 @@ export const Landing = () =>
             <ul>
               <li>100% Free and open source</li>
               <li>Text to speech support</li>
+              {/*
               <li>Color customization</li>
               <li>Font and size customization</li>
+              */}
               <li>BetterTTV, FFZ and 7TV integration</li>
+              {/*
               <li>5 Beatiful preconfigured themes</li>
+              */}
               <li>Pronoun support via pronouns.alejo</li>
             </ul>
           </div>
