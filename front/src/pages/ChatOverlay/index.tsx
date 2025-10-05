@@ -8,6 +8,7 @@ import { ThemeProvider } from 'styled-components';
 import { UserConfiguration } from '@/types/userConfigurationTypes';
 import { useConfiguration } from '@/store/configuration';
 import { useChatTheme } from '@/hooks/useChatTheme';
+import { defaultUserConfiguration } from '@/store/defaultConfiguration';
 
 const ChatOverlay = () => {
   const { userId } = useParams<{ userId: string }>();
@@ -41,7 +42,12 @@ const ChatOverlay = () => {
           return;
         };
 
-        const settingsParsed = JSON.parse(resp.data.settingsJsonString) as UserConfiguration;
+        let settingsParsed = defaultUserConfiguration;
+        if (resp.data.settingsJsonString.length > 0)
+        {
+          settingsParsed = JSON.parse(resp.data.settingsJsonString) as UserConfiguration;
+        }
+
         setInitialConfiguration(settingsParsed, secret);
         setConnectionDetails({
           channelId: resp.data!.twitchUserId,

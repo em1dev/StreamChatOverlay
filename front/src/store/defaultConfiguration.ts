@@ -12,7 +12,7 @@ const ttsDefaultConfig: TTSConfiguration = {
   emotesToRead: 1,
 
   ignoredUsers: [],
-  selectedVoice: 'Microsoft Sabina - Spanish (Mexico)',
+  selectedVoice: undefined,
   userReplacement: [
     { id: crypto.randomUUID(), isEnabled: true, ordinal: 0, regex: 'pierito95rsng', replaceWith: 'pierito', regexFlags: '', description: '' },
     { id: crypto.randomUUID(), isEnabled: true, ordinal: 1, regex: 'lam277', replaceWith: 'lam', regexFlags: '', description: '' },
