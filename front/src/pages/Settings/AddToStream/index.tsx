@@ -119,7 +119,7 @@ export const AddToStream = () =>
         <p>Step 3</p>
         <p>Paste the secret url on the url box.</p>
         <p>Set the width and height to what size you want the chat to be.</p>
-        <p>For example I use 900x400</p>
+        <p>For example I use 400x900</p>
         <img width={500} src="/img/step3.png" />
       </S.StepContainer>
 
