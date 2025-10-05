@@ -150,12 +150,15 @@ const theme2: ChatTheme = {
   }
 };
 
+// TODO: this theme is really hard to read with different colors behind and needs improvements
 const floating:ChatTheme = {
   font: 'poppins',
   header: {
     bg: 'transparent',
-    text: THEME_USER_COLOR,
-    textShadow: `0 0 3px ${THEME_USER_COLOR}`,
+    //text: THEME_USER_COLOR,
+    text: 'white',
+    textShadow: '0 0 5px black',
+    //textShadow: `0 0 3px ${THEME_USER_COLOR}`,
     borderRadius: '0',
     border: 'none',
     fontSize: '13px',
@@ -171,7 +174,7 @@ const floating:ChatTheme = {
     fontSize: '13px',
     fontWeight: '500',
     padding: '0.2em 0',
-    textShadow: '0 0 2px black',
+    textShadow: '0 0 5px black',
 
     mention: {
       bg: 'transparent',
