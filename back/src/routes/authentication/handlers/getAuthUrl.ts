@@ -1,6 +1,22 @@
 import { TwitchTokenStore } from '../../../TwitchTokenStore';
 import { ChatApiResponse } from '../../../types';
 
+const scopes = [
+  'bits:read',
+  'moderator:read:followers',
+  'channel:read:ads',
+  'channel:read:redemptions',
+  'user:read:chat',
+  'channel:read:subscriptions',
+  'bits:read',
+  'channel:moderate',
+  'channel:read:guest_star',
+  'channel:read:polls',
+  'channel:read:predictions',
+  'channel:read:hype_train',
+  'moderator:read:shoutouts'
+];
+
 export const getAuthUrl = async (redirectUrl: string):Promise<ChatApiResponse<{ url: string; }>> => {
   const twitchTokenStore = TwitchTokenStore.getInstance();
   const credentials = await twitchTokenStore.getCredentials();
@@ -9,7 +25,7 @@ export const getAuthUrl = async (redirectUrl: string):Promise<ChatApiResponse<{ 
     response_type: 'code',
     client_id: credentials.clientId,
     redirect_uri: redirectUrl,
-    scope: '',
+    scope: scopes.join(' '),
     state: crypto.randomUUID(),
   };
 
