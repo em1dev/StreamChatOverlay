@@ -163,7 +163,7 @@ const floating:ChatTheme = {
     border: 'none',
     fontSize: '13px',
     fontWeight: '500',
-    padding: '0',
+    padding: '0 5px 0 0 ', // move text to the left to avoid shadow being cut off
   },
 
   content: {
@@ -173,7 +173,7 @@ const floating:ChatTheme = {
     borderRadius: '0',
     fontSize: '13px',
     fontWeight: '500',
-    padding: '0.2em 0',
+    padding: '0.2em 5px',
     textShadow: '0 0 5px black',
 
     mention: {
