@@ -18,7 +18,7 @@ export const useCustomEmotes = (channelId: string) => {
         !isFrankerEnabled
       ) return;
 
-      const resp = await chatApi.getEmotes(channelId, isBetterTTVEnabled, isFrankerEnabled, isFrankerEnabled);
+      const resp = await chatApi.getEmotes(channelId, isBetterTTVEnabled, isFrankerEnabled, isSevenTVEnabled);
       if (!resp.data) return;
 
       const emotes = resp.data.map(e => ({
