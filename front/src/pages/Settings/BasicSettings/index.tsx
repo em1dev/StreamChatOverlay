@@ -7,6 +7,7 @@ import { useConfiguration } from '@/store/configuration';
 import { ThemeKeys } from '@/themes/chatThemes';
 import { Icon } from '@iconify/react';
 import { ThemeProvider } from 'styled-components';
+import { HeaderOrdering } from './HeaderOrdering';
 
 import * as S from './styles';
 
@@ -21,7 +22,6 @@ export const BasicSettings = () => {
 
   const chatDirection = configuration.chatDirection;
   const emoteConfiguration = configuration.emotes;
-  const showChatterBadges = configuration.showChatterBadges;
   const hideBotMessages = configuration.hideBotMessages;
   const hideCommands = configuration.hideCommands;
 
@@ -132,15 +132,7 @@ export const BasicSettings = () => {
         </ToggleInput>
       </section>
 
-      <section>
-        <h2>Badges</h2>
-        <ToggleInput
-          isChecked={showChatterBadges} 
-          onChange={(value) => { updateConfig({ showChatterBadges: value }); }}
-        >
-          Show chatter badges
-        </ToggleInput>
-      </section>
+      <HeaderOrdering />
     </>
   );
 };

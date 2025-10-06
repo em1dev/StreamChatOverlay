@@ -45,5 +45,8 @@ export interface UserConfiguration {
     value: string
   }>
   ttsConfiguration: TTSConfiguration,
-  chatTheme: ThemeKeys
+  chatTheme: ThemeKeys,
+  headerOrdering: Array<ChatMessageHeaderType>,
 }
+
+export type ChatMessageHeaderType = 'pronouns' | 'name' | 'badges'

@@ -1,6 +1,7 @@
 import { ChatMessageData } from '@/types';
 import * as S from './styles';
 import { useConfiguration } from '@/store/configuration';
+import { ChatMessageHeaderType } from '@/types/userConfigurationTypes';
 
 export interface ChatMsgHeaderProps
 {
@@ -10,28 +11,41 @@ export interface ChatMsgHeaderProps
 
 const ChatMsgHeader = ({ 
   direction,
-  messageData: {
-    badges,
-    color,
-    displayPronoun,
-    userDisplayName
-  }
+  messageData
 }: ChatMsgHeaderProps) => {
-  const showBadges = useConfiguration(c => c.userConfiguration.showChatterBadges);
-  
+  const headerOrdering = useConfiguration(c => c.userConfiguration.headerOrdering);
+
   return (
-    <S.Container $direction={direction} $userColor={color || 'black'}>
-      { showBadges && badges.map((badge) => (
-        <S.Badge height={18} width={18} src={badge.url} key={badge.id} alt={badge.id} />
+    <S.Container $direction={direction} $userColor={messageData.color || 'black'}>
+      {headerOrdering.map(type => (
+        <ChatMsgHeaderPart key={type} type={type} messageData={messageData} />
       ))}
-
-      { displayPronoun && (
-        <S.Pronouns>({ displayPronoun })</S.Pronouns>
-      )}
-
-      <S.UserName>{ userDisplayName }</S.UserName>
     </S.Container>
   );
+};
+
+const ChatMsgHeaderPart = ({ 
+  messageData,
+  type
+}: {
+  type: ChatMessageHeaderType
+  messageData: ChatMessageData
+}) => {
+  const showBadges = useConfiguration(c => c.userConfiguration.showChatterBadges);
+
+  switch(type)
+  {
+    case 'badges':
+      return showBadges ? messageData.badges.map((badge) => (
+        <S.Badge height={18} width={18} src={badge.url} key={badge.id} alt={badge.id} />
+      )) : null;
+    case 'name':
+      return <S.UserName>{ messageData.userDisplayName }</S.UserName>;
+    case 'pronouns':
+      return messageData.displayPronoun ? (
+        <S.Pronouns>({ messageData.displayPronoun })</S.Pronouns>
+      ) : null;
+  }
 };
 
 export default ChatMsgHeader;

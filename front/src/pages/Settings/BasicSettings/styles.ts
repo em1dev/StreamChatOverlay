@@ -27,3 +27,27 @@ export const DirectionContainer = styled.div`
     align-items: center;
   }
 `;
+
+export const HeaderOrderingContainer = styled.div`
+  display: inline-flex;
+  margin-top: 0.5em;
+  border: solid 2px;
+  border-radius: 0.5em;
+
+  > button {
+    display: flex;
+    align-items: center;
+    border: none;
+    background-color: ${({ theme }) => theme.page.colors.text };
+    color: ${({ theme }) => theme.page.colors.bg };
+    &:hover {
+      background-color: #8e3b50;
+    }
+  }
+
+  > div {
+    width: 10ch;
+    text-align: center;
+    padding: 0.5em 0.5em;
+  }
+`;

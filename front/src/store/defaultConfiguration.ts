@@ -24,7 +24,6 @@ const ttsDefaultConfig: TTSConfiguration = {
   replacements: []
 };
 
-
 export const defaultUserConfiguration: UserConfiguration = {
   chatTheme: 'duck',
   ignoredUsers: [],
@@ -37,5 +36,6 @@ export const defaultUserConfiguration: UserConfiguration = {
   hideBotMessages: true,
   hideCommands: true,
   showChatterBadges: true,
-  ttsConfiguration: ttsDefaultConfig
+  ttsConfiguration: ttsDefaultConfig,
+  headerOrdering: ['badges', 'pronouns', 'name'],
 };

@@ -34,7 +34,7 @@ export const userConfigurationStore = create<UserConfigurationStore>()((set, get
     setInitialState: (userConfiguration, secret) => {
       set({
         secretKey: secret,
-        userConfiguration: userConfiguration,
+        userConfiguration: { ...defaultUserConfiguration, ...userConfiguration },
         hasLoaded: true
       });
     },
