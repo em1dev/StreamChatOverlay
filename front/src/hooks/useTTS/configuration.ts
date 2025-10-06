@@ -1,6 +1,32 @@
-import { TTSConfiguration, TTSMessage, TTSReplacement } from '../../types';
+import { TTSConfiguration, TTSReplacement } from '@/types/userConfigurationTypes';
+import { TTSMessage } from '../../types';
 
 
+const ignoreUnderscores =  { id: crypto.randomUUID(), isEnabled: true, ordinal: 5, regex: '_', regexFlags: 'g', replaceWith: ' ', description: 'Read undescores as spaces' };
+const linkReplacement = { id: crypto.randomUUID(), isEnabled: true, ordinal: 8, regex: '[0-9a-zA-z]\\.[a-zA-Z][a-zA-Z]', replaceFullMessage: true, replaceWith: '$who a enviado un link.',  regexFlags: '', description: 'Replace links' };
+const roleplay = { id: crypto.randomUUID(), isEnabled: true, ordinal: 9, regex: '^\\*.+\\*$', replaceWith: '$who $msg', replaceFullMessage: true, description: 'Allows roleplay by sending messages surrounded by asterisks', regexFlags: '',
+  replacement: {
+    id: crypto.randomUUID(), isEnabled: true, ordinal: 0, regex: '\\*', regexFlags: 'gi', replaceWith: '', description: 'Don\'t read *'
+  }
+};
+
+const buildInternalReplacementRules = (configuration: TTSConfiguration) => {
+  const replacementRules: Array<TTSReplacement> = [];
+
+  if (configuration.readUnderscoresAsSpaces)
+  {
+    replacementRules.push(ignoreUnderscores);
+  }
+
+  replacementRules.push(linkReplacement);
+
+  if (configuration.allowRoleplay)
+  {
+    replacementRules.push(roleplay);
+  }
+
+  return replacementRules;
+};
 
 export const applyTTSMessageTransformations = (message: TTSMessage, configuration: TTSConfiguration) => {
   const emotesToRead = configuration.emotesToRead;
@@ -22,6 +48,7 @@ export const applyTTSMessageTransformations = (message: TTSMessage, configuratio
 
   let sentBy = message.sentBy;
 
+  // replace sent by by their pronunciation
   configuration.userReplacement.forEach(replacement => {
     sentBy = applyReplacements(sentBy ?? '', {
       ...replacement,
@@ -30,6 +57,7 @@ export const applyTTSMessageTransformations = (message: TTSMessage, configuratio
     });
   });
 
+  // replace user mentions by their pronunciation
   configuration.userReplacement.forEach(replacement => {
     messageToRead = applyReplacements(messageToRead, {
       ...replacement,
@@ -38,7 +66,14 @@ export const applyTTSMessageTransformations = (message: TTSMessage, configuratio
     });
   });
 
+  // apply customized replacements
   configuration.replacements.forEach(replacement => {
+    messageToRead = applyReplacements(messageToRead, replacement, sentBy);
+  });
+
+  // apply internal replacements rules
+  const internalReplacements = buildInternalReplacementRules(configuration);
+  internalReplacements.forEach(replacement => {
     messageToRead = applyReplacements(messageToRead, replacement, sentBy);
   });
 
@@ -54,7 +89,7 @@ const applyReplacements = (msg: string, replacement: TTSReplacement, sentBy?: st
     if (!exp.test(messageToRead)) return messageToRead;
     messageToRead = applyTokenReplacements(replacement.replaceWith, messageToRead, sentBy);
     if (replacement.replacement) {
-      // do recurvie
+      // do recursive
       return applyReplacements(messageToRead, replacement.replacement, sentBy);
     }
     return messageToRead;

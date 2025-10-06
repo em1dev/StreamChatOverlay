@@ -1,0 +1,1 @@
+export const isObs = () => !!(window as { obsstudio?: unknown })['obsstudio'];

@@ -2,6 +2,7 @@ import { defineConfig, globalIgnores, } from 'eslint/config';
 import { fixupConfigRules } from '@eslint/compat';
 import { FlatCompat } from '@eslint/eslintrc';
 
+import stylistic from '@stylistic/eslint-plugin';
 import globals from 'globals';
 import tsParser from '@typescript-eslint/parser';
 import reactRefresh from 'eslint-plugin-react-refresh';
@@ -28,6 +29,7 @@ export default defineConfig([{
   )),
 
   plugins: {
+    '@stylistic': stylistic,
     'react-refresh': reactRefresh,
   },
 
@@ -36,7 +38,7 @@ export default defineConfig([{
       allowConstantExport: true,
     }],
 
-    'indent': ['error', 2],
+    '@stylistic/indent': ['error', 2],
     'quotes': ['error', 'single'],
     'semi': ['error', 'always'],
     '@typescript-eslint/no-empty-object-type': 'off'

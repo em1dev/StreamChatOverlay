@@ -1,64 +1,46 @@
-import { useEffect, useState } from 'react';
-import ChatOverlay from './pages/ChatOverlay';
-import HomePage from './pages/HomePage';
-import { UserInformation } from './api/elpatoApi/types';
-import { elPatoApi } from './api/elpatoApi';
-import { GlobalStyle } from './globalStyle';
-import { useConfiguration } from './store/configuration';
 import { ThemeProvider } from 'styled-components';
-import { floating, pinkTheme, theme1, theme2, theme3 } from './themes/mainTheme';
+import { Landing } from './pages/Landing';
+import { mainTheme } from './themes/mainTheme';
+import { GlobalStyle } from './globalStyle';
+import { Outlet, Route, Routes } from 'react-router';
+import { BasicSettings } from './pages/Settings/BasicSettings';
+import { TextToSpeechSettings } from './pages/Settings/TextToSpeechSettings';
+import { AddToStream } from './pages/Settings/AddToStream';
+import { AdvanceSettings } from './pages/Settings/AdvanceSettings';
+import { CustomThemeSettings } from './pages/Settings/CustomThemeSettings';
+import { AuthProvider } from './context/authContext/authProvider';
+import { AuthenticationPage } from './pages/AuthenticationPage';
+import { SettingsSynchronizer } from './utils/SettingsSynchronizer';
+import ChatOverlay from './pages/ChatOverlay';
+import { SettingsTemplate } from './templates/SettingsTemplate';
 
-const isObs = () => !!(window as { obsstudio?: unknown })['obsstudio'];
-
-const getTheme = (value?: string) => {
-  switch (value) {
-  case '2':
-    return theme2;
-  case '3':
-    return theme3;
-  case '4':
-    return pinkTheme;
-  case '5':
-    return floating;
-  case '1':
-  default:
-    return theme1;
-  }
-};
+const Providers = () => (
+  <AuthProvider>
+    <SettingsSynchronizer />
+    <Outlet />
+  </AuthProvider>
+);
 
 const App = () => {
-  const channelName = useConfiguration(state => state.channelName);
-  const userTheme = useConfiguration(state => state.chatTheme);
-  const [channel, setChannel] = useState<UserInformation | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  const selectedTheme = getTheme(userTheme);
-
-  useEffect(() => {
-    const load = async () => {
-      if (!isObs()) return;
-
-      const resp = await elPatoApi.getUserDetails(channelName);
-      if (resp.data) {
-        setChannel(resp.data);
-        return;
-      }
-      if (resp.status === 404) {
-        setError('User not found');
-        return;
-      }
-      setError('Unexpected error');
-    };
-
-    load();
-  }, [channelName]);
-
   return (
-    <ThemeProvider theme={selectedTheme}>
-      <GlobalStyle/>
-      { error && (<h1>{error}</h1>) }
-      { channel && isObs() && (<ChatOverlay userInformation={channel} />) }
-      { !isObs() && ( <HomePage /> ) }
+    <ThemeProvider theme={mainTheme}>
+      <GlobalStyle />
+      <Routes>
+        <Route element={<Providers />}>
+          <Route index element={ <Landing /> } />
+          <Route element={<SettingsTemplate />}>
+            <Route path="/settings/" element={ <BasicSettings /> } />
+            <Route path="/settings/add-to-stream" element={ <AddToStream /> } />
+            <Route path="/settings/tts" element={ <TextToSpeechSettings /> } />
+            <Route path="/settings/advance-settings" element={ <AdvanceSettings /> } />
+            <Route path="/settings/custom-theme" element={ <CustomThemeSettings /> } />
+          </Route>
+
+          <Route path="/auth" element={ <AuthenticationPage /> } />
+        </Route>
+
+        <Route path="/o/:userId" element={ <ChatOverlay /> } />
+      </Routes>
     </ThemeProvider>
   );
 };

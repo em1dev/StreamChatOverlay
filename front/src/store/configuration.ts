@@ -1,38 +1,50 @@
 import { create, useStore } from 'zustand';
-import { UserConfiguration } from '../types';
+import { UserConfiguration } from '@/types/userConfigurationTypes';
 import { defaultUserConfiguration } from './defaultConfiguration';
 
 
-interface UserConfigurationStore extends UserConfiguration {
+interface UserConfigurationStore {
+  hasLoaded: boolean,
+  secretKey: string | null,
+  userConfiguration: UserConfiguration,
   updateUserConfiguration: (values: Partial<UserConfiguration>) => void,
+  setSecret: (value: string | null) => void,
+  setInitialState: (userConfiguration: UserConfiguration, secret: string) => void,
+  resetState: () => void,
 }
 
 export const userConfigurationStore = create<UserConfigurationStore>()((set, get) => {
-  const hash = location.hash.slice(1);
-  let config = defaultUserConfiguration;
-  if (hash) {
-    const hashConfig = JSON.parse(decodeURIComponent(hash)) as UserConfiguration;
-    config = {
-      ...config,
-      ...hashConfig,
-      ttsConfiguration: {
-        ...config.ttsConfiguration,
-        ...hashConfig.ttsConfiguration
-      }
-    };
-  }
-
   return {
-    ...config,
-    updateUserConfiguration: (values) => {
-      const prev = get();
-      const newConfig = { ...prev, ...values};
+    hasLoaded: false,
+    secretKey: null,
+    userConfiguration: defaultUserConfiguration,
 
-      set(() => ({ ...newConfig }));
-
-      const queryString = encodeURIComponent(JSON.stringify(newConfig));
-      location.hash = queryString;
+    setSecret: (value) => {
+      set(() => ({ secretKey: value }));
     },
+    updateUserConfiguration: (values) => {
+      if (!get().hasLoaded) return;
+      const prev = get().userConfiguration!;
+      const newConfig: UserConfiguration = { ...prev, ...values};
+
+      set(() => ({
+        userConfiguration: newConfig
+      }));
+    },
+    setInitialState: (userConfiguration, secret) => {
+      set({
+        secretKey: secret,
+        userConfiguration: userConfiguration,
+        hasLoaded: true
+      });
+    },
+    resetState: () => {
+      set({
+        secretKey: null,
+        userConfiguration: defaultUserConfiguration,
+        hasLoaded: false
+      });
+    }
   };
 });
 

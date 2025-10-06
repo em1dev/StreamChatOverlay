@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { CustomEmote } from '../api/elpatoApi/types';
-import { elPatoApi } from '../api/elpatoApi';
+import { CustomEmote } from '../api/chatApi/types';
 import { useConfiguration } from '../store/configuration';
+import { chatApi } from '@/api/chatApi';
 
 const escapeRegex = (text: string) => (
   text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
@@ -9,9 +9,9 @@ const escapeRegex = (text: string) => (
 
 export const useCustomEmotes = (channelId: string) => {
   const [customEmotes, setCustomEmotes] = useState<Array<CustomEmote>>([]);
-  const isBetterTTVEnabled = useConfiguration(state => state.betterTTVEnabled);
-  const isSevenTVEnabled = useConfiguration(state => state.sevenTVEnabled);
-  const isFrankerEnabled = useConfiguration(state => state.frankerFaceEnabled);
+  const isBetterTTVEnabled = useConfiguration(state => state.userConfiguration.emotes.isBetterTTVEnabled);
+  const isSevenTVEnabled = useConfiguration(state => state.userConfiguration.emotes.isSevenTVEnabled);
+  const isFrankerEnabled = useConfiguration(state => state.userConfiguration.emotes.isFrankerFaceEnabled);
 
   useEffect(() => {
     (async () => {
@@ -21,7 +21,7 @@ export const useCustomEmotes = (channelId: string) => {
         !isFrankerEnabled
       ) return;
 
-      const resp = await elPatoApi.getEmotes(channelId, isBetterTTVEnabled, isFrankerEnabled, isFrankerEnabled);
+      const resp = await chatApi.getEmotes(channelId, isBetterTTVEnabled, isFrankerEnabled, isFrankerEnabled);
       if (!resp.data) return;
 
       const emotes = resp.data.map(e => ({

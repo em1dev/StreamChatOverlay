@@ -1,64 +1,57 @@
-import { ApiParams, ApiResponse, TwitchAuthResponse, TwitchBadgeResponse, UserInformationResponse } from "../../types";
+import { TwitchCredentials } from '../../TwitchTokenStore';
+import { ApiResponse, TwitchAuthResponse, TwitchBadgeResponse } from '../../types';
 import 'dotenv/config';
 
 const TWITCH_AUTH_URL = 'https://id.twitch.tv/oauth2/token';
 const HELIX_BASE_URL = 'https://api.twitch.tv/helix/';
-const CLIENT_ID = process.env['CLIENT_ID'];
-const CLIENT_SECRET = process.env['CLIENT_SECRET'];
 
-if (!CLIENT_ID || !CLIENT_SECRET) {
-  throw new Error('Missing env variables');
-}
-
-const getAppToken = async () => (
+const getAppToken = async (clientId: string, clientSecret: string) => (
   await callApi<TwitchAuthResponse>({ 
     url: TWITCH_AUTH_URL,
     method: 'POST',
     body: {
-      client_id: CLIENT_ID,
-      client_secret: CLIENT_SECRET,
+      client_id: clientId,
+      client_secret: clientSecret,
       grant_type: 'client_credentials',
       claims: '',
     }
   })
 );
 
-const getChannelBadges = async (channelId:string, appToken: string) => {
+const getChannelBadges = async (channelId:string, twitchCredentials: TwitchCredentials) => {
   const url = HELIX_BASE_URL + 'chat/badges'; 
   return await callApi<TwitchBadgeResponse>({
     url,
     params: {
       broadcaster_id: channelId
     },
-    token: appToken
+    twitchCredentials
   });
 };
 
-const getGlobalBadges = async (appToken: string) => {
+const getGlobalBadges = async (twitchCredentials: TwitchCredentials) => {
   const url = HELIX_BASE_URL + 'chat/badges/global'; 
   return await callApi<TwitchBadgeResponse>({
     url,
-    token: appToken
+    twitchCredentials
   }); 
-}
-
-const getUserInformation = async (channelName: string, appToken: string) => {
-  const url = HELIX_BASE_URL + 'users';
-  return await callApi<UserInformationResponse>({
-    url,
-    params: {
-      login: channelName.toLowerCase()
-    },
-    token: appToken
-  });
 };
+
+interface ApiParams<T> {
+  url: string;
+  params?: Record<string, string | number>;
+  method?: 'GET' | 'POST' | 'DELETE' | 'PATCH' | 'PUT';
+  body?: T;
+  twitchCredentials?: TwitchCredentials;
+  headers?: Record<string, string>,
+}
 
 const callApi = async <R, T = unknown>({
   url,
   body,
   method = 'GET',
   params = {},
-  token,
+  twitchCredentials
 }: ApiParams<T>): Promise<ApiResponse<R>> => {
   const paramsParsed = Object.entries(params).map(([key, value]) => `${key}=${value}`).join('&');
   const urlParsed = url + '?' + paramsParsed;
@@ -67,7 +60,9 @@ const callApi = async <R, T = unknown>({
     const resp = await fetch(urlParsed, {
       method,
       body: body ? JSON.stringify(body) : null,
-      headers: createAuthHeaders(token ?? ''),
+      headers: twitchCredentials ? createAuthHeaders(twitchCredentials) : {
+        'Content-Type': 'application/json',
+      },
     });
     const data = await resp.json() as R;
 
@@ -76,10 +71,10 @@ const callApi = async <R, T = unknown>({
       return {
         error: {
           status: resp.status,
-          description: data as any
+          description: data as unknown
         }
+      };
     }
-  }
 
     return { data };
   } catch (err) {
@@ -89,14 +84,17 @@ const callApi = async <R, T = unknown>({
         status: 500,
         description: 'Internal error'
       }
-    }
+    };
   }
-}
+};
 
-const createAuthHeaders = (token: string, type: 'Bearer' | 'OAuth' = 'Bearer', additionalHeaders: Record<string, string> = {}) => (
+const createAuthHeaders = (
+  twitchCredentials: TwitchCredentials,
+  type: 'Bearer' | 'OAuth' = 'Bearer',
+  additionalHeaders: Record<string, string> = {}) => (
   new Headers({
-    'Client-Id': CLIENT_ID,
-    'Authorization': `Bearer ${token}`,
+    'Client-Id': twitchCredentials.clientId,
+    'Authorization': `${type} ${twitchCredentials.appToken}`,
     'Content-Type': 'application/json',
     ...additionalHeaders
   })
@@ -105,6 +103,5 @@ const createAuthHeaders = (token: string, type: 'Bearer' | 'OAuth' = 'Bearer', a
 export const twitchApi = {
   getChannelBadges,
   getGlobalBadges,
-  getAppToken,
-  getUserInformation
+  getAppToken
 };

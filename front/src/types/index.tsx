@@ -1,4 +1,4 @@
-import { CustomEmote } from '../api/elpatoApi/types';
+import { CustomEmote } from '../api/chatApi/types';
 
 export type MessagePart = {
   type: 'text' | 'emote' | 'mention' | 'reply' | 'redeption',
@@ -20,44 +20,6 @@ export interface ChatMessageData {
     url: string
   }>,
   contentParts: Array<MessagePart>,
-}
-
-export interface TTSReplacement {
-  id: string,
-  ordinal: number,
-  regex: string,
-  regexFlags: string,
-  replaceWith: string,
-  replaceFullMessage?: boolean,
-  replacement?: TTSReplacement,
-  description: string
-}
-
-export interface TTSConfiguration {
-  selectedVoice?: string,
-  userReplacement: Array<TTSReplacement>,
-  replacements: Array<TTSReplacement>,
-  ignoredUsers: Array<{
-    id: string,
-    userName: string
-  }>,
-  emotesToRead: number
-}
-
-export interface UserConfiguration {
-  channelName: string,
-  channelId: string,
-  isTTSEnabled: boolean,
-  chatDirection: 'left' | 'right',
-  betterTTVEnabled: boolean,
-  frankerFaceEnabled: boolean,
-  sevenTVEnabled: boolean,
-  ignoredUsers: Array<{
-    id: string,
-    value: string
-  }>
-  ttsConfiguration: TTSConfiguration,
-  chatTheme?: string
 }
 
 export interface TTSMessage {

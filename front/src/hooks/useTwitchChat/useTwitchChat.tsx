@@ -4,7 +4,6 @@ import { ChatMessageData } from '../../types';
 import { TwurpleChatMessage } from './types';
 import { usePronouns } from '../usePronouns';
 import { useBadges } from '../useBadges';
-import { UserInformation } from '../../api/elpatoApi/types';
 import { TwitchChatParser } from './twitchChatParser';
 import { useCustomEmotes } from '../useCustomEmotes';
 import { useTTS } from '../useTTS/useTTS';
@@ -14,7 +13,7 @@ const MAX_MESSAGES = 20;
 
 type OnChatMessageEventHandler = (channel: string, user:string, text:string, msg: TwurpleChatMessage) => Promise<void>;
 
-export const useTwitchChat = (channel: UserInformation) => {
+export const useTwitchChat = (channelId: string, channelLogin: string) => {
   const configuration = useConfiguration(state => state);
 
   const { 
@@ -22,8 +21,8 @@ export const useTwitchChat = (channel: UserInformation) => {
     onRemoveMessage: ttsRemoveMessage,
     speak: ttsSpeak
   } = useTTS();
-  const customEmotes = useCustomEmotes(channel.id);
-  const { parseBadges } = useBadges(channel.id);
+  const customEmotes = useCustomEmotes(channelId);
+  const { parseBadges } = useBadges(channelId);
   const { getPronounsFromTwitchName } = usePronouns();
   const [chat, setChat] = useState<ChatClient | null>(null);
   const [chatMessages, setChatMessages] = useState<Array<ChatMessageData> | []>([]);
@@ -33,7 +32,7 @@ export const useTwitchChat = (channel: UserInformation) => {
 
   useEffect(() => {
     const chatClient = new ChatClient({
-      channels: [channel.login]
+      channels: [channelLogin]
     });
     chatClient.connect();
     setChat(chatClient);
@@ -42,7 +41,7 @@ export const useTwitchChat = (channel: UserInformation) => {
       chatClient.quit();
       setChat(null);
     };
-  }, [channel]);
+  }, [channelLogin]);
 
   // avoids reconnection on callback changes by keeping them on ref
   // twurple does not allow us to disconnect events for some reason... :/ so this works
@@ -100,12 +99,15 @@ export const useTwitchChat = (channel: UserInformation) => {
 
   useEffect(() => {
     onMessageHandlerRef.current = async (channel: string, user: string, text: string, msg: TwurpleChatMessage) => {
-      if (configuration.ignoredUsers.find(ignoredUser => ignoredUser.value === user)) return;
+      if (configuration.userConfiguration.ignoredUsers.find(ignoredUser => ignoredUser.value === user)) return;
       const pronoun = await getPronounsFromTwitchName(user);
       const msgParts = TwitchChatParser.parseMessage(msg.text, msg.emoteOffsets, customEmotes, msg);
 
-      const effect = TwitchChatParser.parseMessageEffect(msg);
+      const isBot = msg.userInfo.badges.get('bot-badge') == '1';
+      const isCommand = text.trim().startsWith('!');
 
+      const badges = configuration.userConfiguration.showChatterBadges ? parseBadges(msg.userInfo.badges) : [];
+      const effect = TwitchChatParser.parseMessageEffect(msg);
       const newMessage: ChatMessageData = {
         id: msg.id,
         effect,
@@ -114,11 +116,17 @@ export const useTwitchChat = (channel: UserInformation) => {
         displayPronoun: pronoun,
         color: msg.userInfo.color,
         emoteOffsets: msg.emoteOffsets,
-        badges: parseBadges(msg.userInfo.badges),
+        badges: badges,
         contentParts: msgParts
       };
 
-      if (configuration.isTTSEnabled) {
+      const shouldIgnoreBotTTS = configuration.userConfiguration.ttsConfiguration.ignoreBotMessages && isBot;
+      const shouldIgnoreCommandTTS = configuration.userConfiguration.ttsConfiguration.ignoreCommandMessages && isCommand;
+      if (
+        configuration.userConfiguration.ttsConfiguration.isTTSEnabled &&
+        !shouldIgnoreBotTTS &&
+        !shouldIgnoreCommandTTS
+      ) {
         ttsSpeak({
           parts: msgParts,
           content: newMessage.content,
@@ -127,15 +135,20 @@ export const useTwitchChat = (channel: UserInformation) => {
         });
       }
 
-      setChatMessages((msgs) => (
-        [newMessage, ...msgs].slice(0, MAX_MESSAGES)
-      ));
+      const shouldIgnoreBotMsgDisplay = configuration.userConfiguration.hideBotMessages && isBot;
+      const shouldIgnoreCommandMsgDisplay = configuration.userConfiguration.hideCommands && isCommand;
+
+      if (!shouldIgnoreBotMsgDisplay && !shouldIgnoreCommandMsgDisplay){
+        setChatMessages((msgs) => (
+          [newMessage, ...msgs].slice(0, MAX_MESSAGES)
+        ));
+      }
     };
   }, [getPronounsFromTwitchName, parseBadges, customEmotes, ttsSpeak, configuration]);
 
   useEffect(() => {
     onMessageRemovedRef.current = (msgId: string) => {
-      if (configuration.isTTSEnabled) {
+      if (configuration.userConfiguration.ttsConfiguration.isTTSEnabled) {
         ttsRemoveMessage([msgId]);
       }
     };

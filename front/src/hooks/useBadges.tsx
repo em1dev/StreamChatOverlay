@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Badge } from '../api/elpatoApi/types';
-import { elPatoApi } from '../api/elpatoApi';
+import { Badge } from '../api/chatApi/types';
 import { ChatMessageData } from '../types';
+import { chatApi } from '@/api/chatApi';
 
 export const useBadges = (channelId?: string | null) => {
   const [badges, setBadges] = useState<Array<Badge>>([]);
@@ -10,13 +10,11 @@ export const useBadges = (channelId?: string | null) => {
     if (!channelId) return;
 
     (async () => {
-      const respChannelBadges = await elPatoApi.getChannelBadges(channelId);
-      const respGlobalBadges = await elPatoApi.getGlobalBadges();
+      const respChannelBadges = await chatApi.getChannelBadges(channelId);
 
-      if (!respChannelBadges.data || !respGlobalBadges.data) return;
+      if (!respChannelBadges.data) return;
       setBadges([
-        ...respChannelBadges.data,
-        ...respGlobalBadges.data
+        ...respChannelBadges.data
       ]);
     })();
   }, [channelId]);
