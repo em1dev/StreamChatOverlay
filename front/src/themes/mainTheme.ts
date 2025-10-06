@@ -1,8 +1,8 @@
-import { theme2 } from './chatThemes';
 import { DefaultTheme } from 'styled-components';
+import { themeKeyMap } from './chatThemes';
 
 export const mainTheme: DefaultTheme = {
-  chat: theme2,
+  chat: themeKeyMap['duck'],
   page: {
     colors: {
       title: '#FF5B87',

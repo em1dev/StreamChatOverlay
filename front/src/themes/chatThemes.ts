@@ -2,58 +2,58 @@ import { ChatTheme } from './styled';
 
 export const THEME_USER_COLOR = '$userColor';
 
-const theme1: ChatTheme = {
+const coffee: ChatTheme = {
   font: 'poppins',
 
   header: {
-    bg: '#2a2a2a',
-    text: '#F6D6BD',
-    borderRadius: '12px',
+    bg: '#3b3432',
+    text: '#f2d4c6',
+    borderRadius: '18px',
     border: 'none',
     fontSize: '12px',
     fontWeight: 'bold',
-    padding: '0.4em 1.5em 0.8em 1.5em',
+    padding: '0.6em 1.5em 0.8em 1.5em',
     marginHorizontal: '8px',
   },
 
   content: {
-    bg: '#F6D6BD',
-    text: '#08141E',
-    border: 'solid 1px #2a2a2a',
-    borderRadius: '12px',
+    bg: '#f2d4c6',
+    text: '#3b3432',
+    border: 'solid 4px #3b3432',
+    borderRadius: '14px',
     fontSize: '12px',
     fontWeight: 'bold',
     padding: '0.5em 0.8em',
     boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
 
     mention: {
-      bg: '#2a2a2a',
-      text: '#F6D6BD',
+      bg: '#3b3432',
+      text: '#f2d4c6',
       border: 'none',
-      borderRadius: '0.8em',
+      borderRadius: '0.7em',
       padding: '0.5em',
     },
 
     reply: {
-      bg: '#2a2a2a',
-      text: '#F6D6BD',
+      bg: '#3b3432',
+      text: '#f2d4c6',
       border: 'none',
-      borderRadius: '0.8em',
+      borderRadius: '0.7em',
       padding: '0.5em',
     },
 
     reward: {
-      bg: '#2a2a2a',
-      text: '#F6D6BD',
+      bg: '#3b3432',
+      text: '#f2d4c6',
       border: 'none',
-      borderRadius: '0.8em',
+      borderRadius: '0.7em',
       padding: '0.5em',
     },
   }
 };
 
 
-const theme3: ChatTheme = {
+const contrast: ChatTheme = {
   font: 'poppins',
   header: {
     bg: 'black',
@@ -101,7 +101,7 @@ const theme3: ChatTheme = {
   }
 };
 
-const theme2: ChatTheme = {
+const duck: ChatTheme = {
   font: 'poppins',
   header: {
     bg: '#ffda86',
@@ -203,14 +203,14 @@ const floating:ChatTheme = {
 };
 
 const pinkTheme:ChatTheme = {
-  ...theme2,
+  ...duck,
   header: {
-    ...theme2.header,
+    ...duck.header,
     marginHorizontal: undefined,
     bg: '#ffb7f2',
   },
   content: {
-    ...theme2.content,
+    ...duck.content,
     marginHorizontal: '8px',
     bg: '#fff2f2'
   }
@@ -219,11 +219,9 @@ const pinkTheme:ChatTheme = {
 export type ThemeKeys = 'duck' | 'coffee' | 'pink' | 'floating' |  'contrast' ;
 
 export const themeKeyMap: Record<ThemeKeys, ChatTheme> = {
-  'duck': theme2,
-  'coffee': theme1,
+  'duck': duck,
+  'coffee': coffee,
   'pink': pinkTheme,
   'floating': floating,
-  'contrast': theme3,
+  'contrast': contrast,
 };
-
-export { theme1, theme2, theme3, pinkTheme, floating };
