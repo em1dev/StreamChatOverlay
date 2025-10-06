@@ -2,10 +2,7 @@ import { useEffect, useState } from 'react';
 import { CustomEmote } from '../api/chatApi/types';
 import { useConfiguration } from '../store/configuration';
 import { chatApi } from '@/api/chatApi';
-
-const escapeRegex = (text: string) => (
-  text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-);
+import { escapeRegex } from '@/utils/regexUtils';
 
 export const useCustomEmotes = (channelId: string) => {
   const [customEmotes, setCustomEmotes] = useState<Array<CustomEmote>>([]);

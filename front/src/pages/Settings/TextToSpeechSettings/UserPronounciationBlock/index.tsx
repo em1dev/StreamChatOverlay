@@ -5,6 +5,7 @@ import { useCallback, useMemo } from 'react';
 import { TTSReplacement } from '@/types/userConfigurationTypes';
 import { Input } from '@/components/Input';
 import { IconButton } from '@/components/IconButton';
+import { removeRegexCharacters } from '@/utils/regexUtils';
 
 import * as S from './styles';
 
@@ -61,7 +62,11 @@ export const UserPronunciationBlock = () => {
   const updateReplacement = useCallback((replacement: TTSReplacement) => {
     const newList = [
       ...userReplacement.filter(item => item.id !== replacement.id),
-      replacement
+      {
+        ...replacement,
+        regex: removeRegexCharacters(replacement.regex),
+        replaceWith: removeRegexCharacters(replacement.replaceWith)
+      }
     ];
     updateConfig({
       ttsConfiguration: {
