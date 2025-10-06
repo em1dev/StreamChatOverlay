@@ -35,8 +35,10 @@ export const HeaderOrderingContainer = styled.div`
   border-radius: 0.5em;
 
   > button {
+    width: 1.5em;
     display: flex;
     align-items: center;
+    justify-content: center;
     border: none;
     background-color: ${({ theme }) => theme.page.colors.text };
     color: ${({ theme }) => theme.page.colors.bg };
