@@ -46,19 +46,17 @@ export const applyTTSMessageTransformations = (message: TTSMessage, configuratio
     .map(msg => msg.originalContent)
     .join(' ');
 
+  // replace sentBy their pronunciation
   let sentBy = message.sentBy;
+  const matchedReplacement = configuration.userReplacement
+    .find(r => sentBy && (new RegExp(`^${r.regex}$`, 'i')).test(sentBy));
 
-  // replace sent by by their pronunciation
-  configuration.userReplacement.forEach(replacement => {
-    sentBy = applyReplacements(sentBy ?? '', {
-      ...replacement,
-      regex: `^${replacement.regex}$`,
-      regexFlags: 'i'
-    });
-  });
+  if (matchedReplacement){
+    sentBy = sentBy?.replace(matchedReplacement.regex, matchedReplacement.replaceWith);
+  };
 
-  // replace user mentions by their pronunciation
   configuration.userReplacement.forEach(replacement => {
+    // replace user mentions by their pronunciation
     messageToRead = applyReplacements(messageToRead, {
       ...replacement,
       regex: `\\b@?${replacement.regex}\\b`,

@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { applyTTSMessageTransformations } from './configuration';
 import { TTSMessage } from '../../types';
 import { useConfiguration } from '../../store/configuration';
 import { useTtsVoices } from '../../store/ttsVoices';
+import { TTSConfiguration } from '@/types/userConfigurationTypes';
 
 
 export const useTTS = () => {
@@ -10,6 +11,13 @@ export const useTTS = () => {
   const [messagesToRead, setMessagesToRead] = useState<Array<TTSMessage>>([]);
   const [currentMessageId, setCurrentMessageId] = useState<string | null>(null);
   const { setVoices, voices } = useTtsVoices(state => state);
+
+  const validTTSConfiguration: TTSConfiguration = useMemo(() => ({
+    ...configuration,
+    userReplacement: configuration
+      .userReplacement
+      .filter(r => r.regex.length > 0) // avoid empty rules to stop it from replacing everything
+  }), [configuration]);
 
   useEffect(() => {
     if (typeof speechSynthesis === 'undefined') {
@@ -33,19 +41,19 @@ export const useTTS = () => {
 
   const speakInternal = useCallback((message: TTSMessage, onEnd: () => void) => {
     // parse
-    const messageToRead = applyTTSMessageTransformations(message, configuration);
+    const messageToRead = applyTTSMessageTransformations(message, validTTSConfiguration);
 
     // speak
     const utterance = new SpeechSynthesisUtterance(messageToRead);
     const voices = speechSynthesis.getVoices();
-    const foundVoice = voices.find(v => (v.voiceURI === configuration.selectedVoice));
+    const foundVoice = voices.find(v => (v.voiceURI === validTTSConfiguration.selectedVoice));
     utterance.voice = foundVoice ?? null;
     utterance.addEventListener('end', onEnd);
     // clear queue on error anyway to try again on next message
     //   it usually errors if the user has not interacted with the page
     utterance.addEventListener('error', onEnd);
     speechSynthesis.speak(utterance);
-  }, [configuration]);
+  }, [validTTSConfiguration]);
 
   useEffect(() => {
     const continueReadingChat = () => {
