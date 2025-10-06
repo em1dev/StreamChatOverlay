@@ -10,7 +10,7 @@ export type MessagePart = {
 export interface ChatMessageData {
   id: string,
   effect: 'normal' | 'rainbow' | 'simmer' | 'big-emote',
-  content: string,
+  fullMessageText: string,
   emoteOffsets: Map<string, Array<string>>,
   userDisplayName: string,
   displayPronoun?: string | null,
@@ -19,12 +19,12 @@ export interface ChatMessageData {
     id: string,
     url: string
   }>,
-  contentParts: Array<MessagePart>,
+  messageParts: Array<MessagePart>,
 }
 
 export interface TTSMessage {
   id: string,
   parts: Array<MessagePart>,
-  content: string,
+  fullMessageText: string,
   sentBy?: string,
 }

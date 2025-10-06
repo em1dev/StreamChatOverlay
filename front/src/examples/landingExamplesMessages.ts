@@ -4,7 +4,7 @@ export const landingExamplesMessages: Array<ChatMessageData> = [
   {
     'id': '5f7b389d-9284-4f97-8a1b-28c57d910a71',
     'effect': 'normal',
-    'content': 'RainbowPls',
+    'fullMessageText': 'RainbowPls',
     'userDisplayName': 'EmyTheDoll',
     'displayPronoun': 'she/her',
     'color': '#F9C8E0',
@@ -15,7 +15,7 @@ export const landingExamplesMessages: Array<ChatMessageData> = [
         'url': 'https://static-cdn.jtvnw.net/badges/v1/5527c58c-fb7d-422d-b71b-f309dcb85cc1/2'
       }
     ],
-    'contentParts': [
+    'messageParts': [
       {
         'content': 'RainbowPls',
         'type': 'emote',
@@ -34,7 +34,7 @@ export const landingExamplesMessages: Array<ChatMessageData> = [
   {
     'id': 'c90fbad0-e1d7-4a98-8eb5-4ce1612d9ed2',
     'effect': 'normal',
-    'content': 'owo',
+    'fullMessageText': 'owo',
     'userDisplayName': 'AnnCinnamon',
     'color': '#00FF7F',
     'emoteOffsets': new Map(),
@@ -52,7 +52,7 @@ export const landingExamplesMessages: Array<ChatMessageData> = [
         'url': 'https://static-cdn.jtvnw.net/badges/v1/f1d2aab6-b647-47af-965b-84909cf303aa/2'
       },
     ],
-    'contentParts': [
+    'messageParts': [
       {
         'content': 'owo',
         'type': 'text',
@@ -63,7 +63,7 @@ export const landingExamplesMessages: Array<ChatMessageData> = [
   {
     'id': '913650a6-cf9c-4a59-b587-9685814ece73',
     'effect': 'normal',
-    'content': '@bulbsum JinxLUL',
+    'fullMessageText': '@bulbsum JinxLUL',
     'userDisplayName': 'EmyTheDoll',
     'displayPronoun': 'she/her',
     'color': '#F9C8E0',
@@ -78,7 +78,7 @@ export const landingExamplesMessages: Array<ChatMessageData> = [
         'url': 'https://static-cdn.jtvnw.net/badges/v1/4300a897-03dc-4e83-8c0e-c332fee7057f/2'
       }
     ],
-    'contentParts': [
+    'messageParts': [
       {
         'content': '\n          Replying to: @bulbsum hel...\n        ',
         'type': 'reply',
@@ -94,7 +94,7 @@ export const landingExamplesMessages: Array<ChatMessageData> = [
   {
     'id': '913650a6-cf9c-4a59-b587-9685814ece74',
     'effect': 'normal',
-    'content': 'hello everynyan',
+    'fullMessageText': 'hello everynyan',
     'userDisplayName': 'bulbsum',
     'displayPronoun': 'any',
     'color': '#F9C8E0',
@@ -105,7 +105,7 @@ export const landingExamplesMessages: Array<ChatMessageData> = [
         'url': 'https://static-cdn.jtvnw.net/badges/v1/4300a897-03dc-4e83-8c0e-c332fee7057f/2'
       }
     ],
-    'contentParts': [
+    'messageParts': [
       {
         'content': 'hello everynyan',
         'type': 'text',
@@ -116,7 +116,7 @@ export const landingExamplesMessages: Array<ChatMessageData> = [
   {
     'id': '6cb5af1d-0c27-4a9c-afc8-38bf63ca9db5',
     'effect': 'normal',
-    'content': 'A beber',
+    'fullMessageText': 'A beber',
     'userDisplayName': 'bulbsum',
     'displayPronoun': 'any',
     'color': '#F9C8E0',
@@ -127,7 +127,7 @@ export const landingExamplesMessages: Array<ChatMessageData> = [
         'url': 'https://static-cdn.jtvnw.net/badges/v1/4300a897-03dc-4e83-8c0e-c332fee7057f/2'
       }
     ],
-    'contentParts': [
+    'messageParts': [
       {
         'content': 'a beber ',
         'type': 'text',
@@ -143,7 +143,7 @@ export const landingExamplesMessages: Array<ChatMessageData> = [
   {
     'id': '6cb5af1d-0c27-4a9c-afc8-38bf63ca9db6',
     'effect': 'normal',
-    'content': 'A beber',
+    'fullMessageText': 'A beber',
     'userDisplayName': 'EmyTheDoll',
     'displayPronoun': 'she/her',
     'color': '#F9C8E0',
@@ -154,7 +154,7 @@ export const landingExamplesMessages: Array<ChatMessageData> = [
         'url': 'https://static-cdn.jtvnw.net/badges/v1/5527c58c-fb7d-422d-b71b-f309dcb85cc1/2'
       }
     ],
-    'contentParts': [
+    'messageParts': [
       {
         'content': 'wooooooooooo',
         'type': 'text',

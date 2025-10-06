@@ -111,13 +111,13 @@ export const useTwitchChat = (channelId: string, channelLogin: string) => {
       const newMessage: ChatMessageData = {
         id: msg.id,
         effect,
-        content: msg.text,
+        fullMessageText: msg.text,
         userDisplayName: msg.userInfo.displayName,
         displayPronoun: pronoun,
         color: msg.userInfo.color,
         emoteOffsets: msg.emoteOffsets,
         badges: badges,
-        contentParts: msgParts
+        messageParts: msgParts
       };
 
       const shouldIgnoreBotTTS = configuration.userConfiguration.ttsConfiguration.ignoreBotMessages && isBot;
@@ -129,7 +129,7 @@ export const useTwitchChat = (channelId: string, channelLogin: string) => {
       ) {
         ttsSpeak({
           parts: msgParts,
-          content: newMessage.content,
+          fullMessageText: newMessage.fullMessageText,
           id: newMessage.id,
           sentBy: newMessage.userDisplayName
         });

@@ -22,7 +22,7 @@ export const UserPronunciationBlock = () => {
   const speak = useCallback((text: string) => {
     tts.speak({
       id: crypto.randomUUID(),
-      content: text,
+      fullMessageText: text,
       parts: [{ content: text, originalContent: text, type: 'text' }]
     });
   }, [tts]);

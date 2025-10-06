@@ -42,7 +42,7 @@ export const TextToSpeechSettings = () => {
 
   const speak = useCallback((text: string) => {
     tts.speak({
-      content: text,
+      fullMessageText: text,
       id: crypto.randomUUID(),
       sentBy: 'emydev',
       parts: [{
@@ -55,7 +55,7 @@ export const TextToSpeechSettings = () => {
 
   const onTryOutTts = useCallback(() => {
     tts.speak({
-      content: testTtsMessage,
+      fullMessageText: testTtsMessage,
       id: crypto.randomUUID(),
       sentBy: 'emydev',
       parts: [{
