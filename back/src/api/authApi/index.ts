@@ -43,7 +43,7 @@ export const authenticate = async (code: string, redirectUrl: string) => {
     body: JSON.stringify({
       code,
       redirectUrl,
-      //shouldUpsertConnection: true
+      shouldUpsertConnection: true
     })
   });
 
