@@ -37,13 +37,13 @@ const ChatMsgHeaderPart = ({
   {
     case 'badges':
       return showBadges ? messageData.badges.map((badge) => (
-        <S.Badge height={18} width={18} src={badge.url} key={badge.id} alt={badge.id} />
+        <img height={18} width={18} src={badge.url} key={badge.id} alt={badge.id} />
       )) : null;
     case 'name':
-      return <S.UserName>{ messageData.userDisplayName }</S.UserName>;
+      return <div>{ messageData.userDisplayName }</div>;
     case 'pronouns':
       return messageData.displayPronoun ? (
-        <S.Pronouns>({ messageData.displayPronoun })</S.Pronouns>
+        <div>({ messageData.displayPronoun })</div>
       ) : null;
   }
 };

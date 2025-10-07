@@ -19,6 +19,7 @@ export interface ChatTheme
     fontSize: string,
     fontWeight: string,
     marginHorizontal?: string,
+    marginBottom: string,
   },
 
   content: Box & {

@@ -8,12 +8,13 @@ const coffee: ChatTheme = {
   header: {
     bg: '#3b3432',
     text: '#f2d4c6',
-    borderRadius: '18px',
+    borderRadius: '14px',
     border: 'none',
     fontSize: '12px',
     fontWeight: 'bold',
-    padding: '0.6em 1.5em 0.8em 1.5em',
+    padding: '0.8em 1.5em 0.8em 1.5em',
     marginHorizontal: '8px',
+    marginBottom: '-4px',
   },
 
   content: {
@@ -23,14 +24,14 @@ const coffee: ChatTheme = {
     borderRadius: '14px',
     fontSize: '12px',
     fontWeight: 'bold',
-    padding: '0.5em 0.8em',
+    padding: '0.8em 0.8em',
     boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
 
     mention: {
       bg: '#3b3432',
       text: '#f2d4c6',
       border: 'none',
-      borderRadius: '0.7em',
+      borderRadius: '5px',
       padding: '0.5em',
     },
 
@@ -38,7 +39,7 @@ const coffee: ChatTheme = {
       bg: '#3b3432',
       text: '#f2d4c6',
       border: 'none',
-      borderRadius: '0.7em',
+      borderRadius: '5px',
       padding: '0.5em',
     },
 
@@ -46,7 +47,7 @@ const coffee: ChatTheme = {
       bg: '#3b3432',
       text: '#f2d4c6',
       border: 'none',
-      borderRadius: '0.7em',
+      borderRadius: '5px',
       padding: '0.5em',
     },
   }
@@ -59,11 +60,12 @@ const contrast: ChatTheme = {
     bg: 'black',
     text: 'white',
     borderRadius: '0',
-    border: '1px white solid',
+    border: 'none',
     fontSize: '12px',
     fontWeight: 'bold',
-    padding: '0.4em 1.5em 0.8em 1.5em',
+    padding: '0.8em 1.5em 0.8em 1.5em',
     marginHorizontal: '8px',
+    marginBottom: '-3px',
   },
   content: {
     bg: 'white',
@@ -72,7 +74,7 @@ const contrast: ChatTheme = {
     borderRadius: '0',
     fontSize: '12px',
     fontWeight: 'bold',
-    padding: '0.5em 0.8em',
+    padding: '0.6em 0.6em',
     boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
 
     mention: {
@@ -110,8 +112,9 @@ const duck: ChatTheme = {
     border: '0px #fff8ea solid',
     fontSize: '12px',
     fontWeight: '500',
-    padding: '0.4em 1.5em 0.8em 1.5em',
+    padding: '0.8em 1.5em 0.8em 1.5em',
     marginHorizontal: '8px',
+    marginBottom: '-4px',
   },
 
   content: {
@@ -155,8 +158,8 @@ const floating:ChatTheme = {
   font: 'poppins',
   header: {
     bg: 'transparent',
-    //text: THEME_USER_COLOR,
-    text: 'white',
+    text: THEME_USER_COLOR,
+    //text: 'white',
     textShadow: '0 0 5px black',
     //textShadow: `0 0 3px ${THEME_USER_COLOR}`,
     borderRadius: '0',
@@ -164,6 +167,7 @@ const floating:ChatTheme = {
     fontSize: '13px',
     fontWeight: '500',
     padding: '0 5px 0 0 ', // move text to the left to avoid shadow being cut off
+    marginBottom: '5px',
   },
 
   content: {
@@ -178,7 +182,7 @@ const floating:ChatTheme = {
 
     mention: {
       bg: 'transparent',
-      text: '#fffbae',
+      text: '#dfe7ff',
       border: 'none',
       borderRadius: '0',
       padding: '0',
@@ -186,15 +190,15 @@ const floating:ChatTheme = {
 
     reply: {
       bg: 'transparent',
-      text: '#fffbae',
+      text: '#dfe7ff',
       border: 'none',
       borderRadius: '0',
       padding: '0',
     },
 
     reward: {
-      bg: '#ffcaad',
-      text: '#fffbae',
+      bg: 'transparent',
+      text: '#dfe7ff',
       border: 'none',
       borderRadius: '0',
       padding: '0',

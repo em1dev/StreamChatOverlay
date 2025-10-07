@@ -6,12 +6,11 @@ export const Container = styled.div<{ $userColor: string, $direction: 'left' | '
     ${ props.$direction  === 'left' ? 'margin-left' : 'margin-right' } : ${props.theme.chat.header.marginHorizontal};
   `}
 
-  margin-bottom: -8px;
+  margin-bottom: ${({ theme }) => theme.chat.header.marginBottom};
 
   display: flex;
   align-items: center;
   justify-content: end;
-  min-height: 40px;
 
   gap: 0.5em;
 
@@ -33,15 +32,4 @@ export const Container = styled.div<{ $userColor: string, $direction: 'left' | '
 
   font-weight: ${(props) => props.theme.chat.header.fontWeight};
   font-size: ${(props) => props.theme.chat.header.fontSize};
-`;
-
-export const Badge = styled.img`
-  //margin: 0 0.2em;
-`;
-
-export const Pronouns = styled.div`
-  //margin: 0 0.5ch;
-`;
-
-export const UserName = styled.div`
 `;
