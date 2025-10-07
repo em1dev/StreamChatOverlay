@@ -6,6 +6,10 @@ export const Container = styled.div<{ $userColor: string, $direction: 'left' | '
     ${ props.$direction  === 'left' ? 'margin-left' : 'margin-right' } : ${props.theme.chat.header.marginHorizontal};
   `}
 
+  ${(props) => props.theme.chat.headerOnTop && css`
+    z-index: 1;
+  `}
+
   margin-bottom: ${({ theme }) => theme.chat.header.marginBottom};
 
   display: flex;

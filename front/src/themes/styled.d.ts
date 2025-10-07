@@ -14,6 +14,7 @@ interface Box {
 export interface ChatTheme
 {
   font: string,
+  headerOnTop?: boolean,
 
   header: Box & {
     fontSize: string,
