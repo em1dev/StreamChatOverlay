@@ -1,22 +1,20 @@
 import Chat from '@/components/ChatVisualizerCore';
-import { Select } from '@/components/Select';
 import { ToggleInput } from '@/components/ToggleInput';
 import { landingExamplesMessages } from '@/examples/landingExamplesMessages';
 import { useChatTheme } from '@/hooks/useChatTheme';
 import { useConfiguration } from '@/store/configuration';
-import { ThemeKeys } from '@/themes/chatThemes';
 import { Icon } from '@iconify/react';
 import { ThemeProvider } from 'styled-components';
 import { HeaderOrdering } from './HeaderOrdering';
 import { FontSizeSection } from './FontSizeSection';
 
 import * as S from './styles';
+import { ThemePicker } from '../Common/ThemePicker';
 
 export const BasicSettings = () => {
   const configuration = useConfiguration(state => state.userConfiguration);
   const updateConfig = useConfiguration(state => state.updateUserConfiguration);
 
-  const themeKey = configuration?.chatTheme;
   const chatTheme = useChatTheme(configuration?.chatTheme);
 
   if (configuration == null) return null;
@@ -75,18 +73,7 @@ export const BasicSettings = () => {
       </section>
 
       <section>
-        <label htmlFor='theme-select-config'>
-          <h2>
-            Theme
-          </h2>
-        </label>
-        <Select id='theme-select-config' value={themeKey} onChange={(e) => {updateConfig({ chatTheme: e.target.value as ThemeKeys });}}>
-          <option value={'duck' satisfies ThemeKeys}>Duck</option>
-          <option value={'coffee' satisfies ThemeKeys}>Coffee</option>
-          <option value={'pink' satisfies ThemeKeys}>Pink</option>
-          <option value={'floating' satisfies ThemeKeys}>Floating</option>
-          <option value={'contrast' satisfies ThemeKeys}>Contrast</option>
-        </Select>
+        <ThemePicker />
       </section>
 
       <FontSizeSection />

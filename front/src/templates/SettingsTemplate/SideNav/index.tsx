@@ -23,9 +23,9 @@ export const SideNav = () =>
         Advance settings
       </NavLink>
       */}
-      <NavLink end to='/settings/custom-theme' >
+      <NavLink end to='/settings/customize-theme' >
         <Icon aria-hidden icon="mingcute:palette-line" />
-        Custom theme
+        Customize theme
       </NavLink>
     </S.NavContainer>
   );

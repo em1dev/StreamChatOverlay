@@ -1,5 +1,10 @@
 import { ThemeKeys } from '@/themes/chatThemes';
 
+export interface ChatThemeOverride
+{
+  font?: string,
+}
+
 export interface TTSReplacement {
   id: string,
   isEnabled: boolean,
@@ -47,6 +52,7 @@ export interface UserConfiguration {
   ttsConfiguration: TTSConfiguration,
   chatTheme: ThemeKeys,
   headerOrdering: Array<ChatMessageHeaderType>,
+  chatThemeOverride?: ChatThemeOverride,
   fontSize: number
 }
 

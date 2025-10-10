@@ -92,28 +92,6 @@ export const landingExamplesMessages: Array<ChatMessageData> = [
     ]
   },
   {
-    'id': '913650a6-cf9c-4a59-b587-9685814ece74',
-    'effect': 'normal',
-    'fullMessageText': 'hello everynyan',
-    'userDisplayName': 'bulbsum',
-    'displayPronoun': 'any',
-    'color': '#F9C8E0',
-    'emoteOffsets': new Map(),
-    'badges': [
-      {
-        'id': 'artist-badge',
-        'url': 'https://static-cdn.jtvnw.net/badges/v1/4300a897-03dc-4e83-8c0e-c332fee7057f/2'
-      }
-    ],
-    'messageParts': [
-      {
-        'content': 'hello everynyan',
-        'type': 'text',
-        'originalContent': 'hello everynyan'
-      }
-    ]
-  },
-  {
     'id': '6cb5af1d-0c27-4a9c-afc8-38bf63ca9db5',
     'effect': 'normal',
     'fullMessageText': 'A beber',
@@ -156,10 +134,79 @@ export const landingExamplesMessages: Array<ChatMessageData> = [
     ],
     'messageParts': [
       {
-        'content': 'wooooooooooo',
+        'content': 'hey',
         'type': 'text',
-        'originalContent': 'wooooooooo'
+        'originalContent': 'hey'
+      },
+      {
+        type: 'mention',
+        content: '@bulbsum',
+        originalContent: '@bulbsum',
+      },
+      {
+        'content': 'emotesv2_4e1c5651219a462894aefa8b6720efc5',
+        'type': 'emote',
+        'originalContent': 'JinxLUL'
+      },
+      {
+        'content': 'emotesv2_4e1c5651219a462894aefa8b6720efc5',
+        'type': 'emote',
+        'originalContent': 'JinxLUL'
+      },
+      {
+        'content': 'emotesv2_4e1c5651219a462894aefa8b6720efc5',
+        'type': 'emote',
+        'originalContent': 'JinxLUL'
       }
     ]
-  }
+  },
+  {
+    'id': '6cb5af1d-0c27-4a9c-afc8-38bf63ca9db7',
+    'effect': 'normal',
+    'fullMessageText': 'A beber',
+    'userDisplayName': 'EmyTheDoll',
+    'displayPronoun': 'she/her',
+    'color': '#F9C8E0',
+    'emoteOffsets': new Map(),
+    'badges': [
+      {
+        'id': 'broadcaster',
+        'url': 'https://static-cdn.jtvnw.net/badges/v1/5527c58c-fb7d-422d-b71b-f309dcb85cc1/2'
+      }
+    ],
+    'messageParts': [
+      {
+        'content': 'hey',
+        'type': 'text',
+        'originalContent': 'hey'
+      },
+      {
+        type: 'mention',
+        content: '@bulbsum',
+        originalContent: '@bulbsum',
+      }
+    ]
+  },
+  {
+    'id': '913650a6-cf9c-4a59-b587-9685814ece74',
+    'effect': 'normal',
+    'fullMessageText': 'hello everynyan',
+    'userDisplayName': 'bulbsum',
+    'displayPronoun': 'any',
+    'color': '#F9C8E0',
+    'emoteOffsets': new Map(),
+    'badges': [
+      {
+        'id': 'artist-badge',
+        'url': 'https://static-cdn.jtvnw.net/badges/v1/4300a897-03dc-4e83-8c0e-c332fee7057f/2'
+      }
+    ],
+    'messageParts': [
+      {
+        'content': 'hello everynyan',
+        'type': 'text',
+        'originalContent': 'hello everynyan'
+      }
+    ]
+  },
 ];

@@ -33,7 +33,7 @@ const App = () => {
             <Route path="/settings/add-to-stream" element={ <AddToStream /> } />
             <Route path="/settings/tts" element={ <TextToSpeechSettings /> } />
             <Route path="/settings/advance-settings" element={ <AdvanceSettings /> } />
-            <Route path="/settings/custom-theme" element={ <CustomThemeSettings /> } />
+            <Route path="/settings/customize-theme" element={ <CustomThemeSettings /> } />
           </Route>
 
           <Route path="/auth" element={ <AuthenticationPage /> } />
