@@ -47,3 +47,33 @@ export const contrastChatTheme: ChatTheme = {
     },
   }
 };
+
+export const contrastRedChatTheme:ChatTheme = {
+  ...contrastChatTheme,
+  header: {
+    ...contrastChatTheme.header,
+    bg: 'white',
+    text: 'black',
+    border: '3px solid black',
+  },
+  content: {
+    ...contrastChatTheme.content,
+    bg: 'black',
+    text: 'white',
+    mention: {
+      ...contrastChatTheme.content.mention,
+      bg: 'white',
+      text: 'black',
+    },
+    reward: {
+      ...contrastChatTheme.content.reward,
+      bg: 'white',
+      text: 'black',
+    },
+    reply: {
+      ...contrastChatTheme.content.reply,
+      bg: 'white',
+      text: 'black',
+    },
+  },
+};

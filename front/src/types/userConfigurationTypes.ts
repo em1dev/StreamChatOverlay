@@ -46,6 +46,7 @@ export interface UserConfiguration {
   }>
   ttsConfiguration: TTSConfiguration,
   chatTheme: ThemeKeys,
+  chatThemeVariant?: string,
   headerOrdering: Array<ChatMessageHeaderType>,
   fontSize: number
 }
