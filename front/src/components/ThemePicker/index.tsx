@@ -15,9 +15,10 @@ export const ThemePicker = (props: ThemePickerProps) => {
   const themeVariant = useConfiguration(c => c.userConfiguration.chatThemeVariant);
   const updateConfig = useConfiguration(c => c.updateUserConfiguration);
 
-  const variants = useMemo(() => (
-    Object.entries(themeKeyMap[themeKey])
-  ), [themeKey]);
+  const variants = useMemo(() => {
+    const themeVariants = (themeKey ? themeKeyMap[themeKey] : themeKeyMap['duck']) ?? themeKeyMap['duck']; 
+    return Object.entries(themeVariants);
+  }, [themeKey]);
 
   return (
     <S.Container>
@@ -43,7 +44,9 @@ export const ThemePicker = (props: ThemePickerProps) => {
             onClick={() => {
               updateConfig({ chatThemeVariant: v[0] });
             }}
-            $selected={v[0] == themeVariant} 
+            $selected={
+              !themeVariant ? v[0] == 'default' : v[0] == themeVariant
+            }
             $color={v[1].displayColor}
           />
         ))}
