@@ -38,4 +38,5 @@ export const defaultUserConfiguration: UserConfiguration = {
   showChatterBadges: true,
   ttsConfiguration: ttsDefaultConfig,
   headerOrdering: ['badges', 'pronouns', 'name'],
+  fontSize: 12,
 };

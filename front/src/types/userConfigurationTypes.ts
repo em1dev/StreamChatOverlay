@@ -47,6 +47,7 @@ export interface UserConfiguration {
   ttsConfiguration: TTSConfiguration,
   chatTheme: ThemeKeys,
   headerOrdering: Array<ChatMessageHeaderType>,
+  fontSize: number
 }
 
 export type ChatMessageHeaderType = 'pronouns' | 'name' | 'badges'

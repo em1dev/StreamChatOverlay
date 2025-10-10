@@ -15,7 +15,7 @@ const ChatMsgContent = ({ messageParts, userColor = 'black' }: ChatMsgContentPro
           key={index}
           id={content}
           customEmote={customEmote} 
-          scale={messageParts.length === 1 ? 3 : 1}
+          size={messageParts.length === 1 ? 'lg' : 'sm'}
           alignCorrection={
             messageParts.filter(p => p.type === 'reply').length > 1
           }

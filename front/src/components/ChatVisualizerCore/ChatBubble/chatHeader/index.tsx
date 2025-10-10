@@ -37,7 +37,7 @@ const ChatMsgHeaderPart = ({
   {
     case 'badges':
       return showBadges ? messageData.badges.map((badge) => (
-        <img height={18} width={18} src={badge.url} key={badge.id} alt={badge.id} />
+        <img src={badge.url} key={badge.id} alt={badge.id} />
       )) : null;
     case 'name':
       return <div>{ messageData.userDisplayName }</div>;

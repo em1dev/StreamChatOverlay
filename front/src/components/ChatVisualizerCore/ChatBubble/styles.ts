@@ -34,7 +34,6 @@ export const Content = styled.div<{
   padding: ${(props) => props.theme.chat.content.padding};
 
   font-weight: ${(props) => props.theme.chat.content.fontWeight};
-  font-size: ${(props) => props.theme.chat.content.fontSize};
 
   ${(props) => props.theme.chat.content.marginHorizontal && css`
     ${ props.$direction  === 'left' ? 'margin-left' : 'margin-right' } : ${props.theme.chat.content.marginHorizontal};

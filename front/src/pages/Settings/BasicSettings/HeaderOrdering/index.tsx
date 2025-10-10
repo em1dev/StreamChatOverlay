@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react';
-import * as S from '../styles';
+import * as S from './styles';
 import { useConfiguration } from '@/store/configuration';
 import { ChatMessageHeaderType } from '@/types/userConfigurationTypes';
 import { Fragment } from 'react/jsx-runtime';
@@ -35,9 +35,11 @@ export const HeaderOrdering = () => {
     <section>
       <h2>Message Header</h2>
 
-      <ThemeProvider theme={chatTheme}>
-        <ChatMsg {...landingExamplesMessages[3]} />
-      </ThemeProvider>
+      <div style={{ fontSize: '12px' }}>
+        <ThemeProvider theme={chatTheme}>
+          <ChatMsg {...landingExamplesMessages[3]} />
+        </ThemeProvider>
+      </div>
 
       <ToggleInput
         isChecked={showChatterBadges} 

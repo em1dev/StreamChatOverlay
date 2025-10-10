@@ -17,14 +17,12 @@ export interface ChatTheme
   headerOnTop?: boolean,
 
   header: Box & {
-    fontSize: string,
     fontWeight: string,
     marginHorizontal?: string,
     marginBottom: string,
   },
 
   content: Box & {
-    fontSize: string,
     fontWeight: string,
     marginHorizontal?: string,
 

@@ -8,6 +8,7 @@ import { ThemeKeys } from '@/themes/chatThemes';
 import { Icon } from '@iconify/react';
 import { ThemeProvider } from 'styled-components';
 import { HeaderOrdering } from './HeaderOrdering';
+import { FontSizeSection } from './FontSizeSection';
 
 import * as S from './styles';
 
@@ -87,6 +88,8 @@ export const BasicSettings = () => {
           <option value={'contrast' satisfies ThemeKeys}>Contrast</option>
         </Select>
       </section>
+
+      <FontSizeSection />
 
       <section>
         <h2>Emote support</h2>
