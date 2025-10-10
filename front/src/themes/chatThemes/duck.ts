@@ -51,3 +51,118 @@ export const duckChatTheme: ChatTheme = {
     },
   }
 };
+
+export const pinkChatTheme:ChatTheme = {
+  ...duckChatTheme,
+  header: {
+    ...duckChatTheme.header,
+    bg: '#ffd7f8',
+    text: '#4b003e',
+    border: 'solid 0.25em #dea1d3',
+  },
+  content: {
+    ...duckChatTheme.content,
+    bg: '#ffeffd',
+    mention: {
+      ...duckChatTheme.content.mention,
+      text: '#4b003e',
+    },
+    reward: {
+      ...duckChatTheme.content.reward,
+      bg: '#ffd7f8',
+      text: '#4b003e',
+    },
+    reply: {
+      ...duckChatTheme.content.reply,
+      bg: '#ffd7f8',
+      text: '#4b003e',
+    },
+  },
+};
+
+export const blueChatTheme:ChatTheme = {
+  ...duckChatTheme,
+  header: {
+    ...duckChatTheme.header,
+    bg: '#c5daf7',
+    text: '#020058',
+    border: 'solid 0.25em #8b86ff',
+  },
+  content: {
+    ...duckChatTheme.content,
+    bg: '#f4f8ff',
+    mention: {
+      ...duckChatTheme.content.mention,
+      text: '#020058',
+    },
+    reward: {
+      ...duckChatTheme.content.reward,
+      bg: '#c5daf7',
+      text: '#020058',
+    },
+    reply: {
+      ...duckChatTheme.content.reply,
+      bg: '#c5daf7',
+      text: '#020058',
+    },
+  },
+};
+
+
+export const redChatTheme:ChatTheme = {
+  ...duckChatTheme,
+  header: {
+    ...duckChatTheme.header,
+    bg: '#f7c5c5',
+    text: '#480000',
+    border: 'solid 0.25em #ed6063',
+  },
+  content: {
+    ...duckChatTheme.content,
+    bg: '#fff4f4',
+    mention: {
+      ...duckChatTheme.content.mention,
+      text: '#480000',
+    },
+    reward: {
+      ...duckChatTheme.content.reward,
+      bg: '#f7c5c5',
+      text: '#480000',
+    },
+    reply: {
+      ...duckChatTheme.content.reply,
+      bg: '#f7c5c5',
+      text: '#480000',
+    },
+  },
+};
+
+
+export const greenChatTheme:ChatTheme = {
+  ...duckChatTheme,
+  header: {
+    ...duckChatTheme.header,
+    bg: '#b1fbb1',
+    text: '#002b10',
+    border: 'solid 0.25em #2ebf2e',
+  },
+  content: {
+    ...duckChatTheme.content,
+    bg: '#ecfeeb',
+    mention: {
+      ...duckChatTheme.content.mention,
+      text: '#002b10',
+    },
+    reward: {
+      ...duckChatTheme.content.reward,
+      bg: '#b1fbb1',
+      text: '#002b10',
+    },
+    reply: {
+      ...duckChatTheme.content.reply,
+      bg: '#b1fbb1',
+      text: '#002b10',
+    },
+  },
+};
+

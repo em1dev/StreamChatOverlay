@@ -15,8 +15,7 @@ const ChatOverlay = () => {
   const location = useLocation(); 
 
   const setInitialConfiguration = useConfiguration(s => s.setInitialState);
-  const chatThemeKey = useConfiguration(s => s.userConfiguration.chatTheme);
-  const chatTheme = useChatTheme(chatThemeKey);
+  const chatTheme = useChatTheme();
   const [connectionDetails, setConnectionDetails] = useState<{
     channelName: string,
     channelId: string,

@@ -20,8 +20,7 @@ export const HeaderOrdering = () => {
   const showChatterBadges = useConfiguration(c => c.userConfiguration.showChatterBadges);
   const ordering = useConfiguration(c => c.userConfiguration.headerOrdering);
   const updateConfig = useConfiguration(c => c.updateUserConfiguration);
-  const chatThemeKey = useConfiguration(c => c.userConfiguration.chatTheme);
-  const chatTheme = useChatTheme(chatThemeKey);
+  const chatTheme = useChatTheme();
 
   const onSwitchRight = useCallback((index: number) => {
     const newOrder = [...ordering];

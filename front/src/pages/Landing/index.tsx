@@ -1,12 +1,10 @@
-import { useState } from 'react';
 import Chat from '@/components/ChatVisualizerCore';
-import { Select } from '@/components/Select';
 import { landingExamplesMessages } from '@/examples/landingExamplesMessages';
-import { ThemeKeys } from '@/themes/chatThemes';
 import { ThemeProvider } from 'styled-components';
 import { useAuth } from '@/context/authContext/useAuth';
 import { useNavigate } from 'react-router';
 import { useChatTheme } from '@/hooks/useChatTheme';
+import { ThemePicker } from '@/components/ThemePicker';
 
 import * as S from './styles';
 
@@ -14,8 +12,7 @@ export const Landing = () =>
 {
   const navigate = useNavigate();
   const { session, signIn } = useAuth();
-  const [themeKey, setThemeKey] = useState<ThemeKeys>('duck');
-  const chatTheme = useChatTheme(themeKey);
+  const chatTheme = useChatTheme();
 
   return (
     <S.Main>
@@ -43,20 +40,7 @@ export const Landing = () =>
             </ul>
           </div>
 
-          <S.ColumnContainer>
-            <label htmlFor='theme-selector-landing'>
-              Theme preview
-            </label>
-
-            <Select id='theme-selector-landing' value={themeKey} onChange={(e) => {setThemeKey( e.target.value as ThemeKeys);}} >
-              <option value={'duck' satisfies ThemeKeys}>Duck</option>
-              <option value={'pink' satisfies ThemeKeys}>Pink</option>
-              <option value={'coffee' satisfies ThemeKeys}>Coffee</option>
-              <option value={'floating' satisfies ThemeKeys}>Floating</option>
-              <option value={'contrast' satisfies ThemeKeys}>Contrast</option>
-              <option value={'centered' satisfies ThemeKeys}>Fill</option>
-            </Select>
-          </S.ColumnContainer>
+          <ThemePicker label='Theme preview' />
 
           <S.CTAContainer>
 

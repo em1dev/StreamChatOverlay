@@ -23,7 +23,6 @@ export const userConfigurationStore = create<UserConfigurationStore>()((set, get
       set(() => ({ secretKey: value }));
     },
     updateUserConfiguration: (values) => {
-      if (!get().hasLoaded) return;
       const prev = get().userConfiguration!;
       const newConfig: UserConfiguration = { ...prev, ...values};
 
