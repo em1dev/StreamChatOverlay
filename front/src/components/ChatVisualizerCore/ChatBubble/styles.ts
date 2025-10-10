@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import { ChatMessageData } from '@/types';
-import { THEME_USER_COLOR } from '@/themes/chatThemes';
+import { THEME_USER_COLOR } from '@/themes/chatThemeVariables';
 
 export const Message = styled.div<{ $direction: 'left' | 'right' }>`
   text-align: end;
@@ -12,9 +12,20 @@ export const Message = styled.div<{ $direction: 'left' | 'right' }>`
       css` align-items: end; `
   }
 
-  margin: 0.3em 0;
+  ${({ theme }) => theme.chat.fillContainer && css` 
+    align-items: center;
+  `}
 
   font-family: ${(props) => props.theme.chat.font};
+
+  ${({ theme }) => theme.chat.bubble && css` 
+    background-color: ${theme.chat.bubble.bg};
+    color: ${theme.chat.bubble.text};
+    padding: ${theme.chat.bubble.padding};
+    border: ${theme.chat.bubble.border};
+    border-radius: ${theme.chat.bubble.borderRadius};
+  `}
+
 `;
 
 export const Content = styled.div<{ 
@@ -34,6 +45,10 @@ export const Content = styled.div<{
   padding: ${(props) => props.theme.chat.content.padding};
 
   font-weight: ${(props) => props.theme.chat.content.fontWeight};
+
+  ${(props) => props.theme.chat.content.rotation != undefined && css`
+    rotate: ${props.$direction == 'left' ? '-' : ''}${props.theme.chat.content.rotation}deg;
+  `}
 
   ${(props) => props.theme.chat.content.marginHorizontal && css`
     ${ props.$direction  === 'left' ? 'margin-left' : 'margin-right' } : ${props.theme.chat.content.marginHorizontal};

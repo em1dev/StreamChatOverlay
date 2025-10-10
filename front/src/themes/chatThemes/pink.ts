@@ -5,12 +5,26 @@ export const pinkChatTheme:ChatTheme = {
   ...duckChatTheme,
   header: {
     ...duckChatTheme.header,
-    marginHorizontal: undefined,
-    bg: '#ffb7f2',
+    bg: '#ffd7f8',
+    text: '#4b003e',
+    border: 'solid 0.25em #dea1d3',
   },
   content: {
     ...duckChatTheme.content,
-    marginHorizontal: '8px',
-    bg: '#fff2f2'
-  }
+    bg: '#ffeffd',
+    mention: {
+      ...duckChatTheme.content.mention,
+      text: '#4b003e',
+    },
+    reward: {
+      ...duckChatTheme.content.reward,
+      bg: '#ffd7f8',
+      text: '#4b003e',
+    },
+    reply: {
+      ...duckChatTheme.content.reply,
+      bg: '#ffd7f8',
+      text: '#4b003e',
+    },
+  },
 };

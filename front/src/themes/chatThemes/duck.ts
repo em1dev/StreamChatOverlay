@@ -2,26 +2,29 @@ import { ChatTheme } from '../styled';
 
 export const duckChatTheme: ChatTheme = {
   font: 'poppins',
+  headerOnTop: true,
+  messageGap: '1em',
 
   header: {
-    bg: '#ffda86',
-    text: 'black',
+    bg: '#ffe7af',
+    text: '#352604',
+    border: 'solid 0.25em #ebc977',
     borderRadius: '2em',
-    border: '0px #fff8ea solid',
     fontWeight: '500',
-    padding: '0.8em 1.5em 0.8em 1.5em',
-    marginHorizontal: '8px',
-    marginBottom: '-4px',
+    padding: '0.6em 1.2em',
+    marginBottom: '0',
+    rotation: 2,
   },
 
   content: {
     bg: '#fff8ea',
     text: 'black',
-    border: '0px solid #282828',
+    border: 'none',
     borderRadius: '1em',
     fontWeight: '500',
     padding: '0.5em 0.8em',
-    boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
+    boxShadow: '0 0.2em 0.2em 0 rgba(0, 0, 0, 0.25)',
+    marginHorizontal: '1.2em',
 
     mention: {
       bg: 'none',
@@ -32,16 +35,16 @@ export const duckChatTheme: ChatTheme = {
     },
 
     reply: {
-      bg: '#ffcaad',
-      text: 'black',
+      bg: '#ffe7af',
+      text: '#352604',
       border: 'none',
       borderRadius: '0.8em',
       padding: '0.5em',
     },
 
     reward: {
-      bg: '#ffcaad',
-      text: 'black',
+      bg: '#ffe7af',
+      text: '#352604',
       border: 'none',
       borderRadius: '0.8em',
       padding: '0.5em',

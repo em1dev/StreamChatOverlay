@@ -155,10 +155,16 @@ export const landingExamplesMessages: Array<ChatMessageData> = [
       }
     ],
     'messageParts': [
+
       {
-        'content': 'wooooooooooo',
+        'content': 'heyoo',
         'type': 'text',
-        'originalContent': 'wooooooooo'
+        'originalContent': 'heyoo'
+      },
+      {
+        'content': '@anncinnamon',
+        'type': 'mention',
+        'originalContent': '@anncinnamon'
       }
     ]
   }

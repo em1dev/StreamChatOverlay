@@ -82,10 +82,11 @@ export const BasicSettings = () => {
         </label>
         <Select id='theme-select-config' value={themeKey} onChange={(e) => {updateConfig({ chatTheme: e.target.value as ThemeKeys });}}>
           <option value={'duck' satisfies ThemeKeys}>Duck</option>
-          <option value={'coffee' satisfies ThemeKeys}>Coffee</option>
           <option value={'pink' satisfies ThemeKeys}>Pink</option>
+          <option value={'coffee' satisfies ThemeKeys}>Coffee</option>
           <option value={'floating' satisfies ThemeKeys}>Floating</option>
           <option value={'contrast' satisfies ThemeKeys}>Contrast</option>
+          <option value={'centered' satisfies ThemeKeys}>Fill</option>
         </Select>
       </section>
 

@@ -1,0 +1,1 @@
+export const THEME_USER_COLOR = '$userColor';

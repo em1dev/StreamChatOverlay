@@ -9,13 +9,17 @@ interface Box {
   padding: string,
   boxShadow?: string,
   textShadow?: string,
-  rotation?: string,
+  rotation?: number,
 }
 
 export interface ChatTheme
 {
   font: string,
   headerOnTop?: boolean,
+  messageGap?: string,
+  fillContainer?: boolean,
+
+  bubble?: Box,
 
   header: Box & {
     fontWeight: string,

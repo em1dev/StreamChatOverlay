@@ -1,4 +1,4 @@
-import { THEME_USER_COLOR } from '@/themes/chatThemes';
+import { THEME_USER_COLOR } from '@/themes/chatThemeVariables';
 import styled, { css } from 'styled-components';
 
 export const ContentExtras = styled.span<{ $userColor: string }>`

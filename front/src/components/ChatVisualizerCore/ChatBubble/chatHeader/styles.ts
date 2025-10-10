@@ -1,5 +1,5 @@
+import { THEME_USER_COLOR } from '@/themes/chatThemeVariables';
 import styled, { css } from 'styled-components';
-import { THEME_USER_COLOR } from '@/themes/chatThemes';
 
 export const Container = styled.div<{ $userColor: string, $direction: 'left' | 'right' }>`
   ${(props) => props.theme.chat.header.marginHorizontal && css`
@@ -8,6 +8,11 @@ export const Container = styled.div<{ $userColor: string, $direction: 'left' | '
 
   ${(props) => props.theme.chat.headerOnTop && css`
     z-index: 1;
+  `}
+
+
+  ${(props) => props.theme.chat.header.rotation != undefined && css`
+    rotate: ${props.$direction == 'left' ? '-' : ''}${props.theme.chat.header.rotation}deg;
   `}
 
   margin-bottom: ${({ theme }) => theme.chat.header.marginBottom};
@@ -40,4 +45,9 @@ export const Container = styled.div<{ $userColor: string, $direction: 'left' | '
     height: 1.5em;
     width: auto;
   }
+
+  ${({ theme }) => theme.chat.fillContainer && css` 
+    width: 100%;
+    justify-content: center;
+  `}
 `;

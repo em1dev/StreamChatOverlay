@@ -1,33 +1,38 @@
-import { THEME_USER_COLOR } from '../chatThemeVariables';
 import { ChatTheme } from '../styled';
 
-// TODO: this theme is really hard to read with different colors behind and needs improvements
-export const floatingChatTheme:ChatTheme = {
+export const centeredChatTheme: ChatTheme = {
   font: 'poppins',
+  fillContainer: true,
+
+  bubble: {
+    bg: '#eefcff',
+    border: 'solid 0.2em #0063a0',
+    borderRadius: '0.6em',
+    padding: '0.4em',
+    text: 'black',
+  },
 
   header: {
-    bg: 'transparent',
-    text: THEME_USER_COLOR,
-    textShadow: '0 0 5px black',
-    borderRadius: '0.5em',
+    bg: '#94dbea',
+    text: '#070a41',
+    borderRadius: '0.3em 0.3em 0 0',
     border: 'none',
     fontWeight: '500',
-    padding: '0.6em 0.6em',
+    padding: '0.8em',
     marginBottom: '0.3em',
   },
 
   content: {
     bg: 'transparent',
-    text: 'white',
+    text: '#070a41',
     border: 'none',
     borderRadius: '0',
     fontWeight: '500',
-    padding: '0.2em 5px',
-    textShadow: '0 0 5px black',
+    padding: '0.3em',
 
     mention: {
       bg: 'transparent',
-      text: '#dfe7ff',
+      text: '#0042f5',
       border: 'none',
       borderRadius: '0',
       padding: '0',
@@ -35,7 +40,7 @@ export const floatingChatTheme:ChatTheme = {
 
     reply: {
       bg: 'transparent',
-      text: '#dfe7ff',
+      text: '#0042f5',
       border: 'none',
       borderRadius: '0',
       padding: '0',
@@ -43,7 +48,7 @@ export const floatingChatTheme:ChatTheme = {
 
     reward: {
       bg: 'transparent',
-      text: '#dfe7ff',
+      text: '#0042f5',
       border: 'none',
       borderRadius: '0',
       padding: '0',
