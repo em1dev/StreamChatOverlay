@@ -5,7 +5,7 @@ export const Container = styled.div<{
   $fontSize: number,
 }>`
   -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.01, rgba(0,0,0,0)), color-stop(0.4,  rgba(0,0,0,1)));
-  margin: 0 0.5em;
+  padding: 0 0.5em;
   max-width: 100vw;
   overflow: hidden;
   height: 100%;
