@@ -30,7 +30,7 @@ export const useCustomEmotes = (channelId: string) => {
       code: escapeRegex(e.code)
     }));
 
-    console.log(`Got ${emotes.length} custom emotes emotes`);
+    console.log(`Got ${emotes.length} custom emotes`);
     setCustomEmotes(emotes);
   }, [channelId, emoteConfig]);
 
