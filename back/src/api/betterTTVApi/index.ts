@@ -10,7 +10,7 @@ const getGlobalEmotes = async () => {
 };
 
 const getUserEmotes = async (userId: string) => {
-  const url = BASE_URL + `/cached/users/${PROVIDER}/${userId}`;
+  const url = BASE_URL + `cached/users/${PROVIDER}/${userId}`;
   return fetchApi<BetterTTVUserEmoteResponse>(url);
 };
 
