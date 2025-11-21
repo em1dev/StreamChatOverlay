@@ -37,6 +37,7 @@ export const defaultUserConfiguration: UserConfiguration = {
   hideCommands: true,
   showChatterBadges: true,
   ttsConfiguration: ttsDefaultConfig,
+  lowerOpacityOnTop: true,
   headerOrdering: ['badges', 'pronouns', 'name'],
   fontSize: 12,
 };

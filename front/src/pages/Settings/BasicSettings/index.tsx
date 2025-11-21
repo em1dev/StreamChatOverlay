@@ -25,6 +25,7 @@ export const BasicSettings = () => {
   const emoteConfiguration = configuration.emotes;
   const hideBotMessages = configuration.hideBotMessages;
   const hideCommands = configuration.hideCommands;
+  const lowerOpacityOnTop = configuration.lowerOpacityOnTop;
 
   return (
     <>
@@ -77,6 +78,20 @@ export const BasicSettings = () => {
       <ThemePicker />
 
       <FontSizeSection />
+
+      <section>
+        <h2>Container</h2>
+
+        <ToggleInput
+          isChecked={lowerOpacityOnTop} 
+          onChange={(value) => { updateConfig(
+            { lowerOpacityOnTop: value },
+            session
+          ); }}
+        >
+          Lower message opacity at the top
+        </ToggleInput>
+      </section>
 
       <section>
         <h2>Emote support</h2>

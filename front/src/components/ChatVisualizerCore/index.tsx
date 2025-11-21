@@ -11,9 +11,10 @@ export interface ChatProps {
 const Chat = ({ msgs }: ChatProps) => {
   const chatDirection = useConfiguration(state => state.userConfiguration.chatDirection);
   const fontSize = useConfiguration(state => state.userConfiguration.fontSize);
+  const showOpacityMask = useConfiguration(state => state.userConfiguration.lowerOpacityOnTop);
 
   return (
-    <S.Container $fontSize={fontSize} $direction={chatDirection}>
+    <S.Container $showOpacityMask={showOpacityMask} $fontSize={fontSize} $direction={chatDirection}>
       <LayoutGroup>
         <AnimatePresence mode="popLayout" >
           {msgs.map((msg) => (
