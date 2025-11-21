@@ -22,7 +22,7 @@ export const Header = styled.header`
 
   > div:first-child a {
     color: ${(props) => props.theme.page.colors.title};
-    font-family: 'Caveat Variable';
+    font-family: 'Caveat';
     font-size: 2em;
     text-decoration: none;
     font-weight: bold;

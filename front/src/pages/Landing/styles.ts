@@ -12,7 +12,7 @@ export const Main = styled.main`
 
   h1 {
     color: ${(props) => props.theme.page.colors.title};
-    font-family: 'Caveat Variable';
+    font-family: 'Caveat';
     font-size: 3em;
     margin: 0;
   }

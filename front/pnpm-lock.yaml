@@ -8,7 +8,7 @@ importers:
 
   .:
     dependencies:
-      '@fontsource-variable/caveat':
+      '@fontsource/caveat':
         specifier: ^5.2.8
         version: 5.2.8
       '@fontsource/itim':
@@ -364,8 +364,8 @@ packages:
     resolution: {integrity: sha512-Z5kJ+wU3oA7MMIqVR9tyZRtjYPr4OC004Q4Rw7pgOKUOKkJfZ3O24nz3WYfGRpMDNmcOi3TwQOmgm7B7Tpii0w==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@fontsource-variable/caveat@5.2.8':
-    resolution: {integrity: sha512-Iv+G8xn0pKG7RtanBmYGMjIfkO819N13LXZBwmRVcgfJvJwKVom/v3KT9pwANXTSoUbPeRp228twRDK7hcabLw==}
+  '@fontsource/caveat@5.2.8':
+    resolution: {integrity: sha512-9fUUfFE2IQFKbx+xOcaeQxxmh8iJguEb8z+j1PeueO4UUx+XfT4pRm/B04ZDvFA794/iRxY/IibmP8ZKtIf4rw==}
 
   '@fontsource/itim@5.2.7':
     resolution: {integrity: sha512-ssx6eGnPXJ1grG1/nWjZWvv0bMvCHOf6L7iRqA00Hz0QGukZjETH6tJV7ps/998YdhHFgCQ8KzsBHwQrsNt7EQ==}
@@ -1646,7 +1646,7 @@ snapshots:
       '@eslint/core': 0.15.2
       levn: 0.4.1
 
-  '@fontsource-variable/caveat@5.2.8': {}
+  '@fontsource/caveat@5.2.8': {}
 
   '@fontsource/itim@5.2.7': {}
 

@@ -13,7 +13,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@fontsource-variable/caveat": "^5.2.8",
+    "@fontsource/caveat": "^5.2.8",
     "@fontsource/itim": "^5.2.7",
     "@fontsource/poppins": "^5.2.7",
     "@iconify/react": "^6.0.2",
