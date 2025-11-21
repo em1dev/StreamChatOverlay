@@ -1,9 +1,12 @@
 import 'dotenv/config';
 import cors from 'cors';
+import expressWs from 'express-ws';
 import express from 'express';
 const PORT = parseInt(process.env['SERVER_PORT'] ?? '8080');
 
-export const api = express();
+const apiws = expressWs(express());
+export const api = apiws.app;
+
 api.use(cors());
 api.use(express.json());
 
@@ -16,6 +19,7 @@ api.use((req, res, next) => {
 import './routes/channel/routes';
 import './routes/authentication/routes';
 import './routes/settings/routes';
+import './ws';
 
 api.listen(PORT, 'localhost', () => {
   console.log(`Started server at http://localhost:${PORT}`);

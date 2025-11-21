@@ -17,12 +17,18 @@ api.post('/settings', async (req, res) => {
   const userId = await getUserIdFromToken(req.headers);
   if (!userId) return res.status(403).send();
 
-  const { settingsJsonString } = z.object({
-    settingsJsonString: z.string()
+  const { changeId, settingsJsonString } = z.object({
+    changeId: z.string(),
+    settingsJsonString: z.string(),
   })
     .parse(req.body);
 
-  const result = await updateUserSettingsHandler(userId, settingsJsonString);
+  const result = await updateUserSettingsHandler(
+    userId,
+    changeId,
+    settingsJsonString
+  );
+
   res.status(result.status).send(result.body);
 });
 
