@@ -2,6 +2,7 @@ import { themeKeyMap, ThemeKeys, themeKeyWithDisplayName } from '@/themes/chatTh
 import { Select } from '../Select';
 import { useConfiguration } from '@/store/configuration';
 import { useId, useMemo } from 'react';
+import { useAuth } from '@/context/authContext/useAuth';
 
 import * as S from './styles';
 
@@ -11,6 +12,7 @@ export interface ThemePickerProps {
 
 export const ThemePicker = (props: ThemePickerProps) => {
   const id = useId();
+  const { session } = useAuth();
   const themeKey = useConfiguration(c => c.userConfiguration.chatTheme);
   const themeVariant = useConfiguration(c => c.userConfiguration.chatThemeVariant);
   const updateConfig = useConfiguration(c => c.updateUserConfiguration);
@@ -28,7 +30,7 @@ export const ThemePicker = (props: ThemePickerProps) => {
         </h2>
       </label>
       <Select id={id} value={themeKey} onChange={(e) => {
-        updateConfig({ chatTheme: e.target.value as ThemeKeys, chatThemeVariant: 'default' });
+        updateConfig({ chatTheme: e.target.value as ThemeKeys, chatThemeVariant: 'default' }, session);
       }}>
         {themeKeyWithDisplayName.map(v => (
           <option key={v.key} value={v.key}>{v.displayName}</option>
@@ -42,7 +44,7 @@ export const ThemePicker = (props: ThemePickerProps) => {
             title={v[0]}
             key={v[0]}
             onClick={() => {
-              updateConfig({ chatThemeVariant: v[0] });
+              updateConfig({ chatThemeVariant: v[0] }, session);
             }}
             $selected={
               !themeVariant ? v[0] == 'default' : v[0] == themeVariant

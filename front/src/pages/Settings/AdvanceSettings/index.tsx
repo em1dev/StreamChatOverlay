@@ -1,8 +1,10 @@
 import * as S from './style';
 import { useConfiguration } from '@/store/configuration';
 import { TTSReplacementBlock } from './TTSReplacementBlock';
+import { useAuth } from '@/context/authContext/useAuth';
 
 export const AdvanceSettings = () => {
+  const { session } = useAuth();
   const configuration = useConfiguration(state => state.userConfiguration);
   const updateUserConfiguration = useConfiguration(state => state.updateUserConfiguration);
 
@@ -41,7 +43,7 @@ export const AdvanceSettings = () => {
                           .filter(re => re.id !== r.id),
                       ]
                     }
-                  });
+                  }, session);
                 }}
                 onChange={(newR) => {
                   updateUserConfiguration({
@@ -53,7 +55,7 @@ export const AdvanceSettings = () => {
                         newR
                       ]
                     }
-                  });
+                  }, session);
                 }}
                 replacement={r}
               />
@@ -77,7 +79,8 @@ export const AdvanceSettings = () => {
                   replaceFullMessage: false,
                 }
               ]
-            }});
+            }},
+          session);
         }}>
           Add new block
         </button>

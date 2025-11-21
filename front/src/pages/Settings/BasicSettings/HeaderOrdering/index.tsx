@@ -9,6 +9,7 @@ import ChatMsg from '@/components/ChatVisualizerCore/ChatBubble';
 import { ThemeProvider } from 'styled-components';
 import { useChatTheme } from '@/hooks/useChatTheme';
 import { ToggleInput } from '@/components/ToggleInput';
+import { useAuth } from '@/context/authContext/useAuth';
 
 const headerTypeToDisplayName: Record<ChatMessageHeaderType, string> = {
   'badges': 'Badges',
@@ -19,6 +20,7 @@ const headerTypeToDisplayName: Record<ChatMessageHeaderType, string> = {
 export const HeaderOrdering = () => {
   const showChatterBadges = useConfiguration(c => c.userConfiguration.showChatterBadges);
   const ordering = useConfiguration(c => c.userConfiguration.headerOrdering);
+  const { session } = useAuth();
   const updateConfig = useConfiguration(c => c.updateUserConfiguration);
   const chatTheme = useChatTheme();
 
@@ -27,8 +29,8 @@ export const HeaderOrdering = () => {
     [newOrder[index], newOrder[index + 1]] = [newOrder[index + 1], newOrder[index]];
     updateConfig({
       headerOrdering: newOrder
-    });
-  }, [ordering, updateConfig]);
+    }, session);
+  }, [ordering, updateConfig, session]);
 
   return (
     <section>
@@ -42,7 +44,7 @@ export const HeaderOrdering = () => {
 
       <ToggleInput
         isChecked={showChatterBadges} 
-        onChange={(value) => { updateConfig({ showChatterBadges: value }); }}
+        onChange={(value) => { updateConfig({ showChatterBadges: value }, session); }}
       >
         Show chatter badges
       </ToggleInput>

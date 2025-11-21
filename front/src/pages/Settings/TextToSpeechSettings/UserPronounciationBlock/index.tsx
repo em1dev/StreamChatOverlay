@@ -6,6 +6,7 @@ import { TTSReplacement } from '@/types/userConfigurationTypes';
 import { Input } from '@/components/Input';
 import { IconButton } from '@/components/IconButton';
 import { removeRegexCharacters } from '@/utils/regexUtils';
+import { useAuth } from '@/context/authContext/useAuth';
 
 import * as S from './styles';
 
@@ -13,6 +14,7 @@ export const UserPronunciationBlock = () => {
   const updateConfig = useConfiguration(c => c.updateUserConfiguration);
   const ttsConfiguration = useConfiguration(c => c.userConfiguration!.ttsConfiguration);
   const userReplacement = useConfiguration(c => c.userConfiguration!.ttsConfiguration.userReplacement);
+  const { session } = useAuth();
   const tts = useTTS();
 
   const userReplacementOrdered = useMemo(() => (
@@ -34,8 +36,9 @@ export const UserPronunciationBlock = () => {
         ...ttsConfiguration,
         userReplacement: newList
       }
-    });
-  }, [userReplacement, ttsConfiguration, updateConfig]);
+    },
+    session);
+  }, [userReplacement, ttsConfiguration, updateConfig, session]);
 
   const addNewReplacement = useCallback(() => {
     const newOrdinal = (userReplacementOrdered.at(-1)?.ordinal ?? 0) + 1;
@@ -56,8 +59,8 @@ export const UserPronunciationBlock = () => {
           }
         ]
       }
-    });
-  }, [userReplacementOrdered, ttsConfiguration, updateConfig]);
+    }, session);
+  }, [userReplacementOrdered, ttsConfiguration, updateConfig, session]);
 
   const updateReplacement = useCallback((replacement: TTSReplacement) => {
     const newList = [
@@ -73,8 +76,8 @@ export const UserPronunciationBlock = () => {
         ...ttsConfiguration,
         userReplacement: newList
       }
-    });
-  }, [userReplacement, ttsConfiguration, updateConfig]);
+    }, session);
+  }, [userReplacement, ttsConfiguration, updateConfig, session]);
 
   return (
     <S.Container cellSpacing={10}>

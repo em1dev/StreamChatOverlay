@@ -58,9 +58,10 @@ const getUserSettings = (token: string) => {
   return resp;
 };
 
-const updateUserSettings = async (settings: string, token:string) => {
+const updateUserSettings = async (settings: string, changeId: string,  token:string) => {
   const body = {
-    settingsJsonString: settings
+    settingsJsonString: settings,
+    changeId
   };
   return await fetchApi(`${BASE_URL}/settings`, 'POST', token, JSON.stringify(body));
 };
