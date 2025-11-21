@@ -8,11 +8,13 @@ import { ThemeProvider } from 'styled-components';
 import { HeaderOrdering } from './HeaderOrdering';
 import { FontSizeSection } from './FontSizeSection';
 import { ThemePicker } from '@/components/ThemePicker';
+import { useAuth } from '@/context/authContext/useAuth';
 
 import * as S from './styles';
 
 export const BasicSettings = () => {
   const configuration = useConfiguration(state => state.userConfiguration);
+  const { session } = useAuth();
   const updateConfig = useConfiguration(state => state.updateUserConfiguration);
 
   const chatTheme = useChatTheme();
@@ -41,7 +43,7 @@ export const BasicSettings = () => {
           <S.DirectionContainer>
             <button
               aria-label='left'
-              onClick={() => updateConfig({ chatDirection: 'left' })}
+              onClick={() => updateConfig({ chatDirection: 'left' }, session)}
               type='button'
               role='radio'
             >
@@ -56,7 +58,7 @@ export const BasicSettings = () => {
 
             <button
               aria-label='right'
-              onClick={() => updateConfig({ chatDirection: 'right' })}
+              onClick={() => updateConfig({ chatDirection: 'right' }, session)}
               type='button'
               role='radio'
             >
@@ -82,21 +84,30 @@ export const BasicSettings = () => {
         <S.EmoteToggleContainer>
           <ToggleInput
             isChecked={emoteConfiguration.isBetterTTVEnabled} 
-            onChange={(value) => { updateConfig({ emotes: {...emoteConfiguration, isBetterTTVEnabled: value} }); }}
+            onChange={(value) => { updateConfig(
+              { emotes: {...emoteConfiguration, isBetterTTVEnabled: value} },
+              session
+            ); }}
           >
             BetterTTV
           </ToggleInput>
 
           <ToggleInput
             isChecked={emoteConfiguration.isFrankerFaceEnabled} 
-            onChange={(value) => { updateConfig({ emotes: {...emoteConfiguration, isFrankerFaceEnabled: value} }); }}
+            onChange={(value) => { updateConfig(
+              { emotes: {...emoteConfiguration, isFrankerFaceEnabled: value} },
+              session
+            ); }}
           >
             FrankerFaceZ
           </ToggleInput>
 
           <ToggleInput
             isChecked={emoteConfiguration.isSevenTVEnabled} 
-            onChange={(value) => { updateConfig({ emotes: {...emoteConfiguration, isSevenTVEnabled: value} }); }}
+            onChange={(value) => { updateConfig(
+              { emotes: {...emoteConfiguration, isSevenTVEnabled: value} },
+              session
+            ); }}
           >
             7TV
           </ToggleInput>
@@ -107,14 +118,20 @@ export const BasicSettings = () => {
         <h2>Hide messages</h2>
         <ToggleInput
           isChecked={hideBotMessages} 
-          onChange={(value) => { updateConfig({ hideBotMessages: value }); }}
+          onChange={(value) => { updateConfig(
+            { hideBotMessages: value },
+            session
+          ); } }
         >
           Hide bot messages
         </ToggleInput>
 
         <ToggleInput
           isChecked={hideCommands} 
-          onChange={(value) => { updateConfig({ hideCommands: value }); }}
+          onChange={(value) => { updateConfig(
+            { hideCommands: value },
+            session
+          ); }}
         >
           Hide commands ( messages starting with ! )
         </ToggleInput>

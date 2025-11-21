@@ -8,10 +8,12 @@ import { Icon } from '@iconify/react';
 import { useTTS } from '@/hooks/useTTS/useTTS';
 import { IconButton } from '@/components/IconButton';
 import { Input } from '@/components/Input';
+import { useAuth } from '@/context/authContext/useAuth';
 
 import * as S from './styles';
 
 export const TextToSpeechSettings = () => {
+  const { session } = useAuth();
   const ttsConfiguration = useConfiguration(state => state.userConfiguration?.ttsConfiguration);
   const updateConfig = useConfiguration(state => state.updateUserConfiguration);
 
@@ -76,7 +78,10 @@ export const TextToSpeechSettings = () => {
 
         <ToggleInput
           isChecked={ttsConfiguration.isTTSEnabled} 
-          onChange={(value) => { updateConfig({ ttsConfiguration: {...ttsConfiguration, isTTSEnabled: value } }); }}
+          onChange={(value) => { updateConfig(
+            { ttsConfiguration: {...ttsConfiguration, isTTSEnabled: value } },
+            session
+          ); }}
         >
           Enable TTS
         </ToggleInput>
@@ -97,7 +102,7 @@ export const TextToSpeechSettings = () => {
                   ...ttsConfiguration,
                   selectedVoice: newVoice?.voiceURI
                 }
-              });
+              }, session);
             }}
           >
             {voices.map((v) => (
@@ -121,7 +126,10 @@ export const TextToSpeechSettings = () => {
         <h2>Emotes</h2>
         <ToggleInput
           isChecked={ttsConfiguration.readEmotes} 
-          onChange={(value) => { updateConfig({ ttsConfiguration: {...ttsConfiguration, readEmotes: value } }); }}
+          onChange={(value) => { updateConfig(
+            { ttsConfiguration: {...ttsConfiguration, readEmotes: value } },
+            session
+          ); }}
         >
           Read emotes
         </ToggleInput>
@@ -133,7 +141,10 @@ export const TextToSpeechSettings = () => {
               type='number'
               min={1}
               value={ttsConfiguration.emotesToRead}
-              onChange={(e) => { updateConfig({ ttsConfiguration: { ...ttsConfiguration, emotesToRead: parseInt(e.target.value) }}); }}
+              onChange={(e) => { updateConfig(
+                { ttsConfiguration: { ...ttsConfiguration, emotesToRead: parseInt(e.target.value) }},
+                session
+              ); }}
             />
             <span>emote per message</span>
           </S.EmotesToReadContainer>
@@ -145,7 +156,10 @@ export const TextToSpeechSettings = () => {
         <div>
           <ToggleInput
             isChecked={ttsConfiguration.ignoreBotMessages}
-            onChange={(value) => { updateConfig({ ttsConfiguration: {...ttsConfiguration, ignoreBotMessages: value } }); }}
+            onChange={(value) => { updateConfig(
+              { ttsConfiguration: {...ttsConfiguration, ignoreBotMessages: value } },
+              session
+            ); }}
           >
             Don't read bot messages
           </ToggleInput>
@@ -153,14 +167,20 @@ export const TextToSpeechSettings = () => {
 
         <ToggleInput
           isChecked={ttsConfiguration.ignoreCommandMessages} 
-          onChange={(value) => { updateConfig({ ttsConfiguration: {...ttsConfiguration, ignoreCommandMessages: value } }); }}
+          onChange={(value) => { updateConfig(
+            { ttsConfiguration: {...ttsConfiguration, ignoreCommandMessages: value } },
+            session
+          ); }}
         >
           Don't read commands ( messages starting with ! )
         </ToggleInput>
 
         <ToggleInput
           isChecked={ttsConfiguration.readUnderscoresAsSpaces}
-          onChange={(value) => { updateConfig({ ttsConfiguration: {...ttsConfiguration, readUnderscoresAsSpaces: value } }); }}
+          onChange={(value) => { updateConfig(
+            { ttsConfiguration: {...ttsConfiguration, readUnderscoresAsSpaces: value } },
+            session
+          ); }}
         >
           Don't read underscores
         </ToggleInput>
@@ -177,7 +197,10 @@ export const TextToSpeechSettings = () => {
         <h2>Fun</h2>
         <ToggleInput
           isChecked={ttsConfiguration.allowRoleplay} 
-          onChange={(value) => { updateConfig({ ttsConfiguration: { ...ttsConfiguration, allowRoleplay: value }}); }}
+          onChange={(value) => { updateConfig(
+            { ttsConfiguration: { ...ttsConfiguration, allowRoleplay: value }},
+            session
+          ); }}
         >
           Allow roleplay
         </ToggleInput>
