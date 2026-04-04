@@ -1,6 +1,7 @@
 import { Icon } from '@iconify/react';
 import * as S from './styles';
 import { NavLink } from 'react-router';
+import { Divider } from '@/components/Divider';
 
 export const SideNav = () =>
   (
@@ -27,5 +28,18 @@ export const SideNav = () =>
         <Icon aria-hidden icon="mingcute:palette-line" />
         Custom theme
       </NavLink>
+
+      <Divider />
+
+      <NavLink end target='_blank' to='https://ko-fi.com/emydev' >
+        <Icon aria-hidden icon="simple-icons:kofi" />
+        Support Me :3
+      </NavLink>
+
+      <NavLink end target='_blank' to='https://github.com/em1dev/StreamChatOverlay' >
+        <Icon aria-hidden icon="mingcute:github-line" />
+        Github
+      </NavLink>
+
     </S.NavContainer>
   );
