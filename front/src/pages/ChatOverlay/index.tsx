@@ -11,6 +11,8 @@ import { useChatTheme } from '@/hooks/useChatTheme';
 import { defaultUserConfiguration } from '@/store/defaultConfiguration';
 import { useSettingsChangeListener } from '@/hooks/useSettingsChangeListener';
 
+import '@/fonts/ChatFonts';
+
 const ChatOverlay = () => {
   const { userId } = useParams<{ userId: string }>();
   const location = useLocation(); 
