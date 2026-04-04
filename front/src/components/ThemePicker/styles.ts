@@ -19,7 +19,6 @@ export const ColorButton = styled.button<{
   width: 1.5em;
   height: 1.5em;
   border: solid 0.1em white;
-  outline: solid 0.1em #bababa;
   background-color: ${({ $color }) => $color};
 
   ${({ $selected }) => $selected && css`
