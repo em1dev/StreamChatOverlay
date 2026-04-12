@@ -1,9 +1,21 @@
 import { TwitchCredentials } from '../../TwitchTokenStore';
-import { ApiResponse, TwitchAuthResponse, TwitchBadgeResponse } from '../../types';
+import { ApiResponse, TwitchAuthResponse, TwitchBadgeResponse, TwitchTokenVerificationResponse } from '../../types';
 import 'dotenv/config';
 
 const TWITCH_AUTH_URL = 'https://id.twitch.tv/oauth2/token';
 const HELIX_BASE_URL = 'https://api.twitch.tv/helix/';
+
+const verifyToken = async (token: string) => (
+  await callApi<TwitchTokenVerificationResponse>({ 
+    url: 'https://id.twitch.tv/oauth2/validate',
+    method: 'GET',
+    twitchCredentials: {
+      appToken: token,
+      clientId: '',
+      clientSecret: ''
+    }
+  })
+);
 
 const getAppToken = async (clientId: string, clientSecret: string) => (
   await callApi<TwitchAuthResponse>({ 
@@ -55,7 +67,6 @@ const callApi = async <R, T = unknown>({
 }: ApiParams<T>): Promise<ApiResponse<R>> => {
   const paramsParsed = Object.entries(params).map(([key, value]) => `${key}=${value}`).join('&');
   const urlParsed = url + '?' + paramsParsed;
-  console.log(`request to twitch api ${urlParsed}`);
   try {
     const resp = await fetch(urlParsed, {
       method,
@@ -103,5 +114,6 @@ const createAuthHeaders = (
 export const twitchApi = {
   getChannelBadges,
   getGlobalBadges,
-  getAppToken
+  getAppToken,
+  verifyToken
 };

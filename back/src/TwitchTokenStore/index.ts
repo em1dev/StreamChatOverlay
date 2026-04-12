@@ -19,7 +19,7 @@ export class TwitchTokenStore {
     return this._instance;
   };
 
-  public getCredentials = async () => {
+  public getCredentials = async (): Promise<TwitchCredentials> => {
     if (!this._twitchCredentials) {
       const result = await AuthApi.getAppCredentials();
       const tokenResult = await twitchApi.getAppToken(result.clientId, result.clientSecret);
@@ -34,6 +34,12 @@ export class TwitchTokenStore {
         clientSecret: result.clientSecret,
         appToken: tokenResult.data.access_token
       };
+    }
+
+    const tokenVerificationResp = await twitchApi.verifyToken(this._twitchCredentials.appToken);
+    if (tokenVerificationResp.error) {
+      console.log('Expired app token...refreshing.', tokenVerificationResp);
+      return await this.getCredentials();
     }
 
     return this._twitchCredentials;

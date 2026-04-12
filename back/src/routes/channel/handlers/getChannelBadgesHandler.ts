@@ -11,7 +11,7 @@ export const getChannelBadgesHandler = async (channelId: string)
   const channelBadges = await twitchApi.getChannelBadges(channelId, twitchCredentials);
 
   if (globalBadgesResp.error || channelBadges.error) {
-    console.error(`Error fetching badges for id ${channelId}, resp1: ${channelBadges.data}`);
+    console.error(`Error fetching badges for channelId: ${channelId}, resp: ${channelBadges.data}`);
     return {
       status: globalBadgesResp.error?.status ?? channelBadges.error!.status,
     };

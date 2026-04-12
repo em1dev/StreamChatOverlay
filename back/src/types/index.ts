@@ -22,6 +22,11 @@ export interface TwitchAuthResponse {
   token_type: 'bearer'
 }
 
+export interface TwitchTokenVerificationResponse {
+  client_id: string,
+  scopes: Array<string>,
+  expires_in: number
+}
 
 export interface ChatEmote {
   id: string,
