@@ -9,4 +9,5 @@ export const Select = styled.select<{ $fontFamily?: string }>`
   border: none;
   font-family: ${({$fontFamily}) => $fontFamily ? `"${$fontFamily}"` : 'inherit' };
   font-size: inherit;
+  border-right: 10px solid transparent;
 `;
