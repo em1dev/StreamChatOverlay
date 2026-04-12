@@ -29,8 +29,7 @@ export const Message = styled.div<{ $direction: 'left' | 'right' }>`
 export const Content = styled.div<{ 
   $direction: 'left' | 'right',
   $effect: ChatMessageData['effect'],
-  $userColor: string,
-  $overrideFontWeight?: string | number
+  $userColor: string
 }>`
   display: flex;
   flex-wrap: wrap;

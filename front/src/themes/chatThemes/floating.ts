@@ -9,7 +9,6 @@ export const floatingChatTheme:ChatTheme = {
     textShadow: '0 0 5px black',
     borderRadius: '0.5em',
     border: 'none',
-    fontWeight: '500',
     padding: '0.6em 0.6em',
     marginBottom: '0.3em',
   },
@@ -19,7 +18,6 @@ export const floatingChatTheme:ChatTheme = {
     text: 'white',
     border: 'none',
     borderRadius: '0',
-    fontWeight: '500',
     padding: '0.2em 5px',
     textShadow: '0 0 5px black',
 
