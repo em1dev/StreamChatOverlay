@@ -36,7 +36,7 @@ export const HeaderOrdering = () => {
     <section>
       <h2>Message Header</h2>
 
-      <div style={{ fontSize: '12px' }}>
+      <div style={{ fontSize: '14px' }}>
         <ThemeProvider theme={chatTheme}>
           <ChatMsg {...landingExamplesMessages[3]} />
         </ThemeProvider>

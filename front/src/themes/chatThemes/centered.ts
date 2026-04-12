@@ -1,7 +1,6 @@
 import { ChatTheme } from '../styled';
 
 export const centeredChatTheme: ChatTheme = {
-  font: 'poppins',
   fillContainer: true,
 
   bubble: {

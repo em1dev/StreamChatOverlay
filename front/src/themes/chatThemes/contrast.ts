@@ -1,8 +1,6 @@
 import { ChatTheme } from '../styled';
 
 export const contrastChatTheme: ChatTheme = {
-  font: 'poppins',
-
   header: {
     bg: 'black',
     text: 'white',

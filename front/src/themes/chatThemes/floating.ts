@@ -3,8 +3,6 @@ import { ChatTheme } from '../styled';
 
 // TODO: this theme is really hard to read with different colors behind and needs improvements
 export const floatingChatTheme:ChatTheme = {
-  font: 'poppins',
-
   header: {
     bg: 'transparent',
     text: THEME_USER_COLOR,

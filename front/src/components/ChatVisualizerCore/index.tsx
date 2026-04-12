@@ -3,6 +3,7 @@ import { ChatMessageData } from '../../types';
 import ChatMsg from './ChatBubble';
 import * as S from './styles';
 import { useConfiguration } from '../../store/configuration';
+import { FontMap } from '@/fonts/ChatFonts';
 
 export interface ChatProps {
   msgs: Array<ChatMessageData>,
@@ -11,10 +12,17 @@ export interface ChatProps {
 const Chat = ({ msgs }: ChatProps) => {
   const chatDirection = useConfiguration(state => state.userConfiguration.chatDirection);
   const fontSize = useConfiguration(state => state.userConfiguration.fontSize);
+  const fontKey = useConfiguration(state => state.userConfiguration.chatFont) || 'poppins';
+  const font = FontMap[fontKey];
   const showOpacityMask = useConfiguration(state => state.userConfiguration.lowerOpacityOnTop);
 
   return (
-    <S.Container $showOpacityMask={showOpacityMask} $fontSize={fontSize} $direction={chatDirection}>
+    <S.Container 
+      $fontFamily={font.fontFamily}
+      $showOpacityMask={showOpacityMask}
+      $fontSize={fontSize} 
+      $direction={chatDirection}
+    >
       <LayoutGroup>
         <AnimatePresence mode="popLayout" >
           {msgs.map((msg) => (

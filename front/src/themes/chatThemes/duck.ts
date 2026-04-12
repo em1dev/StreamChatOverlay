@@ -1,7 +1,6 @@
 import { ChatTheme } from '../styled';
 
 export const duckChatTheme: ChatTheme = {
-  font: 'poppins',
   headerOnTop: true,
   messageGap: '1em',
 

@@ -1,8 +1,6 @@
 import { ChatTheme } from '../styled';
 
 export const coffeeChatTheme: ChatTheme = {
-  font: 'poppins',
-
   header: {
     bg: '#3b3432',
     text: '#f2d4c6',

@@ -14,7 +14,6 @@ interface Box {
 
 export interface ChatTheme
 {
-  font: string,
   headerOnTop?: boolean,
   messageGap?: string,
   fillContainer?: boolean,
