@@ -14,7 +14,6 @@ interface Box {
 
 export interface ChatTheme
 {
-  font: string,
   headerOnTop?: boolean,
   messageGap?: string,
   fillContainer?: boolean,
@@ -22,13 +21,11 @@ export interface ChatTheme
   bubble?: Box,
 
   header: Box & {
-    fontWeight: string,
     marginHorizontal?: string,
     marginBottom: string,
   },
 
   content: Box & {
-    fontWeight: string,
     marginHorizontal?: string,
 
     reply: Box,

@@ -40,4 +40,6 @@ export const defaultUserConfiguration: UserConfiguration = {
   lowerOpacityOnTop: true,
   headerOrdering: ['badges', 'pronouns', 'name'],
   fontSize: 12,
+  chatFont: 'itim',
+  chatFontWeight: 'normal'
 };

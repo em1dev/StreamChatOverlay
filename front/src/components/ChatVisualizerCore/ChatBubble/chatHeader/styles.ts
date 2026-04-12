@@ -39,10 +39,8 @@ export const Container = styled.div<{ $userColor: string, $direction: 'left' | '
   border-radius: ${(props) => props.theme.chat.header.borderRadius};
   padding: ${(props) => props.theme.chat.header.padding};
 
-  font-weight: ${(props) => props.theme.chat.header.fontWeight};
-
   > img {
-    height: 1.5em;
+    height: 1.3em;
     width: auto;
   }
 

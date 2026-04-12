@@ -3,6 +3,8 @@ import styled, { css } from 'styled-components';
 export const Container = styled.div<{ 
   $direction: 'left' | 'right',
   $fontSize: number,
+  $fontFamily: string,
+  $fontWeight: string | number,
   $showOpacityMask: boolean
 }>`
   ${({ $showOpacityMask }) => $showOpacityMask && css`
@@ -14,7 +16,9 @@ export const Container = styled.div<{
   height: 100%;
   display: flex;
   flex-direction: column-reverse;
+  font-family: '${({ $fontFamily }) => $fontFamily}';
   font-size: ${({ $fontSize }) => $fontSize}px;
+  font-weight: ${({ $fontWeight }) => $fontWeight};
   ${({ $direction }) => $direction === 'left' ? 
       css`align-items:start;` :
       css`align-items:end;`

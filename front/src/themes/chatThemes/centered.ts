@@ -1,7 +1,6 @@
 import { ChatTheme } from '../styled';
 
 export const centeredChatTheme: ChatTheme = {
-  font: 'poppins',
   fillContainer: true,
 
   bubble: {
@@ -17,7 +16,6 @@ export const centeredChatTheme: ChatTheme = {
     text: '#070a41',
     borderRadius: '0.3em 0.3em 0 0',
     border: 'none',
-    fontWeight: '500',
     padding: '0.8em',
     marginBottom: '0.3em',
   },
@@ -27,7 +25,6 @@ export const centeredChatTheme: ChatTheme = {
     text: '#070a41',
     border: 'none',
     borderRadius: '0',
-    fontWeight: '500',
     padding: '0.3em',
 
     mention: {

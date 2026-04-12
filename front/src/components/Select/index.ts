@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 
-export const Select = styled.select`
+export const Select = styled.select<{ $fontFamily?: string }>`
   width: 100%;
   padding: 0.5em;
   border-radius: 0.8em;
   background-color: ${(props) => props.theme.page.colors.select_bg};
   color: ${(props) => props.theme.page.colors.select_text};
   border: none;
-  font-family: inherit;
+  font-family: ${({$fontFamily}) => $fontFamily ? `"${$fontFamily}"` : 'inherit' };
   font-size: inherit;
+  border-right: 10px solid transparent;
 `;

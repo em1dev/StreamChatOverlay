@@ -16,8 +16,6 @@ export const Message = styled.div<{ $direction: 'left' | 'right' }>`
     align-items: center;
   `}
 
-  font-family: ${(props) => props.theme.chat.font};
-
   ${({ theme }) => theme.chat.bubble && css` 
     background-color: ${theme.chat.bubble.bg};
     color: ${theme.chat.bubble.text};
@@ -43,8 +41,6 @@ export const Content = styled.div<{
   border-radius: ${(props) => props.theme.chat.content.borderRadius};
   border: ${(props) => props.theme.chat.content.border};
   padding: ${(props) => props.theme.chat.content.padding};
-
-  font-weight: ${(props) => props.theme.chat.content.fontWeight};
 
   ${(props) => props.theme.chat.content.rotation != undefined && css`
     rotate: ${props.$direction == 'left' ? '-' : ''}${props.theme.chat.content.rotation}deg;
