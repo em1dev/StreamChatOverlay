@@ -10,6 +10,7 @@ import { ThemeProvider } from 'styled-components';
 import { useChatTheme } from '@/hooks/useChatTheme';
 import { ToggleInput } from '@/components/ToggleInput';
 import { useAuth } from '@/context/authContext/useAuth';
+import { FontMap } from '@/fonts/ChatFonts';
 
 const headerTypeToDisplayName: Record<ChatMessageHeaderType, string> = {
   'badges': 'Badges',
@@ -20,6 +21,9 @@ const headerTypeToDisplayName: Record<ChatMessageHeaderType, string> = {
 export const HeaderOrdering = () => {
   const showChatterBadges = useConfiguration(c => c.userConfiguration.showChatterBadges);
   const ordering = useConfiguration(c => c.userConfiguration.headerOrdering);
+  const fontKey = useConfiguration(c => c.userConfiguration.chatFont);
+  const font = FontMap[fontKey] || FontMap.itim;
+  const fontWeight = useConfiguration(c => c.userConfiguration.chatFontWeight);
   const { session } = useAuth();
   const updateConfig = useConfiguration(c => c.updateUserConfiguration);
   const chatTheme = useChatTheme();
@@ -36,7 +40,7 @@ export const HeaderOrdering = () => {
     <section>
       <h2>Message Header</h2>
 
-      <div style={{ fontSize: '14px' }}>
+      <div style={{ fontSize: '14px', fontFamily: font.fontFamily, fontWeight: fontWeight }}>
         <ThemeProvider theme={chatTheme}>
           <ChatMsg {...landingExamplesMessages[3]} />
         </ThemeProvider>

@@ -12,13 +12,15 @@ export interface ChatProps {
 const Chat = ({ msgs }: ChatProps) => {
   const chatDirection = useConfiguration(state => state.userConfiguration.chatDirection);
   const fontSize = useConfiguration(state => state.userConfiguration.fontSize);
-  const fontKey = useConfiguration(state => state.userConfiguration.chatFont) || 'poppins';
+  const fontKey = useConfiguration(state => state.userConfiguration.chatFont);
+  const fontWeight = useConfiguration(state => state.userConfiguration.chatFontWeight);
   const font = FontMap[fontKey];
   const showOpacityMask = useConfiguration(state => state.userConfiguration.lowerOpacityOnTop);
 
   return (
     <S.Container 
       $fontFamily={font.fontFamily}
+      $fontWeight={fontWeight}
       $showOpacityMask={showOpacityMask}
       $fontSize={fontSize} 
       $direction={chatDirection}

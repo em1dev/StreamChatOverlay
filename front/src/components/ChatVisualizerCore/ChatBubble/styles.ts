@@ -43,11 +43,6 @@ export const Content = styled.div<{
   border: ${(props) => props.theme.chat.content.border};
   padding: ${(props) => props.theme.chat.content.padding};
 
-  font-weight: ${({ $overrideFontWeight, theme }) => $overrideFontWeight ?
-      $overrideFontWeight :
-      theme.chat.content.fontWeight
-  };
-
   ${(props) => props.theme.chat.content.rotation != undefined && css`
     rotate: ${props.$direction == 'left' ? '-' : ''}${props.theme.chat.content.rotation}deg;
   `}

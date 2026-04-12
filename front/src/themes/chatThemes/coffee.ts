@@ -6,7 +6,6 @@ export const coffeeChatTheme: ChatTheme = {
     text: '#f2d4c6',
     borderRadius: '14px',
     border: 'none',
-    fontWeight: 'bold',
     padding: '0.8em 1.5em 0.8em 1.5em',
     marginHorizontal: '8px',
     marginBottom: '-4px',
@@ -17,7 +16,6 @@ export const coffeeChatTheme: ChatTheme = {
     text: '#3b3432',
     border: 'solid 4px #3b3432',
     borderRadius: '14px',
-    fontWeight: 'bold',
     padding: '0.8em 0.8em',
     boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
 

@@ -2,7 +2,6 @@ import { ChatMessageData } from '@/types';
 import * as S from './styles';
 import { useConfiguration } from '@/store/configuration';
 import { ChatMessageHeaderType } from '@/types/userConfigurationTypes';
-import { FontMap } from '@/fonts/ChatFonts';
 
 export interface ChatMsgHeaderProps
 {
@@ -15,11 +14,9 @@ const ChatMsgHeader = ({
   messageData
 }: ChatMsgHeaderProps) => {
   const headerOrdering = useConfiguration(c => c.userConfiguration.headerOrdering);
-  const fontKey = useConfiguration(state => state.userConfiguration.chatFont) || 'poppins';
-  const { overrideWeight } = FontMap[fontKey];
 
   return (
-    <S.Container $overrideFontWeight={overrideWeight} $direction={direction} $userColor={messageData.color || 'black'}>
+    <S.Container $direction={direction} $userColor={messageData.color || 'black'}>
       {headerOrdering.map(type => (
         <ChatMsgHeaderPart key={type} type={type} messageData={messageData} />
       ))}

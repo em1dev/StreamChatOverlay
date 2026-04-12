@@ -1,7 +1,7 @@
 import { THEME_USER_COLOR } from '@/themes/chatThemeVariables';
 import styled, { css } from 'styled-components';
 
-export const Container = styled.div<{ $overrideFontWeight?: string | number,  $userColor: string, $direction: 'left' | 'right' }>`
+export const Container = styled.div<{ $userColor: string, $direction: 'left' | 'right' }>`
   ${(props) => props.theme.chat.header.marginHorizontal && css`
     ${ props.$direction  === 'left' ? 'margin-left' : 'margin-right' } : ${props.theme.chat.header.marginHorizontal};
   `}
@@ -38,12 +38,6 @@ export const Container = styled.div<{ $overrideFontWeight?: string | number,  $u
 
   border-radius: ${(props) => props.theme.chat.header.borderRadius};
   padding: ${(props) => props.theme.chat.header.padding};
-
-  
-  font-weight: ${({ $overrideFontWeight, theme }) => $overrideFontWeight ?
-      $overrideFontWeight :
-      theme.chat.header.fontWeight
-  };
 
   > img {
     height: 1.3em;

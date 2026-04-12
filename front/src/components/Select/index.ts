@@ -1,6 +1,6 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
-export const Select = styled.select<{ $fontFamily?: string, $fontWeight?: string | number }>`
+export const Select = styled.select<{ $fontFamily?: string }>`
   width: 100%;
   padding: 0.5em;
   border-radius: 0.8em;
@@ -8,8 +8,5 @@ export const Select = styled.select<{ $fontFamily?: string, $fontWeight?: string
   color: ${(props) => props.theme.page.colors.select_text};
   border: none;
   font-family: ${({$fontFamily}) => $fontFamily ? `"${$fontFamily}"` : 'inherit' };
-  ${({ $fontWeight } ) => $fontWeight && css`
-    font-weight: ${$fontWeight};
-  `}
   font-size: inherit;
 `;

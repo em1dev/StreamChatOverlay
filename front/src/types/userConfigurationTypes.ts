@@ -1,4 +1,4 @@
-import { FontKeys } from '@/fonts/ChatFonts';
+import { FontKeys, FontWeights } from '@/fonts/ChatFonts';
 import { ThemeKeys } from '@/themes/chatThemes';
 
 export interface TTSReplacement {
@@ -47,6 +47,7 @@ export interface UserConfiguration {
   }>
   ttsConfiguration: TTSConfiguration,
   chatFont: FontKeys,
+  chatFontWeight: FontWeights,
   chatTheme: ThemeKeys,
   chatThemeVariant?: string,
   lowerOpacityOnTop: boolean,

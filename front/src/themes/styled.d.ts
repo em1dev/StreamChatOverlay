@@ -21,13 +21,11 @@ export interface ChatTheme
   bubble?: Box,
 
   header: Box & {
-    fontWeight: string,
     marginHorizontal?: string,
     marginBottom: string,
   },
 
   content: Box & {
-    fontWeight: string,
     marginHorizontal?: string,
 
     reply: Box,
