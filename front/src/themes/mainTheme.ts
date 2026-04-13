@@ -9,20 +9,18 @@ export const mainTheme: DefaultTheme = {
       text: '#B65770',
       bg: '#FBF5EB',
 
-      primary_bg: '#ffc9dd',
-      primary_bg_hover: '#ffa5c6',
-      primary_text: '#51273d',
+      primary_bg: '#f6d5d5',
+      primary_bg_hover: '#f6cccc',
+      primary_text: '#963e54',
 
-      secondary_bg: '#ffe7f4',
+      secondary_bg: 'transparent',
       secondary_bg_hover: '#fff6fb',
-      secondary_text: '#993a3a',
-      secondary_border: 'solid 1px #f5c3ed',
+      secondary_text: '#B65770',
+      secondary_border: 'solid 3px #f6d5d5',
 
-      select_bg: '#ffc9dd',
-      select_text: '#51273d',
-
-      input_bg: '#ffc9dd',
-      input_text: '#51273d',
+      input_bg: '#f6d5d5',
+      input_bg_hover: '#f6cccc',
+      input_text: '#963e54',
 
       warning_bg: '#fdffd5',
       warning_text: '#514d44',

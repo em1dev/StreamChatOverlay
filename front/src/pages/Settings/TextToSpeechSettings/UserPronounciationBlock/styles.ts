@@ -20,9 +20,14 @@ export const Container = styled.table`
   tfoot button {
     width: 100%;
     padding: 0.5em;
-    border: solid 1px #E2ABB3;
+    border: none;
     border-radius: 0.5em;
-    background-color: #FFD9DF;;
-    color: #681018;
+
+    background-color: ${(props) => props.theme.page.colors.input_bg};
+    color: ${(props) => props.theme.page.colors.input_text};
+
+    &:hover {
+      background-color: ${(props) => props.theme.page.colors.input_bg_hover};
+    }
   }
 `;

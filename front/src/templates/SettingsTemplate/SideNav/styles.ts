@@ -19,11 +19,13 @@ export const NavContainer = styled.nav`
     color: inherit;
 
     &.active {
-      background-color: #ffe0eb;
+      color: ${({ theme }) => theme.page.colors.input_text};
+      background-color: ${({ theme }) => theme.page.colors.input_bg};
     }
 
     &:hover:not(.active) {
-      background-color: #ffe0eb;
+      color: ${({ theme }) => theme.page.colors.input_text};
+      background-color: ${({ theme }) => theme.page.colors.input_bg};
     }
   }
 `;

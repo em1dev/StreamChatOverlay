@@ -52,9 +52,8 @@ declare module 'styled-components' {
         secondary_text: string,
         secondary_border: string,
 
-        select_bg: string,
-        select_text: string
         input_bg: string,
+        input_bg_hover: string,
         input_text: string
 
         warning_bg: string,

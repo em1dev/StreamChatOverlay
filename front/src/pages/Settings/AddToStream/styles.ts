@@ -48,11 +48,11 @@ export const ClickToCopyBtn = styled.button`
   border-radius: 2em;
   border: none;
 
-  color: ${({ theme }) => theme.page.colors.primary_text };
-  background-color: ${({ theme }) => theme.page.colors.primary_bg };
+  color: ${({ theme }) => theme.page.colors.input_text };
+  background-color: ${({ theme }) => theme.page.colors.input_bg };
   &:hover:not(:disabled)
   {
-    background-color: ${({ theme }) => theme.page.colors.primary_bg_hover };
+    background-color: ${({ theme }) => theme.page.colors.input_bg_hover };
   }
 
   &:disabled {
