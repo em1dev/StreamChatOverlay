@@ -35,6 +35,8 @@ export const useTwitchChat = (channelId: string, channelLogin: string) => {
       channels: [channelLogin]
     });
     chatClient.connect();
+    // disabling rule as I think this is fine as its linked to the channel login so we do want to recreate the chat client every time and clean up the old one.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setChat(chatClient);
 
     return () => {

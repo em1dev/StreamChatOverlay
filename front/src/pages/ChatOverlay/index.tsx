@@ -69,6 +69,8 @@ const ChatOverlay = () => {
   });
 
   useEffect(() => {
+    // disabling rule for now. I think we can get rid of this use effect if we clean up the initialization logic
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchSettings();
   }, [fetchSettings]);
 
