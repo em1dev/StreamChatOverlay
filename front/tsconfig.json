@@ -20,14 +20,13 @@
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
 
-    "baseUrl": "./src",
     "paths": {
-      "@/*" : ["*"],
-      "@Store/*" : ["store/*"],
-      "@Hooks/*" : ["hooks/*"],
-      "@Api/*" : ["api/*"],
-      "@Components/*" : ["components/*"],
-      "@Types/*" : ["types/*"],
+      "@/*" : ["./src/*"],
+      "@Store/*" : ["./src/store/*"],
+      "@Hooks/*" : ["./src/hooks/*"],
+      "@Api/*" : ["./src/api/*"],
+      "@Components/*" : ["./src/components/*"],
+      "@Types/*" : ["./src/types/*"],
     }
 
   },
