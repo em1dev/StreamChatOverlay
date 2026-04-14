@@ -3,7 +3,8 @@ import { CustomEmote } from '../../api/chatApi/types';
 import { useConfiguration } from '../../store/configuration';
 import { chatApi } from '@/api/chatApi';
 import { escapeRegex } from '@/utils/regexUtils';
-import { BetterTTVEvent, BetterTTVJoinChannelEvent } from './types';
+import { BetterTTVSync } from './betterTTVSync';
+import { SevenTVSync } from './sevenTVSync';
 
 export const useCustomEmotes = (channelId: string) => {
   const [customEmotes, setCustomEmotes] = useState<Array<CustomEmote>>([]);
@@ -35,43 +36,24 @@ export const useCustomEmotes = (channelId: string) => {
       setCustomEmotes(emotes);
     };
 
-    let betterTTVws: WebSocket | null = null;
-    if (emoteConfig.isBetterTTVEnabled) {
-      betterTTVws = new WebSocket('wss://sockets.betterttv.net/ws');
-      betterTTVws.addEventListener('open', () => {
-        console.log(`Connecting to betterTTV WS twitch:${channelId}`);
-        betterTTVws?.send(JSON.stringify({
-          name: 'join_channel',
-          data: {
-            name: `twitch:${channelId}`
-          }
-        } satisfies BetterTTVJoinChannelEvent));
-      });
+    let betterTTVSync: BetterTTVSync | null = null;
+    if (emoteConfig.isBetterTTVEnabled)
+    {
+      betterTTVSync = new BetterTTVSync(channelId, updateEmoteStore);
+    }
 
-      betterTTVws.addEventListener('message', (e) => {
-        try {
-          const msg = JSON.parse(e.data) as BetterTTVEvent;
-          if (
-            msg.name == 'emote_create' ||
-          msg.name == 'emote_update' ||
-          msg.name == 'emote_delete'
-          ) {
-          // it takes a couple of seconds from receiving the event to the api showing
-          //    the emote changes, so we wait 5 seconds
-          //    alternatively we could parse the changes and apply them client side if this approach is not consistent
-            console.log('Detected betterTTV changes');
-            setTimeout(updateEmoteStore, 5000);
-          }
-        } catch (e) {
-          console.log('weird message from betterttv ws', e);
-        }
-      });
+    let sevenTVSync: SevenTVSync | null = null;
+    if (emoteConfig.isSevenTVEnabled)
+    {
+      sevenTVSync = new SevenTVSync();
+      sevenTVSync.connect(channelId, updateEmoteStore);
     }
 
     updateEmoteStore();
 
     return () => {
-      betterTTVws?.close();
+      betterTTVSync?.close();
+      sevenTVSync?.close();
     };
   }, [channelId, emoteConfig]);
 
