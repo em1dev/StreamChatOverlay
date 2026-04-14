@@ -6,12 +6,12 @@
   },
   "dependencies": {
     "@types/ws": "^8.18.1",
+    "@vscode/sqlite3": "5.1.12-vscode",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "express-ws": "^5.0.2",
     "jose": "^6.2.2",
-    "sqlite3": "^5.1.7",
     "ts-node": "^10.9.2",
     "typescript": "^6.0.2",
     "zod": "^4.3.6"

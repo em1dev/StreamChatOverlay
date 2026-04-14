@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-import sqlite, { RunResult } from 'sqlite3';
+import sqlite, { RunResult } from '@vscode/sqlite3';
 
 const databaseName = 'db.db';
 

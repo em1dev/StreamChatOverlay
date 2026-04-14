@@ -1,2 +1,2 @@
 onlyBuiltDependencies:
-  - sqlite3
+  - '@vscode/sqlite3'
