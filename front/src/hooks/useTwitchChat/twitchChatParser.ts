@@ -2,10 +2,15 @@ import { CustomEmote } from '../../api/chatApi/types';
 import { SpecialMsgId, TwitchAnimationId, TwitchMsgTags, TwurpleChatMessage } from './types';
 import { ChatMessageData, MessagePart } from '../../types';
 
-const UNDEFINED_UNICODE_CHARACTER = '󠀀';
+// these characters are used by third party extension to by-pass the one message limit in twitch..breaking my regex :v
+// there might be more weird characters used out there but these two are the ones I could find.
+const NON_PRINTABLE_CHARACTER_1 = '͏';
+const NON_PRINTABLE_CHARACTER_2 = '󠀀';
 
 const parseMessage = (content: string, emoteOffsets: Map<string, Array<string>>, customEmotes: Array<CustomEmote>, twurpleMsg: TwurpleChatMessage):Array<MessagePart> => {
-  const contentWithoutHiddenCharacter = content.replace(UNDEFINED_UNICODE_CHARACTER, '');
+  const contentWithoutHiddenCharacter = content
+    .replaceAll(NON_PRINTABLE_CHARACTER_1, '')
+    .replaceAll(NON_PRINTABLE_CHARACTER_2, '');
 
   let messageParts = parseTwitchEmotes(contentWithoutHiddenCharacter, emoteOffsets);
   messageParts = parseCustomEmotes(messageParts, customEmotes);
