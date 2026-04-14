@@ -126,7 +126,6 @@ export const AddToStream = () =>
       <S.StepContainer>
         <p>Step 4</p>
         <p>All done, your chat should be working now</p>
-        <p>Remember to refresh your browser source after changing any settings</p>
       </S.StepContainer>
     </>
   );
