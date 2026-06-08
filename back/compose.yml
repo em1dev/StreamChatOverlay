@@ -1,0 +1,23 @@
+services:
+  api:
+    build: .
+    ports:
+      - ${PORT}:80
+    environment:
+      - PORT=80
+      - SQLITE_DB_PATH=/db/database.db
+      - APP_ID=${APP_ID}
+      - AUTH_API_URL=${AUTH_API_URL}
+    volumes:
+      - database-data:/db
+    networks:
+      - shared
+      - default
+
+volumes:
+  database-data:
+
+networks:
+  shared:
+    external: true
+    name: auth-internal-network

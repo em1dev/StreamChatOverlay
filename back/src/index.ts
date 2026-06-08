@@ -23,6 +23,6 @@ import './routes/authentication/routes';
 import './routes/settings/routes';
 import './ws';
 
-api.listen(PORT, 'localhost', () => {
+api.listen(PORT, () => {
   console.log(`Started server at http://localhost:${PORT}`);
 });

@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import sqlite, { RunResult } from '@vscode/sqlite3';
-
-const databaseName = 'db.db';
+import { config } from '../config';
 
 export enum Table {
   UserSettings = 'userSettings',
@@ -14,7 +13,7 @@ export enum UserSettingsColumnKey {
   SecretKey = 'secretKey'
 }
 
-export const db = new sqlite.Database(databaseName, (err) => {
+export const db = new sqlite.Database(config.SQLITE_DB_PATH, (err) => {
   if (err) {
     console.error('Error connecting to databse', err);
   }

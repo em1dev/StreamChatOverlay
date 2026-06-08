@@ -2,7 +2,7 @@
   "name": "chat.back",
   "version": "1.0.0",
   "engines": {
-    "node": ">=22.0.0"
+    "node": ">=24"
   },
   "scripts": {
     "dev": "ts-node ./src/index.ts",
