@@ -1,4 +1,4 @@
-import { ApiResponse, ElPatoEmote } from '../../types';
+import { ApiResponse, ChatEmote } from '../../types';
 
 export interface FrankerEmote {
   id:string,
@@ -37,7 +37,7 @@ const getFrankerEmotes = async (userId: string) => {
     url1x: e.images['1x'],
     url2x: e.images['2x'],
     url3x: e.images['4x']
-  } satisfies ElPatoEmote));
+  } satisfies ChatEmote));
 };
 
 const fetchApi = async <T>(url:string):Promise<ApiResponse<T>> => {

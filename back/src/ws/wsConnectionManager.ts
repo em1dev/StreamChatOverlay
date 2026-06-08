@@ -1,9 +1,12 @@
-import { WebSocket, OPEN } from 'ws';
 import { ChangeEvent } from './events';
+import { WebsocketRequestHandler } from 'express-ws';
+
+// for some reason ws type is not exported, but we can extract it from the first argument
+type WS = Parameters<WebsocketRequestHandler>[0];
 
 export class WsConnectionManager {
   // userId to connection arrays
-  private _connections: Record<number, { connections: Array<WebSocket> }> = {};
+  private _connections: Record<number, { connections: Array<WS> }> = {};
 
   private static _instance: WsConnectionManager | null = null;
   private constructor()
@@ -17,7 +20,7 @@ export class WsConnectionManager {
     return this._instance;
   };
 
-  public AddConnection(userId: number, ws:WebSocket)
+  public AddConnection(userId: number, ws:WS)
   {
     let existingItem = this._connections[userId];
     if (!existingItem) {
@@ -32,7 +35,7 @@ export class WsConnectionManager {
     };
   }
 
-  public RemoveConnection(userId: number, ws:WebSocket)
+  public RemoveConnection(userId: number, ws:WS)
   {
     const existingItem = this._connections[userId];
     if (!existingItem) {
@@ -49,7 +52,7 @@ export class WsConnectionManager {
 
   public GetConnections(userId: number)
   {
-    return this._connections[userId]?.connections.filter(c => c.readyState == OPEN) ?? [];
+    return this._connections[userId]?.connections.filter(c => c.readyState == WebSocket.OPEN) ?? [];
   }
 
   public SendChangeEvent(userId: number, changeId: string)

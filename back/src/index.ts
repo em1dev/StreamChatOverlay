@@ -1,8 +1,8 @@
-import 'dotenv/config';
 import cors from 'cors';
 import expressWs from 'express-ws';
 import express from 'express';
-const PORT = parseInt(process.env['SERVER_PORT'] ?? '8080');
+import { config } from './config';
+const PORT = parseInt(config.PORT ?? '8080');
 
 const apiws = expressWs(express());
 export const api = apiws.app;

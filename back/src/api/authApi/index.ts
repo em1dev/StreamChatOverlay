@@ -1,4 +1,4 @@
-import 'dotenv/config';
+import { config } from '../../config';
 
 export enum LoginServices {
   twitch = 'twitch'
@@ -8,16 +8,13 @@ export enum ConnectionServices {
   twitch = 'twitch'
 }
 
-const AUTH_API_URL = process.env['AUTH_API_URL'];
-const APP_ID = process.env['APP_ID'];
-
 const getAppCredentials = async () => {
-  const url = `${AUTH_API_URL}/app/${APP_ID}`;
+  const url = `${config.AUTH_API_URL}/app/${config.APP_ID}`;
   const resp = await fetch(url);
   if (!resp.ok) {
     throw new Error(
       `Unable to get app authentication information from auth server. Status: ${resp.status}.
-Make sure an app with '${APP_ID}' exists within the auth server.`
+Make sure an app with '${config.APP_ID}' exists within the auth server.`
     );
   }
 
@@ -28,14 +25,14 @@ Make sure an app with '${APP_ID}' exists within the auth server.`
   }>;
   const twitchCredentials = credentials.find(item => item.type == LoginServices.twitch);
   if (!twitchCredentials) {
-    throw new Error(`Missing twitch credentials on auth server for app '${APP_ID}'`);
+    throw new Error(`Missing twitch credentials on auth server for app '${config.APP_ID}'`);
   }
 
   return twitchCredentials;
 };
 
 export const authenticate = async (code: string, redirectUrl: string) => {
-  const resp = await fetch(AUTH_API_URL + `/${APP_ID}/authenticate/${LoginServices.twitch}`, {
+  const resp = await fetch(config.AUTH_API_URL + `/${config.APP_ID}/authenticate/${LoginServices.twitch}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -53,7 +50,7 @@ export const authenticate = async (code: string, redirectUrl: string) => {
 };
 
 export const verifyToken = async (token: string) => {
-  const resp = await fetch(AUTH_API_URL + '/token/verify', {
+  const resp = await fetch(config.AUTH_API_URL + '/token/verify', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -73,14 +70,14 @@ export interface UserConnection {
 }
 
 export const getConnections = async (userId: number) => {
-  const resp = await fetch(AUTH_API_URL + `/${APP_ID}/user/${userId}/connections`);
+  const resp = await fetch(config.AUTH_API_URL + `/${config.APP_ID}/user/${userId}/connections`);
   if (!resp.ok) return;
 
   return await resp.json() as Array<UserConnection>;
 };
 
 export const revokeConnectionToken = async (userId: number) => {
-  const resp = await fetch(AUTH_API_URL + `/${APP_ID}/user/${userId}/connection/twitch/revoke`, {
+  const resp = await fetch(config.AUTH_API_URL + `/${config.APP_ID}/user/${userId}/connection/twitch/revoke`, {
     method: 'DELETE'
   });
   return resp.ok;

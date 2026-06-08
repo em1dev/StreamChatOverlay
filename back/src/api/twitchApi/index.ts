@@ -1,12 +1,11 @@
 import { TwitchCredentials } from '../../TwitchTokenStore';
 import { ApiResponse, TwitchAuthResponse, TwitchBadgeResponse, TwitchTokenVerificationResponse } from '../../types';
-import 'dotenv/config';
 
 const TWITCH_AUTH_URL = 'https://id.twitch.tv/oauth2/token';
 const HELIX_BASE_URL = 'https://api.twitch.tv/helix/';
 
 const verifyToken = async (token: string) => (
-  await callApi<TwitchTokenVerificationResponse>({ 
+  await callApi<TwitchTokenVerificationResponse>({
     url: 'https://id.twitch.tv/oauth2/validate',
     method: 'GET',
     twitchCredentials: {
@@ -18,7 +17,7 @@ const verifyToken = async (token: string) => (
 );
 
 const getAppToken = async (clientId: string, clientSecret: string) => (
-  await callApi<TwitchAuthResponse>({ 
+  await callApi<TwitchAuthResponse>({
     url: TWITCH_AUTH_URL,
     method: 'POST',
     body: {
@@ -31,7 +30,7 @@ const getAppToken = async (clientId: string, clientSecret: string) => (
 );
 
 const getChannelBadges = async (channelId:string, twitchCredentials: TwitchCredentials) => {
-  const url = HELIX_BASE_URL + 'chat/badges'; 
+  const url = HELIX_BASE_URL + 'chat/badges';
   return await callApi<TwitchBadgeResponse>({
     url,
     params: {
@@ -42,11 +41,11 @@ const getChannelBadges = async (channelId:string, twitchCredentials: TwitchCrede
 };
 
 const getGlobalBadges = async (twitchCredentials: TwitchCredentials) => {
-  const url = HELIX_BASE_URL + 'chat/badges/global'; 
+  const url = HELIX_BASE_URL + 'chat/badges/global';
   return await callApi<TwitchBadgeResponse>({
     url,
     twitchCredentials
-  }); 
+  });
 };
 
 interface ApiParams<T> {
