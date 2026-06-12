@@ -10,6 +10,10 @@ export const api = apiws.app;
 api.use(cors());
 api.use(express.json());
 
+api.get('/health', (_, res) => {
+  res.status(200).send();
+});
+
 api.use((req, res, next) => {
   if (req.path != '/.websocket'){
     console.log(`${new Date().toDateString()}: [${req.method}] - ${req.url}`);
