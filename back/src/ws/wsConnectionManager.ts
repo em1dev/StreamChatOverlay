@@ -30,9 +30,9 @@ export class WsConnectionManager {
 
     existingItem.connections = [...existingItem.connections, ws];
 
-    ws.onclose = () => {
+    ws.on('close', () => {
       this.RemoveConnection(userId, ws);
-    };
+    });
   }
 
   public RemoveConnection(userId: number, ws:WS)
