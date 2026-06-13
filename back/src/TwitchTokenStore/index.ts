@@ -1,5 +1,6 @@
 import { AuthApi } from '../api/authApi';
 import { twitchApi } from '../api/twitchApi';
+import { logger } from '../logger';
 
 export interface TwitchCredentials
 {
@@ -38,7 +39,7 @@ export class TwitchTokenStore {
 
     const tokenVerificationResp = await twitchApi.verifyToken(this._twitchCredentials.appToken);
     if (tokenVerificationResp.error) {
-      console.log('Expired app token...refreshing.', tokenVerificationResp);
+      logger.info(tokenVerificationResp, 'Expired app token...refreshing');
       return await this.getCredentials();
     }
 

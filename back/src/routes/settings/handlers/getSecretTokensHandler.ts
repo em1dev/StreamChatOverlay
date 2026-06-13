@@ -1,4 +1,5 @@
 import { AuthApi } from '../../../api/authApi';
+import { logger } from '../../../logger';
 import { SettingsRepository } from '../../../repository/settingsRepository';
 import { TwitchTokenStore } from '../../../TwitchTokenStore';
 import { ChatApiResponse } from '../../../types';
@@ -27,7 +28,7 @@ export const getSecretTokensHandler = async (userId: number, secret: string): Pr
   // secret valid at this stage
   const connections = await AuthApi.getConnections(userId);
   if (!connections) {
-    console.log(`User ${userId} with valid secret is missing a connection`);
+    logger.info(`User ${userId} with valid secret is missing a connection`);
     return {
       status: 404
     };
@@ -35,7 +36,7 @@ export const getSecretTokensHandler = async (userId: number, secret: string): Pr
 
   const twitchConnection = connections.find(c => c.type == 'twitch');
   if (!twitchConnection) {
-    console.log(`User ${userId} with valid secret is missing a connection`);
+    logger.info(`User ${userId} with valid secret is missing a connection`);
     return {
       status: 404
     };

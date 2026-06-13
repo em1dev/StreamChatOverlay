@@ -1,4 +1,5 @@
 import { twitchApi } from '../../../api/twitchApi';
+import { logger } from '../../../logger';
 import { TwitchTokenStore } from '../../../TwitchTokenStore';
 import { ChatApiResponse, TwitchBadgeResponse } from '../../../types';
 
@@ -11,7 +12,7 @@ export const getChannelBadgesHandler = async (channelId: string)
   const channelBadges = await twitchApi.getChannelBadges(channelId, twitchCredentials);
 
   if (globalBadgesResp.error || channelBadges.error) {
-    console.error(`Error fetching badges for channelId: ${channelId}, resp: ${channelBadges.data}`);
+    logger.error(`Error fetching badges for channelId: ${channelId}, resp: ${channelBadges.data}`);
     return {
       status: globalBadgesResp.error?.status ?? channelBadges.error!.status,
     };

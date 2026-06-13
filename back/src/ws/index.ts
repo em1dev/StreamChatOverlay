@@ -1,4 +1,5 @@
 import { api } from '..';
+import { logger } from '../logger';
 import { SubscribeSchema } from './events';
 import { WsConnectionManager } from './wsConnectionManager';
 
@@ -33,7 +34,7 @@ api.ws('/', (ws) => {
       const userId = subscribeEvent.data.userId;
       WsConnectionManager.GetInstance().AddConnection(userId, ws);
     } catch(e) {
-      console.log(e);
+      logger.info(e);
     }
   });
 });

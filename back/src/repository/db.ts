@@ -15,7 +15,7 @@ export enum UserSettingsColumnKey {
 
 export const db = new sqlite.Database(config.SQLITE_DB_PATH, (err) => {
   if (err) {
-    console.error('Error connecting to databse', err);
+    throw new Error('Error connecting to database', err);
   }
 });
 

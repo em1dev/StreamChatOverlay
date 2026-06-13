@@ -1,3 +1,4 @@
+import { logger } from '../logger';
 import { ChangeEvent } from './events';
 import { WebsocketRequestHandler } from 'express-ws';
 
@@ -72,7 +73,7 @@ export class WsConnectionManager {
       try {
         ws.send(evPayload);
       } catch{
-        console.log('Unable to send change ev to client');
+        logger.info('Unable to send change ev to client');
       }
     }
   }

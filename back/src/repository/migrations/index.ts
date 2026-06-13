@@ -1,12 +1,13 @@
+import { logger } from '../../logger';
 import { db, Table, UserSettingsColumnKey } from '../db';
 
 const runMigrations = () => {
-  console.log('Running migrations');
+  logger.info('Running migrations');
   createTable();
 };
 
 const createTable = () => {
-  console.log('Creating table');
+  logger.info('Creating table');
   db.run(`
 CREATE TABLE IF NOT EXISTS ${Table.UserSettings} (
   ${UserSettingsColumnKey.Id} INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -16,7 +17,7 @@ CREATE TABLE IF NOT EXISTS ${Table.UserSettings} (
 );
 `, (err) => {
     if (err) {
-      console.error(err);
+      logger.error(err);
     }
   });
 };

@@ -1,3 +1,4 @@
+import { logger } from '../../logger';
 import { TwitchCredentials } from '../../TwitchTokenStore';
 import { ApiResponse, TwitchAuthResponse, TwitchBadgeResponse, TwitchTokenVerificationResponse } from '../../types';
 
@@ -77,7 +78,7 @@ const callApi = async <R, T = unknown>({
     const data = await resp.json() as R;
 
     if (!resp.ok) {
-      console.error(data, resp.status);
+      logger.error(data as unknown, 'Twitch api error');
       return {
         error: {
           status: resp.status,
@@ -88,7 +89,7 @@ const callApi = async <R, T = unknown>({
 
     return { data };
   } catch (err) {
-    console.log(err);
+    logger.error(err);
     return {
       error: {
         status: 500,
