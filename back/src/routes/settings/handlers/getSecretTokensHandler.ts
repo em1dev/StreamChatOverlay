@@ -1,17 +1,28 @@
 import { AuthApi } from '../../../api/authApi';
 import { HandlerApiResult } from '../../../HandlerApiResult';
-import { logger } from '../../../logger';
 import { SettingsRepository } from '../../../repository/settingsRepository';
-import { TwitchTokenStore } from '../../../TwitchTokenStore';
+import { TokenStore } from '../../../TwitchTokenStore';
 
+export interface UserTwitchConnection
+{
+  clientId: string,
+  username: string,
+  userId: string,
+  accessToken: string
+}
+
+export interface UserYoutubeConnection
+{
+  clientId: string,
+  accessToken: string,
+  channelId: string
+}
 
 export interface SecretResult
 {
-  accessToken: string,
-  clientId: string,
-  twitchUsername: string,
-  twitchUserId: string,
-  settingsJsonString: string
+  settingsJsonString: string,
+  twitchConnection?: UserTwitchConnection,
+  youtubeConnection?: UserYoutubeConnection
 }
 
 export const getSecretTokensHandler = async (userId: number, secret: string): Promise<HandlerApiResult<SecretResult>> => {
@@ -25,27 +36,35 @@ export const getSecretTokensHandler = async (userId: number, secret: string): Pr
     return HandlerApiResult.Error(404, 'No user secret');
 
   // secret valid at this stage
+
+  const secretResult:SecretResult = {
+    settingsJsonString: userSettings.settingsJson,
+  };
+
   const connections = await AuthApi.getConnections(userId);
-  if (!connections) {
-    logger.info(`User ${userId} with valid secret is missing a connection`);
-    return HandlerApiResult.Error(404, 'No user connection');
-  };
+  if (connections)
+  {
+    const twitchConnection = connections.find(c => c.type == 'twitch');
+    if (twitchConnection) {
+      const twitchCredentials = await TokenStore.getInstance().getTwitchCredentials();
+      secretResult.twitchConnection = {
+        accessToken: twitchConnection.token,
+        clientId: twitchCredentials.clientId,
+        userId: twitchConnection.userId,
+        username: twitchConnection.displayName.toLowerCase(),
+      };
+    }
 
-  const twitchConnection = connections.find(c => c.type == 'twitch');
-  if (!twitchConnection) {
-    logger.info(`User ${userId} with valid secret is missing a connection`);
-    return HandlerApiResult.Error(404, 'No twitch connection');
-  };
+    const youtubeConnection = connections.find(c => c.type == 'youtube');
+    if (youtubeConnection) {
+      const youtubeCredentials = await TokenStore.getInstance().getYoutubeCredentials();
+      secretResult.youtubeConnection = {
+        accessToken: youtubeConnection.token,
+        channelId: youtubeConnection.userId,
+        clientId: youtubeCredentials.clientId,
+      };
+    }
+  }
 
-  const twitchCredentials = await TwitchTokenStore.getInstance().getCredentials();
-
-  const resultDetails:SecretResult = {
-    accessToken: twitchConnection.token,
-    clientId: twitchCredentials.clientId,
-    twitchUserId: twitchConnection.userId,
-    twitchUsername: twitchConnection.displayName.toLowerCase(),
-    settingsJsonString: userSettings.settingsJson
-  };
-
-  return HandlerApiResult.Success(200, resultDetails);
+  return HandlerApiResult.Success(200, secretResult);
 };

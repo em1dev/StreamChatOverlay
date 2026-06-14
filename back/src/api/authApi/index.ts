@@ -1,4 +1,5 @@
 import { config } from '../../config';
+import { ConnectionProvider } from '../../types';
 
 export enum LoginServices {
   twitch = 'twitch'
@@ -20,16 +21,11 @@ Make sure an app with '${config.APP_ID}' exists within the auth server.`
   }
 
   const credentials = await resp.json() as Array<{
-    type: string,
+    type: 'twitch' | 'youtube',
     clientSecret: string,
     clientId: string
   }>;
-  const twitchCredentials = credentials.find(item => item.type == LoginServices.twitch);
-  if (!twitchCredentials) {
-    throw new Error(`Missing twitch credentials on auth server for app '${config.APP_ID}'`);
-  }
-
-  return twitchCredentials;
+  return credentials;
 };
 
 export const authenticate = async (code: string, redirectUrl: string) => {
@@ -41,7 +37,7 @@ export const authenticate = async (code: string, redirectUrl: string) => {
     body: JSON.stringify({
       code,
       redirectUrl,
-      shouldUpsertConnection: true
+      shouldUpsertConnection: false
     })
   });
 
@@ -66,7 +62,7 @@ export interface UserConnection {
   token: string,
   refreshToken: string,
   userId: string,
-  type: 'tiktok' | 'twitch' | 'youtube',
+  type: ConnectionProvider,
   displayName: string,
   profileImageUrl: string
 }
@@ -85,7 +81,28 @@ export const revokeConnectionToken = async (userId: number) => {
   return resp.ok;
 };
 
-export const getAuthUrl = async (provider: 'twitch' | 'youtube', redirectUrl: string, scopes: Array<string>) =>
+export const deleteConnection = async (userId: number, provider: ConnectionProvider) => {
+  const resp = await fetch(config.AUTH_API_URL + `/${config.APP_ID}/user/${userId}/connection/${provider}`, {
+    method: 'DELETE'
+  });
+  return resp.ok;
+};
+
+export const addNewConnection = async (userId: number, provider: ConnectionProvider, code: string, redirectUrl: string) => {
+  const resp = await fetch(config.AUTH_API_URL + `/${config.APP_ID}/user/${userId}/connection/${provider}`, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      code,
+      redirectUrl
+    })
+  });
+  return resp.ok;
+};
+
+export const getAuthUrl = async (provider: ConnectionProvider, redirectUrl: string, scopes: Array<string>) =>
 {
   const url = config.AUTH_API_URL + `/${config.APP_ID}/authenticate/${provider}/authUrl`;
   const body = {
@@ -114,5 +131,7 @@ export const AuthApi = {
   verifyToken,
   getConnections,
   revokeConnectionToken,
+  deleteConnection,
+  addNewConnection,
   getAuthUrl
 };

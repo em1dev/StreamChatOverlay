@@ -15,7 +15,7 @@ import '@/fonts/ChatFonts';
 
 const ChatOverlay = () => {
   const { userId } = useParams<{ userId: string }>();
-  const location = useLocation(); 
+  const location = useLocation();
 
   const setInitialConfiguration = useConfiguration(s => s.setInitialState);
   const chatTheme = useChatTheme();
@@ -53,10 +53,12 @@ const ChatOverlay = () => {
       }
 
       setInitialConfiguration(settingsParsed, secret);
-      setConnectionDetails({
-        channelId: resp.data!.twitchUserId,
-        channelName: resp.data!.twitchUsername,
-      });
+      if (resp.data.twitchConnection && settingsParsed.allowedConnections.twitch) {
+        setConnectionDetails({
+          channelId: resp.data.twitchConnection.userId,
+          channelName: resp.data.twitchConnection.username,
+        });
+      }
     } catch(e) {
       console.error(e);
       setHasError(true);

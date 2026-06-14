@@ -38,3 +38,28 @@ export type UserInformation = {
    */
   created_at: string
 };
+
+export interface Connection {
+  displayName: string,
+  type: 'twitch' | 'youtube',
+  profilePictureUrl: string,
+}
+
+export interface UserYoutubeConnectionDetails {
+  clientId: string,
+  accessToken: string,
+  channelId: string
+}
+
+export interface UserTwitchConnectionDetails {
+  clientId: string,
+  username: string,
+  userId: string,
+  accessToken: string,
+}
+
+export interface SecretResponse {
+  settingsJsonString: string,
+  twitchConnection?: UserTwitchConnectionDetails,
+  youtubeConnection?: UserYoutubeConnectionDetails
+}

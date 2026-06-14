@@ -1,10 +1,11 @@
 import { ApiResponse } from '../ApiResponse';
-import { Badge, CustomEmote } from './types';
+import { Badge, Connection, CustomEmote, SecretResponse } from './types';
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 if (!BASE_URL) throw new Error('Missing VITE_API_URL in .env file');
 
 const authLoginUrl = `${BASE_URL}/authenticate?redirectUrl=${location.origin}/auth`;
+const connectionUrl = (type: Connection['type']) => `${BASE_URL}/connection/${type}/url?redirectUrl=${location.origin}/connect/${type}`;
 
 const getEmotes = async (channelId: string,
   isBetterTTVEnabled: boolean,
@@ -67,13 +68,23 @@ const revokeSecret = async (token: string) => {
 const getConnectionDetailsFromSecret = async (userId: number, secret: string) =>
 {
   const body = JSON.stringify({ userId, secret });
-  return await fetchApi<{
-    accessToken: string,
-    clientId: string,
-    twitchUserId: string,
-    twitchUsername: string,
-    settingsJsonString: string
-  }>(`${BASE_URL}/secret`, 'POST', undefined, body);
+  return await fetchApi<SecretResponse>(`${BASE_URL}/secret`, 'POST', undefined, body);
+};
+
+const getConnections = async (token: string) => {
+  return await fetchApi<Connection[]>(`${BASE_URL}/connection`, 'GET', token);
+};
+
+const deleteConnection = async (token: string, provider: 'twitch' | 'youtube') => {
+  return await fetchApi(`${BASE_URL}/connection/${provider}`, 'DELETE', token);
+};
+
+const addNewConnection = async (token: string, provider: 'twitch' | 'youtube', code: string, redirectUrl: string) => {
+  const body = JSON.stringify({
+    code,
+    redirectUrl
+  });
+  return await fetchApi(`${BASE_URL}/connection/${provider}`, 'POST', token, body);
 };
 
 const fetchApi = async <T>(url:string, method: string, token?: string, body?: string):Promise<ApiResponse<T>> => {
@@ -112,8 +123,12 @@ export const chatApi = {
   authenticateWithCode,
   verifyToken,
   authLoginUrl,
+  connectionUrl,
   getUserSettings,
   updateUserSettings,
   revokeSecret,
-  getConnectionDetailsFromSecret
+  getConnectionDetailsFromSecret,
+  getConnections,
+  deleteConnection,
+  addNewConnection
 };

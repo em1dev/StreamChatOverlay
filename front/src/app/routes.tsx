@@ -1,8 +1,10 @@
 import { AuthenticationPage } from '@/pages/AuthenticationPage';
+import { ConnectionPage } from '@/pages/ConnectionPage';
 import { Landing } from '@/pages/Landing';
 import { AddToStream } from '@/pages/Settings/AddToStream';
 import { AdvanceSettings } from '@/pages/Settings/AdvanceSettings';
 import { BasicSettings } from '@/pages/Settings/BasicSettings';
+import { Connections } from '@/pages/Settings/Connections';
 import { CustomThemeSettings } from '@/pages/Settings/CustomThemeSettings';
 import { TextToSpeechSettings } from '@/pages/Settings/TextToSpeechSettings';
 import { SettingsTemplate } from '@/templates/SettingsTemplate';
@@ -25,12 +27,14 @@ const router = createBrowserRouter([
         children: [
           { index: true, Component: BasicSettings },
           { path: 'add-to-stream', Component: AddToStream },
+          { path: 'connections', Component: Connections },
           { path: 'tts', Component: TextToSpeechSettings },
           { path: 'advance-settings', Component: AdvanceSettings },
           { path: 'custom-theme', Component: CustomThemeSettings },
         ]
       },
-      { path: '/auth', Component: AuthenticationPage }
+      { path: '/auth', Component: AuthenticationPage },
+      { path: '/connect/:provider', Component: ConnectionPage }
     ]
   },
 ]);

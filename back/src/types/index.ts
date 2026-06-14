@@ -45,3 +45,5 @@ export interface ApiResponse<T> {
     description: unknown
   }
 }
+
+export type ConnectionProvider = 'twitch' | 'youtube';

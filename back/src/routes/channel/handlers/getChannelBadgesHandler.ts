@@ -1,13 +1,12 @@
 import { twitchApi } from '../../../api/twitchApi';
 import { HandlerApiResult } from '../../../HandlerApiResult';
 import { logger } from '../../../logger';
-import { TwitchTokenStore } from '../../../TwitchTokenStore';
+import { TokenStore } from '../../../TwitchTokenStore';
 import { TwitchBadgeResponse } from '../../../types';
 
 export const getChannelBadgesHandler = async (channelId: string)
 : Promise<HandlerApiResult<TwitchBadgeResponse['data']>> => {
-  const twitchTokenStore = TwitchTokenStore.getInstance();
-  const twitchCredentials = await twitchTokenStore.getCredentials();
+  const twitchCredentials = await TokenStore.getInstance().getTwitchCredentials();
 
   const [globalBadgesResp, channelBadges] = await Promise.all([
     twitchApi.getGlobalBadges(twitchCredentials),

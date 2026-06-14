@@ -20,6 +20,7 @@ api.use(httpLogger);
 import './routes/channel/routes';
 import './routes/authentication/routes';
 import './routes/settings/routes';
+import './routes/connection/routes';
 import './ws';
 
 // must be 4 params so that its registered as an error handler

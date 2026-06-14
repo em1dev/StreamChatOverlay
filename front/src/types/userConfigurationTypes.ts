@@ -52,7 +52,11 @@ export interface UserConfiguration {
   chatThemeVariant?: string,
   lowerOpacityOnTop: boolean,
   headerOrdering: Array<ChatMessageHeaderType>,
-  fontSize: number
+  fontSize: number,
+  allowedConnections: {
+    twitch: boolean,
+    youtube: boolean
+  }
 }
 
 export type ChatMessageHeaderType = 'pronouns' | 'name' | 'badges'

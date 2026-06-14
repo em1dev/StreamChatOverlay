@@ -41,5 +41,9 @@ export const defaultUserConfiguration: UserConfiguration = {
   headerOrdering: ['badges', 'pronouns', 'name'],
   fontSize: 12,
   chatFont: 'itim',
-  chatFontWeight: 'normal'
+  chatFontWeight: 'normal',
+  allowedConnections: {
+    twitch: true,
+    youtube: true
+  }
 };

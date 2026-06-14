@@ -1,0 +1,77 @@
+import { Connection } from '@/api/chatApi/types';
+import { Icon } from '@iconify/react';
+
+import * as S from './styles';
+import { ToggleInput } from '@/components/ToggleInput';
+
+
+export interface ConnectionItemProps {
+  enabled: boolean,
+  onEnabledChanged: (type: Connection['type'], value: boolean) => void,
+  isLoading: boolean,
+  type: Connection['type'],
+  existingConnection?: Connection,
+  onDeleteConnection: (type: Connection['type']) => void
+  onNewConnection: (type: Connection['type']) => void
+}
+
+const ConnectionIcon = ({ type }: { type: Connection['type'] }) => {
+  if (type == 'youtube')
+    return <Icon fontSize="1.2em" color="red" aria-hidden icon="mingcute:youtube-line" />;
+  return <Icon fontSize="1.2em" color="purple" aria-hidden icon="mingcute:twitch-fill" />;
+};
+
+export const ConnectionItem = ({
+  isLoading,
+  type,
+  existingConnection,
+  enabled,
+  onDeleteConnection,
+  onNewConnection,
+  onEnabledChanged
+}: ConnectionItemProps) => {
+  if (isLoading) return (
+    <S.Loading>
+      <S.PlaceholderImage />
+      <div>
+        <ToggleInput isChecked={enabled} onChange={() => { }} >
+          Loading...
+        </ToggleInput>
+
+        <S.TypeLabel>
+          <ConnectionIcon type={type} />
+            { type }
+        </S.TypeLabel>
+      </div>
+    </S.Loading>
+  );
+
+  if (!existingConnection) return (
+    <S.ConnectButton disabled={isLoading} onClick={() => onNewConnection(type)}>
+      <ConnectionIcon type={type} />
+      Connect to
+      <span style={{ textTransform: 'capitalize' }}>
+        {type}
+      </span>
+      </ S.ConnectButton>
+  );
+
+  return (
+    <S.Container>
+      <img width={80} height={80} src={existingConnection.profilePictureUrl} alt="profile"></img>
+      <div>
+        <ToggleInput isChecked={enabled} onChange={(v) => onEnabledChanged(type, v)} >
+          { existingConnection.displayName }
+        </ToggleInput>
+
+        <S.TypeLabel>
+          <ConnectionIcon type={type} />
+            { existingConnection.type }
+        </S.TypeLabel>
+      </div>
+      <button name={`delete ${type} connection`} disabled={isLoading} onClick={() => onDeleteConnection(type)}>
+        <Icon aria-hidden icon="mingcute:close-fill" />
+      </button>
+    </S.Container>
+  );
+};
