@@ -53,7 +53,7 @@ const ChatOverlay = () => {
       }
 
       setInitialConfiguration(settingsParsed, secret);
-      if (resp.data.twitchConnection && settingsParsed.allowedConnections.twitch) {
+      if (resp.data.twitchConnection) {
         setConnectionDetails({
           channelId: resp.data.twitchConnection.userId,
           channelName: resp.data.twitchConnection.username,
