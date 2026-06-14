@@ -45,8 +45,3 @@ export interface ApiResponse<T> {
     description: unknown
   }
 }
-
-export interface ChatApiResponse<T> {
-  status: number,
-  body?: T
-}

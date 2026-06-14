@@ -1,7 +1,7 @@
-import { TwitchTokenStore } from '../../../TwitchTokenStore';
-import { ChatApiResponse } from '../../../types';
+import { AuthApi } from '../../../api/authApi';
+import { HandlerApiResult } from '../../../HandlerApiResult';
 
-const scopes = [
+const twitchScopes = [
   'bits:read',
   'moderator:read:followers',
   'channel:read:ads',
@@ -17,24 +17,9 @@ const scopes = [
   'moderator:read:shoutouts'
 ];
 
-export const getAuthUrl = async (redirectUrl: string):Promise<ChatApiResponse<{ url: string; }>> => {
-  const twitchTokenStore = TwitchTokenStore.getInstance();
-  const credentials = await twitchTokenStore.getCredentials();
-
-  const query = {
-    response_type: 'code',
-    client_id: credentials.clientId,
-    redirect_uri: redirectUrl,
-    scope: scopes.join(' '),
-    state: crypto.randomUUID(),
-  };
-
-  const url = `https://id.twitch.tv/oauth2/authorize?${(new URLSearchParams(query)).toString()}`;
-
-  return {
-    status: 200,
-    body: {
-      url
-    }
-  };
+export const getAuthUrl = async (redirectUrl: string):Promise<HandlerApiResult<{ url: string; }>> => {
+  const resp = await AuthApi.getAuthUrl('twitch', redirectUrl, twitchScopes);
+  if (!resp)
+    return HandlerApiResult.Error(400, 'Unable to generate auth url');
+  return HandlerApiResult.Success(200, { url: resp.authUrl });
 };

@@ -1,21 +1,23 @@
 import { twitchApi } from '../../../api/twitchApi';
+import { HandlerApiResult } from '../../../HandlerApiResult';
 import { logger } from '../../../logger';
 import { TwitchTokenStore } from '../../../TwitchTokenStore';
-import { ChatApiResponse, TwitchBadgeResponse } from '../../../types';
+import { TwitchBadgeResponse } from '../../../types';
 
 export const getChannelBadgesHandler = async (channelId: string)
-: Promise<ChatApiResponse<TwitchBadgeResponse['data']>> => {
+: Promise<HandlerApiResult<TwitchBadgeResponse['data']>> => {
   const twitchTokenStore = TwitchTokenStore.getInstance();
   const twitchCredentials = await twitchTokenStore.getCredentials();
 
-  const globalBadgesResp = await twitchApi.getGlobalBadges(twitchCredentials);
-  const channelBadges = await twitchApi.getChannelBadges(channelId, twitchCredentials);
+  const [globalBadgesResp, channelBadges] = await Promise.all([
+    twitchApi.getGlobalBadges(twitchCredentials),
+    twitchApi.getChannelBadges(channelId, twitchCredentials)]
+  );
 
   if (globalBadgesResp.error || channelBadges.error) {
     logger.error(`Error fetching badges for channelId: ${channelId}, resp: ${channelBadges.data}`);
-    return {
-      status: globalBadgesResp.error?.status ?? channelBadges.error!.status,
-    };
+    const status = globalBadgesResp.error?.status ?? channelBadges.error!.status;
+    return HandlerApiResult.Error(status, 'Unable to fetch badges');
   }
 
   const allBadges = [
@@ -23,8 +25,5 @@ export const getChannelBadgesHandler = async (channelId: string)
     ...channelBadges.data!.data
   ];
 
-  return {
-    status: 200,
-    body: allBadges
-  };
+  return HandlerApiResult.Success(200, allBadges);
 };

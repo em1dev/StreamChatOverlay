@@ -12,13 +12,8 @@ api.post('/login', async (req, res) => {
     redirectUrl: z.string()
   }).parse(req.body);
 
-  const user = await loginHandler(code, redirectUrl);
-
-  if (!user) {
-    res.status(401).send();
-  }
-
-  res.status(200).send(user);
+  const result = await loginHandler(code, redirectUrl);
+  result.sendResult(res);
 });
 
 api.post('/token/verify', async (req, res) => {
@@ -30,5 +25,5 @@ api.post('/token/verify', async (req, res) => {
 api.get('/auth/url', async (req, res) => {
   const redirectUrl = req.query['redirectUrl'] as string;
   const result = await getAuthUrl(redirectUrl);
-  return res.status(200).send(result.body);
+  result.sendResult(res);
 });

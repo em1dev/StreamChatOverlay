@@ -5,7 +5,7 @@ import { EmoteConfiguration, getChannelEmotesHandler } from './handlers/getChann
 api.get('/:channelId/badges', async (req, res) => {
   const channelId = req.params.channelId;
   const result = await getChannelBadgesHandler(channelId);
-  res.status(result.status).send(result.body);
+  result.sendResult(res);
 });
 
 api.get('/:channelId/emotes', async (req, res) => {
@@ -17,6 +17,5 @@ api.get('/:channelId/emotes', async (req, res) => {
   };
 
   const result = await getChannelEmotesHandler(channelId, emoteConfig);
-  res.status(result.status).send(result.body);
+  result.sendResult(res);
 });
-

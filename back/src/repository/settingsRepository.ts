@@ -1,6 +1,6 @@
 import { dbQuery, Table, UserSettingsColumnKey } from './db';
 
-interface SettingItem {
+export interface SettingItem {
   id: number,
   userId: string,
   settingsJson: string,

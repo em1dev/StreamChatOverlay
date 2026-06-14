@@ -10,7 +10,7 @@ api.get('/settings', async (req, res) => {
   const userId = await getUserIdFromToken(req.headers);
   if (!userId) return res.status(403).send();
   const result = await getUserSettingsHandler(userId);
-  res.send(result);
+  result.sendResult(res);
 });
 
 api.post('/settings', async (req, res) => {
@@ -29,7 +29,7 @@ api.post('/settings', async (req, res) => {
     settingsJsonString
   );
 
-  res.status(result.status).send(result.body);
+  result.sendResult(res);
 });
 
 api.delete('/settings/secret', async (req, res) => {
@@ -37,7 +37,7 @@ api.delete('/settings/secret', async (req, res) => {
   if (!userId) return res.status(403).send();
 
   const result = await recreateUserSettingSecretHandler(userId);
-  res.status(result.status).send(result.body);
+  result.sendResult(res);
 });
 
 api.post('/secret', async (req, res) => {
@@ -47,5 +47,5 @@ api.post('/secret', async (req, res) => {
   }).parse(req.body);
 
   const result = await getSecretTokensHandler(userId, secret);
-  res.status(result.status).send(result.body);
+  result.sendResult(res);
 });

@@ -5,7 +5,8 @@ export enum LoginServices {
 }
 
 export enum ConnectionServices {
-  twitch = 'twitch'
+  twitch = 'twitch',
+  youtube = 'youtube'
 }
 
 const getAppCredentials = async () => {
@@ -44,9 +45,10 @@ export const authenticate = async (code: string, redirectUrl: string) => {
     })
   });
 
-  if (resp.ok) {
-    return await resp.json();
-  }
+  if (!resp.ok)
+    return;
+
+  return await resp.json() as { token : string };
 };
 
 export const verifyToken = async (token: string) => {
@@ -83,10 +85,34 @@ export const revokeConnectionToken = async (userId: number) => {
   return resp.ok;
 };
 
+export const getAuthUrl = async (provider: 'twitch' | 'youtube', redirectUrl: string, scopes: Array<string>) =>
+{
+  const url = config.AUTH_API_URL + `/${config.APP_ID}/authenticate/${provider}/authUrl`;
+  const body = {
+    redirectUrl,
+    scopes
+  };
+  const resp = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  });
+
+  if (!resp.ok)
+    return;
+
+  return await resp.json() as {
+    authUrl: string
+  };
+};
+
 export const AuthApi = {
   getAppCredentials,
   authenticate,
   verifyToken,
   getConnections,
-  revokeConnectionToken
+  revokeConnectionToken,
+  getAuthUrl
 };

@@ -1,7 +1,8 @@
 import { get7TVEmotes } from '../../../api/7tvApi';
 import { betterTTVApi } from '../../../api/betterTTVApi';
 import { getFrankerEmotes } from '../../../api/frankerfacezApi';
-import { ChatApiResponse, ChatEmote } from '../../../types';
+import { HandlerApiResult } from '../../../HandlerApiResult';
+import { ChatEmote } from '../../../types';
 
 export interface EmoteConfiguration {
   betterTTV: boolean,
@@ -10,7 +11,7 @@ export interface EmoteConfiguration {
 }
 
 export const getChannelEmotesHandler = async (channelId: string, emoteConfig: EmoteConfiguration)
-: Promise<ChatApiResponse<Array<ChatEmote>>> => {
+: Promise<HandlerApiResult<Array<ChatEmote>>> => {
   let chatEmotes:Array<ChatEmote> = [];
 
   if (emoteConfig.betterTTV) {
@@ -25,7 +26,7 @@ export const getChannelEmotesHandler = async (channelId: string, emoteConfig: Em
     chatEmotes = chatEmotes.concat(await getFrankerEmotes(channelId));
   }
 
-  return { status: 200, body: chatEmotes };
+  return HandlerApiResult.Success(200, chatEmotes);
 };
 
 const getBetterTTVEmotes = async (channelId: string) => {
