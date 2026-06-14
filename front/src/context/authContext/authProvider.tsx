@@ -6,26 +6,15 @@ import { chatApi } from '@/api/chatApi';
 
 const LOCAL_STORAGE_AUTH_KEY = 'CHAT_SESSION';
 
-export const AuthProvider = ({children}: { children: React.ReactNode }) => {
-  const [authUrl, setAuthUrl] = useState<string | null>(null);
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [session, setSession] = useState<Session | null>(null);
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    (async () => {
-      const url = await chatApi.getAuthLoginUrl();
-      if (url) {
-        setAuthUrl(url);
-      }
-    })();
-  }, []);
-
   const signIn = useCallback(() => {
-    if (!authUrl) return;
-    window.open(authUrl, 'popup', 'toolbar=0,status=0,width=626,height=636');
-  }, [authUrl]);
+    window.open(chatApi.authLoginUrl, 'popup', 'toolbar=0,status=0,width=626,height=636');
+  }, []);
 
   const logOut = useCallback(() => {
     localStorage.removeItem(LOCAL_STORAGE_AUTH_KEY);
@@ -79,7 +68,6 @@ export const AuthProvider = ({children}: { children: React.ReactNode }) => {
     <authContext.Provider value={{
       setIsLoading,
       isLoading,
-      authUrl,
       setSession,
       session,
       signIn,

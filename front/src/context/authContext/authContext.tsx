@@ -19,7 +19,6 @@ export interface User {
 
 export interface AuthContext {
   isLoading: boolean,
-  authUrl: string | null,
   session: Session | null,
   setIsLoading: (value: boolean) => void,
   setSession: React.Dispatch<React.SetStateAction<Session | null>>

@@ -4,7 +4,9 @@ import { Badge, CustomEmote } from './types';
 const BASE_URL = import.meta.env.VITE_API_URL;
 if (!BASE_URL) throw new Error('Missing VITE_API_URL in .env file');
 
-const getEmotes = async (channelId: string, 
+const authLoginUrl = `${BASE_URL}/authenticate?redirectUrl=${location.origin}/auth`;
+
+const getEmotes = async (channelId: string,
   isBetterTTVEnabled: boolean,
   isFrankerTTEnabled: boolean,
   isSevenTVEnabled: boolean
@@ -38,14 +40,6 @@ const authenticateWithCode = async (code: string) => {
 const verifyToken = async (token: string) => {
   const resp = await fetchApi(`${BASE_URL}/token/verify`, 'POST', token);
   return resp.hasError != true;
-};
-
-const getAuthLoginUrl = async () => {
-  const redirectTo = location.origin + '/auth';
-  const resp = await fetchApi<{ url: string }>(`${BASE_URL}/auth/url?redirectUrl=${redirectTo}`, 'GET');
-  if (resp.data){
-    return resp.data.url;
-  }
 };
 
 const getUserSettings = (token: string) => {
@@ -117,7 +111,7 @@ export const chatApi = {
   getEmotes,
   authenticateWithCode,
   verifyToken,
-  getAuthLoginUrl,
+  authLoginUrl,
   getUserSettings,
   updateUserSettings,
   revokeSecret,

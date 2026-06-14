@@ -22,8 +22,11 @@ api.post('/token/verify', async (req, res) => {
   return res.status(200).send();
 });
 
-api.get('/auth/url', async (req, res) => {
+api.get('/authenticate', async (req, res) => {
   const redirectUrl = req.query['redirectUrl'] as string;
-  const result = await getAuthUrl(redirectUrl);
-  result.sendResult(res);
+  const authUrl = await getAuthUrl(redirectUrl);
+  if (!authUrl)
+    return res.status(400).send();
+
+  res.redirect(authUrl);
 });

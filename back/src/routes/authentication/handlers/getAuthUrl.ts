@@ -1,5 +1,4 @@
 import { AuthApi } from '../../../api/authApi';
-import { HandlerApiResult } from '../../../HandlerApiResult';
 
 const twitchScopes = [
   'bits:read',
@@ -17,9 +16,9 @@ const twitchScopes = [
   'moderator:read:shoutouts'
 ];
 
-export const getAuthUrl = async (redirectUrl: string):Promise<HandlerApiResult<{ url: string; }>> => {
+export const getAuthUrl = async (redirectUrl: string) => {
   const resp = await AuthApi.getAuthUrl('twitch', redirectUrl, twitchScopes);
   if (!resp)
-    return HandlerApiResult.Error(400, 'Unable to generate auth url');
-  return HandlerApiResult.Success(200, { url: resp.authUrl });
+    return null;
+  return resp.authUrl;
 };
