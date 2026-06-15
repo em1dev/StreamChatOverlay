@@ -16,7 +16,7 @@ type OnChatMessageEventHandler = (channel: string, user:string, text:string, msg
 export const useTwitchChat = (channelId: string, channelLogin: string) => {
   const configuration = useConfiguration(state => state);
 
-  const { 
+  const {
     clearQueue: ttsClearQueue,
     onRemoveMessage: ttsRemoveMessage,
     speak: ttsSpeak
@@ -31,6 +31,7 @@ export const useTwitchChat = (channelId: string, channelLogin: string) => {
   const onMessageRemovedRef = useRef<((messageId: string) => void) | null>(null);
 
   useEffect(() => {
+    console.log('Using twitch connection');
     const chatClient = new ChatClient({
       channels: [channelLogin]
     });
@@ -119,7 +120,8 @@ export const useTwitchChat = (channelId: string, channelLogin: string) => {
         color: msg.userInfo.color,
         emoteOffsets: msg.emoteOffsets,
         badges: badges,
-        messageParts: msgParts
+        messageParts: msgParts,
+        sentAt: msg.date.getTime()
       };
 
       const shouldIgnoreBotTTS = configuration.userConfiguration.ttsConfiguration.ignoreBotMessages && isBot;

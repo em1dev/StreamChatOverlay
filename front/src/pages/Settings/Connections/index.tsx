@@ -84,7 +84,7 @@ export const Connections = () => {
   }, [session]);
 
   const twitchConnection = connections.filter(c => c.type == 'twitch').at(0);
-  //const youtubeConnection = connections.filter(c => c.type == 'youtube').at(0);
+  const youtubeConnection = connections.filter(c => c.type == 'youtube').at(0);
 
   if (!session)
     return null;
@@ -104,7 +104,6 @@ export const Connections = () => {
           onNewConnection={onNewConnection}
         />
 
-      {/*
         <ConnectionItem
           enabled={allowedConnections.youtube}
           onEnabledChanged={onEnableService}
@@ -114,7 +113,6 @@ export const Connections = () => {
           onDeleteConnection={onDeleteConnection}
           onNewConnection={onNewConnection}
         />
-      */}
       </div>
     </>
   );

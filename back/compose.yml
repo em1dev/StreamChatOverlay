@@ -15,16 +15,35 @@ services:
       - SQLITE_DB_PATH=/db/database.db
       - APP_ID=${APP_ID}
       - AUTH_API_URL=${AUTH_API_URL}
+      - REDIS_URL=redis://redis-cache:6379
     volumes:
       - database-data:/db
     networks:
       - shared
+      - internal
       - default
+
+  redis-cache:
+    image: redis:7-alpine
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli ping | grep PONG"]
+      interval: 1s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+    volumes:
+      - redis-data:/data
+    networks:
+      - internal
 
 volumes:
   database-data:
+  redis-data:
 
 networks:
+  internal:
+    internal: true
   shared:
     external: true
     name: auth-internal-network

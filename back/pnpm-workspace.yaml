@@ -1,2 +1,5 @@
 allowBuilds:
   "@vscode/sqlite3": true
+  grpc: set this to true or false
+  grpc-tools: true
+  protobufjs: true

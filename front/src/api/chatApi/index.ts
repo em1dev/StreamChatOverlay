@@ -1,5 +1,5 @@
 import { ApiResponse } from '../ApiResponse';
-import { Badge, Connection, CustomEmote, SecretResponse } from './types';
+import { Badge, Connection, CustomEmote, SecretResponse, YoutubeBroadcast } from './types';
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 if (!BASE_URL) throw new Error('Missing VITE_API_URL in .env file');
@@ -87,6 +87,11 @@ const addNewConnection = async (token: string, provider: 'twitch' | 'youtube', c
   return await fetchApi(`${BASE_URL}/connection/${provider}`, 'POST', token, body);
 };
 
+const getYoutubeBroadcast = async (secret: string, userId: number) => {
+  const body = JSON.stringify({ userId, secret });
+  return await fetchApi<YoutubeBroadcast>(`${BASE_URL}/secret/youtubeBroadcast`, 'POST', undefined, body);
+};
+
 const fetchApi = async <T>(url:string, method: string, token?: string, body?: string):Promise<ApiResponse<T>> => {
   const headers = new Headers({
     'content-type': 'application/json',
@@ -130,5 +135,6 @@ export const chatApi = {
   getConnectionDetailsFromSecret,
   getConnections,
   deleteConnection,
-  addNewConnection
+  addNewConnection,
+  getYoutubeBroadcast
 };

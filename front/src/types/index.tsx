@@ -9,6 +9,7 @@ export type MessagePart = {
 
 export interface ChatMessageData {
   id: string,
+  sentAt: number,
   effect: 'normal' | 'rainbow' | 'simmer' | 'big-emote',
   fullMessageText: string,
   emoteOffsets: Map<string, Array<string>>,

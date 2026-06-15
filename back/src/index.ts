@@ -21,7 +21,9 @@ import './routes/channel/routes';
 import './routes/authentication/routes';
 import './routes/settings/routes';
 import './routes/connection/routes';
+import './routes/secret/routes';
 import './ws';
+import './youtubeChatWebsocketServer/index';
 
 // must be 4 params so that its registered as an error handler
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

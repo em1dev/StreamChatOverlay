@@ -63,3 +63,12 @@ export interface SecretResponse {
   twitchConnection?: UserTwitchConnectionDetails,
   youtubeConnection?: UserYoutubeConnectionDetails
 }
+
+export interface YoutubeBroadcast
+{
+  broadcastId: string,
+  channelId: string,
+  title: string,
+  description: string,
+  liveChatId: string,
+}
