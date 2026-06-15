@@ -3,6 +3,7 @@ import { Icon } from '@iconify/react';
 
 import * as S from './styles';
 import { ToggleInput } from '@/components/ToggleInput';
+import { LiveServiceIcon } from '@/components/LiveServiceIcon';
 
 
 export interface ConnectionItemProps {
@@ -14,12 +15,6 @@ export interface ConnectionItemProps {
   onDeleteConnection: (type: Connection['type']) => void
   onNewConnection: (type: Connection['type']) => void
 }
-
-const ConnectionIcon = ({ type }: { type: Connection['type'] }) => {
-  if (type == 'youtube')
-    return <Icon fontSize="1.2em" color="red" aria-hidden icon="mingcute:youtube-line" />;
-  return <Icon fontSize="1.2em" color="purple" aria-hidden icon="mingcute:twitch-fill" />;
-};
 
 export const ConnectionItem = ({
   isLoading,
@@ -39,7 +34,7 @@ export const ConnectionItem = ({
         </ToggleInput>
 
         <S.TypeLabel>
-          <ConnectionIcon type={type} />
+          <LiveServiceIcon type={type} />
             { type }
         </S.TypeLabel>
       </div>
@@ -48,7 +43,7 @@ export const ConnectionItem = ({
 
   if (!existingConnection) return (
     <S.ConnectButton disabled={isLoading} onClick={() => onNewConnection(type)}>
-      <ConnectionIcon type={type} />
+      <LiveServiceIcon type={type} />
       Connect to
       <span style={{ textTransform: 'capitalize' }}>
         {type}
@@ -65,7 +60,7 @@ export const ConnectionItem = ({
         </ToggleInput>
 
         <S.TypeLabel>
-          <ConnectionIcon type={type} />
+          <LiveServiceIcon type={type} />
             { existingConnection.type }
         </S.TypeLabel>
       </div>

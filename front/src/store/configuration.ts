@@ -12,7 +12,7 @@ interface UserConfigurationStore {
   userConfiguration: UserConfiguration,
   updateUserConfiguration: (values: Partial<UserConfiguration>, session: Session | null) => void,
   setSecret: (value: string | null) => void,
-  setInitialState: (userConfiguration: UserConfiguration, secret: string) => void,
+  setInitialState: (userConfiguration: UserConfiguration, secret: string) => UserConfiguration,
   resetState: () => void,
 
   pushUpdateWithDebounce: (session: Session) => void,
@@ -43,11 +43,13 @@ export const userConfigurationStore = create<UserConfigurationStore>()((set, get
       }
     },
     setInitialState: (userConfiguration, secret) => {
+      const newConfig = { ...defaultUserConfiguration, ...userConfiguration };
       set({
         secretKey: secret,
-        userConfiguration: { ...defaultUserConfiguration, ...userConfiguration },
+        userConfiguration: newConfig,
         hasLoaded: true
       });
+      return newConfig;
     },
     pushUpdateWithDebounce: (session: Session) => {
       const existingTimeout = get().updateDebouncerTimeout;
