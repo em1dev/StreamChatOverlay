@@ -64,7 +64,8 @@ export interface UserConnection {
   userId: string,
   type: ConnectionProvider,
   displayName: string,
-  profileImageUrl: string
+  profileImageUrl: string,
+  expiresIn: number
 }
 
 export const getConnections = async (userId: number) => {
