@@ -3,6 +3,7 @@ import { ChatMessageData } from '../types';
 export const landingExamplesMessages: Array<ChatMessageData> = [
   {
     'id': '5f7b389d-9284-4f97-8a1b-28c57d910a71',
+    'sentAt': 0,
     'effect': 'normal',
     'fullMessageText': 'RainbowPls',
     'userDisplayName': 'EmyTheDoll',
@@ -13,7 +14,7 @@ export const landingExamplesMessages: Array<ChatMessageData> = [
       {
         'id': 'broadcaster',
         'url': 'https://static-cdn.jtvnw.net/badges/v1/5527c58c-fb7d-422d-b71b-f309dcb85cc1/2'
-      }
+      },
     ],
     'messageParts': [
       {
@@ -33,6 +34,7 @@ export const landingExamplesMessages: Array<ChatMessageData> = [
   },
   {
     'id': 'c90fbad0-e1d7-4a98-8eb5-4ce1612d9ed2',
+    'sentAt': 0,
     'effect': 'normal',
     'fullMessageText': 'owo',
     'userDisplayName': 'AnnCinnamon',
@@ -62,6 +64,7 @@ export const landingExamplesMessages: Array<ChatMessageData> = [
   },
   {
     'id': '913650a6-cf9c-4a59-b587-9685814ece73',
+    'sentAt': 0,
     'effect': 'normal',
     'fullMessageText': '@bulbsum JinxLUL',
     'userDisplayName': 'EmyTheDoll',
@@ -93,6 +96,7 @@ export const landingExamplesMessages: Array<ChatMessageData> = [
   },
   {
     'id': '913650a6-cf9c-4a59-b587-9685814ece74',
+    'sentAt': 0,
     'effect': 'normal',
     'fullMessageText': 'hello everynyan',
     'userDisplayName': 'bulbsum',
@@ -115,6 +119,7 @@ export const landingExamplesMessages: Array<ChatMessageData> = [
   },
   {
     'id': '6cb5af1d-0c27-4a9c-afc8-38bf63ca9db5',
+    'sentAt': 0,
     'effect': 'normal',
     'fullMessageText': 'A beber',
     'userDisplayName': 'bulbsum',
@@ -142,6 +147,7 @@ export const landingExamplesMessages: Array<ChatMessageData> = [
   },
   {
     'id': '6cb5af1d-0c27-4a9c-afc8-38bf63ca9db6',
+    'sentAt': 0,
     'effect': 'normal',
     'fullMessageText': 'A beber',
     'userDisplayName': 'EmyTheDoll',
