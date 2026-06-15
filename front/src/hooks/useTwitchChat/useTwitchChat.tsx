@@ -16,7 +16,7 @@ type OnChatMessageEventHandler = (channel: string, user:string, text:string, msg
 export const useTwitchChat = (channelId: string, channelLogin: string) => {
   const configuration = useConfiguration(state => state);
 
-  const { 
+  const {
     clearQueue: ttsClearQueue,
     onRemoveMessage: ttsRemoveMessage,
     speak: ttsSpeak
@@ -119,7 +119,8 @@ export const useTwitchChat = (channelId: string, channelLogin: string) => {
         color: msg.userInfo.color,
         emoteOffsets: msg.emoteOffsets,
         badges: badges,
-        messageParts: msgParts
+        messageParts: msgParts,
+        sentAt: msg.date.getTime()
       };
 
       const shouldIgnoreBotTTS = configuration.userConfiguration.ttsConfiguration.ignoreBotMessages && isBot;

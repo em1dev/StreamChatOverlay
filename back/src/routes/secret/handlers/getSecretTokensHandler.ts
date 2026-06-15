@@ -36,7 +36,6 @@ export const getSecretTokensHandler = async (userId: number, secret: string): Pr
     return HandlerApiResult.Error(404, 'No user secret');
 
   // secret valid at this stage
-
   const secretResult:SecretResult = {
     settingsJsonString: userSettings.settingsJson,
   };

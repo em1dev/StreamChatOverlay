@@ -4,7 +4,6 @@ import { getUserIdFromToken } from '../../getUserFromToken';
 import { getUserSettingsHandler } from './handlers/getUserSettingsHandler';
 import { updateUserSettingsHandler } from './handlers/updateUserSettingsHandler';
 import { recreateUserSettingSecretHandler } from './handlers/recreateUserSettingSecretHandler';
-import { getSecretTokensHandler } from './handlers/getSecretTokensHandler';
 
 api.get('/settings', async (req, res) => {
   const userId = await getUserIdFromToken(req.headers);
@@ -37,15 +36,5 @@ api.delete('/settings/secret', async (req, res) => {
   if (!userId) return res.status(403).send();
 
   const result = await recreateUserSettingSecretHandler(userId);
-  result.sendResult(res);
-});
-
-api.post('/secret', async (req, res) => {
-  const { secret, userId } = z.object({
-    userId: z.number(),
-    secret: z.string()
-  }).parse(req.body);
-
-  const result = await getSecretTokensHandler(userId, secret);
   result.sendResult(res);
 });
