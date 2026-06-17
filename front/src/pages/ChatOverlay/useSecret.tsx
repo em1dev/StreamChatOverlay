@@ -109,10 +109,10 @@ export const useSecret = (): SecretResult => {
 
         setInitialConfiguration(settingsParsed, secret);
       })
-        .catch((e) => {
-          console.error(e);
-          setState({ hasError: true, isLoading: false });
-        });
+      .catch((e) => {
+        console.error(e);
+        setState({ hasError: true, isLoading: false });
+      });
   }, [secret, setInitialConfiguration, userIdParsed]);
 
   useSettingsChangeListener(userIdParsed, onSettingsChanged);

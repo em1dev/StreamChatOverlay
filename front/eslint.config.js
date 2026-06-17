@@ -38,7 +38,7 @@ export default defineConfig([{
       allowConstantExport: true,
     }],
 
-    //'@stylistic/indent': ['error', 2],
+    '@stylistic/indent': ['error', 2],
     'quotes': ['error', 'single'],
     'semi': ['error', 'always'],
     '@typescript-eslint/no-empty-object-type': 'off'

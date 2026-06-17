@@ -25,11 +25,11 @@ export const Header = () => {
 
       {session && (
         <S.ProfileDetailsContainer>
-            <div>
-              <span>{session.user.provider.displayName}</span>
-              <button onClick={logOut}>Log Out</button>
-            </div>
-            <img alt='profile' width={50} height={50} src={session.user.provider.profileImageUrl} />
+          <div>
+            <span>{session.user.provider.displayName}</span>
+            <button onClick={logOut}>Log Out</button>
+          </div>
+          <img alt='profile' width={50} height={50} src={session.user.provider.profileImageUrl} />
         </S.ProfileDetailsContainer>
       )}
     </S.Header>

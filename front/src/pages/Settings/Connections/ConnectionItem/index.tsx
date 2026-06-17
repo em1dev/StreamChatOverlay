@@ -35,7 +35,7 @@ export const ConnectionItem = ({
 
         <S.TypeLabel>
           <LiveServiceIcon type={type} />
-            { type }
+          { type }
         </S.TypeLabel>
       </div>
     </S.Loading>
@@ -48,7 +48,7 @@ export const ConnectionItem = ({
       <span style={{ textTransform: 'capitalize' }}>
         {type}
       </span>
-      </ S.ConnectButton>
+    </ S.ConnectButton>
   );
 
   return (
@@ -61,7 +61,7 @@ export const ConnectionItem = ({
 
         <S.TypeLabel>
           <LiveServiceIcon type={type} />
-            { existingConnection.type }
+          { existingConnection.type }
         </S.TypeLabel>
       </div>
       <button title={`delete ${type} connection`} disabled={isLoading} onClick={() => onDeleteConnection(type)}>

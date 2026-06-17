@@ -104,7 +104,7 @@ export const Connections = () => {
           onNewConnection={onNewConnection}
         />
 
-      {/*
+        {/*
         <ConnectionItem
           enabled={allowedConnections.youtube}
           onEnabledChanged={onEnableService}

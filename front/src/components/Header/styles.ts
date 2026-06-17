@@ -58,7 +58,7 @@ export const ProfileDetailsContainer = styled.div`
   > div {
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
+        align-items: flex-start;
       > * {
           padding: 0.2em;
       }
