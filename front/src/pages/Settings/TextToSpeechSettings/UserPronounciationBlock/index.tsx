@@ -80,7 +80,7 @@ export const UserPronunciationBlock = () => {
   }, [userReplacement, ttsConfiguration, updateConfig, session]);
 
   return (
-    <S.Container cellSpacing={10}>
+    <S.Container>
       <thead>
         <tr>
           <th></th>

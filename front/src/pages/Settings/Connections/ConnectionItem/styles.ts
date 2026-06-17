@@ -29,6 +29,9 @@ export const TypeLabel = styled.div`
 export const Container = styled.div`
   border-radius: 1em;
   padding: 0.5em 1em;
+  @media (${({ theme }) => theme.page.query.mobile}) {
+    padding: 0.5em;
+  }
   display: flex;
   gap: 1em;
   align-items: center;
@@ -68,7 +71,7 @@ export const Container = styled.div`
   }
 
   border: solid 2px ${({ theme }) => theme.page.colors.primary_text };
- `;
+`;
 
 export const Loading = styled(Container)``;
 

@@ -15,9 +15,11 @@ export const InnerContainer = styled.div`
     display: flex;
     gap: 3em;
 
-    > nav:first-child
-    {
-        width: 300px;
+
+    @media (${({ theme }) => theme.page.query.mobile}) {
+        width: auto;
+        margin: 0.5em;
+        padding: 0.5em;
     }
 
     > div:last-child {
@@ -29,7 +31,7 @@ export const InnerContainer = styled.div`
         font-family: inherit;
         font-size: inherit;
         margin-top: 0;
-        color: #66364B;
+        color: #66363B;
     }
 
     h2 {

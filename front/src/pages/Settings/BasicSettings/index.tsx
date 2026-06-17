@@ -45,6 +45,7 @@ export const BasicSettings = () => {
           <S.DirectionContainer>
             <button
               aria-label='left'
+              aria-checked={chatDirection == 'left'}
               onClick={() => updateConfig({ chatDirection: 'left' }, session)}
               type='button'
               role='radio'
@@ -60,6 +61,7 @@ export const BasicSettings = () => {
 
             <button
               aria-label='right'
+              aria-checked={chatDirection == 'right'}
               onClick={() => updateConfig({ chatDirection: 'right' }, session)}
               type='button'
               role='radio'

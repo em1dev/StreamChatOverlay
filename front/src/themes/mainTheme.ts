@@ -4,9 +4,12 @@ import { themeKeyMap } from './chatThemes';
 export const mainTheme: DefaultTheme = {
   chat: themeKeyMap['duck'].default.theme,
   page: {
+    query: {
+      mobile: 'max-width: 900px'
+    },
     colors: {
-      title: '#FF5B87',
-      text: '#B65770',
+      title: '#f14e7a',
+      text: '#a64b63',
       bg: '#FBF5EB',
 
       primary_bg: '#f6d5d5',
@@ -15,7 +18,7 @@ export const mainTheme: DefaultTheme = {
 
       secondary_bg: 'transparent',
       secondary_bg_hover: '#fff6fb',
-      secondary_text: '#B65770',
+      secondary_text: '#a64b63',
       secondary_border: 'solid 3px #f6d5d5',
 
       input_bg: '#f6d5d5',

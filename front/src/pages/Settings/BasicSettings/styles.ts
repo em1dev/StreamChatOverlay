@@ -4,6 +4,7 @@ export const EmoteToggleContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5em;
+  flex-wrap: wrap;
 `;
 
 export const ChatContainer = styled.div`
@@ -27,4 +28,3 @@ export const DirectionContainer = styled.div`
     align-items: center;
   }
 `;
-

@@ -49,6 +49,7 @@ const EmoteContainer = styled.img<{
 
 const Emote = ({ id, customEmote, alignCorrection, size } : EmoteProps) => (
   <EmoteContainer
+    alt={`emote ${id}`}
     $size={size}
     $alignCorrection={alignCorrection}
     src={customEmote?.['url3x'] ?? getEmoteUrl(id, undefined, undefined, '3.0')}

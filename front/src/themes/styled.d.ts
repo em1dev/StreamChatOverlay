@@ -38,6 +38,9 @@ declare module 'styled-components' {
   export interface DefaultTheme {
     chat: ChatTheme,
     page: {
+      query: {
+        mobile: string,
+      },
       colors: {
         bg: string,
         text: string,

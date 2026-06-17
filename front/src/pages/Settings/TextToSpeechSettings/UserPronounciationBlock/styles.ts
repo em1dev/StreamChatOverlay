@@ -17,6 +17,10 @@ export const Container = styled.table`
     font-size: 0.8em;
   }
 
+  input {
+    width: 100%;
+  }
+
   tfoot button {
     width: 100%;
     padding: 0.5em;

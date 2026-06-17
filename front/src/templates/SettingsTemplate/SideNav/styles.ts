@@ -1,31 +1,101 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const NavContainer = styled.nav`
+const navButton = css`
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  svg {
+    font-size: 1.5em;
+  }
+  font-size: 1.2em;
+  text-decoration: none;
+  border-radius: 3em;
+  padding: 0.8em 2em;
+  color: inherit;
+
+  &.active {
+    color: ${({ theme }) => theme.page.colors.input_text};
+    background-color: ${({ theme }) => theme.page.colors.input_bg};
+  }
+
+  &:hover:not(.active) {
+    color: ${({ theme }) => theme.page.colors.input_text};
+    background-color: ${({ theme }) => theme.page.colors.input_bg};
+  }
+`;
+
+export const NavContainer = styled.nav<{ $isOpen: boolean }>`
+  background-color: ${({ theme }) => theme.page.colors.bg};
   display: flex;
   flex-direction: column;
   gap: 0.5em;
 
   a {
+    ${navButton}
+  }
+
+  width: 300px;
+  transition: left ease-out 0.2s;
+
+  @media (${({ theme }) => theme.page.query.mobile}) {
+    left: ${({ $isOpen }) => ( $isOpen ? '0vw ' : '100vw' )};
+
+    padding: 0.5em;
+    z-index: 99999;
+    top: 0;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+  }
+`;
+
+export const NavHeader = styled.header`
+  display: none;
+  > div {
+    padding: 0 2em;
     display: flex;
-    align-items: center;
     gap: 0.5em;
-    svg {
-      font-size: 1.5em;
+    align-items: center;
+    img {
+      border-radius: 100%;
+      border: solid 2px ${({ theme }) => theme.page.colors.text };
     }
-    font-size: 1.2em;
-    text-decoration: none;
-    border-radius: 3em;
-    padding: 0.8em 2em;
+  }
+
+  button {
+    border: none;
+    background-color: transparent;
     color: inherit;
+    display: block;
+    margin-left: auto;
+    width: 80px;
+    height: 80px;
+    align-items: center;
+    justify-content: center;
+  }
 
-    &.active {
-      color: ${({ theme }) => theme.page.colors.input_text};
-      background-color: ${({ theme }) => theme.page.colors.input_bg};
-    }
+  @media (${({ theme }) => theme.page.query.mobile}) {
+    display: flex;
+  }
+`;
 
-    &:hover:not(.active) {
-      color: ${({ theme }) => theme.page.colors.input_text};
-      background-color: ${({ theme }) => theme.page.colors.input_bg};
+
+export const BottomSection = styled.div`
+  display: none;
+
+
+  @media (${({ theme }) => theme.page.query.mobile}) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+
+
+    > button {
+      background: transparent;
+      outline: none;
+      border: none;
+      ${navButton}
     }
   }
 `;

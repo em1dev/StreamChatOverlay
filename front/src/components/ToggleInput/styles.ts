@@ -8,5 +8,6 @@ export const Label = styled.label`
   gap: 0.3em;
   svg {
     font-size: 1.5em;
+    min-width: 1em;
   }
 `;

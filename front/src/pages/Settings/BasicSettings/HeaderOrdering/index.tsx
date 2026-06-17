@@ -40,7 +40,12 @@ export const HeaderOrdering = () => {
     <section>
       <h2>Message Header</h2>
 
-      <div style={{ fontSize: '14px', fontFamily: font.fontFamily, fontWeight: fontWeight }}>
+      <div style={{ 
+        margin: '2em 0',
+        fontSize: '14px',
+        fontFamily: font.fontFamily,
+        fontWeight: fontWeight 
+      }}>
         <ThemeProvider theme={chatTheme}>
           <ChatMsg {...landingExamplesMessages[3]} />
         </ThemeProvider>
@@ -59,7 +64,11 @@ export const HeaderOrdering = () => {
             <Fragment key={item}>
               <div>{ headerTypeToDisplayName[item] }</div>
               {index != ordering.length - 1  && (
-                <button type='button' onClick={() => onSwitchRight(index)}>
+                <button 
+                  aria-label={`switch ${headerTypeToDisplayName[item]} with ${headerTypeToDisplayName[ordering[index + 1]]}`}
+                  type='button'
+                  onClick={() => onSwitchRight(index)}
+                >
                   <Icon icon="cuida:swap-horizontal-arrows-outline" />
                 </button>
               )}

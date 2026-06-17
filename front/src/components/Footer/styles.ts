@@ -8,6 +8,7 @@ export const Container = styled.footer`
   gap: 1em;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
 
   a {
       color: inherit;
@@ -16,8 +17,5 @@ export const Container = styled.footer`
           color: #42a0ff;
           text-decoration: underline
       }
-  }
-  a.current {
-
   }
 `;

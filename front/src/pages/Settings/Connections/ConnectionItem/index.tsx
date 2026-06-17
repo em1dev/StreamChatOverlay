@@ -64,7 +64,7 @@ export const ConnectionItem = ({
             { existingConnection.type }
         </S.TypeLabel>
       </div>
-      <button name={`delete ${type} connection`} disabled={isLoading} onClick={() => onDeleteConnection(type)}>
+      <button title={`delete ${type} connection`} disabled={isLoading} onClick={() => onDeleteConnection(type)}>
         <Icon aria-hidden icon="mingcute:close-fill" />
       </button>
     </S.Container>

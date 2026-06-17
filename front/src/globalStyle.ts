@@ -18,6 +18,12 @@ export const GlobalStyle = createGlobalStyle`
     min-height: 100vh;
   }
 
+  @media (${({ theme }) => theme.page.query.mobile}){
+    body.noScroll {
+      overflow: hidden;
+    }
+  }
+
   *, *:before, *:after {
     -webkit-box-sizing: inherit;
     -moz-box-sizing: inherit;
