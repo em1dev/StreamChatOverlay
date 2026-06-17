@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
 export const Main = styled.main`
+  min-height: inherit;
   width: 100%;
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding-top: 8em;
+  padding-top: 3em;
   overflow: hidden;
 
   font-size: 1.3em;
@@ -36,7 +37,6 @@ export const Main = styled.main`
     display: flex;
     gap: 5em;
     padding: 1em;
-    padding-bottom: 5em;
     max-width: 100%;
 
     > div {

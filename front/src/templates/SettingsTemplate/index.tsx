@@ -1,9 +1,10 @@
 import * as S from './style';
-import { Header } from '@/templates/SettingsTemplate/Header';
+import { Header } from '@/components/Header';
 import { SideNav } from './SideNav';
 import { useAuth } from '@/context/authContext/useAuth';
 import { Outlet, useNavigate } from 'react-router';
 import { useEffect } from 'react';
+import { Footer } from '@/components/Footer';
 
 
 export const SettingsTemplate = () => {
@@ -19,12 +20,13 @@ export const SettingsTemplate = () => {
   return (
     <S.Container>
       <Header />
-      <div>
+      <S.InnerContainer>
         <SideNav />
         <div>
           <Outlet />
         </div>
-      </div>
+      </S.InnerContainer>
+      <Footer />
     </S.Container>
   );
 };

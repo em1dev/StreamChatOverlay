@@ -1,12 +1,15 @@
 import { AuthenticationPage } from '@/pages/AuthenticationPage';
 import { ConnectionPage } from '@/pages/ConnectionPage';
 import { Landing } from '@/pages/Landing';
+import { Privacy } from '@/pages/Privacy';
 import { AddToStream } from '@/pages/Settings/AddToStream';
 import { AdvanceSettings } from '@/pages/Settings/AdvanceSettings';
 import { BasicSettings } from '@/pages/Settings/BasicSettings';
 import { Connections } from '@/pages/Settings/Connections';
 import { CustomThemeSettings } from '@/pages/Settings/CustomThemeSettings';
 import { TextToSpeechSettings } from '@/pages/Settings/TextToSpeechSettings';
+import { Terms } from '@/pages/Terms';
+import { InfoTemplate } from '@/templates/InfoTemplate';
 import { SettingsTemplate } from '@/templates/SettingsTemplate';
 import { createBrowserRouter } from 'react-router';
 
@@ -21,6 +24,14 @@ const router = createBrowserRouter([
     lazy: { Component: async () => (await import('@/app/SettingsWrapper')).default },
     children: [
       { index: true, Component: Landing },
+      {
+        Component: InfoTemplate,
+        children: [
+          { path: 'privacy',  Component: Privacy },
+          { path: 'terms',  Component: Terms },
+        ]
+      },
+
       {
         Component: SettingsTemplate,
         path: 'settings',

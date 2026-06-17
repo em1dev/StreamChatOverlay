@@ -6,7 +6,7 @@ export const Header = styled.header`
   max-width: 100%;
   display: flex;
   justify-content: space-between;
-  margin: auto;
+  margin: 0 auto;
 
   button {
     border: none;
