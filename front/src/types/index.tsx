@@ -29,3 +29,15 @@ export interface TTSMessage {
   fullMessageText: string,
   sentBy?: string,
 }
+
+// using umami for analytics which adds the global object umami
+interface Umami {
+  track: (event: string) => void,
+  identify: (sessionId: string) => void,
+}
+
+declare global {
+  interface Window {
+    umami?: Umami
+  }
+}

@@ -5,7 +5,7 @@ import { useCallback, useRef, useState } from 'react';
 import { useAuth } from '@/context/authContext/useAuth';
 import { chatApi } from '@/api/chatApi';
 
-export const AddToStream = () => 
+export const AddToStream = () =>
 {
   const { session, logOut } = useAuth();
   const secretKey = useConfiguration(s => s.secretKey);
@@ -21,6 +21,7 @@ export const AddToStream = () =>
   const onResetSecretKey = useCallback(() => {
     (async () => {
       if (!session) return;
+      window.umami?.track('generated new secret url');
       setIsLoadingSecret(true);
       const resp = await chatApi.revokeSecret(session.token);
       if (resp.status == 403) {
@@ -45,6 +46,7 @@ export const AddToStream = () =>
 
     const url = `${location.origin}/o/${session.user.id}/?s=${secretKey}`;
     navigator.clipboard.writeText(url);
+    window.umami?.track('copied secret url');
 
     setCopiedAnimationDelay(true);
     if (copiedAnimationRef.current) {
@@ -78,9 +80,9 @@ export const AddToStream = () =>
     <>
       <h1>Add chat overlay to stream</h1>
 
-      <S.ClickToCopyBtn 
-        disabled={isLoadingSecret || hasErrorLoadingSecret} 
-        onClick={onCopySecretUrlClick} 
+      <S.ClickToCopyBtn
+        disabled={isLoadingSecret || hasErrorLoadingSecret}
+        onClick={onCopySecretUrlClick}
         type='button'
       >
         {clickToCopyText()}

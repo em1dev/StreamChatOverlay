@@ -13,16 +13,20 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
 
   const signIn = useCallback(() => {
+    window.umami?.track('Sign in initiated');
     window.open(chatApi.authLoginUrl, 'popup', 'toolbar=0,status=0,width=626,height=636');
   }, []);
 
   const logOut = useCallback(() => {
+    window.umami?.track('Sign out');
+    window.umami?.identify('');
     localStorage.removeItem(LOCAL_STORAGE_AUTH_KEY);
     setSession(null);
     location.assign('/');
   }, []);
 
   const setToken = useCallback((token: string) => {
+    window.umami?.track('Sign in completed');
     localStorage.setItem(LOCAL_STORAGE_AUTH_KEY, token);
   }, []);
 
@@ -39,6 +43,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
       const isValid = await chatApi.verifyToken(token);
       if (!isValid) {
+        window.umami?.track('Auth session expired');
         localStorage.removeItem(LOCAL_STORAGE_AUTH_KEY);
         setIsLoading(false);
         return;
@@ -47,6 +52,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       const user = decodeJwt<User>(token);
       setSession({ token, user });
       setIsLoading(false);
+      window.umami?.identify(user.id.toString());
     };
 
     const onStorageChange = async (e: StorageEvent) => {
@@ -68,7 +74,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     <authContext.Provider value={{
       setIsLoading,
       isLoading,
-      setSession,
       session,
       signIn,
       logOut,

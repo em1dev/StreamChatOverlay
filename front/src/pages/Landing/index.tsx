@@ -49,7 +49,13 @@ export const Landing = () =>
               </button>
             )}
 
-            <a target='_blank' href='https://ko-fi.com/emydev'>
+            <a
+              data-umami-event='outbound link'
+              data-umami-event-url='https://ko-fi.com/emydev'
+              data-umami-event-from='landing btn'
+              target='_blank'
+              href='https://ko-fi.com/emydev'
+            >
               Support me :3
             </a>
           </S.CTAContainer>

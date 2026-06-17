@@ -21,7 +21,6 @@ export interface AuthContext {
   isLoading: boolean,
   session: Session | null,
   setIsLoading: (value: boolean) => void,
-  setSession: React.Dispatch<React.SetStateAction<Session | null>>
   signIn: () => void,
   logOut: () => void,
   setToken: (token: string) => void

@@ -60,12 +60,28 @@ export const SideNav = () =>
 
       <Divider />
 
-      <NavLink onClick={onNavigation} end target='_blank' to='https://ko-fi.com/emydev' >
+      <NavLink
+        data-umami-event='outbound link'
+        data-umami-event-url='https://ko-fi.com/emydev'
+        data-umami-event-from='side nav'
+        onClick={onNavigation}
+        end
+        target='_blank'
+        to='https://ko-fi.com/emydev'
+      >
         <Icon aria-hidden icon="simple-icons:kofi" />
         Support Me :3
       </NavLink>
 
-      <NavLink onClick={onNavigation} end target='_blank' to='https://github.com/em1dev/StreamChatOverlay' >
+      <NavLink
+        data-umami-event='outbound link'
+        data-umami-event-url='https://github.com/em1dev/streamchatoverlay'
+        data-umami-event-from='side nav'
+        onClick={onNavigation}
+        end
+        target='_blank'
+        to='https://github.com/em1dev/StreamChatOverlay'
+      >
         <Icon aria-hidden icon="mingcute:github-line" />
         Github
       </NavLink>

@@ -36,6 +36,7 @@ export const ConnectionPage = () => {
         if (resp.hasError)
           return;
         localStorage.setItem(CONNECTIONS_STORAGE_KEY, crypto.randomUUID());
+        window.umami?.track('service connection completed');
         window.close();
       });
   }, [session, setToken, search, setSearch, params, isLoading, setIsLoading]);

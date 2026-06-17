@@ -20,7 +20,13 @@ export const Privacy = () => (
     </p>
 
     <p>
-      All source code is publically available at <NavLink target='_blank' to="https://github.com/em1dev/StreamChatOverlay">Github</NavLink>
+      All source code is publically available at <NavLink
+        data-umami-event='outbound link'
+        data-umami-event-url='https://github.com/em1dev/streamchatoverlay'
+        data-umami-event-from='privacy'
+        target='_blank'
+        to="https://github.com/em1dev/StreamChatOverlay"
+      >Github</NavLink>
     </p>
 
     <h2>

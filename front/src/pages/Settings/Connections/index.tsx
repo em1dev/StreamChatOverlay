@@ -71,6 +71,8 @@ export const Connections = () => {
   const onDeleteConnection = useCallback(async (type: Connection['type']) => {
     setIsLoading(v => ({ ...v, [type]: true }));
     if (!session) return;
+
+    window.umami?.track('removed service connection');
     await chatApi.deleteConnection(session.token, type);
     localStorage.setItem(CONNECTIONS_STORAGE_KEY, crypto.randomUUID());
     await getConnections(session.token);
@@ -79,6 +81,7 @@ export const Connections = () => {
 
   const onNewConnection = useCallback((type: Connection['type']) => {
     if (!session) return;
+    window.umami?.track('new service connection initiated');
     const url = chatApi.connectionUrl(type);
     window.open(url, 'popup', 'toolbar=0,status=0,width=626,height=636');
   }, [session]);
