@@ -3,7 +3,7 @@ import { ChatMessageData } from '../../types';
 import ChatMsg from './ChatBubble';
 import * as S from './styles';
 import { useConfiguration } from '../../store/configuration';
-import { FontMap } from '@/fonts/ChatFonts';
+import { FontMap, useChatFontLoader } from '@/fonts/ChatFonts';
 
 export interface ChatProps {
   msgs: Array<ChatMessageData>,
@@ -16,13 +16,14 @@ const Chat = ({ msgs }: ChatProps) => {
   const fontWeight = useConfiguration(state => state.userConfiguration.chatFontWeight);
   const font = FontMap[fontKey];
   const showOpacityMask = useConfiguration(state => state.userConfiguration.lowerOpacityOnTop);
+  useChatFontLoader();
 
   return (
-    <S.Container 
+    <S.Container
       $fontFamily={font.fontFamily}
       $fontWeight={fontWeight}
       $showOpacityMask={showOpacityMask}
-      $fontSize={fontSize} 
+      $fontSize={fontSize}
       $direction={chatDirection}
     >
       <LayoutGroup>

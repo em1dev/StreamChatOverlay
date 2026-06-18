@@ -1,5 +1,5 @@
 import { useAuth } from '@/context/authContext/useAuth';
-import { FontKeys, FontMap, FontWeights } from '@/fonts/ChatFonts';
+import { FontKeys, FontMap, FontWeights, useAllChatFonts } from '@/fonts/ChatFonts';
 import { useConfiguration } from '@/store/configuration';
 import { Select } from '../Select';
 import { Fragment, useId } from 'react';
@@ -13,6 +13,7 @@ const FontPicker = () => {
   const selectedFont = FontMap[selectedFontKey];
   const { session } = useAuth();
   const updateConfig = useConfiguration(state => state.updateUserConfiguration);
+  useAllChatFonts();
 
   const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newValue = e.target.value as FontKeys || undefined;
@@ -65,7 +66,7 @@ const FontPicker = () => {
             <input
               hidden
               onChange={onFontWeightChange}
-              checked={w == selectedFontWeight} 
+              checked={w == selectedFontWeight}
               name="font weight"
               value={w}
               id={`weight_${w}`}

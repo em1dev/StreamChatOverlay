@@ -1,13 +1,6 @@
 import { AuthenticationPage } from '@/pages/AuthenticationPage';
 import { ConnectionPage } from '@/pages/ConnectionPage';
-import { Landing } from '@/pages/Landing';
 import { Privacy } from '@/pages/Privacy';
-import { AddToStream } from '@/pages/Settings/AddToStream';
-import { AdvanceSettings } from '@/pages/Settings/AdvanceSettings';
-import { BasicSettings } from '@/pages/Settings/BasicSettings';
-import { Connections } from '@/pages/Settings/Connections';
-import { CustomThemeSettings } from '@/pages/Settings/CustomThemeSettings';
-import { TextToSpeechSettings } from '@/pages/Settings/TextToSpeechSettings';
 import { Terms } from '@/pages/Terms';
 import { InfoTemplate } from '@/templates/InfoTemplate';
 import { SettingsTemplate } from '@/templates/SettingsTemplate';
@@ -16,14 +9,14 @@ import { createBrowserRouter } from 'react-router';
 const router = createBrowserRouter([
   {
     path: '/o/:userId',
-    lazy: { Component: async () => (await import('@/pages/ChatOverlay')).default }
+    lazy: { Component: async () => (await import('@Pages/ChatOverlay')).ChatOverlay }
   },
 
   {
     path: '/',
     lazy: { Component: async () => (await import('@/app/SettingsWrapper')).default },
     children: [
-      { index: true, Component: Landing },
+      { index: true, lazy: { Component: async () => (await import('@Pages/Landing')).Landing } },
       {
         Component: InfoTemplate,
         children: [
@@ -36,12 +29,12 @@ const router = createBrowserRouter([
         Component: SettingsTemplate,
         path: 'settings',
         children: [
-          { index: true, Component: BasicSettings },
-          { path: 'add-to-stream', Component: AddToStream },
-          { path: 'connections', Component: Connections },
-          { path: 'tts', Component: TextToSpeechSettings },
-          { path: 'advance-settings', Component: AdvanceSettings },
-          { path: 'custom-theme', Component: CustomThemeSettings },
+          { index: true, lazy: { Component: async () => (await import('@Pages/Settings/BasicSettings')).BasicSettings } },
+          { path: 'add-to-stream', lazy: { Component: async () => (await import('@Pages/Settings/AddToStream')).AddToStream } },
+          { path: 'connections', lazy: { Component: async () => (await import('@Pages/Settings/Connections')).Connections } },
+          { path: 'tts', lazy: { Component: async () => (await import('@Pages/Settings/TextToSpeechSettings')).TextToSpeechSettings } },
+          { path: 'advance-settings', lazy: { Component: async () => (await import('@Pages/Settings/AdvanceSettings')).AdvanceSettings } },
+          { path: 'custom-theme', lazy: { Component: async () => (await import('@Pages/Settings/CustomThemeSettings')).CustomThemeSettings } },
         ]
       },
       { path: '/auth', Component: AuthenticationPage },

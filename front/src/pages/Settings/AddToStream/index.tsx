@@ -1,9 +1,13 @@
 import { Icon } from '@iconify/react';
-import * as S from './styles';
 import { useConfiguration } from '@/store/configuration';
 import { useCallback, useRef, useState } from 'react';
 import { useAuth } from '@/context/authContext/useAuth';
 import { chatApi } from '@/api/chatApi';
+import step2ImgUrl from './img/step2.png';
+import step3ImgUrl from './img/step3.png';
+
+import * as S from './styles';
+
 
 export const AddToStream = () =>
 {
@@ -114,7 +118,7 @@ export const AddToStream = () =>
       <S.StepContainer>
         <p>Step 2</p>
         <p>Create a browser source in OBS</p>
-        <img width={500} src="/img/step2.png" />
+        <img width={500} src={step2ImgUrl} />
       </S.StepContainer>
 
       <S.StepContainer>
@@ -122,7 +126,7 @@ export const AddToStream = () =>
         <p>Paste the secret url on the url box.</p>
         <p>Set the width and height to what size you want the chat to be.</p>
         <p>For example I use 400x900</p>
-        <img width={500} src="/img/step3.png" />
+        <img width={500} src={step3ImgUrl} />
       </S.StepContainer>
 
       <S.StepContainer>

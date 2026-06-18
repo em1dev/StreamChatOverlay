@@ -20,7 +20,7 @@ const getEmoteUrl = (
   return `https://static-cdn.jtvnw.net/emoticons/v2/${id}/${format}/${theme}/${resolution}`;
 };
 
-const EmoteContainer = styled.img<{ 
+const EmoteContainer = styled.img<{
   $alignCorrection?: boolean,
   $size: 'sm' | 'md' | 'lg'
 }>`
@@ -49,6 +49,7 @@ const EmoteContainer = styled.img<{
 
 const Emote = ({ id, customEmote, alignCorrection, size } : EmoteProps) => (
   <EmoteContainer
+    loading='lazy'
     alt={`emote ${id}`}
     $size={size}
     $alignCorrection={alignCorrection}
