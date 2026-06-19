@@ -64,6 +64,7 @@ export const useSecret = (): SecretResult => {
         }
 
         setInitialConfiguration(settingsParsed, secret);
+        window.umami?.identify(userIdParsed.toString());
 
         setState({
           hasError: false,
