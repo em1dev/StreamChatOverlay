@@ -72,12 +72,12 @@ export const TextToSpeechSettings = () => {
 
   return (
     <>
+      <h1>Text to speech</h1>
+
       <section>
-
-        <h1>Text to speech</h1>
-
+        <h2>Settings</h2>
         <ToggleInput
-          isChecked={ttsConfiguration.isTTSEnabled} 
+          isChecked={ttsConfiguration.isTTSEnabled}
           onChange={(value) => { updateConfig(
             { ttsConfiguration: {...ttsConfiguration, isTTSEnabled: value } },
             session
@@ -87,7 +87,7 @@ export const TextToSpeechSettings = () => {
         </ToggleInput>
 
         <S.VoiceSelectContainer>
-          <label 
+          <label
             htmlFor='tts-voice-selector-config'
           >
             Voice
@@ -123,36 +123,8 @@ export const TextToSpeechSettings = () => {
       </section>
 
       <section>
-        <h2>Emotes</h2>
-        <ToggleInput
-          isChecked={ttsConfiguration.readEmotes} 
-          onChange={(value) => { updateConfig(
-            { ttsConfiguration: {...ttsConfiguration, readEmotes: value } },
-            session
-          ); }}
-        >
-          Read emotes
-        </ToggleInput>
+        <h2>When to read messages</h2>
 
-        { ttsConfiguration.readEmotes && (
-          <S.EmotesToReadContainer>
-            <span>Read a maximun of</span>
-            <Input
-              type='number'
-              min={1}
-              value={ttsConfiguration.emotesToRead}
-              onChange={(e) => { updateConfig(
-                { ttsConfiguration: { ...ttsConfiguration, emotesToRead: parseInt(e.target.value) }},
-                session
-              ); }}
-            />
-            <span>emote per message</span>
-          </S.EmotesToReadContainer>
-        )}
-      </section>
-
-      <section>
-        <h2>Ignore messages</h2>
         <div>
           <ToggleInput
             isChecked={ttsConfiguration.ignoreBotMessages}
@@ -166,7 +138,7 @@ export const TextToSpeechSettings = () => {
         </div>
 
         <ToggleInput
-          isChecked={ttsConfiguration.ignoreCommandMessages} 
+          isChecked={ttsConfiguration.ignoreCommandMessages}
           onChange={(value) => { updateConfig(
             { ttsConfiguration: {...ttsConfiguration, ignoreCommandMessages: value } },
             session
@@ -194,9 +166,38 @@ export const TextToSpeechSettings = () => {
       </section>
 
       <section>
+        <h2>Emotes</h2>
+        <ToggleInput
+          isChecked={ttsConfiguration.readEmotes}
+          onChange={(value) => { updateConfig(
+            { ttsConfiguration: {...ttsConfiguration, readEmotes: value } },
+            session
+          ); }}
+        >
+          Read emotes
+        </ToggleInput>
+
+        { ttsConfiguration.readEmotes && (
+          <S.EmotesToReadContainer>
+            <span>Read a maximun of</span>
+            <Input
+              type='number'
+              min={1}
+              value={ttsConfiguration.emotesToRead}
+              onChange={(e) => { updateConfig(
+                { ttsConfiguration: { ...ttsConfiguration, emotesToRead: parseInt(e.target.value) }},
+                session
+              ); }}
+            />
+            <span>emote per message</span>
+          </S.EmotesToReadContainer>
+        )}
+      </section>
+
+      <section>
         <h2>Fun</h2>
         <ToggleInput
-          isChecked={ttsConfiguration.allowRoleplay} 
+          isChecked={ttsConfiguration.allowRoleplay}
           onChange={(value) => { updateConfig(
             { ttsConfiguration: { ...ttsConfiguration, allowRoleplay: value }},
             session
@@ -213,7 +214,6 @@ export const TextToSpeechSettings = () => {
           </IconButton>
         </S.TTSExampleBlock>
       </section>
-
 
       <section>
         <h2>Pronunciation</h2>

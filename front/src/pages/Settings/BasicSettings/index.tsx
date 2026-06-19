@@ -39,9 +39,9 @@ export const BasicSettings = () => {
       </S.ChatContainer>
 
       <section>
-        <div role="radiogroup">
+        <h2>Chat Direction</h2>
 
-          <h2>Chat Direction</h2>
+        <div role="radiogroup">
           <S.DirectionContainer>
             <button
               aria-label='left'
@@ -76,20 +76,10 @@ export const BasicSettings = () => {
             </button>
           </S.DirectionContainer>
         </div>
-      </section>
 
-
-      <ThemePicker />
-
-      <FontPicker />
-
-      <FontSizeSection />
-
-      <section>
         <h2>Container</h2>
-
         <ToggleInput
-          isChecked={lowerOpacityOnTop} 
+          isChecked={lowerOpacityOnTop}
           onChange={(value) => { updateConfig(
             { lowerOpacityOnTop: value },
             session
@@ -99,12 +89,20 @@ export const BasicSettings = () => {
         </ToggleInput>
       </section>
 
+
+      <ThemePicker />
+
+      <section>
+        <FontPicker />
+        <FontSizeSection />
+      </section>
+
       <section>
         <h2>Emote support</h2>
 
         <S.EmoteToggleContainer>
           <ToggleInput
-            isChecked={emoteConfiguration.isBetterTTVEnabled} 
+            isChecked={emoteConfiguration.isBetterTTVEnabled}
             onChange={(value) => { updateConfig(
               { emotes: {...emoteConfiguration, isBetterTTVEnabled: value} },
               session
@@ -114,7 +112,7 @@ export const BasicSettings = () => {
           </ToggleInput>
 
           <ToggleInput
-            isChecked={emoteConfiguration.isFrankerFaceEnabled} 
+            isChecked={emoteConfiguration.isFrankerFaceEnabled}
             onChange={(value) => { updateConfig(
               { emotes: {...emoteConfiguration, isFrankerFaceEnabled: value} },
               session
@@ -124,7 +122,7 @@ export const BasicSettings = () => {
           </ToggleInput>
 
           <ToggleInput
-            isChecked={emoteConfiguration.isSevenTVEnabled} 
+            isChecked={emoteConfiguration.isSevenTVEnabled}
             onChange={(value) => { updateConfig(
               { emotes: {...emoteConfiguration, isSevenTVEnabled: value} },
               session
@@ -138,7 +136,7 @@ export const BasicSettings = () => {
       <section>
         <h2>Hide messages</h2>
         <ToggleInput
-          isChecked={hideBotMessages} 
+          isChecked={hideBotMessages}
           onChange={(value) => { updateConfig(
             { hideBotMessages: value },
             session
@@ -148,7 +146,7 @@ export const BasicSettings = () => {
         </ToggleInput>
 
         <ToggleInput
-          isChecked={hideCommands} 
+          isChecked={hideCommands}
           onChange={(value) => { updateConfig(
             { hideCommands: value },
             session

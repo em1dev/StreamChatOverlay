@@ -20,7 +20,7 @@ export const FontSizeSection = () => {
   };
 
   return (
-    <section>
+    <>
       <h2>
         Font Size
       </h2>
@@ -29,7 +29,7 @@ export const FontSizeSection = () => {
         <button
           title='decrease font size'
           disabled={fontSize == MIN_FONT_SIZE}
-          onClick={() => updateFontSize( fontSize - 1 )} 
+          onClick={() => updateFontSize( fontSize - 1 )}
         >
           <Icon icon="mingcute:minimize-fill" />
         </button>
@@ -42,6 +42,6 @@ export const FontSizeSection = () => {
           <Icon icon="mingcute:add-fill" />
         </button>
       </S.FontSizeContainer>
-    </section>
+    </>
   );
 };

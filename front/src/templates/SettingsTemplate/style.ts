@@ -46,14 +46,22 @@ export const ContentContainer = styled.div`
   }
 
   h2 {
-      font-size: inherit;
-      font-weight: inherit;
-      margin: 0.5em 0;
-      color: #66364B;
+    font-size: inherit;
+    font-weight: inherit;
+    margin: 0;
+    color: #66364B;
   }
 
   section {
+    outline: solid 1px;
+    border-radius: 1em;
+    padding: 1em;
     margin-bottom: 1.5em;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+
     p {
       margin: 0;
       color: #A16C6C;

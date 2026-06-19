@@ -21,7 +21,7 @@ export const Landing = () =>
         <div>
           <div>
             <h1>Stream Chat Overlay</h1>
-            <p>Configurable and themable with chatter pronouns</p>
+            <p>Configurable Twitch chat with chatter pronouns</p>
           </div>
 
           <ul>
@@ -32,7 +32,9 @@ export const Landing = () =>
             <li>Pronoun support via pronouns.alejo</li>
           </ul>
 
-          <ThemePicker label='Theme preview' />
+          <S.ThemePickerContainer>
+            <ThemePicker label='Theme preview' />
+          </S.ThemePickerContainer>
 
           <S.CTAContainer>
 

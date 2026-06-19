@@ -1,14 +1,15 @@
 import styled from 'styled-components';
 
 export const Container = styled.table`
+  margin-top: 0.5em;
   width: 100%;
   border-radius: 1em;
   text-align: left;
-  
+
   svg {
     font-size: 1.3em;
   }
-  
+
   thead th {
     font-weight: inherit;
   }

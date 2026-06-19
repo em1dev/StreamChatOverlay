@@ -87,12 +87,16 @@ export const CTAContainer = styled.div`
       background-color: ${({ theme }) => theme.page.colors.secondary_bg_hover };
     }
   }
+
+
 `;
 
-export const ColumnContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.5em;
+export const ThemePickerContainer = styled.div`
+  section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+  }
 `;
 
 export const ChatContainer = styled.div`

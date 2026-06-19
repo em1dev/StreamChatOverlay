@@ -36,7 +36,7 @@ const FontPicker = () => {
   };
 
   return (
-    <div>
+    <S.Container>
       <label htmlFor={id}>
         <h2>
           Font
@@ -76,7 +76,7 @@ const FontPicker = () => {
           </Fragment>
         ))}
       </S.WeightRadioGroup>
-    </div>
+    </S.Container>
   );
 };
 

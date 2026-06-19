@@ -1,9 +1,7 @@
 import styled, { css } from 'styled-components';
 
 export const Container = styled.section`
-  display: flex;
-  flex-direction: column;
-  gap: 0.5em;
+
 `;
 
 export const ColorButtonContainer = styled.div`
