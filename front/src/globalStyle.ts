@@ -11,6 +11,7 @@ export const GlobalStyle = createGlobalStyle`
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    scrollbar-gutter: stable;
   }
 
   body, html, #root {

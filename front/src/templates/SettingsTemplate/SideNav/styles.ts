@@ -29,17 +29,21 @@ export const NavContainer = styled.nav<{ $isOpen: boolean }>`
   display: flex;
   flex-direction: column;
   gap: 0.5em;
+  width: 300px;
+  position: sticky;
+  top: 7em;
+  height: fit-content;
+  margin-top: -1em;
 
   a {
     ${navButton}
   }
 
-  width: 300px;
   transition: left ease-out 0.2s;
 
   @media (${({ theme }) => theme.page.query.mobile}) {
     left: ${({ $isOpen }) => ( $isOpen ? '0vw ' : '100vw' )};
-
+    margin: 0;
     padding: 0.5em;
     z-index: 99999;
     top: 0;

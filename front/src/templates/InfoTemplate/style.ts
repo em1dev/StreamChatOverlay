@@ -4,16 +4,15 @@ export const Container = styled.main`
   display: flex;
   flex-direction: column;
   min-height: inherit;
+  max-width: 900px;
+  margin: 0 auto;
   > :last-child {
-      font-size: 1.3em;
-    }
+    font-size: 1.3em;
+  }
 `;
 
-export const InnerContainer = styled.div`
+export const ContentContainer = styled.div`
   padding: 0 2em;
-
-  margin: 0 auto;
-  max-width: 900px;
   font-size: 1.3em;
 
   h1, h2 {

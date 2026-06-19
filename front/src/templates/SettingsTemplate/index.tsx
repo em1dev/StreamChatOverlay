@@ -29,12 +29,10 @@ export const SettingsTemplate = () => {
   return (
     <S.Container>
       <Header />
-      <S.InnerContainer>
-        <SideNav />
-        <div>
-          <Outlet />
-        </div>
-      </S.InnerContainer>
+      <SideNav />
+      <S.ContentContainer>
+        <Outlet />
+      </S.ContentContainer>
       <Footer />
     </S.Container>
   );

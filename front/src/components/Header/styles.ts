@@ -3,9 +3,8 @@ import styled from 'styled-components';
 
 export const Header = styled.header`
   background-color: ${({ theme }) => theme.page.colors.bg };
-  padding: 2em 0em 2em 2em;
-  width: 900px;
-  max-width: 100%;
+  padding: 2em 0em 0.5em 2em;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   margin: 0 auto;
@@ -21,13 +20,13 @@ export const Header = styled.header`
     align-items: center;
     gap: 0.5em;
   }
+  position: sticky;
+  top: 0;
+  z-index: 2;
 
   @media (${({ theme }) => theme.page.query.mobile}) {
     outline: solid 1px ${({ theme }) => theme.page.colors.input_bg};
     padding: 0.5em;
-    position: sticky;
-    top: 0;
-    z-index: 2;
   }
 `;
 

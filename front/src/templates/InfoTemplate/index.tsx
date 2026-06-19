@@ -7,11 +7,9 @@ import { Footer } from '@/components/Footer';
 export const InfoTemplate = () => (
   <S.Container>
     <Header />
-    <S.InnerContainer>
-      <div>
-        <Outlet />
-      </div>
-    </S.InnerContainer>
+    <S.ContentContainer>
+      <Outlet />
+    </S.ContentContainer>
     <Footer />
   </S.Container>
 );
