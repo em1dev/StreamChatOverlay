@@ -24,16 +24,13 @@ export const Landing = () =>
             <p>Configurable and themable with chatter pronouns</p>
           </div>
 
-          <div>
-            <h2>Features</h2>
-            <ul>
-              <li>100% Free and open source</li>
-              <li>Text to speech support</li>
-              <li>Font and size customization</li>
-              <li>BetterTTV, FFZ and 7TV integration</li>
-              <li>Pronoun support via pronouns.alejo</li>
-            </ul>
-          </div>
+          <ul>
+            <li>100% Free and open source</li>
+            <li>Text to speech support</li>
+            <li>Font and size customization</li>
+            <li>BetterTTV, FFZ and 7TV integration</li>
+            <li>Pronoun support via pronouns.alejo</li>
+          </ul>
 
           <ThemePicker label='Theme preview' />
 

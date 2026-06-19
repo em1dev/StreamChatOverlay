@@ -11,7 +11,7 @@ export const ColorButtonContainer = styled.div`
   gap: 0.5em;
 `;
 
-export const ColorButton = styled.button<{ 
+export const ColorButton = styled.button<{
   $color: string ,
   $selected: boolean
 }>`
@@ -20,6 +20,7 @@ export const ColorButton = styled.button<{
   height: 1.5em;
   border: solid 0.1em white;
   background-color: ${({ $color }) => $color};
+  outline: #f7dbe2 solid 0.1em;
 
   ${({ $selected }) => $selected && css`
     outline: solid 0.1em #76293d;
