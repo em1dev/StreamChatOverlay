@@ -1,4 +1,3 @@
-import { useTTS } from '@/hooks/useTTS/useTTS';
 import { useConfiguration } from '@/store/configuration';
 import { Icon } from '@iconify/react';
 import { useCallback, useMemo } from 'react';
@@ -10,25 +9,22 @@ import { useAuth } from '@/context/authContext/useAuth';
 
 import * as S from './styles';
 
-export const UserPronunciationBlock = () => {
+export interface UserPronunciationBlockProps
+{
+  speak: (text: string) => void,
+}
+
+export const UserPronunciationBlock = ({
+  speak
+}: UserPronunciationBlockProps) => {
   const updateConfig = useConfiguration(c => c.updateUserConfiguration);
   const ttsConfiguration = useConfiguration(c => c.userConfiguration!.ttsConfiguration);
   const userReplacement = useConfiguration(c => c.userConfiguration!.ttsConfiguration.userReplacement);
   const { session } = useAuth();
-  const tts = useTTS();
 
   const userReplacementOrdered = useMemo(() => (
     userReplacement.sort((a,b) => a.ordinal - b.ordinal)
   ), [userReplacement]);
-
-  const speak = useCallback((text: string) => {
-    tts.speak({
-      id: crypto.randomUUID(),
-      isCommand: false,
-      isFromBot: false,
-      parts: [{ content: text, originalContent: text, type: 'text' }]
-    });
-  }, [tts]);
 
   const removeReplacement = useCallback((replacement: TTSReplacement) => {
     const newList = userReplacement.filter(item => item.id !== replacement.id);
@@ -134,5 +130,4 @@ export const UserPronunciationBlock = () => {
       </tfoot>
     </S.Container>
   );
-
 };

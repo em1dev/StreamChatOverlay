@@ -9,6 +9,7 @@ import { useTTS } from '@/hooks/useTTS/useTTS';
 import { IconButton } from '@/components/IconButton';
 import { Input } from '@/components/Input';
 import { useAuth } from '@/context/authContext/useAuth';
+import { MessagePart } from '@/types';
 
 import * as S from './styles';
 
@@ -43,32 +44,32 @@ export const TextToSpeechSettings = () => {
   }, [setVoices]);
 
   const speak = useCallback((text: string) => {
-    tts.speak({
-      id: crypto.randomUUID(),
-      isCommand: false,
-      isFromBot: false,
-      sentBy: 'emydev',
-      parts: [{
-        content: text,
-        originalContent: text,
-        type: 'text',
-      }]
-    });
-  }, [tts]);
+    const parts:Array<MessagePart> = [];
 
-  const onTryOutTts = useCallback(() => {
+    if (ttsConfiguration.onlyReadMessagesThatStartWithTtsCommand &&
+      ttsConfiguration.ttsCommand.length > 0
+    ) {
+      parts.push({
+        content: ttsConfiguration.ttsCommand,
+        originalContent: ttsConfiguration.ttsCommand,
+        type: 'text',
+      });
+    }
+
+    parts.push({
+      content: text,
+      originalContent: text,
+      type: 'text',
+    });
+
     tts.speak({
       id: crypto.randomUUID(),
       isCommand: false,
       isFromBot: false,
       sentBy: 'emydev',
-      parts: [{
-        content: testTtsMessage,
-        originalContent: testTtsMessage,
-        type: 'text',
-      }]
+      parts: parts
     });
-  }, [testTtsMessage, tts]);
+  }, [tts, ttsConfiguration]);
 
   if (!ttsConfiguration) return null;
 
@@ -117,7 +118,7 @@ export const TextToSpeechSettings = () => {
           <label htmlFor='try-out-tts-input'>Try out tts</label>
           <div>
             <Input id="try-out-tts-input" value={testTtsMessage} onChange={(e) => { setTestTtsMessage(e.target.value); }} />
-            <IconButton onClick={onTryOutTts}>
+            <IconButton onClick={() => speak(testTtsMessage)}>
               <Icon icon="mingcute:announcement-line" />
             </IconButton>
           </div>
@@ -238,9 +239,39 @@ export const TextToSpeechSettings = () => {
       </section>
 
       <section>
+        <h2>Urls</h2>
+        <ToggleInput
+          isChecked={ttsConfiguration.replaceUrls}
+          onChange={(value) => { updateConfig(
+            { ttsConfiguration: { ...ttsConfiguration, replaceUrls: value }},
+            session
+          );
+          }}
+        >
+          Replace messages containing urls with
+        </ToggleInput>
+        <Input
+          value={ttsConfiguration.replaceUrlWith}
+          onChange={(e) => {
+            updateConfig({
+              ttsConfiguration: { ...ttsConfiguration, replaceUrlWith: e.target.value }
+            }, session);
+          }}
+        />
+        <p>$who is replace with the user sending the message</p>
+
+        <S.TTSExampleBlock>
+          <span>{ location.origin }</span>
+          <IconButton onClick={() => speak(location.origin)}>
+            <Icon icon="mingcute:announcement-line" />
+          </IconButton>
+        </S.TTSExampleBlock>
+      </section>
+
+      <section>
         <h2>Pronunciation</h2>
         <p>Change how a chatter name is pronounced</p>
-        <UserPronunciationBlock />
+        <UserPronunciationBlock speak={speak} />
       </section>
     </>
   );

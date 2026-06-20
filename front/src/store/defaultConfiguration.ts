@@ -6,6 +6,9 @@ const ttsDefaultConfig: TTSConfiguration = {
   onlyReadMessagesThatStartWithTtsCommand: false,
   ttsCommand: '!tts',
 
+  replaceUrls: true,
+  replaceUrlWith: '$who has sent a link',
+
   ignoreBotMessages: true,
   ignoreCommandMessages: true,
   readUnderscoresAsSpaces: true,

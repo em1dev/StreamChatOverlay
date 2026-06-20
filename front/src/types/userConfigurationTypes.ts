@@ -29,7 +29,9 @@ export interface TTSConfiguration {
   ignoreBotMessages: boolean,
   ignoreCommandMessages: boolean,
   readUnderscoresAsSpaces: boolean,
-  allowRoleplay: boolean
+  allowRoleplay: boolean,
+  replaceUrls: boolean,
+  replaceUrlWith: string,
 }
 
 export interface UserConfiguration {
