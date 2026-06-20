@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const VoiceSelectContainer = styled.div`
   margin-bottom: 0.5em;
-  display: flex; 
+  display: flex;
   flex-direction: column;
   gap: 0.5em;
 `;
@@ -31,6 +31,15 @@ export const EmotesToReadContainer = styled.p`
     margin: 0.5em;
     width: 7ch;
     font-size: 0.8em;
+  }
+`;
+
+export const InlineInputContainer = styled.div`
+  display: flex;
+  gap: 0.2em;
+  align-items: center;
+  input {
+      width: 8ch;
   }
 `;
 

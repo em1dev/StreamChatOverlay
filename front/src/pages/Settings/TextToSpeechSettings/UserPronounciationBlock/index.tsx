@@ -24,7 +24,8 @@ export const UserPronunciationBlock = () => {
   const speak = useCallback((text: string) => {
     tts.speak({
       id: crypto.randomUUID(),
-      fullMessageText: text,
+      isCommand: false,
+      isFromBot: false,
       parts: [{ content: text, originalContent: text, type: 'text' }]
     });
   }, [tts]);
@@ -109,7 +110,7 @@ export const UserPronunciationBlock = () => {
                 <td>
                   <Input
                     onChange={(e) => updateReplacement({ ...item, replaceWith: e.target.value })}
-                    value={item.replaceWith} 
+                    value={item.replaceWith}
                   />
                 </td>
                 <td>
@@ -133,5 +134,5 @@ export const UserPronunciationBlock = () => {
       </tfoot>
     </S.Container>
   );
-  
+
 };

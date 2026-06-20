@@ -28,7 +28,21 @@ const buildInternalReplacementRules = (configuration: TTSConfiguration) => {
   return replacementRules;
 };
 
-export const applyTTSMessageTransformations = (message: TTSMessage, configuration: TTSConfiguration) => {
+export const applyTTSMessageTransformations = (message: TTSMessage, configuration: TTSConfiguration): string | null => {
+  if (configuration.ignoreBotMessages && message.isFromBot) return null;
+
+  if (configuration.onlyReadMessagesThatStartWithTtsCommand && configuration.ttsCommand.length > 0) {
+    const firstPart = message.parts.at(0);
+    if (!firstPart || firstPart.type != 'text') return null;
+
+    const startWithTTSCommand = firstPart.originalContent.startsWith(configuration.ttsCommand);
+    if (!startWithTTSCommand) return null;
+    message.isCommand = false;
+    firstPart.originalContent = firstPart.originalContent.substring(configuration.ttsCommand.length);
+  }
+
+  if (configuration.ignoreCommandMessages && message.isCommand) return null;
+
   const emotesToRead = configuration.emotesToRead;
   let emotesCount = 0;
 

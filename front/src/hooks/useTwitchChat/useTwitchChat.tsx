@@ -113,35 +113,39 @@ export const useTwitchChat = (channelId: string, channelLogin: string) => {
       const newMessage: ChatMessageData = {
         id: msg.id,
         effect,
-        fullMessageText: msg.text,
         userDisplayName: msg.userInfo.displayName,
         displayPronoun: pronoun,
         color: msg.userInfo.color,
         emoteOffsets: msg.emoteOffsets,
         badges: badges,
         messageParts: msgParts,
-        sentAt: msg.date.getTime()
+        sentAt: msg.date.getTime(),
+        isFromBot: isBot,
+        isCommand
       };
 
-      const shouldIgnoreBotTTS = configuration.userConfiguration.ttsConfiguration.ignoreBotMessages && isBot;
-      const shouldIgnoreCommandTTS = configuration.userConfiguration.ttsConfiguration.ignoreCommandMessages && isCommand;
-      if (
-        configuration.userConfiguration.ttsConfiguration.isTTSEnabled &&
-        !shouldIgnoreBotTTS &&
-        !shouldIgnoreCommandTTS
-      ) {
-        ttsSpeak({
+      const ttsConfiguration = configuration.userConfiguration.ttsConfiguration;
+      const isTTSEnabled = ttsConfiguration.isTTSEnabled;
+
+      let hasReadMessage = false;
+      if (isTTSEnabled) {
+        hasReadMessage = ttsSpeak({
           parts: msgParts,
-          fullMessageText: newMessage.fullMessageText,
           id: newMessage.id,
-          sentBy: newMessage.userDisplayName
-        });
+          sentBy: newMessage.userDisplayName,
+          isFromBot: newMessage.isFromBot,
+          isCommand: newMessage.isCommand
+        }) !== null;
       }
 
       const shouldIgnoreBotMsgDisplay = configuration.userConfiguration.hideBotMessages && isBot;
       const shouldIgnoreCommandMsgDisplay = configuration.userConfiguration.hideCommands && isCommand;
+      let shouldDisplayMessage = !shouldIgnoreBotMsgDisplay && !shouldIgnoreCommandMsgDisplay;
 
-      if (!shouldIgnoreBotMsgDisplay && !shouldIgnoreCommandMsgDisplay){
+      // display messages that have been read overriding normal config
+      shouldDisplayMessage = shouldDisplayMessage || hasReadMessage;
+
+      if (shouldDisplayMessage){
         setChatMessages((msgs) => (
           [newMessage, ...msgs].slice(0, MAX_MESSAGES)
         ));

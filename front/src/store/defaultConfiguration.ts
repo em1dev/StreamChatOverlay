@@ -3,6 +3,9 @@ import { TTSConfiguration, UserConfiguration } from '@/types/userConfigurationTy
 const ttsDefaultConfig: TTSConfiguration = {
   isTTSEnabled: false,
 
+  onlyReadMessagesThatStartWithTtsCommand: false,
+  ttsCommand: '!tts',
+
   ignoreBotMessages: true,
   ignoreCommandMessages: true,
   readUnderscoresAsSpaces: true,
@@ -14,14 +17,9 @@ const ttsDefaultConfig: TTSConfiguration = {
   ignoredUsers: [],
   selectedVoice: undefined,
   userReplacement: [
-    { id: crypto.randomUUID(), isEnabled: true, ordinal: 0, regex: 'pierito95rsng', replaceWith: 'pierito', regexFlags: '', description: '' },
-    { id: crypto.randomUUID(), isEnabled: true, ordinal: 1, regex: 'lam277', replaceWith: 'lam', regexFlags: '', description: '' },
-    { id: crypto.randomUUID(), isEnabled: true, ordinal: 2, regex: 'inc0gn1t_94610', replaceWith: 'incognito', regexFlags: '', description: '' },
-    { id: crypto.randomUUID(), isEnabled: true, ordinal: 4, regex: 'bulbsum', replaceWith: 'bulbi', regexFlags: '', description: '' },
-    { id: crypto.randomUUID(), isEnabled: true, ordinal: 5, regex: 'guerra24_', replaceWith: 'lili', regexFlags: '', description: '' },
-    { id: crypto.randomUUID(), isEnabled: true, ordinal: 6, regex: 'ssmatiuri', replaceWith: 'matilda', regexFlags: '', description: '' }
+    { id: crypto.randomUUID(), isEnabled: true, ordinal: 0, regex: 'emythedoll', replaceWith: 'emydoll', regexFlags: '', description: '' },
   ],
-  replacements: []
+  replacements: [],
 };
 
 export const defaultUserConfiguration: UserConfiguration = {

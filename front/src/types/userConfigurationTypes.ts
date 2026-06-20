@@ -16,6 +16,8 @@ export interface TTSReplacement {
 export interface TTSConfiguration {
   isTTSEnabled: boolean,
   selectedVoice?: string,
+  onlyReadMessagesThatStartWithTtsCommand: boolean,
+  ttsCommand: string,
   userReplacement: Array<TTSReplacement>,
   replacements: Array<TTSReplacement>,
   ignoredUsers: Array<{

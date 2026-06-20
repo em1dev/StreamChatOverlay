@@ -8,7 +8,10 @@ import { TTSConfiguration } from '@/types/userConfigurationTypes';
 
 export const useTTS = () => {
   const configuration = useConfiguration(state => state.userConfiguration.ttsConfiguration);
-  const [messagesToRead, setMessagesToRead] = useState<Array<TTSMessage>>([]);
+  const [messagesToRead, setMessagesToRead] = useState<Array<{
+    id: string,
+    text: string
+  }>>([]);
   const [currentMessageId, setCurrentMessageId] = useState<string | null>(null);
   const { setVoices, voices } = useTtsVoices(state => state);
 
@@ -21,7 +24,7 @@ export const useTTS = () => {
 
   useEffect(() => {
     if (typeof speechSynthesis === 'undefined') {
-      console.log('speach synthesis is not suported');
+      console.log('speech synthesis is not suported');
       return;
     }
 
@@ -39,12 +42,9 @@ export const useTTS = () => {
     };
   }, [setVoices]);
 
-  const speakInternal = useCallback((message: TTSMessage, onEnd: () => void) => {
-    // parse
-    const messageToRead = applyTTSMessageTransformations(message, validTTSConfiguration);
-
+  const speakInternal = useCallback((text: string, onEnd: () => void) => {
     // speak
-    const utterance = new SpeechSynthesisUtterance(messageToRead);
+    const utterance = new SpeechSynthesisUtterance(text);
     const voices = speechSynthesis.getVoices();
     const foundVoice = voices.find(v => (v.voiceURI === validTTSConfiguration.selectedVoice));
     utterance.voice = foundVoice ?? null;
@@ -68,7 +68,7 @@ export const useTTS = () => {
       );
 
       setCurrentMessageId(messageToRead.id);
-      speakInternal(messageToRead, () => {
+      speakInternal(messageToRead.text, () => {
         setCurrentMessageId(null);
       });
     };
@@ -90,8 +90,11 @@ export const useTTS = () => {
   }, [currentMessageId]);
 
   const speakExternal = useCallback((message: TTSMessage) => {
-    setMessagesToRead(prev => [...prev, message]);
-  }, []);
+    const messageToRead = applyTTSMessageTransformations(message, validTTSConfiguration);
+    if (messageToRead == null) return null;
+    setMessagesToRead(prev => [...prev, { id: message.id, text: messageToRead } ]);
+    return messageToRead;
+  }, [validTTSConfiguration]);
 
   const clearQueue = useCallback(() => {
     setMessagesToRead([]);

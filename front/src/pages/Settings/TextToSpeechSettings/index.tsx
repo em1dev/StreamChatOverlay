@@ -44,8 +44,9 @@ export const TextToSpeechSettings = () => {
 
   const speak = useCallback((text: string) => {
     tts.speak({
-      fullMessageText: text,
       id: crypto.randomUUID(),
+      isCommand: false,
+      isFromBot: false,
       sentBy: 'emydev',
       parts: [{
         content: text,
@@ -57,8 +58,9 @@ export const TextToSpeechSettings = () => {
 
   const onTryOutTts = useCallback(() => {
     tts.speak({
-      fullMessageText: testTtsMessage,
       id: crypto.randomUUID(),
+      isCommand: false,
+      isFromBot: false,
       sentBy: 'emydev',
       parts: [{
         content: testTtsMessage,
@@ -124,6 +126,26 @@ export const TextToSpeechSettings = () => {
 
       <section>
         <h2>When to read messages</h2>
+
+        <S.InlineInputContainer>
+          <ToggleInput
+            isChecked={ttsConfiguration.onlyReadMessagesThatStartWithTtsCommand}
+            onChange={(value) => { updateConfig(
+              { ttsConfiguration: {...ttsConfiguration, onlyReadMessagesThatStartWithTtsCommand: value } },
+              session
+            ); }}
+          >
+            Only read messages starting with
+          </ToggleInput>
+          <Input
+            value={ttsConfiguration.ttsCommand}
+            onChange={(e) => {
+              updateConfig({
+                ttsConfiguration: { ...ttsConfiguration, ttsCommand: e.target.value }
+              }, session);
+            }}
+          />
+        </S.InlineInputContainer>
 
         <div>
           <ToggleInput

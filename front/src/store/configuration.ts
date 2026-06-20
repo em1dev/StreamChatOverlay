@@ -43,7 +43,14 @@ export const userConfigurationStore = create<UserConfigurationStore>()((set, get
       }
     },
     setInitialState: (userConfiguration, secret) => {
-      const newConfig = { ...defaultUserConfiguration, ...userConfiguration };
+      const newConfig = {
+        ...defaultUserConfiguration,
+        ...userConfiguration,
+        ttsConfiguration: {
+          ...defaultUserConfiguration.ttsConfiguration,
+          ...userConfiguration.ttsConfiguration
+        }
+      } satisfies UserConfiguration;
       set({
         secretKey: secret,
         userConfiguration: newConfig,

@@ -11,7 +11,6 @@ export interface ChatMessageData {
   id: string,
   sentAt: number,
   effect: 'normal' | 'rainbow' | 'simmer' | 'big-emote',
-  fullMessageText: string,
   emoteOffsets: Map<string, Array<string>>,
   userDisplayName: string,
   displayPronoun?: string | null,
@@ -21,13 +20,16 @@ export interface ChatMessageData {
     url: string
   }>,
   messageParts: Array<MessagePart>,
+  isFromBot: boolean,
+  isCommand: boolean,
 }
 
 export interface TTSMessage {
   id: string,
   parts: Array<MessagePart>,
-  fullMessageText: string,
   sentBy?: string,
+  isFromBot: boolean,
+  isCommand: boolean
 }
 
 // using umami for analytics which adds the global object umami
