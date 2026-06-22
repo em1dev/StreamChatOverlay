@@ -103,7 +103,13 @@ export const useTwitchChat = (channelId: string, channelLogin: string) => {
     onMessageHandlerRef.current = async (channel: string, user: string, text: string, msg: TwurpleChatMessage) => {
       if (configuration.userConfiguration.ignoredUsers.find(ignoredUser => ignoredUser.value === user)) return;
       const pronoun = await getPronounsFromTwitchName(user);
-      const msgParts = TwitchChatParser.parseMessage(msg.text, msg.emoteOffsets, customEmotes, msg);
+      const msgParts = TwitchChatParser.parseMessage(
+        msg.text,
+        msg.emoteOffsets,
+        customEmotes,
+        msg,
+        configuration.userConfiguration
+      );
 
       const isBot = msg.userInfo.badges.get('bot-badge') == '1';
       const isCommand = text.trim().startsWith('!');

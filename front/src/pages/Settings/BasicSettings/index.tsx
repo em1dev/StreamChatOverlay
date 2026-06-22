@@ -10,6 +10,7 @@ import { FontSizeSection } from './FontSizeSection';
 import { ThemePicker } from '@/components/ThemePicker';
 import { useAuth } from '@/context/authContext/useAuth';
 import FontPicker from '@/components/FontPicker';
+import { DisplayTextSection } from './DisplayTextSection';
 
 import * as S from './styles';
 
@@ -157,6 +158,9 @@ export const BasicSettings = () => {
       </section>
 
       <HeaderOrdering />
+
+      <DisplayTextSection />
+
     </>
   );
 };

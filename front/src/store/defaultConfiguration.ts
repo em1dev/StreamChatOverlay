@@ -1,4 +1,5 @@
 import { TTSConfiguration, UserConfiguration } from '@/types/userConfigurationTypes';
+import { textVariables } from '@/utils/variableReplacementEngine';
 
 const ttsDefaultConfig: TTSConfiguration = {
   isTTSEnabled: false,
@@ -43,6 +44,8 @@ export const defaultUserConfiguration: UserConfiguration = {
   fontSize: 12,
   chatFont: 'itim',
   chatFontWeight: 'normal',
+  redemptionLabel: 'Channel Point Redemption',
+  replyLabel: `Replying to: ${textVariables.replyTo} ${textVariables.shortParentMsg}`,
   allowedConnections: {
     twitch: true,
     youtube: true

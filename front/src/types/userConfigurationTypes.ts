@@ -60,7 +60,9 @@ export interface UserConfiguration {
   allowedConnections: {
     twitch: boolean,
     youtube: boolean
-  }
+  },
+  replyLabel: string,
+  redemptionLabel: string
 }
 
 export type ChatMessageHeaderType = 'pronouns' | 'name' | 'badges'

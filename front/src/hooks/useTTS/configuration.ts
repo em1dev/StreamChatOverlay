@@ -1,5 +1,6 @@
 import { TTSConfiguration, TTSReplacement } from '@/types/userConfigurationTypes';
 import { TTSMessage } from '../../types';
+import { variableReplacementEngine } from '@/utils/variableReplacementEngine';
 
 
 const ignoreUnderscores =  { id: crypto.randomUUID(), isEnabled: true, ordinal: 5, regex: '_', regexFlags: 'g', replaceWith: ' ', description: 'Read undescores as spaces' };
@@ -112,7 +113,8 @@ const applyReplacements = (msg: string, replacement: TTSReplacement, sentBy?: st
 
   if (replacement.replaceFullMessage) {
     if (!exp.test(messageToRead)) return messageToRead;
-    messageToRead = applyTokenReplacements(replacement.replaceWith, messageToRead, sentBy);
+    messageToRead = variableReplacementEngine
+      .applyVariables(replacement.replaceWith, messageToRead, sentBy);
     if (replacement.replacement) {
       // do recursive
       return applyReplacements(messageToRead, replacement.replacement, sentBy);
@@ -121,7 +123,8 @@ const applyReplacements = (msg: string, replacement: TTSReplacement, sentBy?: st
   }
 
   // TODO - weird cycle check at what point we want to replace
-  const replaceWith = applyTokenReplacements(replacement.replaceWith, messageToRead, sentBy);
+  const replaceWith = variableReplacementEngine
+    .applyVariables(replacement.replaceWith, messageToRead, sentBy);
   const hasSomethingToReplace = exp.test(messageToRead);
   if (!hasSomethingToReplace) return messageToRead;
 
@@ -129,14 +132,4 @@ const applyReplacements = (msg: string, replacement: TTSReplacement, sentBy?: st
   if (!replacement.replacement) return messageToRead;
   // do recursive
   return applyReplacements(messageToRead, replacement.replacement, sentBy);
-};
-
-const applyTokenReplacements = (message: string, originalMsg: string, sentBy?: string) => {
-  const whoExp = new RegExp('\\$who', 'gi');
-  let parsedMessage = message.replace(whoExp, sentBy ?? '');
-
-  const msgExp = new RegExp('\\$msg', 'gi');
-  parsedMessage = parsedMessage.replace(msgExp, originalMsg);
-
-  return parsedMessage;
 };

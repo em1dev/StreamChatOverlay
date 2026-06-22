@@ -1,32 +1,44 @@
 import { CustomEmote } from '../../api/chatApi/types';
 import { SpecialMsgId, TwitchAnimationId, TwitchMsgTags, TwurpleChatMessage } from './types';
 import { ChatMessageData, MessagePart } from '../../types';
+import { UserConfiguration } from '@/types/userConfigurationTypes';
+import { variableReplacementEngine } from '@/utils/variableReplacementEngine';
 
 // these characters are used by third party extension to by-pass the one message limit in twitch..breaking my regex :v
 // there might be more weird characters used out there but these two are the ones I could find.
 const NON_PRINTABLE_CHARACTER_1 = '͏';
 const NON_PRINTABLE_CHARACTER_2 = '󠀀';
 
-const parseMessage = (content: string, emoteOffsets: Map<string, Array<string>>, customEmotes: Array<CustomEmote>, twurpleMsg: TwurpleChatMessage):Array<MessagePart> => {
+const parseMessage = (
+  content: string,
+  emoteOffsets: Map<string, Array<string>>,
+  customEmotes: Array<CustomEmote>,
+  twurpleMsg: TwurpleChatMessage,
+  userConfiguration: UserConfiguration
+): Array<MessagePart> => {
   const contentWithoutHiddenCharacter = content
     .replaceAll(NON_PRINTABLE_CHARACTER_1, '')
     .replaceAll(NON_PRINTABLE_CHARACTER_2, '');
 
   let messageParts = parseTwitchEmotes(contentWithoutHiddenCharacter, emoteOffsets);
   messageParts = parseCustomEmotes(messageParts, customEmotes);
-  messageParts = parseExtras(messageParts, twurpleMsg);
+  messageParts = parseExtras(messageParts, twurpleMsg, userConfiguration);
 
   return messageParts;
 };
 
-const parseExtras = (messageParts: Array<MessagePart>, twurpleMsg: TwurpleChatMessage) => {
+const parseExtras = (
+  messageParts: Array<MessagePart>,
+  twurpleMsg: TwurpleChatMessage,
+  userConfiguration: UserConfiguration
+) => {
   // mentions
   let newParts = [...messageParts].flatMap((part) => {
     if (part.type !== 'text') return [part];
 
     return part.content.split(' ')
       .map((txt) => (
-        /@.*?(?=\s|@|$)/g.test(txt) 
+        /@.*?(?=\s|@|$)/g.test(txt)
           ? { content: txt, type: 'mention', originalContent: txt } satisfies MessagePart
           : { content: txt + ' ', type: 'text', originalContent: txt } satisfies MessagePart
       ));
@@ -36,19 +48,24 @@ const parseExtras = (messageParts: Array<MessagePart>, twurpleMsg: TwurpleChatMe
     const firstMention = newParts
       .find((item) => item.type === 'mention');
     if (firstMention) {
-      let parentMsg = twurpleMsg.parentMessageText?.replace(/@.*?(?=\s|@|$)/, '') ?? '';
-      parentMsg = parentMsg.length > 5 ? parentMsg.slice(0, 5) + '...' : parentMsg;
+      const parentMsg = twurpleMsg.parentMessageText?.replace(/@.*?(?=\s|@|$)/, '') ?? '';
 
       firstMention.type = 'reply';
-      firstMention.content = `
-          Replying to: ${firstMention.content} ${parentMsg}
-        `;
+
+      const content = variableReplacementEngine.applyVariables(userConfiguration.replyLabel,
+        twurpleMsg.text,
+        twurpleMsg.userInfo.displayName,
+        firstMention.content,
+        parentMsg
+      );
+
+      firstMention.content = content;
     }
   }
 
   if (twurpleMsg.isRedemption) {
     newParts = [...newParts, {
-      content: 'Channel Point Redemption',
+      content: userConfiguration.redemptionLabel,
       type: 'redeption',
       originalContent: '',
     } satisfies MessagePart];
