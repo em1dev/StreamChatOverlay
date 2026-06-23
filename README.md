@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://github.com/em1dev/streamchatoverlay/blob/main/screenshots/Title.png?raw=true" />
+  <img src="https://github.com/em1dev/streamchatoverlay/blob/main/screenshots/Title.png?raw=true" width=700 />
 </div>
 <p align="center">
   <img alt="express" src="https://img.shields.io/badge/express.js-%23404d59.svg?logo=express&logoColor=%2361DAFB" />
