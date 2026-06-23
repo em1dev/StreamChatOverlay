@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "rootDir": "./src", /* Specify the root folder within your source files. */
+    "rootDir": "./", /* Specify the root folder within your source files. */
     "outDir": "./dist",
     "incremental": false, /* Save .tsbuildinfo files to allow for incremental compilation of projects. */
     "target": "es2022", /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */

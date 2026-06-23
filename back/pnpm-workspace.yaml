@@ -1,2 +1,3 @@
 allowBuilds:
-  "@vscode/sqlite3": true
+  "@prisma/engines": true
+  prisma: true

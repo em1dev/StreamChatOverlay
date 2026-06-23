@@ -1,5 +1,16 @@
+name: chat-backend
+
 services:
-  api:
+  chat-db-migrations:
+    build: .
+    command: pnpm migrate deploy
+    environment:
+      - POSTGRESQL_URL=postgresql://chat:chat@chat-db:5432/chatdb
+    depends_on:
+      chat-db:
+        condition: service_healthy
+
+  chat-api:
     build: .
     restart: unless-stopped
     healthcheck:
@@ -12,17 +23,36 @@ services:
       - ${PORT}:80
     environment:
       - PORT=80
-      - SQLITE_DB_PATH=/db/database.db
       - APP_ID=${APP_ID}
       - AUTH_API_URL=${AUTH_API_URL}
-    volumes:
-      - database-data:/db
+      - POSTGRESQL_URL=postgresql://chat:chat@chat-db:5432/chatdb
     networks:
       - shared
       - default
+    depends_on:
+      chat-db-migrations:
+        condition: service_completed_successfully
+      chat-db:
+        condition: service_healthy
+
+  chat-db:
+    image: postgres:18-alpine
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+    volumes:
+      - chat-db-data:/var/lib/postgresql
+    environment:
+      POSTGRES_DB: chatdb
+      POSTGRES_USER: chat
+      POSTGRES_PASSWORD: chat
 
 volumes:
-  database-data:
+  chat-db-data:
 
 networks:
   shared:

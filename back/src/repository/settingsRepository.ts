@@ -1,48 +1,66 @@
-import { dbQuery, Table, UserSettingsColumnKey } from './db';
+import { prisma } from './prismaDb';
 
 export interface SettingItem {
   id: number,
-  userId: string,
+  userId: number,
   settingsJson: string,
   secretKey: string
 }
 
-const getSettingsForUser = async (userId: number) => {
-  const result = await dbQuery.all<SettingItem>(
-    `SELECT * FROM ${Table.UserSettings} WHERE ${UserSettingsColumnKey.UserId} = $userId`,
-    { $userId: userId },
-  );
-  return result;
-};
+const getSettingsForUser = async (userId: number) => (
+  await prisma.setting.findMany({
+    where: {
+      userId: {
+        equals: userId
+      }
+    }
+  })
+);
 
-const createSettingsForUser = async (userId: number, settings: string, secretKey: string) => {
-  await dbQuery.run(`
-    INSERT INTO ${Table.UserSettings} (${UserSettingsColumnKey.UserId}, ${UserSettingsColumnKey.SettingsJson}, ${UserSettingsColumnKey.SecretKey})
-    VALUES ($userId, $settings, $secretKey)
-  `, { $userId: userId, $settings: settings, $secretKey: secretKey });
-};
+const createSettingsForUser = async (userId: number, settings: string, secretKey: string) => (
+  await prisma.setting.create({
+    data: {
+      name: 'Settings 1',
+      secretKey,
+      settingsJson: settings,
+      userId
+    },
+  })
+);
 
-const updateSettingJsonForUser = async (userId:number, settings: string) => {
-  await dbQuery.run(`
-      UPDATE ${Table.UserSettings}
-      SET ${UserSettingsColumnKey.SettingsJson} = $settings
-      WHERE userId = $userId
-    `, {
-    $userId: userId,
-    $settings: settings
-  });
-};
+// updates all the settings, which is fine until we start adding multiple settings per user
+// TODO - make unique
+const updateSettingJsonForUser = async (userId:number, settings: string) => (
+  await prisma
+    .setting
+    .updateMany({
+      data: {
+        settingsJson: settings
+      },
+      where: {
+        userId: {
+          equals: userId
+        }
+      }
+    })
+);
 
-const updateSecretKeyForUser = async (userId:number, secretKey: string) => {
-  await dbQuery.run(`
-      UPDATE ${Table.UserSettings}
-      SET ${UserSettingsColumnKey.SecretKey} = $secretKey
-      WHERE userId = $userId
-    `, {
-    $userId: userId,
-    $secretKey: secretKey,
-  });
-};
+// updates all the settings, which is fine until we start adding multiple settings per user
+// TODO - make unique
+const updateSecretKeyForUser = async (userId:number, secretKey: string) => (
+  await prisma
+    .setting
+    .updateMany({
+      data: {
+        secretKey
+      },
+      where: {
+        userId: {
+          equals: userId
+        }
+      }
+    })
+);
 
 export const SettingsRepository = {
   getSettingsForUser,
