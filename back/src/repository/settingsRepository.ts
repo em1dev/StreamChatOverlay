@@ -1,5 +1,6 @@
 import { prisma } from './prismaDb';
 
+
 export interface SettingItem {
   id: number,
   userId: number,

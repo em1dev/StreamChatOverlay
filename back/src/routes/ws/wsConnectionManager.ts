@@ -1,9 +1,7 @@
-import { logger } from '../logger';
+import { logger } from '../../logger';
 import { ChangeEvent } from './events';
-import { WebsocketRequestHandler } from 'express-ws';
+import { WebSocket as WS } from 'ws';
 
-// for some reason ws type is not exported, but we can extract it from the first argument
-type WS = Parameters<WebsocketRequestHandler>[0];
 
 export class WsConnectionManager {
   // userId to connection arrays

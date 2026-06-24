@@ -1,6 +1,6 @@
 import { HandlerApiResult } from '../../../HandlerApiResult';
 import { SettingsRepository } from '../../../repository/settingsRepository';
-import { WsConnectionManager } from '../../../ws/wsConnectionManager';
+import { WsConnectionManager } from '../../ws/wsConnectionManager';
 
 export const updateUserSettingsHandler = async (
   userId: number,

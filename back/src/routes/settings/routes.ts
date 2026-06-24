@@ -1,18 +1,21 @@
 import z from 'zod';
-import { api } from '../..';
 import { getUserIdFromToken } from '../../getUserFromToken';
 import { getUserSettingsHandler } from './handlers/getUserSettingsHandler';
 import { updateUserSettingsHandler } from './handlers/updateUserSettingsHandler';
 import { recreateUserSettingSecretHandler } from './handlers/recreateUserSettingSecretHandler';
+import { Router } from 'express';
 
-api.get('/settings', async (req, res) => {
+
+export const router = Router();
+
+router.get('/settings', async (req, res) => {
   const userId = await getUserIdFromToken(req.headers);
   if (!userId) return res.status(403).send();
   const result = await getUserSettingsHandler(userId);
   result.sendResult(res);
 });
 
-api.post('/settings', async (req, res) => {
+router.post('/settings', async (req, res) => {
   const userId = await getUserIdFromToken(req.headers);
   if (!userId) return res.status(403).send();
 
@@ -31,7 +34,7 @@ api.post('/settings', async (req, res) => {
   result.sendResult(res);
 });
 
-api.delete('/settings/secret', async (req, res) => {
+router.delete('/settings/secret', async (req, res) => {
   const userId = await getUserIdFromToken(req.headers);
   if (!userId) return res.status(403).send();
 

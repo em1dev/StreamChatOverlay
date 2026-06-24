@@ -4,9 +4,16 @@ import express, { ErrorRequestHandler } from 'express';
 import { config } from './config';
 import { httpLogger, logger } from './logger';
 import z, { ZodError } from 'zod';
+import { router as channelRouter } from './routes/channel/routes';
+import { router as authenticatioRouter } from './routes/authentication/routes';
+import { router as settingsRouter } from './routes/settings/routes';
+import { router as connectionRouter } from './routes/connection/routes';
+import { router as secretRouter } from './routes/secret/routes';
+import { wsHandler } from './routes/ws';
+
 
 const apiws = expressWs(express());
-export const api = apiws.app;
+const api = apiws.app;
 
 api.use(cors());
 
@@ -17,12 +24,13 @@ api.get('/health', (_, res) => {
 api.use(express.json());
 api.use(httpLogger);
 
-import './routes/channel/routes';
-import './routes/authentication/routes';
-import './routes/settings/routes';
-import './routes/connection/routes';
-import './routes/secret/routes';
-import './ws';
+api.use(channelRouter);
+api.use(authenticatioRouter);
+api.use(settingsRouter);
+api.use(connectionRouter);
+api.use(secretRouter);
+
+api.ws('/', wsHandler);
 
 // must be 4 params so that its registered as an error handler
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

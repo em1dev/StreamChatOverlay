@@ -1,14 +1,17 @@
-import { api } from '../..';
+import { Router } from 'express';
 import { getChannelBadgesHandler } from './handlers/getChannelBadgesHandler';
 import { EmoteConfiguration, getChannelEmotesHandler } from './handlers/getChannelEmotesHandler';
 
-api.get('/:channelId/badges', async (req, res) => {
+
+export const router = Router();
+
+router.get('/:channelId/badges', async (req, res) => {
   const channelId = req.params.channelId;
   const result = await getChannelBadgesHandler(channelId);
   result.sendResult(res);
 });
 
-api.get('/:channelId/emotes', async (req, res) => {
+router.get('/:channelId/emotes', async (req, res) => {
   const channelId = req.params.channelId;
   const emoteConfig:EmoteConfiguration = {
     betterTTV: req.query['betterTTV'] === 'true',

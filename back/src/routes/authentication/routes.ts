@@ -1,11 +1,14 @@
 import z from 'zod';
-import { api } from '../..';
 import { LoginServices } from '../../api/authApi';
 import { loginHandler } from './handlers/loginHandler';
 import { getTokenIfValid } from '../../getUserFromToken';
 import { getAuthUrl } from './handlers/getAuthUrl';
+import { Router } from 'express';
 
-api.post('/login', async (req, res) => {
+
+export const router = Router();
+
+router.post('/login', async (req, res) => {
   const { code, redirectUrl } = z.object({
     code: z.string(),
     provider: z.enum(LoginServices),
@@ -16,13 +19,13 @@ api.post('/login', async (req, res) => {
   result.sendResult(res);
 });
 
-api.post('/token/verify', async (req, res) => {
+router.post('/token/verify', async (req, res) => {
   const isValid = await getTokenIfValid(req.headers);
   if (!isValid) return res.status(401).send();
   return res.status(200).send();
 });
 
-api.get('/authenticate', async (req, res) => {
+router.get('/authenticate', async (req, res) => {
   const redirectUrl = req.query['redirectUrl'] as string;
   const authUrl = await getAuthUrl(redirectUrl);
   if (!authUrl)

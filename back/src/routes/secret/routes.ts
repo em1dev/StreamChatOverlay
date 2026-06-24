@@ -1,8 +1,11 @@
 import z from 'zod';
-import { api } from '../..';
 import { getSecretTokensHandler } from './handlers/getSecretTokensHandler';
+import { Router } from 'express';
 
-api.post('/secret', async (req, res) => {
+
+export const router = Router();
+
+router.post('/secret', async (req, res) => {
   const { secret, userId } = z.object({
     userId: z.number(),
     secret: z.string()

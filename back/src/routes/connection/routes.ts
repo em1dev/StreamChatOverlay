@@ -1,13 +1,16 @@
 import z from 'zod';
-import { api } from '../..';
 import { getUserIdFromToken } from '../../getUserFromToken';
 import { getConnectionsHandler } from './handlers/getConnectionsHandler';
 import { deleteConnectionHandler } from './handlers/deleteConnectionHandler';
 import { ConnectionProvider } from '../../types';
 import { getConnectionUrlHandler } from './handlers/getConnectionUrlHandler';
 import { postNewConnectionHandler } from './handlers/postNewConnectionHandler';
+import { Router } from 'express';
 
-api.get('/connection', async (req, res) => {
+
+export const router = Router();
+
+router.get('/connection', async (req, res) => {
   const userId = await getUserIdFromToken(req.headers);
   if (!userId) return res.status(403).send();
 
@@ -20,7 +23,7 @@ const validProviders = [
   'youtube'
 ] satisfies Array<ConnectionProvider>;
 
-api.get('/connection/:provider/url', async (req, res) => {
+router.get('/connection/:provider/url', async (req, res) => {
   const provider = z
     .enum(validProviders)
     .parse(req.params.provider);
@@ -36,7 +39,7 @@ api.get('/connection/:provider/url', async (req, res) => {
   res.redirect(url);
 });
 
-api.post('/connection/:provider', async (req, res) => {
+router.post('/connection/:provider', async (req, res) => {
   const userId = await getUserIdFromToken(req.headers);
   if (!userId) return res.status(403).send();
 
@@ -53,7 +56,7 @@ api.post('/connection/:provider', async (req, res) => {
   result.sendResult(res);
 });
 
-api.delete('/connection/:provider', async (req, res) => {
+router.delete('/connection/:provider', async (req, res) => {
   const provider = z
     .enum(validProviders)
     .parse(req.params.provider);

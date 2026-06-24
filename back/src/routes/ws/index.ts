@@ -1,11 +1,12 @@
-import { api } from '..';
-import { logger } from '../logger';
 import { SubscribeSchema } from './events';
 import { WsConnectionManager } from './wsConnectionManager';
+import { logger } from '../../logger';
+import { WebSocket } from 'ws';
+
 
 const HEARTBEAT_INTERVAL = 20 * 1000;
 
-api.ws('/', (ws) => {
+export const wsHandler = (ws: WebSocket) => {
   let isAlive = true;
 
   const interval = setInterval(() => {
@@ -33,8 +34,8 @@ api.ws('/', (ws) => {
       const subscribeEvent = SubscribeSchema.parse(msgJson);
       const userId = subscribeEvent.data.userId;
       WsConnectionManager.GetInstance().AddConnection(userId, ws);
-    } catch(e) {
+    } catch (e) {
       logger.info(e);
     }
   });
-});
+};
