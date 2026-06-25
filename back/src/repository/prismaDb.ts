@@ -4,6 +4,6 @@ import { PrismaClient } from '../../prisma/client/client';
 
 
 const adapter = new PrismaPg({ connectionString: config.POSTGRESQL_URL });
-const prisma = new PrismaClient({ adapter });
+const db = new PrismaClient({ adapter });
 
-export { prisma };
+export { db };

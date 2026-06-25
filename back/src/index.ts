@@ -9,6 +9,7 @@ import { router as authenticatioRouter } from './routes/authentication/routes';
 import { router as settingsRouter } from './routes/settings/routes';
 import { router as connectionRouter } from './routes/connection/routes';
 import { router as secretRouter } from './routes/secret/routes';
+import { router as settingsRouterV2 } from './routes/settingsV2/routes';
 import { wsHandler } from './routes/ws';
 
 
@@ -21,14 +22,16 @@ api.get('/health', (_, res) => {
   res.status(200).send();
 });
 
-api.use(express.json());
 api.use(httpLogger);
+api.use(express.json());
 
 api.use(channelRouter);
 api.use(authenticatioRouter);
 api.use(settingsRouter);
 api.use(connectionRouter);
 api.use(secretRouter);
+
+api.use('/v2', settingsRouterV2);
 
 api.ws('/', wsHandler);
 

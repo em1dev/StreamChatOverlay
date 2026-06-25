@@ -1,5 +1,5 @@
 import { HandlerApiResult } from '../../../HandlerApiResult';
-import { SettingsRepository } from '../../../repository/settingsRepository';
+import { db } from '../../../repository/prismaDb';
 import { WsConnectionManager } from '../../ws/wsConnectionManager';
 
 export const updateUserSettingsHandler = async (
@@ -7,13 +7,28 @@ export const updateUserSettingsHandler = async (
   changeId: string,
   settingsAsJson: string
 ): Promise<HandlerApiResult<boolean>> => {
+  const settings = await db.setting
+    .findFirst({
+      where: {
+        userId
+      },
+      orderBy: {
+        id: 'asc'
+      }
+    });
 
-  const existingSettings = await SettingsRepository.getSettingsForUser(userId);
-  const userSettings = existingSettings.at(0);
-  if (!userSettings)
+  if (!settings)
     return HandlerApiResult.Success(404, false);
 
-  await SettingsRepository.updateSettingJsonForUser(userId, settingsAsJson);
+  await db.setting
+    .update({
+      data: {
+        settingsJson: settingsAsJson
+      },
+      where: {
+        id: settings.id
+      }
+    });
 
   WsConnectionManager.GetInstance().SendChangeEvent(userId, changeId);
 

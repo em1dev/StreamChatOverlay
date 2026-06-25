@@ -1,6 +1,7 @@
 import { AuthApi } from '../../../api/authApi';
 import { HandlerApiResult } from '../../../HandlerApiResult';
-import { SettingsRepository } from '../../../repository/settingsRepository';
+import { logger } from '../../../logger';
+import { db } from '../../../repository/prismaDb';
 import { TokenStore } from '../../../TwitchTokenStore';
 
 export interface UserTwitchConnection
@@ -20,24 +21,25 @@ export interface UserYoutubeConnection
 
 export interface SecretResult
 {
+  settingName: string,
   settingsJsonString: string,
   twitchConnection?: UserTwitchConnection,
   youtubeConnection?: UserYoutubeConnection
 }
 
 export const getSecretTokensHandler = async (userId: number, secret: string): Promise<HandlerApiResult<SecretResult>> => {
-  const settings = await SettingsRepository.getSettingsForUser(userId);
-  const userSettings = settings.at(0);
+  const userSettings = await db.setting.findFirst({
+    where: {
+      userId: userId,
+      secretKey: secret
+    }
+  });
 
-  if (!userSettings)
-    return HandlerApiResult.Error(404, 'No user settings');
+  if (!userSettings) return HandlerApiResult.Error(404, 'No settings found');
 
-  if (userSettings.secretKey != secret)
-    return HandlerApiResult.Error(404, 'No user secret');
-
-  // secret valid at this stage
   const secretResult:SecretResult = {
     settingsJsonString: userSettings.settingsJson,
+    settingName: userSettings.name
   };
 
   const connections = await AuthApi.getConnections(userId);
