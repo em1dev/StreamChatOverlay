@@ -1,6 +1,6 @@
-import { useAuth } from '@/context/authContext/useAuth';
 import { FontKeys, FontMap, FontWeights, useAllChatFonts } from '@/fonts/ChatFonts';
-import { useConfiguration } from '@/store/configuration';
+import { updateUserConfiguration } from '@/store/configurationStore/actions';
+import { useConfigurationStore } from '@/store/configurationStore';
 import { Select } from '../Select';
 import { Fragment, useId } from 'react';
 
@@ -8,11 +8,9 @@ import * as S from './styles';
 
 const FontPicker = () => {
   const id = useId();
-  const selectedFontKey = useConfiguration(state => state.userConfiguration.chatFont);
-  const selectedFontWeight = useConfiguration(state => state.userConfiguration.chatFontWeight);
+  const selectedFontKey = useConfigurationStore(state => state.userConfiguration.chatFont);
+  const selectedFontWeight = useConfigurationStore(state => state.userConfiguration.chatFontWeight);
   const selectedFont = FontMap[selectedFontKey];
-  const { session } = useAuth();
-  const updateConfig = useConfiguration(state => state.updateUserConfiguration);
   useAllChatFonts();
 
   const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -22,17 +20,17 @@ const FontPicker = () => {
     if (!newFont) return;
 
     if (!newFont.weights.includes(selectedFontWeight)) {
-      updateConfig({ chatFont: newValue, chatFontWeight: 'normal' }, session);
+      updateUserConfiguration({ chatFont: newValue, chatFontWeight: 'normal' });
       return;
     }
 
-    updateConfig({ chatFont: newValue }, session);
+    updateUserConfiguration({ chatFont: newValue });
   };
 
   const onFontWeightChange = (e : React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.checked) return;
     const newFontWeight = e.target.value as FontWeights;
-    updateConfig({ chatFontWeight: newFontWeight }, session);
+    updateUserConfiguration({ chatFontWeight: newFontWeight });
   };
 
   return (

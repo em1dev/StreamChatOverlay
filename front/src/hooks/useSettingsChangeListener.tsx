@@ -1,4 +1,4 @@
-import { userConfigurationStore } from '@/store/configuration';
+import { useConfigurationStore } from '@/store/configurationStore';
 import { useEffect } from 'react';
 
 const WS_URL = import.meta.env.VITE_WS_URL;
@@ -11,7 +11,7 @@ export const useSettingsChangeListener = (
   useEffect(() => {
     if (userId == null) return;
 
-    const connection: { 
+    const connection: {
       instance: null | WebSocket,
       reconnectCallback: NodeJS.Timeout | null
     } = {
@@ -43,7 +43,7 @@ export const useSettingsChangeListener = (
         };
 
         // ignore events emitted by this client
-        if (changeId == userConfigurationStore.getState().changeConfigurationId) return;
+        if (changeId == useConfigurationStore.getState().changeConfigurationId) return;
         console.log('Received change event');
         onChange();
       };
@@ -64,7 +64,11 @@ export const useSettingsChangeListener = (
       if (connection.reconnectCallback) {
         clearTimeout(connection.reconnectCallback);
       }
-      connection.instance?.close();
+      if (connection.instance) {
+        connection.instance.onmessage = null;
+        connection.instance.onclose = null;
+        connection.instance.close();
+      }
     };
   }, [onChange, userId]);
 };

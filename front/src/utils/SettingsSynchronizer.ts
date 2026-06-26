@@ -1,15 +1,13 @@
 import { chatApi } from '@/api/chatApi';
-import { useAuth } from '@/context/authContext/useAuth';
-import { userConfigurationStore } from '@/store/configuration';
-import { defaultUserConfiguration } from '@/store/defaultConfiguration';
+import { resetConfiguration, setInitialState } from '@/store/configurationStore/actions';
+import { defaultUserConfiguration } from '@/store/configurationStore/defaultConfiguration';
 import { UserConfiguration } from '@/types/userConfigurationTypes';
 import { useCallback, useEffect } from 'react';
 import { useSettingsChangeListener } from '@/hooks/useSettingsChangeListener';
+import { useAuth } from '@/store/authStore';
 
 export const SettingsSynchronizer = () => {
   const { session } = useAuth();
-  const resetState = userConfigurationStore(c => c.resetState);
-  const setInitialState = userConfigurationStore(c => c.setInitialState);
 
   const fetchSettings = useCallback(async () => {
     if (!session) return;
@@ -23,19 +21,19 @@ export const SettingsSynchronizer = () => {
     }
 
     setInitialState(parsedConfig, secretKey);
-  }, [session, setInitialState]);
+  }, [session]);
 
   useSettingsChangeListener(session?.user.id || null, fetchSettings);
 
   // reload state if session changes
   useEffect(() => {
     if (!session) {
-      resetState();
+      resetConfiguration();
       return;
     };
 
     fetchSettings();
-  }, [session, setInitialState, resetState, fetchSettings]);
+  }, [session, fetchSettings]);
 
   return null;
 };

@@ -1,17 +1,17 @@
 import { CONNECTIONS_STORAGE_KEY } from '@/store/connectionStorageKey';
 import { chatApi } from '@/api/chatApi';
 import { Connection } from '@/api/chatApi/types';
-import { useAuth } from '@/context/authContext/useAuth';
 import { useCallback, useEffect, useState } from 'react';
 import { ConnectionItem } from './ConnectionItem';
-import { useConfiguration } from '@/store/configuration';
+import { updateUserConfiguration } from '@/store/configurationStore/actions';
+import { useConfigurationStore } from '@/store/configurationStore';
+import { useAuth } from '@/store/authStore';
 
 type LoadingState = Record<Connection['type'], boolean>;
 
 export const Connections = () => {
   const { session } = useAuth();
-  const allowedConnections = useConfiguration(state => state.userConfiguration.allowedConnections);
-  const updateConfiguration = useConfiguration(state => state.updateUserConfiguration);
+  const allowedConnections = useConfigurationStore(state => state.userConfiguration.allowedConnections);
   const [connections, setConnections] = useState<Connection[]>([]);
   const [isLoading, setIsLoading] = useState<LoadingState>({
     twitch: true,
@@ -60,13 +60,13 @@ export const Connections = () => {
   }, [session, getConnections]);
 
   const onEnableService = useCallback(async (type: Connection['type'], isEnabled: boolean) => {
-    updateConfiguration({
+    updateUserConfiguration({
       allowedConnections: {
         ...allowedConnections,
         [type]: isEnabled
       }
-    }, session);
-  }, [session, updateConfiguration,allowedConnections]);
+    });
+  }, [allowedConnections]);
 
   const onDeleteConnection = useCallback(async (type: Connection['type']) => {
     setIsLoading(v => ({ ...v, [type]: true }));

@@ -1,44 +1,51 @@
 import { ChatMessageData } from '@/types';
+import { ChatMessageHeaderType, UserConfiguration } from '@/types/userConfigurationTypes';
+
 import * as S from './styles';
-import { useConfiguration } from '@/store/configuration';
-import { ChatMessageHeaderType } from '@/types/userConfigurationTypes';
+
 
 export interface ChatMsgHeaderProps
 {
   messageData: ChatMessageData,
-  direction: 'left' | 'right'
+  direction: 'left' | 'right',
+  showBadges: boolean,
+  headerOrdering: UserConfiguration['headerOrdering']
 }
 
-const ChatMsgHeader = ({ 
+const ChatMsgHeader = ({
   direction,
-  messageData
-}: ChatMsgHeaderProps) => {
-  const headerOrdering = useConfiguration(c => c.userConfiguration.headerOrdering);
-
-  return (
-    <S.Container $direction={direction} $userColor={messageData.color || 'black'}>
-      {headerOrdering.map(type => (
-        <ChatMsgHeaderPart key={type} type={type} messageData={messageData} />
-      ))}
-    </S.Container>
-  );
-};
-
-const ChatMsgHeaderPart = ({ 
   messageData,
-  type
+  headerOrdering,
+  showBadges
+}: ChatMsgHeaderProps) => (
+  <S.Container $direction={direction} $userColor={messageData.color || 'black'}>
+    {
+      headerOrdering
+        .filter(type => showBadges || type != 'badges')
+        .map(type => (
+          <ChatMsgHeaderPart
+            key={type}
+            type={type}
+            messageData={messageData}
+          />
+        ))
+    }
+  </S.Container>
+);
+
+const ChatMsgHeaderPart = ({
+  messageData,
+  type,
 }: {
   type: ChatMessageHeaderType
-  messageData: ChatMessageData
+  messageData: ChatMessageData,
 }) => {
-  const showBadges = useConfiguration(c => c.userConfiguration.showChatterBadges);
-
   switch(type)
   {
     case 'badges':
-      return showBadges ? messageData.badges.map((badge) => (
+      return messageData.badges.map((badge) => (
         <img src={badge.url} key={badge.id} alt={badge.id} />
-      )) : null;
+      ));
     case 'name':
       return <div>{ messageData.userDisplayName }</div>;
     case 'pronouns':

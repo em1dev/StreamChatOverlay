@@ -1,19 +1,19 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { applyTTSMessageTransformations } from './configuration';
 import { TTSMessage } from '../../types';
-import { useConfiguration } from '../../store/configuration';
-import { useTtsVoices } from '../../store/ttsVoices';
+import { useConfigurationStore } from '../../store/configurationStore';
+import { setTtsVoices, useTtsVoiceStore } from '../../store/ttsVoices';
 import { TTSConfiguration } from '@/types/userConfigurationTypes';
 
 
 export const useTTS = () => {
-  const configuration = useConfiguration(state => state.userConfiguration.ttsConfiguration);
+  const configuration = useConfigurationStore(state => state.userConfiguration.ttsConfiguration);
   const [messagesToRead, setMessagesToRead] = useState<Array<{
     id: string,
     text: string
   }>>([]);
   const [currentMessageId, setCurrentMessageId] = useState<string | null>(null);
-  const { setVoices, voices } = useTtsVoices(state => state);
+  const { voices } = useTtsVoiceStore(state => state);
 
   const validTTSConfiguration: TTSConfiguration = useMemo(() => ({
     ...configuration,
@@ -30,7 +30,7 @@ export const useTTS = () => {
 
     const onVoicesChange = () => {
       const voices = speechSynthesis.getVoices();
-      setVoices(voices);
+      setTtsVoices(voices);
     };
 
     onVoicesChange();
@@ -40,7 +40,7 @@ export const useTTS = () => {
     return () => {
       speechSynthesis.removeEventListener('voiceschanged', onVoicesChange);
     };
-  }, [setVoices]);
+  }, []);
 
   const speakInternal = useCallback((text: string, onEnd: () => void) => {
     // speak

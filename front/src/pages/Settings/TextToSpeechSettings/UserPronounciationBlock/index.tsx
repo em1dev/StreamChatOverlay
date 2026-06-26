@@ -1,13 +1,14 @@
-import { useConfiguration } from '@/store/configuration';
 import { Icon } from '@iconify/react';
 import { useCallback, useMemo } from 'react';
 import { TTSReplacement } from '@/types/userConfigurationTypes';
 import { Input } from '@/components/Input';
 import { IconButton } from '@/components/IconButton';
 import { removeRegexCharacters } from '@/utils/regexUtils';
-import { useAuth } from '@/context/authContext/useAuth';
+import { updateUserConfiguration } from '@/store/configurationStore/actions';
+import { useConfigurationStore } from '@/store/configurationStore';
 
 import * as S from './styles';
+
 
 export interface UserPronunciationBlockProps
 {
@@ -17,10 +18,8 @@ export interface UserPronunciationBlockProps
 export const UserPronunciationBlock = ({
   speak
 }: UserPronunciationBlockProps) => {
-  const updateConfig = useConfiguration(c => c.updateUserConfiguration);
-  const ttsConfiguration = useConfiguration(c => c.userConfiguration!.ttsConfiguration);
-  const userReplacement = useConfiguration(c => c.userConfiguration!.ttsConfiguration.userReplacement);
-  const { session } = useAuth();
+  const ttsConfiguration = useConfigurationStore(c => c.userConfiguration.ttsConfiguration);
+  const userReplacement = useConfigurationStore(c => c.userConfiguration.ttsConfiguration.userReplacement);
 
   const userReplacementOrdered = useMemo(() => (
     userReplacement.sort((a,b) => a.ordinal - b.ordinal)
@@ -28,19 +27,18 @@ export const UserPronunciationBlock = ({
 
   const removeReplacement = useCallback((replacement: TTSReplacement) => {
     const newList = userReplacement.filter(item => item.id !== replacement.id);
-    updateConfig({
+    updateUserConfiguration({
       ttsConfiguration: {
         ...ttsConfiguration,
         userReplacement: newList
       }
-    },
-    session);
-  }, [userReplacement, ttsConfiguration, updateConfig, session]);
+    });
+  }, [userReplacement, ttsConfiguration]);
 
   const addNewReplacement = useCallback(() => {
     const newOrdinal = (userReplacementOrdered.at(-1)?.ordinal ?? 0) + 1;
 
-    updateConfig({
+    updateUserConfiguration({
       ttsConfiguration: {
         ...ttsConfiguration,
         userReplacement: [
@@ -56,8 +54,8 @@ export const UserPronunciationBlock = ({
           }
         ]
       }
-    }, session);
-  }, [userReplacementOrdered, ttsConfiguration, updateConfig, session]);
+    });
+  }, [userReplacementOrdered, ttsConfiguration]);
 
   const updateReplacement = useCallback((replacement: TTSReplacement) => {
     const newList = [
@@ -68,13 +66,13 @@ export const UserPronunciationBlock = ({
         replaceWith: removeRegexCharacters(replacement.replaceWith)
       }
     ];
-    updateConfig({
+    updateUserConfiguration({
       ttsConfiguration: {
         ...ttsConfiguration,
         userReplacement: newList
       }
-    }, session);
-  }, [userReplacement, ttsConfiguration, updateConfig, session]);
+    });
+  }, [userReplacement, ttsConfiguration]);
 
   return (
     <S.Container>

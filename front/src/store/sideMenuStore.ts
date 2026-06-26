@@ -1,19 +1,18 @@
-import { create, useStore } from 'zustand';
+import { create } from 'zustand';
+
 
 interface SideMenuStore {
-  isOpen: boolean,
-  setIsOpen: (value: boolean) => void
+  isOpen: boolean
 }
 
-export const sideMenuStore = create<SideMenuStore>()((set) => {
-  return {
-    isOpen: false,
-    setIsOpen: (value: boolean) => {
-      set(() => ({ isOpen: value }));
-    },
-  };
-});
+export const setIsSideMenuOpen = (
+  newValue: boolean | ((prevValue: boolean) => boolean)
+) => {
+  useSideMenuStore.setState({
+    isOpen: typeof newValue === 'function' ? newValue(useSideMenuStore.getState().isOpen) : newValue
+  });
+};
 
-export const useSideMenuStore = <T>(selector: (state: SideMenuStore) => T) => (
-  useStore(sideMenuStore, selector)
-);
+export const useSideMenuStore = create<SideMenuStore>()(() => ({
+  isOpen: false
+}));

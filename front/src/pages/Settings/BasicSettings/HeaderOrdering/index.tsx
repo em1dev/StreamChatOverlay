@@ -1,14 +1,15 @@
 import { Icon } from '@iconify/react';
-import { useConfiguration } from '@/store/configuration';
+import { updateUserConfiguration } from '@/store/configurationStore/actions';
+import { useConfigurationStore } from '@/store/configurationStore';
 import { ChatMessageHeaderType } from '@/types/userConfigurationTypes';
 import { Fragment } from 'react/jsx-runtime';
 import { useCallback } from 'react';
 import { landingExamplesMessages } from '@/examples/landingExamplesMessages';
 import { ToggleInput } from '@/components/ToggleInput';
-import { useAuth } from '@/context/authContext/useAuth';
 import { MessagePreview } from '@/components/MessagePreview';
 
 import * as S from './styles';
+
 
 const headerTypeToDisplayName: Record<ChatMessageHeaderType, string> = {
   'badges': 'Badges',
@@ -17,18 +18,16 @@ const headerTypeToDisplayName: Record<ChatMessageHeaderType, string> = {
 };
 
 export const HeaderOrdering = () => {
-  const showChatterBadges = useConfiguration(c => c.userConfiguration.showChatterBadges);
-  const ordering = useConfiguration(c => c.userConfiguration.headerOrdering);
-  const { session } = useAuth();
-  const updateConfig = useConfiguration(c => c.updateUserConfiguration);
+  const showChatterBadges = useConfigurationStore(c => c.userConfiguration.showChatterBadges);
+  const ordering = useConfigurationStore(c => c.userConfiguration.headerOrdering);
 
   const onSwitchRight = useCallback((index: number) => {
     const newOrder = [...ordering];
     [newOrder[index], newOrder[index + 1]] = [newOrder[index + 1], newOrder[index]];
-    updateConfig({
+    updateUserConfiguration({
       headerOrdering: newOrder
-    }, session);
-  }, [ordering, updateConfig, session]);
+    });
+  }, [ordering]);
 
   return (
     <section>
@@ -38,7 +37,7 @@ export const HeaderOrdering = () => {
 
       <ToggleInput
         isChecked={showChatterBadges}
-        onChange={(value) => { updateConfig({ showChatterBadges: value }, session); }}
+        onChange={(value) => { updateUserConfiguration({ showChatterBadges: value }); }}
       >
         Show chatter badges
       </ToggleInput>
@@ -63,5 +62,4 @@ export const HeaderOrdering = () => {
       </S.HeaderOrderingContainer>
     </section>
   );
-
 };

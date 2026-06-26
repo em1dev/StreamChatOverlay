@@ -1,7 +1,7 @@
 import { chatApi } from '@/api/chatApi';
 import { useSettingsChangeListener } from '@/hooks/useSettingsChangeListener';
-import { useConfiguration } from '@/store/configuration';
-import { defaultUserConfiguration } from '@/store/defaultConfiguration';
+import { setInitialState } from '@/store/configurationStore/actions';
+import { defaultUserConfiguration } from '@/store/configurationStore/defaultConfiguration';
 import { UserConfiguration } from '@/types/userConfigurationTypes';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router';
@@ -36,7 +36,6 @@ export const useSecret = (): SecretResult => {
 
   const secret = search.get('s');
 
-  const setInitialConfiguration = useConfiguration(s => s.setInitialState);
   const [state, setState] = useState<ConnectionState>({
     hasError: false,
     isLoading: true,
@@ -63,7 +62,7 @@ export const useSecret = (): SecretResult => {
           settingsParsed = JSON.parse(resp.data!.settingsJsonString) as UserConfiguration;
         }
 
-        setInitialConfiguration(settingsParsed, secret);
+        setInitialState(settingsParsed, secret);
         window.umami?.identify(userIdParsed.toString());
 
         setState({
@@ -88,7 +87,7 @@ export const useSecret = (): SecretResult => {
       ignoreResp = true;
     };
 
-  }, [secret, userIdParsed, setInitialConfiguration]);
+  }, [secret, userIdParsed]);
 
   const onSettingsChanged = useCallback(() => {
     if (!secret || userIdParsed == null) return;
@@ -108,13 +107,13 @@ export const useSecret = (): SecretResult => {
           settingsParsed = JSON.parse(resp.data!.settingsJsonString) as UserConfiguration;
         }
 
-        setInitialConfiguration(settingsParsed, secret);
+        setInitialState(settingsParsed, secret);
       })
       .catch((e) => {
         console.error(e);
         setState({ hasError: true, isLoading: false });
       });
-  }, [secret, setInitialConfiguration, userIdParsed]);
+  }, [secret, userIdParsed]);
 
   useSettingsChangeListener(userIdParsed, onSettingsChanged);
 

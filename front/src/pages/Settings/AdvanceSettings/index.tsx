@@ -1,14 +1,10 @@
 import * as S from './style';
-import { useConfiguration } from '@/store/configuration';
+import { updateUserConfiguration } from '@/store/configurationStore/actions';
+import { useConfigurationStore } from '@/store/configurationStore';
 import { TTSReplacementBlock } from './TTSReplacementBlock';
-import { useAuth } from '@/context/authContext/useAuth';
 
 export const AdvanceSettings = () => {
-  const { session } = useAuth();
-  const configuration = useConfiguration(state => state.userConfiguration);
-  const updateUserConfiguration = useConfiguration(state => state.updateUserConfiguration);
-
-  if (configuration == null) return null;
+  const configuration = useConfigurationStore(state => state.userConfiguration);
 
   return (
     <>
@@ -31,7 +27,7 @@ export const AdvanceSettings = () => {
           configuration.ttsConfiguration.replacements
             .sort((a,b) => (a.ordinal - b.ordinal))
             .map((r) => (
-              <TTSReplacementBlock 
+              <TTSReplacementBlock
                 canAddSubReplacement
                 key={r.id}
                 onDelete={() => {
@@ -43,7 +39,7 @@ export const AdvanceSettings = () => {
                           .filter(re => re.id !== r.id),
                       ]
                     }
-                  }, session);
+                  });
                 }}
                 onChange={(newR) => {
                   updateUserConfiguration({
@@ -55,7 +51,7 @@ export const AdvanceSettings = () => {
                         newR
                       ]
                     }
-                  }, session);
+                  });
                 }}
                 replacement={r}
               />
@@ -79,13 +75,11 @@ export const AdvanceSettings = () => {
                   replaceFullMessage: false,
                 }
               ]
-            }},
-          session);
+            }});
         }}>
           Add new block
         </button>
       </S.BlockContainer>
     </>
   );
-
 };

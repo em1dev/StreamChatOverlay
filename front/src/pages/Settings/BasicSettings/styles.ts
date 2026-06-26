@@ -7,14 +7,6 @@ export const EmoteToggleContainer = styled.div`
   flex-wrap: wrap;
 `;
 
-export const ChatContainer = styled.div`
-  background-color: #dfd7ce;
-  border-radius: 1em;
-  padding: 1em;
-  height: 400px;
-  margin-bottom: 1.5em;
-`;
-
 export const DirectionContainer = styled.div`
   display: flex;
   align-items: center;

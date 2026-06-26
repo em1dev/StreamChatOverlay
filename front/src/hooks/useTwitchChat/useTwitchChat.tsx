@@ -7,14 +7,14 @@ import { useBadges } from '../useBadges';
 import { TwitchChatParser } from './twitchChatParser';
 import { useCustomEmotes } from '../useCustomEmotes';
 import { useTTS } from '../useTTS/useTTS';
-import { useConfiguration } from '../../store/configuration';
+import { useConfigurationStore } from '@/store/configurationStore';
 
 const MAX_MESSAGES = 20;
 
 type OnChatMessageEventHandler = (channel: string, user:string, text:string, msg: TwurpleChatMessage) => Promise<void>;
 
 export const useTwitchChat = (channelId: string, channelLogin: string) => {
-  const configuration = useConfiguration(state => state);
+  const configuration = useConfigurationStore(state => state);
 
   const {
     clearQueue: ttsClearQueue,

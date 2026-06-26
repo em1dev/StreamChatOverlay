@@ -1,13 +1,14 @@
 import { CONNECTIONS_STORAGE_KEY } from '@/store/connectionStorageKey';
 import { chatApi } from '@/api/chatApi';
-import { useAuth } from '@/context/authContext/useAuth';
 import { Icon } from '@iconify/react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useSearchParams } from 'react-router';
+import { setAuthIsLoading, useAuth } from '@/store/authStore';
+
 
 export const ConnectionPage = () => {
-  const { session, setToken, isLoading, setIsLoading } = useAuth();
+  const { session, isLoading } = useAuth();
   const [search, setSearch] = useSearchParams();
   const params = useParams<{ provider: string }>();
 
@@ -28,7 +29,7 @@ export const ConnectionPage = () => {
     if (!code) return;
 
     setSearch('');
-    setIsLoading(true);
+    setAuthIsLoading(true);
 
     chatApi
       .addNewConnection(session.token, provider, code, location.href)
@@ -39,7 +40,7 @@ export const ConnectionPage = () => {
         window.umami?.track('service connection completed');
         window.close();
       });
-  }, [session, setToken, search, setSearch, params, isLoading, setIsLoading]);
+  }, [session, search, setSearch, params, isLoading]);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>

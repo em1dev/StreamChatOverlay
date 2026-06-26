@@ -1,43 +1,31 @@
-import Chat from '@/components/ChatVisualizerCore';
 import { ToggleInput } from '@/components/ToggleInput';
-import { landingExamplesMessages } from '@/examples/landingExamplesMessages';
-import { useChatTheme } from '@/hooks/useChatTheme';
-import { useConfiguration } from '@/store/configuration';
+import { updateUserConfiguration } from '@/store/configurationStore/actions';
+import { useConfigurationStore } from '@/store/configurationStore';
 import { Icon } from '@iconify/react';
-import { ThemeProvider } from 'styled-components';
 import { HeaderOrdering } from './HeaderOrdering';
 import { FontSizeSection } from './FontSizeSection';
 import { ThemePicker } from '@/components/ThemePicker';
-import { useAuth } from '@/context/authContext/useAuth';
 import FontPicker from '@/components/FontPicker';
 import { DisplayTextSection } from './DisplayTextSection';
+import { ChatPreview } from './ChatPreview';
 
 import * as S from './styles';
 
+
 export const BasicSettings = () => {
-  const configuration = useConfiguration(state => state.userConfiguration);
-  const { session } = useAuth();
-  const updateConfig = useConfiguration(state => state.updateUserConfiguration);
-
-  const chatTheme = useChatTheme();
-
-  if (configuration == null) return null;
-
-  const chatDirection = configuration.chatDirection;
-  const emoteConfiguration = configuration.emotes;
-  const hideBotMessages = configuration.hideBotMessages;
-  const hideCommands = configuration.hideCommands;
-  const lowerOpacityOnTop = configuration.lowerOpacityOnTop;
+  const chatDirection =  useConfigurationStore(state => state.userConfiguration.chatDirection);
+  const emoteConfiguration = useConfigurationStore(state =>  state.userConfiguration.emotes);
+  const hideBotMessages = useConfigurationStore(state => state.userConfiguration.hideBotMessages);
+  const hideCommands = useConfigurationStore(state => state.userConfiguration.hideCommands);
+  const lowerOpacityOnTop = useConfigurationStore(state =>  state.userConfiguration.lowerOpacityOnTop);
+  const chatTheme = useConfigurationStore(state =>  state.userConfiguration.chatTheme);
+  const chatThemeVariant = useConfigurationStore(state =>  state.userConfiguration.chatThemeVariant);
 
   return (
     <>
       <h1>Basic Settings</h1>
 
-      <S.ChatContainer>
-        <ThemeProvider theme={chatTheme}>
-          <Chat msgs={landingExamplesMessages} />
-        </ThemeProvider>
-      </S.ChatContainer>
+      <ChatPreview />
 
       <section>
         <h2>Chat Direction</h2>
@@ -47,7 +35,7 @@ export const BasicSettings = () => {
             <button
               aria-label='left'
               aria-checked={chatDirection == 'left'}
-              onClick={() => updateConfig({ chatDirection: 'left' }, session)}
+              onClick={() => updateUserConfiguration({ chatDirection: 'left' })}
               type='button'
               role='radio'
             >
@@ -63,7 +51,7 @@ export const BasicSettings = () => {
             <button
               aria-label='right'
               aria-checked={chatDirection == 'right'}
-              onClick={() => updateConfig({ chatDirection: 'right' }, session)}
+              onClick={() => updateUserConfiguration({ chatDirection: 'right' })}
               type='button'
               role='radio'
             >
@@ -81,17 +69,22 @@ export const BasicSettings = () => {
         <h2>Container</h2>
         <ToggleInput
           isChecked={lowerOpacityOnTop}
-          onChange={(value) => { updateConfig(
-            { lowerOpacityOnTop: value },
-            session
-          ); }}
+          onChange={(value) => { updateUserConfiguration({ lowerOpacityOnTop: value }); }}
         >
           Lower message opacity at the top
         </ToggleInput>
       </section>
 
-
-      <ThemePicker />
+      <ThemePicker
+        themeKey={chatTheme}
+        themeVariant={chatThemeVariant}
+        onChange={(newKey, newVariant) => {
+          updateUserConfiguration({
+            chatTheme: newKey,
+            chatThemeVariant: newVariant
+          });
+        }}
+      />
 
       <section>
         <FontPicker />
@@ -104,30 +97,33 @@ export const BasicSettings = () => {
         <S.EmoteToggleContainer>
           <ToggleInput
             isChecked={emoteConfiguration.isBetterTTVEnabled}
-            onChange={(value) => { updateConfig(
-              { emotes: {...emoteConfiguration, isBetterTTVEnabled: value} },
-              session
-            ); }}
+            onChange={(value) => { updateUserConfiguration(
+              {
+                emotes: { ...emoteConfiguration, isBetterTTVEnabled: value }
+              });
+            }}
           >
             BetterTTV
           </ToggleInput>
 
           <ToggleInput
             isChecked={emoteConfiguration.isFrankerFaceEnabled}
-            onChange={(value) => { updateConfig(
-              { emotes: {...emoteConfiguration, isFrankerFaceEnabled: value} },
-              session
-            ); }}
+            onChange={(value) => { updateUserConfiguration(
+              {
+                emotes: { ...emoteConfiguration, isFrankerFaceEnabled: value }
+              });
+            }}
           >
             FrankerFaceZ
           </ToggleInput>
 
           <ToggleInput
             isChecked={emoteConfiguration.isSevenTVEnabled}
-            onChange={(value) => { updateConfig(
-              { emotes: {...emoteConfiguration, isSevenTVEnabled: value} },
-              session
-            ); }}
+            onChange={(value) => { updateUserConfiguration(
+              {
+                emotes: { ...emoteConfiguration, isSevenTVEnabled: value }
+              });
+            }}
           >
             7TV
           </ToggleInput>
@@ -138,20 +134,22 @@ export const BasicSettings = () => {
         <h2>Hide messages</h2>
         <ToggleInput
           isChecked={hideBotMessages}
-          onChange={(value) => { updateConfig(
-            { hideBotMessages: value },
-            session
-          ); } }
+          onChange={(value) => { updateUserConfiguration(
+            {
+              hideBotMessages: value
+            });
+          }}
         >
           Hide bot messages
         </ToggleInput>
 
         <ToggleInput
           isChecked={hideCommands}
-          onChange={(value) => { updateConfig(
-            { hideCommands: value },
-            session
-          ); }}
+          onChange={(value) => { updateUserConfiguration(
+            {
+              hideCommands: value
+            });
+          }}
         >
           Hide commands ( messages starting with ! )
         </ToggleInput>

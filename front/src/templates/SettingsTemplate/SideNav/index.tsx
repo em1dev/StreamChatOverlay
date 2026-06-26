@@ -1,20 +1,21 @@
 import { Icon } from '@iconify/react';
-import * as S from './styles';
 import { NavLink } from 'react-router';
 import { Divider } from '@/components/Divider';
-import { useSideMenuStore } from '@/store/sideMenuStore';
+import { setIsSideMenuOpen, useSideMenuStore } from '@/store/sideMenuStore';
 import { useCallback } from 'react';
-import { useAuth } from '@/context/authContext/useAuth';
+import { useAuth, logOut } from '@/store/authStore';
+
+import * as S from './styles';
+
 
 export const SideNav = () =>
 {
-  const { session, logOut } = useAuth();
+  const { session } = useAuth();
   const isOpen = useSideMenuStore(s => s.isOpen);
-  const setIsOpen = useSideMenuStore(s => s.setIsOpen);
 
   const onNavigation = useCallback(() => {
-    setIsOpen(false);
-  }, [setIsOpen]);
+    setIsSideMenuOpen(false);
+  }, []);
 
   return (
     <S.NavContainer $isOpen={isOpen}>
@@ -26,7 +27,7 @@ export const SideNav = () =>
           </div>
         )}
 
-        <button title='close nav' onClick={() => setIsOpen(false)}>
+        <button title='close nav' onClick={() => setIsSideMenuOpen(false)}>
           <Icon fontSize='2em' icon="mingcute:close-medium-fill" />
         </button>
       </S.NavHeader>

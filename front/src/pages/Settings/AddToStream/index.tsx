@@ -1,19 +1,19 @@
 import { Icon } from '@iconify/react';
-import { useConfiguration } from '@/store/configuration';
+import { setSecret } from '@/store/configurationStore/actions';
+import { useConfigurationStore } from '@/store/configurationStore';
 import { useCallback, useRef, useState } from 'react';
-import { useAuth } from '@/context/authContext/useAuth';
 import { chatApi } from '@/api/chatApi';
 import step2ImgUrl from './img/step2.png';
 import step3ImgUrl from './img/step3.png';
+import { useAuth, logOut } from '@/store/authStore';
 
 import * as S from './styles';
 
 
 export const AddToStream = () =>
 {
-  const { session, logOut } = useAuth();
-  const secretKey = useConfiguration(s => s.secretKey);
-  const setSecret = useConfiguration(s => s.setSecret);
+  const { session } = useAuth();
+  const secretKey = useConfigurationStore(s => s.secretKey);
 
   const [isLoadingSecret, setIsLoadingSecret] = useState(false);
   const [hasErrorLoadingSecret, setHasErrorLoadingSecret] = useState(false);
@@ -40,7 +40,7 @@ export const AddToStream = () =>
       }
       setHasErrorLoadingSecret(true);
     })();
-  }, [session, logOut, setSecret]);
+  }, [session]);
 
   const onCopySecretUrlClick = useCallback(() => {
     if (!session) return;
@@ -135,5 +135,4 @@ export const AddToStream = () =>
       </S.StepContainer>
     </>
   );
-
 };

@@ -1,6 +1,6 @@
-import { useConfiguration } from '@/store/configuration';
+import { updateUserConfiguration } from '@/store/configurationStore/actions';
+import { useConfigurationStore } from '@/store/configurationStore';
 import { Icon } from '@iconify/react';
-import { useAuth } from '@/context/authContext/useAuth';
 
 import * as S from './styles';
 
@@ -8,15 +8,12 @@ const MIN_FONT_SIZE = 5;
 const MAX_FONT_SIZE = 25;
 
 export const FontSizeSection = () => {
-  const { session } = useAuth();
-  const updateConfig = useConfiguration(state => state.updateUserConfiguration);
-  const fontSize = useConfiguration(state => state.userConfiguration.fontSize);
+  const fontSize = useConfigurationStore(state => state.userConfiguration.fontSize);
 
   const updateFontSize = (newValue: number) => {
-    updateConfig({
+    updateUserConfiguration({
       fontSize: Math.min(Math.max(newValue, MIN_FONT_SIZE), MAX_FONT_SIZE)
-    },
-    session);
+    });
   };
 
   return (

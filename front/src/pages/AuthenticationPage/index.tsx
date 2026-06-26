@@ -1,11 +1,11 @@
 import { chatApi } from '@/api/chatApi';
-import { useAuth } from '@/context/authContext/useAuth';
+import { setAuthIsLoading, setToken, useAuth } from '@/store/authStore';
 import { Icon } from '@iconify/react';
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router';
 
 export const AuthenticationPage = () => {
-  const { session, setToken, isLoading, setIsLoading } = useAuth();
+  const { session, isLoading } = useAuth();
   const [search, setSearch] = useSearchParams();
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export const AuthenticationPage = () => {
     setSearch('');
 
     (async () => {
-      setIsLoading(true);
+      setAuthIsLoading(true);
       const resp = await chatApi.authenticateWithCode(code);
       if (!resp)
       {
@@ -32,7 +32,7 @@ export const AuthenticationPage = () => {
       window.close();
     })();
     return;
-  }, [session, setToken, search, setSearch, isLoading, setIsLoading]);
+  }, [session, search, setSearch, isLoading ]);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>

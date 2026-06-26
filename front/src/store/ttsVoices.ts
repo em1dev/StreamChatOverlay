@@ -1,17 +1,18 @@
-import { create, useStore } from 'zustand';
+import { create } from 'zustand';
+
 
 interface TtsVoiceStore  {
   voices: Array<SpeechSynthesisVoice>,
-  setVoices: (values: Array<SpeechSynthesisVoice>) => void,
 }
 
-export const ttsVoiceStore = create<TtsVoiceStore>()((set) => ({
-  voices: [],
-  setVoices: (value) => {
-    set(() => ({ voices: value }));
-  },
-}));
+export const setTtsVoices = (
+  newValue: SpeechSynthesisVoice[] | ((prevValue: SpeechSynthesisVoice[]) => SpeechSynthesisVoice[])
+) => {
+  useTtsVoiceStore.setState({
+    voices: typeof newValue === 'function' ? newValue(useTtsVoiceStore.getState().voices) : newValue
+  });
+};
 
-export const useTtsVoices = <T>(selector: (state: TtsVoiceStore) => T) => (
-  useStore(ttsVoiceStore, selector)
-);
+export const useTtsVoiceStore = create<TtsVoiceStore>()(() => ({
+  voices: [],
+}));

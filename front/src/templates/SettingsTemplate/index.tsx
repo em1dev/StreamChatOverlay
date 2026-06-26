@@ -1,23 +1,24 @@
 import * as S from './style';
 import { Header } from '@/components/Header';
 import { SideNav } from './SideNav';
-import { useAuth } from '@/context/authContext/useAuth';
 import { Outlet, useNavigate } from 'react-router';
 import { useEffect } from 'react';
 import { Footer } from '@/components/Footer';
 import { useSideMenuStore } from '@/store/sideMenuStore';
+import { SettingsSynchronizer } from '@/utils/SettingsSynchronizer';
+import { useAuth } from '@/store/authStore';
 
 
 export const SettingsTemplate = () => {
   const isOpen = useSideMenuStore(s => s.isOpen);
-  const { session, isLoading } = useAuth();
+  const { isLoading, session } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!session && !isLoading) {
+    if (!isLoading && !session) {
       navigate('/');
     }
-  }, [session, navigate, isLoading]);
+  }, [session, isLoading, navigate]);
 
   useEffect(() => {
     document.body.classList = isOpen ? 'noScroll' : '';
@@ -28,6 +29,7 @@ export const SettingsTemplate = () => {
 
   return (
     <S.Container>
+      <SettingsSynchronizer />
       <Header />
       <SideNav />
       <S.ContentContainer>

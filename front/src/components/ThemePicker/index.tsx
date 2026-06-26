@@ -1,24 +1,30 @@
 import { themeKeyMap, ThemeKeys, themeKeyWithDisplayName } from '@/themes/chatThemes';
 import { Select } from '../Select';
-import { useConfiguration } from '@/store/configuration';
 import { useId, useMemo } from 'react';
-import { useAuth } from '@/context/authContext/useAuth';
+
 
 import * as S from './styles';
 
 export interface ThemePickerProps {
-  label?: string
+  label?: string,
+  themeKey: ThemeKeys,
+  themeVariant?: string,
+  onChange: (
+    themeKey: ThemeKeys,
+    themeVariant: string
+  ) => void
 }
 
-export const ThemePicker = (props: ThemePickerProps) => {
+export const ThemePicker = ({
+  onChange,
+  themeKey,
+  label,
+  themeVariant
+}: ThemePickerProps) => {
   const id = useId();
-  const { session } = useAuth();
-  const themeKey = useConfiguration(c => c.userConfiguration.chatTheme);
-  const themeVariant = useConfiguration(c => c.userConfiguration.chatThemeVariant);
-  const updateConfig = useConfiguration(c => c.updateUserConfiguration);
 
   const variants = useMemo(() => {
-    const themeVariants = (themeKey ? themeKeyMap[themeKey] : themeKeyMap['duck']) ?? themeKeyMap['duck']; 
+    const themeVariants = (themeKey ? themeKeyMap[themeKey] : themeKeyMap['duck']) ?? themeKeyMap['duck'];
     return Object.entries(themeVariants);
   }, [themeKey]);
 
@@ -26,11 +32,11 @@ export const ThemePicker = (props: ThemePickerProps) => {
     <S.Container>
       <label htmlFor={id}>
         <h2>
-          {props.label ?? 'Theme'}
+          {label ?? 'Theme'}
         </h2>
       </label>
       <Select id={id} value={themeKey} onChange={(e) => {
-        updateConfig({ chatTheme: e.target.value as ThemeKeys, chatThemeVariant: 'default' }, session);
+        onChange(e.target.value as ThemeKeys, 'default');
       }}>
         {themeKeyWithDisplayName.map(v => (
           <option key={v.key} value={v.key}>{v.displayName}</option>
@@ -44,7 +50,7 @@ export const ThemePicker = (props: ThemePickerProps) => {
             title={v[0]}
             key={v[0]}
             onClick={() => {
-              updateConfig({ chatThemeVariant: v[0] }, session);
+              onChange(themeKey, v[0]);
             }}
             $selected={
               !themeVariant ? v[0] == 'default' : v[0] == themeVariant

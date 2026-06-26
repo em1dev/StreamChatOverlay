@@ -1,25 +1,24 @@
 import { Select } from '@/components/Select';
 import { ToggleInput } from '@/components/ToggleInput';
-import { useConfiguration } from '@/store/configuration';
-import { useTtsVoices } from '@/store/ttsVoices';
+import { updateUserConfiguration } from '@/store/configurationStore/actions';
+import { useConfigurationStore } from '@/store/configurationStore';
+import { useTtsVoiceStore, setTtsVoices } from '@/store/ttsVoices';
 import { useCallback, useEffect, useState } from 'react';
 import { UserPronunciationBlock } from './UserPronounciationBlock';
 import { Icon } from '@iconify/react';
 import { useTTS } from '@/hooks/useTTS/useTTS';
 import { IconButton } from '@/components/IconButton';
 import { Input } from '@/components/Input';
-import { useAuth } from '@/context/authContext/useAuth';
 import { MessagePart } from '@/types';
 
 import * as S from './styles';
 
+
 export const TextToSpeechSettings = () => {
-  const { session } = useAuth();
-  const ttsConfiguration = useConfiguration(state => state.userConfiguration?.ttsConfiguration);
-  const updateConfig = useConfiguration(state => state.updateUserConfiguration);
+  const ttsConfiguration = useConfigurationStore(state => state.userConfiguration?.ttsConfiguration);
 
   const tts = useTTS();
-  const { voices, setVoices } = useTtsVoices(state => state);
+  const { voices } = useTtsVoiceStore(state => state);
 
   const [testTtsMessage, setTestTtsMessage ] = useState<string>('Hello world');
 
@@ -31,7 +30,7 @@ export const TextToSpeechSettings = () => {
 
     const onVoicesChange = () => {
       const voices = speechSynthesis.getVoices();
-      setVoices(voices);
+      setTtsVoices(voices);
     };
 
     onVoicesChange();
@@ -41,7 +40,7 @@ export const TextToSpeechSettings = () => {
     return () => {
       speechSynthesis.removeEventListener('voiceschanged', onVoicesChange);
     };
-  }, [setVoices]);
+  }, []);
 
   const speak = useCallback((text: string) => {
     const parts:Array<MessagePart> = [];
@@ -81,10 +80,8 @@ export const TextToSpeechSettings = () => {
         <h2>Settings</h2>
         <ToggleInput
           isChecked={ttsConfiguration.isTTSEnabled}
-          onChange={(value) => { updateConfig(
-            { ttsConfiguration: {...ttsConfiguration, isTTSEnabled: value } },
-            session
-          ); }}
+          onChange={(value) => { updateUserConfiguration(
+            { ttsConfiguration: {...ttsConfiguration, isTTSEnabled: value } }); }}
         >
           Enable TTS
         </ToggleInput>
@@ -100,12 +97,12 @@ export const TextToSpeechSettings = () => {
             value={ttsConfiguration.selectedVoice}
             onChange={(e) => {
               const newVoice = voices.find(v => v.voiceURI === e.target.value);
-              updateConfig({
+              updateUserConfiguration({
                 ttsConfiguration: {
                   ...ttsConfiguration,
                   selectedVoice: newVoice?.voiceURI
                 }
-              }, session);
+              });
             }}
           >
             {voices.map((v) => (
@@ -131,19 +128,17 @@ export const TextToSpeechSettings = () => {
         <S.InlineInputContainer>
           <ToggleInput
             isChecked={ttsConfiguration.onlyReadMessagesThatStartWithTtsCommand}
-            onChange={(value) => { updateConfig(
-              { ttsConfiguration: {...ttsConfiguration, onlyReadMessagesThatStartWithTtsCommand: value } },
-              session
-            ); }}
+            onChange={(value) => { updateUserConfiguration(
+              { ttsConfiguration: {...ttsConfiguration, onlyReadMessagesThatStartWithTtsCommand: value } }); }}
           >
             Only read messages starting with
           </ToggleInput>
           <Input
             value={ttsConfiguration.ttsCommand}
             onChange={(e) => {
-              updateConfig({
+              updateUserConfiguration({
                 ttsConfiguration: { ...ttsConfiguration, ttsCommand: e.target.value }
-              }, session);
+              });
             }}
           />
         </S.InlineInputContainer>
@@ -151,10 +146,8 @@ export const TextToSpeechSettings = () => {
         <div>
           <ToggleInput
             isChecked={ttsConfiguration.ignoreBotMessages}
-            onChange={(value) => { updateConfig(
-              { ttsConfiguration: {...ttsConfiguration, ignoreBotMessages: value } },
-              session
-            ); }}
+            onChange={(value) => { updateUserConfiguration(
+              { ttsConfiguration: {...ttsConfiguration, ignoreBotMessages: value } }); }}
           >
             Don't read bot messages
           </ToggleInput>
@@ -162,20 +155,16 @@ export const TextToSpeechSettings = () => {
 
         <ToggleInput
           isChecked={ttsConfiguration.ignoreCommandMessages}
-          onChange={(value) => { updateConfig(
-            { ttsConfiguration: {...ttsConfiguration, ignoreCommandMessages: value } },
-            session
-          ); }}
+          onChange={(value) => { updateUserConfiguration(
+            { ttsConfiguration: {...ttsConfiguration, ignoreCommandMessages: value } }); }}
         >
           Don't read commands ( messages starting with ! )
         </ToggleInput>
 
         <ToggleInput
           isChecked={ttsConfiguration.readUnderscoresAsSpaces}
-          onChange={(value) => { updateConfig(
-            { ttsConfiguration: {...ttsConfiguration, readUnderscoresAsSpaces: value } },
-            session
-          ); }}
+          onChange={(value) => { updateUserConfiguration(
+            { ttsConfiguration: {...ttsConfiguration, readUnderscoresAsSpaces: value } }); }}
         >
           Don't read underscores
         </ToggleInput>
@@ -192,10 +181,8 @@ export const TextToSpeechSettings = () => {
         <h2>Emotes</h2>
         <ToggleInput
           isChecked={ttsConfiguration.readEmotes}
-          onChange={(value) => { updateConfig(
-            { ttsConfiguration: {...ttsConfiguration, readEmotes: value } },
-            session
-          ); }}
+          onChange={(value) => { updateUserConfiguration(
+            { ttsConfiguration: {...ttsConfiguration, readEmotes: value } }); }}
         >
           Read emotes
         </ToggleInput>
@@ -207,10 +194,8 @@ export const TextToSpeechSettings = () => {
               type='number'
               min={1}
               value={ttsConfiguration.emotesToRead}
-              onChange={(e) => { updateConfig(
-                { ttsConfiguration: { ...ttsConfiguration, emotesToRead: parseInt(e.target.value) }},
-                session
-              ); }}
+              onChange={(e) => { updateUserConfiguration(
+                { ttsConfiguration: { ...ttsConfiguration, emotesToRead: parseInt(e.target.value) }}); }}
             />
             <span>emote per message</span>
           </S.EmotesToReadContainer>
@@ -221,10 +206,8 @@ export const TextToSpeechSettings = () => {
         <h2>Fun</h2>
         <ToggleInput
           isChecked={ttsConfiguration.allowRoleplay}
-          onChange={(value) => { updateConfig(
-            { ttsConfiguration: { ...ttsConfiguration, allowRoleplay: value }},
-            session
-          ); }}
+          onChange={(value) => { updateUserConfiguration(
+            { ttsConfiguration: { ...ttsConfiguration, allowRoleplay: value }}); }}
         >
           Allow roleplay
         </ToggleInput>
@@ -242,10 +225,8 @@ export const TextToSpeechSettings = () => {
         <h2>Urls</h2>
         <ToggleInput
           isChecked={ttsConfiguration.replaceUrls}
-          onChange={(value) => { updateConfig(
-            { ttsConfiguration: { ...ttsConfiguration, replaceUrls: value }},
-            session
-          );
+          onChange={(value) => { updateUserConfiguration(
+            { ttsConfiguration: { ...ttsConfiguration, replaceUrls: value }});
           }}
         >
           Replace messages containing urls with
@@ -253,9 +234,9 @@ export const TextToSpeechSettings = () => {
         <Input
           value={ttsConfiguration.replaceUrlWith}
           onChange={(e) => {
-            updateConfig({
+            updateUserConfiguration({
               ttsConfiguration: { ...ttsConfiguration, replaceUrlWith: e.target.value }
-            }, session);
+            });
           }}
         />
         <p>$who is replace with the user sending the message</p>
