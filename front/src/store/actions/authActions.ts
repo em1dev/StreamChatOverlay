@@ -1,7 +1,7 @@
 import { chatApi } from '@/api/chatApi';
 import router from '@/app/routes';
 import { decodeJwt } from 'jose';
-import { create } from 'zustand';
+import { useStore } from '../';
 
 
 export const LOCAL_STORAGE_AUTH_KEY = 'CHAT_SESSION';
@@ -23,11 +23,6 @@ export interface User {
   }
 }
 
-interface AuthStore {
-  isLoading: boolean,
-  session: Session | null
-}
-
 // actions
 export const signIn = () => {
   window.umami?.track('Sign in initiated');
@@ -38,7 +33,7 @@ export const logOut = () => {
   window.umami?.track('Sign out');
   window.umami?.identify('');
   localStorage.removeItem(LOCAL_STORAGE_AUTH_KEY);
-  useAuth.setState({ session: null });
+  useStore.setState({ session: null });
   router.navigate('/');
 };
 
@@ -48,19 +43,12 @@ export const setToken = (token: string) => {
 };
 
 export const setSession = (session: Session | null) => {
-  useAuth.setState({ session });
+  useStore.setState({ session });
 };
 
 export const setAuthIsLoading = (isLoading: boolean) => {
-  useAuth.setState({ isLoading });
+  useStore.setState({ isLoadingSession: isLoading });
 };
-
-
-// store
-export const useAuth = create<AuthStore>()(() => ({
-  isLoading: true,
-  session: null
-}));
 
 // Auth Listener
 const loadTokenFromLocalStorage = async () => {

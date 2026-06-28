@@ -1,5 +1,5 @@
-import { useConfigurationStore } from '@/store/configurationStore';
-import { useEffect } from 'react';
+import { useStore } from '@/store';
+import { useEffect, useRef } from 'react';
 
 const WS_URL = import.meta.env.VITE_WS_URL;
 if (!WS_URL) throw new Error('Missing VITE_WS_URL in .env file');
@@ -8,6 +8,12 @@ export const useSettingsChangeListener = (
   userId: number | null,
   onChange: () => void
 ) => {
+  const onChangeRef = useRef(onChange);
+
+  useEffect(() => {
+    onChangeRef.current = onChange;
+  }, [onChange]);
+
   useEffect(() => {
     if (userId == null) return;
 
@@ -43,11 +49,10 @@ export const useSettingsChangeListener = (
         };
 
         // ignore events emitted by this client
-        if (changeId == useConfigurationStore.getState().changeConfigurationId) return;
+        if (changeId == useStore.getState().clientIdentifier) return;
         console.log('Received change event');
-        onChange();
+        onChangeRef.current();
       };
-
 
       ws.onclose = (ev) => {
         if (ev.wasClean) return;
@@ -70,5 +75,5 @@ export const useSettingsChangeListener = (
         connection.instance.close();
       }
     };
-  }, [onChange, userId]);
+  }, [userId]);
 };

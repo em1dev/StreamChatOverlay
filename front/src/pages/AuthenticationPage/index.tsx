@@ -1,15 +1,17 @@
 import { chatApi } from '@/api/chatApi';
-import { setAuthIsLoading, setToken, useAuth } from '@/store/authStore';
+import { useStore } from '@/store';
+import { setAuthIsLoading, setToken } from '@/store/actions/authActions';
 import { Icon } from '@iconify/react';
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router';
 
+
 export const AuthenticationPage = () => {
-  const { session, isLoading } = useAuth();
+  const { session, isLoadingSession } = useStore();
   const [search, setSearch] = useSearchParams();
 
   useEffect(() => {
-    if (isLoading) return;
+    if (isLoadingSession) return;
 
     if (session) {
       window.close();
@@ -32,7 +34,7 @@ export const AuthenticationPage = () => {
       window.close();
     })();
     return;
-  }, [session, search, setSearch, isLoading ]);
+  }, [session, search, setSearch, isLoadingSession ]);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>

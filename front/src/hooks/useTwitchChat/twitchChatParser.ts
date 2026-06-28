@@ -1,8 +1,8 @@
 import { CustomEmote } from '../../api/chatApi/types';
 import { SpecialMsgId, TwitchAnimationId, TwitchMsgTags, TwurpleChatMessage } from './types';
 import { ChatMessageData, MessagePart } from '../../types';
-import { UserConfiguration } from '@/types/userConfigurationTypes';
 import { variableReplacementEngine } from '@/utils/variableReplacementEngine';
+import { ChatSettings } from '@/types/settingsTypes';
 
 // these characters are used by third party extension to by-pass the one message limit in twitch..breaking my regex :v
 // there might be more weird characters used out there but these two are the ones I could find.
@@ -14,7 +14,7 @@ const parseMessage = (
   emoteOffsets: Map<string, Array<string>>,
   customEmotes: Array<CustomEmote>,
   twurpleMsg: TwurpleChatMessage,
-  userConfiguration: UserConfiguration
+  chatSettings: ChatSettings
 ): Array<MessagePart> => {
   const contentWithoutHiddenCharacter = content
     .replaceAll(NON_PRINTABLE_CHARACTER_1, '')
@@ -22,7 +22,7 @@ const parseMessage = (
 
   let messageParts = parseTwitchEmotes(contentWithoutHiddenCharacter, emoteOffsets);
   messageParts = parseCustomEmotes(messageParts, customEmotes);
-  messageParts = parseExtras(messageParts, twurpleMsg, userConfiguration);
+  messageParts = parseExtras(messageParts, twurpleMsg, chatSettings);
 
   return messageParts;
 };
@@ -30,7 +30,7 @@ const parseMessage = (
 const parseExtras = (
   messageParts: Array<MessagePart>,
   twurpleMsg: TwurpleChatMessage,
-  userConfiguration: UserConfiguration
+  chatSettings: ChatSettings
 ) => {
   // mentions
   let newParts = [...messageParts].flatMap((part) => {
@@ -52,7 +52,7 @@ const parseExtras = (
 
       firstMention.type = 'reply';
 
-      const content = variableReplacementEngine.applyVariables(userConfiguration.replyLabel,
+      const content = variableReplacementEngine.applyVariables(chatSettings.replyLabel,
         twurpleMsg.text,
         twurpleMsg.userInfo.displayName,
         firstMention.content,
@@ -65,7 +65,7 @@ const parseExtras = (
 
   if (twurpleMsg.isRedemption) {
     newParts = [...newParts, {
-      content: userConfiguration.redemptionLabel,
+      content: chatSettings.redemptionLabel,
       type: 'redeption',
       originalContent: '',
     } satisfies MessagePart];

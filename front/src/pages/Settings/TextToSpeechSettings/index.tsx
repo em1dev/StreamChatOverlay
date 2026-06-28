@@ -1,8 +1,7 @@
 import { Select } from '@/components/Select';
 import { ToggleInput } from '@/components/ToggleInput';
-import { updateUserConfiguration } from '@/store/configurationStore/actions';
-import { useConfigurationStore } from '@/store/configurationStore';
-import { useTtsVoiceStore, setTtsVoices } from '@/store/ttsVoices';
+import { useChatSettings , useStore } from '@/store';
+import { setTtsVoices } from '@/store/actions/voiceActions';
 import { useCallback, useEffect, useState } from 'react';
 import { UserPronunciationBlock } from './UserPronounciationBlock';
 import { Icon } from '@iconify/react';
@@ -10,15 +9,14 @@ import { useTTS } from '@/hooks/useTTS/useTTS';
 import { IconButton } from '@/components/IconButton';
 import { Input } from '@/components/Input';
 import { MessagePart } from '@/types';
-
+import { updateChatSettings } from '@/store/actions/settingsActions';
 import * as S from './styles';
 
 
 export const TextToSpeechSettings = () => {
-  const ttsConfiguration = useConfigurationStore(state => state.userConfiguration?.ttsConfiguration);
-
+  const ttsConfiguration = useChatSettings(state => state.ttsConfiguration);
+  const voices = useStore(state => state.voices);
   const tts = useTTS();
-  const { voices } = useTtsVoiceStore(state => state);
 
   const [testTtsMessage, setTestTtsMessage ] = useState<string>('Hello world');
 
@@ -70,8 +68,6 @@ export const TextToSpeechSettings = () => {
     });
   }, [tts, ttsConfiguration]);
 
-  if (!ttsConfiguration) return null;
-
   return (
     <>
       <h1>Text to speech</h1>
@@ -80,7 +76,7 @@ export const TextToSpeechSettings = () => {
         <h2>Settings</h2>
         <ToggleInput
           isChecked={ttsConfiguration.isTTSEnabled}
-          onChange={(value) => { updateUserConfiguration(
+          onChange={(value) => { updateChatSettings(
             { ttsConfiguration: {...ttsConfiguration, isTTSEnabled: value } }); }}
         >
           Enable TTS
@@ -97,7 +93,7 @@ export const TextToSpeechSettings = () => {
             value={ttsConfiguration.selectedVoice}
             onChange={(e) => {
               const newVoice = voices.find(v => v.voiceURI === e.target.value);
-              updateUserConfiguration({
+              updateChatSettings({
                 ttsConfiguration: {
                   ...ttsConfiguration,
                   selectedVoice: newVoice?.voiceURI
@@ -128,7 +124,7 @@ export const TextToSpeechSettings = () => {
         <S.InlineInputContainer>
           <ToggleInput
             isChecked={ttsConfiguration.onlyReadMessagesThatStartWithTtsCommand}
-            onChange={(value) => { updateUserConfiguration(
+            onChange={(value) => { updateChatSettings(
               { ttsConfiguration: {...ttsConfiguration, onlyReadMessagesThatStartWithTtsCommand: value } }); }}
           >
             Only read messages starting with
@@ -136,7 +132,7 @@ export const TextToSpeechSettings = () => {
           <Input
             value={ttsConfiguration.ttsCommand}
             onChange={(e) => {
-              updateUserConfiguration({
+              updateChatSettings({
                 ttsConfiguration: { ...ttsConfiguration, ttsCommand: e.target.value }
               });
             }}
@@ -146,7 +142,7 @@ export const TextToSpeechSettings = () => {
         <div>
           <ToggleInput
             isChecked={ttsConfiguration.ignoreBotMessages}
-            onChange={(value) => { updateUserConfiguration(
+            onChange={(value) => { updateChatSettings(
               { ttsConfiguration: {...ttsConfiguration, ignoreBotMessages: value } }); }}
           >
             Don't read bot messages
@@ -155,7 +151,7 @@ export const TextToSpeechSettings = () => {
 
         <ToggleInput
           isChecked={ttsConfiguration.ignoreCommandMessages}
-          onChange={(value) => { updateUserConfiguration(
+          onChange={(value) => { updateChatSettings(
             { ttsConfiguration: {...ttsConfiguration, ignoreCommandMessages: value } }); }}
         >
           Don't read commands ( messages starting with ! )
@@ -163,7 +159,7 @@ export const TextToSpeechSettings = () => {
 
         <ToggleInput
           isChecked={ttsConfiguration.readUnderscoresAsSpaces}
-          onChange={(value) => { updateUserConfiguration(
+          onChange={(value) => { updateChatSettings(
             { ttsConfiguration: {...ttsConfiguration, readUnderscoresAsSpaces: value } }); }}
         >
           Don't read underscores
@@ -181,7 +177,7 @@ export const TextToSpeechSettings = () => {
         <h2>Emotes</h2>
         <ToggleInput
           isChecked={ttsConfiguration.readEmotes}
-          onChange={(value) => { updateUserConfiguration(
+          onChange={(value) => { updateChatSettings(
             { ttsConfiguration: {...ttsConfiguration, readEmotes: value } }); }}
         >
           Read emotes
@@ -194,7 +190,7 @@ export const TextToSpeechSettings = () => {
               type='number'
               min={1}
               value={ttsConfiguration.emotesToRead}
-              onChange={(e) => { updateUserConfiguration(
+              onChange={(e) => { updateChatSettings(
                 { ttsConfiguration: { ...ttsConfiguration, emotesToRead: parseInt(e.target.value) }}); }}
             />
             <span>emote per message</span>
@@ -206,7 +202,7 @@ export const TextToSpeechSettings = () => {
         <h2>Fun</h2>
         <ToggleInput
           isChecked={ttsConfiguration.allowRoleplay}
-          onChange={(value) => { updateUserConfiguration(
+          onChange={(value) => { updateChatSettings(
             { ttsConfiguration: { ...ttsConfiguration, allowRoleplay: value }}); }}
         >
           Allow roleplay
@@ -225,7 +221,7 @@ export const TextToSpeechSettings = () => {
         <h2>Urls</h2>
         <ToggleInput
           isChecked={ttsConfiguration.replaceUrls}
-          onChange={(value) => { updateUserConfiguration(
+          onChange={(value) => { updateChatSettings(
             { ttsConfiguration: { ...ttsConfiguration, replaceUrls: value }});
           }}
         >
@@ -234,7 +230,7 @@ export const TextToSpeechSettings = () => {
         <Input
           value={ttsConfiguration.replaceUrlWith}
           onChange={(e) => {
-            updateUserConfiguration({
+            updateChatSettings({
               ttsConfiguration: { ...ttsConfiguration, replaceUrlWith: e.target.value }
             });
           }}

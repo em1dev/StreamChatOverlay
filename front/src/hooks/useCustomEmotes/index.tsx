@@ -4,11 +4,11 @@ import { chatApi } from '@/api/chatApi';
 import { escapeRegex } from '@/utils/regexUtils';
 import { BetterTTVSync } from './betterTTVSync';
 import { SevenTVSync } from './sevenTVSync';
-import { useConfigurationStore } from '@/store/configurationStore';
+import { useChatSettings } from '@/store';
 
 export const useCustomEmotes = (channelId: string) => {
   const [customEmotes, setCustomEmotes] = useState<Array<CustomEmote>>([]);
-  const emoteConfig = useConfigurationStore(state => state.userConfiguration.emotes);
+  const emoteConfig = useChatSettings(state => state.emotes);
 
   useEffect(() => {
     const updateEmoteStore = async () => {

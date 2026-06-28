@@ -1,6 +1,5 @@
 import { ToggleInput } from '@/components/ToggleInput';
-import { updateUserConfiguration } from '@/store/configurationStore/actions';
-import { useConfigurationStore } from '@/store/configurationStore';
+import { useChatSettings } from '@/store';
 import { Icon } from '@iconify/react';
 import { HeaderOrdering } from './HeaderOrdering';
 import { FontSizeSection } from './FontSizeSection';
@@ -8,18 +7,18 @@ import { ThemePicker } from '@/components/ThemePicker';
 import FontPicker from '@/components/FontPicker';
 import { DisplayTextSection } from './DisplayTextSection';
 import { ChatPreview } from './ChatPreview';
-
+import { updateChatSettings } from '@/store/actions/settingsActions';
 import * as S from './styles';
 
 
 export const BasicSettings = () => {
-  const chatDirection =  useConfigurationStore(state => state.userConfiguration.chatDirection);
-  const emoteConfiguration = useConfigurationStore(state =>  state.userConfiguration.emotes);
-  const hideBotMessages = useConfigurationStore(state => state.userConfiguration.hideBotMessages);
-  const hideCommands = useConfigurationStore(state => state.userConfiguration.hideCommands);
-  const lowerOpacityOnTop = useConfigurationStore(state =>  state.userConfiguration.lowerOpacityOnTop);
-  const chatTheme = useConfigurationStore(state =>  state.userConfiguration.chatTheme);
-  const chatThemeVariant = useConfigurationStore(state =>  state.userConfiguration.chatThemeVariant);
+  const chatDirection =  useChatSettings(state => state.chatDirection);
+  const emoteConfiguration = useChatSettings(state =>  state.emotes);
+  const hideBotMessages = useChatSettings(state => state.hideBotMessages);
+  const hideCommands = useChatSettings(state => state.hideCommands);
+  const lowerOpacityOnTop = useChatSettings(state =>  state.lowerOpacityOnTop);
+  const chatTheme = useChatSettings(state =>  state.chatTheme);
+  const chatThemeVariant = useChatSettings(state =>  state.chatThemeVariant);
 
   return (
     <>
@@ -35,7 +34,7 @@ export const BasicSettings = () => {
             <button
               aria-label='left'
               aria-checked={chatDirection == 'left'}
-              onClick={() => updateUserConfiguration({ chatDirection: 'left' })}
+              onClick={() => updateChatSettings({ chatDirection: 'left' })}
               type='button'
               role='radio'
             >
@@ -51,7 +50,7 @@ export const BasicSettings = () => {
             <button
               aria-label='right'
               aria-checked={chatDirection == 'right'}
-              onClick={() => updateUserConfiguration({ chatDirection: 'right' })}
+              onClick={() => updateChatSettings({ chatDirection: 'right' })}
               type='button'
               role='radio'
             >
@@ -69,7 +68,7 @@ export const BasicSettings = () => {
         <h2>Container</h2>
         <ToggleInput
           isChecked={lowerOpacityOnTop}
-          onChange={(value) => { updateUserConfiguration({ lowerOpacityOnTop: value }); }}
+          onChange={(value) => { updateChatSettings({ lowerOpacityOnTop: value }); }}
         >
           Lower message opacity at the top
         </ToggleInput>
@@ -79,7 +78,7 @@ export const BasicSettings = () => {
         themeKey={chatTheme}
         themeVariant={chatThemeVariant}
         onChange={(newKey, newVariant) => {
-          updateUserConfiguration({
+          updateChatSettings({
             chatTheme: newKey,
             chatThemeVariant: newVariant
           });
@@ -97,7 +96,7 @@ export const BasicSettings = () => {
         <S.EmoteToggleContainer>
           <ToggleInput
             isChecked={emoteConfiguration.isBetterTTVEnabled}
-            onChange={(value) => { updateUserConfiguration(
+            onChange={(value) => { updateChatSettings(
               {
                 emotes: { ...emoteConfiguration, isBetterTTVEnabled: value }
               });
@@ -108,7 +107,7 @@ export const BasicSettings = () => {
 
           <ToggleInput
             isChecked={emoteConfiguration.isFrankerFaceEnabled}
-            onChange={(value) => { updateUserConfiguration(
+            onChange={(value) => { updateChatSettings(
               {
                 emotes: { ...emoteConfiguration, isFrankerFaceEnabled: value }
               });
@@ -119,7 +118,7 @@ export const BasicSettings = () => {
 
           <ToggleInput
             isChecked={emoteConfiguration.isSevenTVEnabled}
-            onChange={(value) => { updateUserConfiguration(
+            onChange={(value) => { updateChatSettings(
               {
                 emotes: { ...emoteConfiguration, isSevenTVEnabled: value }
               });
@@ -134,7 +133,7 @@ export const BasicSettings = () => {
         <h2>Hide messages</h2>
         <ToggleInput
           isChecked={hideBotMessages}
-          onChange={(value) => { updateUserConfiguration(
+          onChange={(value) => { updateChatSettings(
             {
               hideBotMessages: value
             });
@@ -145,7 +144,7 @@ export const BasicSettings = () => {
 
         <ToggleInput
           isChecked={hideCommands}
-          onChange={(value) => { updateUserConfiguration(
+          onChange={(value) => { updateChatSettings(
             {
               hideCommands: value
             });

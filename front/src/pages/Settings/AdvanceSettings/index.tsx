@@ -1,10 +1,10 @@
-import * as S from './style';
-import { updateUserConfiguration } from '@/store/configurationStore/actions';
-import { useConfigurationStore } from '@/store/configurationStore';
+import { updateChatSettings } from '@/store/actions/settingsActions';
 import { TTSReplacementBlock } from './TTSReplacementBlock';
+import { useChatSettings } from '@/store';
+import * as S from './style';
 
 export const AdvanceSettings = () => {
-  const configuration = useConfigurationStore(state => state.userConfiguration);
+  const configuration = useChatSettings(state => state);
 
   return (
     <>
@@ -31,7 +31,7 @@ export const AdvanceSettings = () => {
                 canAddSubReplacement
                 key={r.id}
                 onDelete={() => {
-                  updateUserConfiguration({
+                  updateChatSettings({
                     ttsConfiguration: {
                       ...configuration.ttsConfiguration,
                       replacements: [
@@ -42,7 +42,7 @@ export const AdvanceSettings = () => {
                   });
                 }}
                 onChange={(newR) => {
-                  updateUserConfiguration({
+                  updateChatSettings({
                     ttsConfiguration: {
                       ...configuration.ttsConfiguration,
                       replacements: [
@@ -59,7 +59,7 @@ export const AdvanceSettings = () => {
         }
 
         <button onClick={() => {
-          updateUserConfiguration({
+          updateChatSettings({
             ttsConfiguration: {
               ...configuration.ttsConfiguration,
               replacements: [

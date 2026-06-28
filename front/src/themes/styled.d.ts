@@ -50,6 +50,10 @@ declare module 'styled-components' {
         primary_bg_hover: string,
         primary_text: string,
 
+        nav_bg_hover: string
+
+        button_bg_hover: string,
+
         secondary_bg: string,
         secondary_bg_hover: string,
         secondary_text: string,

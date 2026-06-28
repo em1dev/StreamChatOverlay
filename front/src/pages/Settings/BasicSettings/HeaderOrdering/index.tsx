@@ -1,7 +1,5 @@
 import { Icon } from '@iconify/react';
-import { updateUserConfiguration } from '@/store/configurationStore/actions';
-import { useConfigurationStore } from '@/store/configurationStore';
-import { ChatMessageHeaderType } from '@/types/userConfigurationTypes';
+import { ChatMessageHeaderType } from '@/types/settingsTypes';
 import { Fragment } from 'react/jsx-runtime';
 import { useCallback } from 'react';
 import { landingExamplesMessages } from '@/examples/landingExamplesMessages';
@@ -9,6 +7,8 @@ import { ToggleInput } from '@/components/ToggleInput';
 import { MessagePreview } from '@/components/MessagePreview';
 
 import * as S from './styles';
+import { useChatSettings } from '@/store';
+import { updateChatSettings } from '@/store/actions/settingsActions';
 
 
 const headerTypeToDisplayName: Record<ChatMessageHeaderType, string> = {
@@ -18,13 +18,13 @@ const headerTypeToDisplayName: Record<ChatMessageHeaderType, string> = {
 };
 
 export const HeaderOrdering = () => {
-  const showChatterBadges = useConfigurationStore(c => c.userConfiguration.showChatterBadges);
-  const ordering = useConfigurationStore(c => c.userConfiguration.headerOrdering);
+  const showChatterBadges = useChatSettings(c => c.showChatterBadges);
+  const ordering = useChatSettings(c => c.headerOrdering);
 
   const onSwitchRight = useCallback((index: number) => {
     const newOrder = [...ordering];
     [newOrder[index], newOrder[index + 1]] = [newOrder[index + 1], newOrder[index]];
-    updateUserConfiguration({
+    updateChatSettings({
       headerOrdering: newOrder
     });
   }, [ordering]);
@@ -37,7 +37,7 @@ export const HeaderOrdering = () => {
 
       <ToggleInput
         isChecked={showChatterBadges}
-        onChange={(value) => { updateUserConfiguration({ showChatterBadges: value }); }}
+        onChange={(value) => { updateChatSettings({ showChatterBadges: value }); }}
       >
         Show chatter badges
       </ToggleInput>

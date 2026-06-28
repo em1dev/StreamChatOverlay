@@ -1,12 +1,11 @@
 import { Icon } from '@iconify/react';
 import { useCallback, useMemo } from 'react';
-import { TTSReplacement } from '@/types/userConfigurationTypes';
+import { TTSReplacement } from '@/types/settingsTypes';
 import { Input } from '@/components/Input';
 import { IconButton } from '@/components/IconButton';
 import { removeRegexCharacters } from '@/utils/regexUtils';
-import { updateUserConfiguration } from '@/store/configurationStore/actions';
-import { useConfigurationStore } from '@/store/configurationStore';
-
+import { useChatSettings } from '@/store';
+import { updateChatSettings } from '@/store/actions/settingsActions';
 import * as S from './styles';
 
 
@@ -18,8 +17,8 @@ export interface UserPronunciationBlockProps
 export const UserPronunciationBlock = ({
   speak
 }: UserPronunciationBlockProps) => {
-  const ttsConfiguration = useConfigurationStore(c => c.userConfiguration.ttsConfiguration);
-  const userReplacement = useConfigurationStore(c => c.userConfiguration.ttsConfiguration.userReplacement);
+  const ttsConfiguration = useChatSettings(c => c.ttsConfiguration);
+  const userReplacement = useChatSettings(c => c.ttsConfiguration.userReplacement);
 
   const userReplacementOrdered = useMemo(() => (
     userReplacement.sort((a,b) => a.ordinal - b.ordinal)
@@ -27,7 +26,7 @@ export const UserPronunciationBlock = ({
 
   const removeReplacement = useCallback((replacement: TTSReplacement) => {
     const newList = userReplacement.filter(item => item.id !== replacement.id);
-    updateUserConfiguration({
+    updateChatSettings({
       ttsConfiguration: {
         ...ttsConfiguration,
         userReplacement: newList
@@ -38,7 +37,7 @@ export const UserPronunciationBlock = ({
   const addNewReplacement = useCallback(() => {
     const newOrdinal = (userReplacementOrdered.at(-1)?.ordinal ?? 0) + 1;
 
-    updateUserConfiguration({
+    updateChatSettings({
       ttsConfiguration: {
         ...ttsConfiguration,
         userReplacement: [
@@ -66,7 +65,7 @@ export const UserPronunciationBlock = ({
         replaceWith: removeRegexCharacters(replacement.replaceWith)
       }
     ];
-    updateUserConfiguration({
+    updateChatSettings({
       ttsConfiguration: {
         ...ttsConfiguration,
         userReplacement: newList

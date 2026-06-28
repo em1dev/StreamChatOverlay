@@ -2,20 +2,19 @@ import { AnimatePresence, LayoutGroup, motion } from 'motion/react';
 import { ChatMessageData } from '../../types';
 import ChatMsg from './ChatBubble';
 import { useFont } from '@/fonts/ChatFonts';
-import { UserConfiguration } from '@/types/userConfigurationTypes';
-
+import { ChatSettings } from '@/types/settingsTypes';
 import * as S from './styles';
 
 
 export interface ChatProps {
   msgs: Array<ChatMessageData>,
-  chatDirection: UserConfiguration['chatDirection'],
-  fontSize: UserConfiguration['fontSize'],
-  chatFont: UserConfiguration['chatFont'],
-  fontWeight: UserConfiguration['chatFontWeight'],
-  lowerOpacityOnTop: UserConfiguration['lowerOpacityOnTop'],
-  showBadges: UserConfiguration['showChatterBadges'],
-  headerOrdering: UserConfiguration['headerOrdering'];
+  chatDirection: ChatSettings['chatDirection'],
+  fontSize: ChatSettings['fontSize'],
+  chatFont: ChatSettings['chatFont'],
+  fontWeight: ChatSettings['chatFontWeight'],
+  lowerOpacityOnTop: ChatSettings['lowerOpacityOnTop'],
+  showBadges: ChatSettings['showChatterBadges'],
+  headerOrdering: ChatSettings['headerOrdering'];
 }
 
 const Chat = ({

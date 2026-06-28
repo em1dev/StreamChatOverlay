@@ -1,10 +1,11 @@
-import { useAuth, signIn, logOut } from '@/store/authStore';
-import { setIsSideMenuOpen } from '@/store/sideMenuStore';
 import { Icon } from '@iconify/react';
+import { useStore } from '@/store';
+import { setIsSideMenuOpen } from '@/store/actions/pageActions';
+import { logOut, signIn } from '@/store/actions/authActions';
 import * as S from './styles';
 
 export const Header = () => {
-  const { session, isLoading } = useAuth();
+  const { session, isLoadingSession } = useStore();
 
   return (
     <S.Header>
@@ -15,7 +16,7 @@ export const Header = () => {
           <Icon fontSize='1.5em' aria-hidden icon={'mingcute:menu-fill'} />
         </S.MenuButton>
         : (
-          <button disabled={isLoading} onClick={signIn}>
+          <button disabled={isLoadingSession} onClick={signIn}>
             Log in
           </button>
         )

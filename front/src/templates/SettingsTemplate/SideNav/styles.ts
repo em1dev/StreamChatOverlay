@@ -9,18 +9,18 @@ const navButton = css`
   }
   font-size: 1.2em;
   text-decoration: none;
-  border-radius: 3em;
+  border-radius: 1em;
   padding: 0.8em 2em;
   color: inherit;
 
   &.active {
     color: ${({ theme }) => theme.page.colors.input_text};
-    background-color: ${({ theme }) => theme.page.colors.input_bg};
+    background-color: ${({ theme }) => theme.page.colors.nav_bg_hover};
   }
 
   &:hover:not(.active) {
     color: ${({ theme }) => theme.page.colors.input_text};
-    background-color: ${({ theme }) => theme.page.colors.input_bg};
+    background-color: ${({ theme }) => theme.page.colors.nav_bg_hover};
   }
 `;
 
@@ -34,6 +34,7 @@ export const NavContainer = styled.nav<{ $isOpen: boolean }>`
   top: 7em;
   height: fit-content;
   margin-top: -1em;
+  grid-area: nav;
 
   a {
     ${navButton}

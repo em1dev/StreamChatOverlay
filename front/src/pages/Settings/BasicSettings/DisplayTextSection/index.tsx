@@ -1,8 +1,8 @@
 import { Input } from '@/components/Input';
 import { MessagePreview } from '@/components/MessagePreview';
 import { chatUsers } from '@/examples/users';
-import { updateUserConfiguration } from '@/store/configurationStore/actions';
-import { useConfigurationStore } from '@/store/configurationStore';
+import { useChatSettings } from '@/store';
+import { updateChatSettings } from '@/store/actions/settingsActions';
 import { ChatMessageData } from '@/types';
 import { variableReplacementEngine } from '@/utils/variableReplacementEngine';
 
@@ -68,8 +68,8 @@ const buildRedeemMsg = (redeemText: string):ChatMessageData =>  ({
 });
 
 export const DisplayTextSection = () => {
-  const replyLabel = useConfigurationStore(c => c.userConfiguration.replyLabel);
-  const redemptionLabel = useConfigurationStore(c => c.userConfiguration.redemptionLabel);
+  const replyLabel = useChatSettings(c => c.replyLabel);
+  const redemptionLabel = useChatSettings(c => c.redemptionLabel);
 
   return (
     <section>
@@ -84,7 +84,7 @@ export const DisplayTextSection = () => {
         id='user-configuration-reply-label-input'
         value={replyLabel}
         onChange={(e) => (
-          updateUserConfiguration({ replyLabel: e.target.value })
+          updateChatSettings({ replyLabel: e.target.value })
         )}
       />
       <MessagePreview message={buildReplyMsg(replyLabel)} />
@@ -96,7 +96,7 @@ export const DisplayTextSection = () => {
         id='user-configuration-redeem-label-input'
         value={redemptionLabel}
         onChange={(e) => (
-          updateUserConfiguration({ redemptionLabel: e.target.value })
+          updateChatSettings({ redemptionLabel: e.target.value })
         )}
       />
       <MessagePreview message={buildRedeemMsg(redemptionLabel)} />

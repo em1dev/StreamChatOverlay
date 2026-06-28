@@ -2,12 +2,12 @@ import { ThemeProvider } from 'styled-components';
 import { useChatTheme } from '@/hooks/useChatTheme';
 import { ChatWithTwitchConnection } from './ChatWithTwitchConnection';
 import { useSecret } from './useSecret';
-import { useConfigurationStore } from '@/store/configurationStore';
+import { useChatSettings } from '@/store';
 
 
 export const ChatOverlay = () => {
   const { hasError, isLoading, twitch } = useSecret();
-  const allowedConnections = useConfigurationStore(s => s.userConfiguration.allowedConnections);
+  const allowedConnections = useChatSettings(s => s.allowedConnections);
   const chatTheme = useChatTheme();
 
   if (hasError) return (

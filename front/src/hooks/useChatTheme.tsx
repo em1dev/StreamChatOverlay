@@ -1,11 +1,11 @@
-import { useConfigurationStore } from '@/store/configurationStore';
+import { useChatSettings } from '@/store';
 import { themeKeyMap } from '@/themes/chatThemes';
 import { useMemo } from 'react';
 import { DefaultTheme, useTheme } from 'styled-components';
 
 export const useChatTheme = () => {
-  const chatThemeKey = useConfigurationStore(c => c.userConfiguration.chatTheme);
-  const chatThemeVariant = useConfigurationStore(c => c.userConfiguration.chatThemeVariant);
+  const chatThemeKey = useChatSettings(c => c.chatTheme);
+  const chatThemeVariant = useChatSettings(c => c.chatThemeVariant);
   const theme = useTheme();
 
   const chatTheme: DefaultTheme = useMemo(() => {

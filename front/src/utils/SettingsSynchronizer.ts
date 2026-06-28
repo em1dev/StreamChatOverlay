@@ -1,39 +1,42 @@
 import { chatApi } from '@/api/chatApi';
-import { resetConfiguration, setInitialState } from '@/store/configurationStore/actions';
-import { defaultUserConfiguration } from '@/store/configurationStore/defaultConfiguration';
-import { UserConfiguration } from '@/types/userConfigurationTypes';
-import { useCallback, useEffect } from 'react';
 import { useSettingsChangeListener } from '@/hooks/useSettingsChangeListener';
-import { useAuth } from '@/store/authStore';
+import { useStore } from '@/store';
+import { resetState, setActiveChat, setChats } from '@/store/actions/settingsActions';
+import { useCallback, useEffect } from 'react';
 
 export const SettingsSynchronizer = () => {
-  const { session } = useAuth();
+  const { session, isLoadingSession } = useStore();
 
-  const fetchSettings = useCallback(async () => {
-    if (!session) return;
-    const userSettings = await chatApi.getUserSettings(session.token);
-    if (userSettings.hasError) throw new Error('Unable to connect to server');
-    const { settingsJson, secretKey } = userSettings.data!;
-
-    let parsedConfig = defaultUserConfiguration;
-    if (settingsJson.length > 0) {
-      parsedConfig = JSON.parse(settingsJson) as UserConfiguration;
-    }
-
-    setInitialState(parsedConfig, secretKey);
-  }, [session]);
-
-  useSettingsChangeListener(session?.user.id || null, fetchSettings);
-
-  // reload state if session changes
   useEffect(() => {
-    if (!session) {
-      resetConfiguration();
-      return;
-    };
+    if (!session) return;
 
-    fetchSettings();
-  }, [session, fetchSettings]);
+    (async () => {
+      if (isLoadingSession) return;
+
+      if (!session)
+      {
+        resetState();
+        return;
+      }
+
+      const result = await chatApi.getChat(session.token);
+      if (result.data) {
+        setChats(result.data);
+        setActiveChat(result.data.at(0)?.id);
+      }
+    })();
+  }, [session, isLoadingSession]);
+
+  const onSettingsChange = useCallback(async () => {
+    if (isLoadingSession || !session) return;
+    const result = await chatApi.getChat(session.token);
+    if (result.data) {
+      setChats(result.data);
+      setActiveChat(result.data.at(0)?.id);
+    }
+  }, [session, isLoadingSession]);
+
+  useSettingsChangeListener(session?.user.id || null, onSettingsChange);
 
   return null;
 };

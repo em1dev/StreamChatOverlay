@@ -1,8 +1,6 @@
 import { chatApi } from '@/api/chatApi';
 import { useSettingsChangeListener } from '@/hooks/useSettingsChangeListener';
-import { setInitialState } from '@/store/configurationStore/actions';
-import { defaultUserConfiguration } from '@/store/configurationStore/defaultConfiguration';
-import { UserConfiguration } from '@/types/userConfigurationTypes';
+import { setActiveChat, setChats } from '@/store/actions/settingsActions';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router';
 import { useParams } from 'react-router';
@@ -45,43 +43,42 @@ export const useSecret = (): SecretResult => {
     if (!secret || userIdParsed == null) return;
     let ignoreResp = false;
 
-    chatApi
-      .getConnectionDetailsFromSecret(userIdParsed, secret)
-      .then(resp => {
-        if (ignoreResp) return;
-        if (resp.hasError) {
-          setState(prev => ({
-            ...prev,
-            hasError: true
-          }));
-          return;
-        }
+    (async () => {
+      const resp =await chatApi
+        .getConnectionDetailsFromSecret(userIdParsed, secret);
 
-        let settingsParsed = defaultUserConfiguration;
-        if (resp.data!.settingsJsonString.length > 0) {
-          settingsParsed = JSON.parse(resp.data!.settingsJsonString) as UserConfiguration;
-        }
-
-        setInitialState(settingsParsed, secret);
-        window.umami?.identify(userIdParsed.toString());
-
-        setState({
-          hasError: false,
+      if (ignoreResp) return;
+      if (resp.hasError) {
+        setState(prev => ({
+          ...prev,
           isLoading: false,
-          twitch: resp.data?.twitchConnection ? {
-            channelId: resp.data.twitchConnection.userId,
-            channelName: resp.data.twitchConnection.username
-          } : undefined,
-          youtube: resp.data?.youtubeConnection ? {
-            youtubeToken: resp.data.youtubeConnection.accessToken
-          } : undefined
-        });
+          hasError: true
+        }));
+        return;
+      }
 
-      })
-      .catch((e) => {
-        console.error(e);
-        setState({ hasError: true, isLoading: false });
+      const data = resp.data!;
+      setChats([{
+        id: data.id,
+        name: data.name,
+        settingsJson: data.settingsJsonString
+      }]);
+      setActiveChat(data.id);
+
+      window.umami?.identify(userIdParsed.toString());
+
+      setState({
+        hasError: false,
+        isLoading: false,
+        twitch: data.twitchConnection ? {
+          channelId: data.twitchConnection.userId,
+          channelName: data.twitchConnection.username
+        } : undefined,
+        youtube: data.youtubeConnection ? {
+          youtubeToken: data.youtubeConnection.accessToken
+        } : undefined
       });
+    })();
 
     return () => {
       ignoreResp = true;
@@ -89,30 +86,27 @@ export const useSecret = (): SecretResult => {
 
   }, [secret, userIdParsed]);
 
-  const onSettingsChanged = useCallback(() => {
+  const onSettingsChanged = useCallback(async () => {
     if (!secret || userIdParsed == null) return;
-    chatApi
-      .getConnectionDetailsFromSecret(userIdParsed, secret)
-      .then(resp => {
-        if (resp.hasError) {
-          setState(prev => ({
-            ...prev,
-            hasError: true
-          }));
-          return;
-        }
+    const resp = await chatApi
+      .getConnectionDetailsFromSecret(userIdParsed, secret);
 
-        let settingsParsed = defaultUserConfiguration;
-        if (resp.data!.settingsJsonString.length > 0) {
-          settingsParsed = JSON.parse(resp.data!.settingsJsonString) as UserConfiguration;
-        }
+    if (resp.hasError) {
+      setState(prev => ({
+        ...prev,
+        isLoading: false,
+        hasError: true
+      }));
+      return;
+    }
 
-        setInitialState(settingsParsed, secret);
-      })
-      .catch((e) => {
-        console.error(e);
-        setState({ hasError: true, isLoading: false });
-      });
+    const data = resp.data!;
+    setChats([{
+      id: data.id,
+      name: data.name,
+      settingsJson: data.settingsJsonString
+    }]);
+    setActiveChat(data.id);
   }, [secret, userIdParsed]);
 
   useSettingsChangeListener(userIdParsed, onSettingsChanged);

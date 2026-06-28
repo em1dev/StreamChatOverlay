@@ -33,7 +33,6 @@ const router = createBrowserRouter([
           { path: 'connections', lazy: { Component: async () => (await import('@Pages/Settings/Connections')).Connections } },
           { path: 'tts', lazy: { Component: async () => (await import('@Pages/Settings/TextToSpeechSettings')).TextToSpeechSettings } },
           { path: 'advance-settings', lazy: { Component: async () => (await import('@Pages/Settings/AdvanceSettings')).AdvanceSettings } },
-          { path: 'custom-theme', lazy: { Component: async () => (await import('@Pages/Settings/CustomThemeSettings')).CustomThemeSettings } },
         ]
       },
       { path: '/auth', Component: AuthenticationPage },

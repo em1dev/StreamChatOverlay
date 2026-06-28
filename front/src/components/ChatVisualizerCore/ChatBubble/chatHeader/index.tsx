@@ -1,5 +1,5 @@
 import { ChatMessageData } from '@/types';
-import { ChatMessageHeaderType, UserConfiguration } from '@/types/userConfigurationTypes';
+import { ChatMessageHeaderType, ChatSettings } from '@/types/settingsTypes';
 
 import * as S from './styles';
 
@@ -9,7 +9,7 @@ export interface ChatMsgHeaderProps
   messageData: ChatMessageData,
   direction: 'left' | 'right',
   showBadges: boolean,
-  headerOrdering: UserConfiguration['headerOrdering']
+  headerOrdering: ChatSettings['headerOrdering']
 }
 
 const ChatMsgHeader = ({

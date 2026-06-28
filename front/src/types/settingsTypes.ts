@@ -1,6 +1,7 @@
 import { FontKeys, FontWeights } from '@/fonts/ChatFonts';
 import { ThemeKeys } from '@/themes/chatThemes';
 
+
 export interface TTSReplacement {
   id: string,
   isEnabled: boolean,
@@ -13,7 +14,7 @@ export interface TTSReplacement {
   description: string
 }
 
-export interface TTSConfiguration {
+export interface TTSSettings {
   isTTSEnabled: boolean,
   selectedVoice?: string,
   onlyReadMessagesThatStartWithTtsCommand: boolean,
@@ -34,7 +35,7 @@ export interface TTSConfiguration {
   replaceUrlWith: string,
 }
 
-export interface UserConfiguration {
+export interface ChatSettings {
   chatDirection: 'left' | 'right',
   emotes: {
     isBetterTTVEnabled: boolean,
@@ -49,7 +50,7 @@ export interface UserConfiguration {
     id: string,
     value: string
   }>
-  ttsConfiguration: TTSConfiguration,
+  ttsConfiguration: TTSSettings,
   chatFont: FontKeys,
   chatFontWeight: FontWeights,
   chatTheme: ThemeKeys,

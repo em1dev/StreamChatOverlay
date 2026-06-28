@@ -1,4 +1,4 @@
-import { useConfigurationStore } from '@/store/configurationStore';
+import { useStore } from '@/store';
 import { useEffect } from 'react';
 import { create } from 'zustand';
 
@@ -86,8 +86,8 @@ export const useAllChatFonts = () => {
   }, []);
 };
 
-export const useConfigurationChatFont = () => {
-  const selectedFont = useConfigurationStore(s => s.userConfiguration.chatFont);
+export const useChatSettingsFont = () => {
+  const selectedFont = useStore(s => s.activeChat!.settings.chatFont);
   return useFont(selectedFont);
 };
 

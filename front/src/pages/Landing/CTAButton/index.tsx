@@ -1,9 +1,10 @@
-import { signIn, useAuth } from '@/store/authStore';
+import { useStore } from '@/store';
+import { signIn } from '@/store/actions/authActions';
 import { useNavigate } from 'react-router';
 
 export const CTAButton = () => {
   const navigate = useNavigate();
-  const { session, isLoading } = useAuth();
+  const { session, isLoadingSession } = useStore();
 
   if (session) return (
     <button onClick={() => { navigate('settings'); }}>
@@ -12,7 +13,7 @@ export const CTAButton = () => {
   );
 
   return (
-    <button disabled={isLoading} onClick={signIn}>
+    <button disabled={isLoadingSession} onClick={signIn}>
       Log in
     </button>
   );

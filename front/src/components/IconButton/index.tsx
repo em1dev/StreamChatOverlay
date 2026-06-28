@@ -18,7 +18,7 @@ const Button = styled.button`
   background-color: transparent;
 
   &:hover {
-    background-color: #FFD9DF;
+    background-color: ${(props) => props.theme.page.colors.button_bg_hover};
   }
 `;
 

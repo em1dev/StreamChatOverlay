@@ -3,11 +3,10 @@ import { landingExamplesMessages } from '@/examples/landingExamplesMessages';
 import { DefaultTheme, ThemeProvider, useTheme } from 'styled-components';
 import { ThemePicker } from '@/components/ThemePicker';
 import { Footer } from '@/components/Footer';
-import { defaultUserConfiguration } from '@/store/configurationStore/defaultConfiguration';
 import { useState } from 'react';
 import { themeKeyMap, ThemeKeys } from '@/themes/chatThemes';
 import { CTAButton } from './CTAButton';
-
+import { defaultChatSettings } from '@/store/defaultChatSettings';
 import * as S from './styles';
 
 
@@ -84,10 +83,10 @@ export const Landing = () =>
           <ThemeProvider theme={chatTheme}>
             <Chat
               chatDirection='right'
-              chatFont={defaultUserConfiguration.chatFont}
-              fontSize={defaultUserConfiguration.fontSize}
-              fontWeight={defaultUserConfiguration.chatFontWeight}
-              headerOrdering={defaultUserConfiguration.headerOrdering}
+              chatFont={defaultChatSettings.chatFont}
+              fontSize={defaultChatSettings.fontSize}
+              fontWeight={defaultChatSettings.chatFontWeight}
+              headerOrdering={defaultChatSettings.headerOrdering}
               lowerOpacityOnTop={false}
               showBadges={true}
               msgs={[

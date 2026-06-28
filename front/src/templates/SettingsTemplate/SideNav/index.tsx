@@ -1,24 +1,26 @@
 import { Icon } from '@iconify/react';
 import { NavLink } from 'react-router';
 import { Divider } from '@/components/Divider';
-import { setIsSideMenuOpen, useSideMenuStore } from '@/store/sideMenuStore';
 import { useCallback } from 'react';
-import { useAuth, logOut } from '@/store/authStore';
-
+import { logOut } from '@/store/actions/authActions';
+import { useStore } from '@/store';
+import { setIsSideMenuOpen } from '@/store/actions/pageActions';
+import { ChatPicker } from './ChatPicker';
 import * as S from './styles';
 
 
 export const SideNav = () =>
 {
-  const { session } = useAuth();
-  const isOpen = useSideMenuStore(s => s.isOpen);
+  const session = useStore(s => s.session);
+  const isSideMenuOpen = useStore(s => s.isSideMenuOpen);
+  const hasChats = useStore(s => s.chats.length > 0);
 
   const onNavigation = useCallback(() => {
     setIsSideMenuOpen(false);
   }, []);
 
   return (
-    <S.NavContainer $isOpen={isOpen}>
+    <S.NavContainer $isOpen={isSideMenuOpen}>
       <S.NavHeader>
         { session && (
           <div>
@@ -32,60 +34,62 @@ export const SideNav = () =>
         </button>
       </S.NavHeader>
 
-      <NavLink onClick={onNavigation} end to='/settings/add-to-stream' >
-        <Icon aria-hidden icon="mingcute:live-line" />
-        Add to stream
-      </NavLink>
-      <NavLink onClick={onNavigation} end to='/settings/connections' >
-        <Icon aria-hidden icon="mingcute:link-2-line" />
-        Connect to service
-      </NavLink>
-      <NavLink onClick={onNavigation} end to='/settings' >
-        <Icon aria-hidden icon="mingcute:settings-3-line" />
-        Basic Settings
-      </NavLink>
-      <NavLink onClick={onNavigation} end to='/settings/tts' >
-        <Icon aria-hidden icon="mingcute:announcement-line" />
-        Text to speech
-      </NavLink>
-      {/*
+      { hasChats && (<>
+        <ChatPicker />
+
+        <Divider />
+
+        <NavLink onClick={onNavigation} end to='/settings/add-to-stream' >
+          <Icon aria-hidden icon="mingcute:live-line" />
+          Add to stream
+        </NavLink>
+        <NavLink onClick={onNavigation} end to='/settings/connections' >
+          <Icon aria-hidden icon="mingcute:link-2-line" />
+          Connect to service
+        </NavLink>
+        <NavLink onClick={onNavigation} end to='/settings' >
+          <Icon aria-hidden icon="mingcute:settings-3-line" />
+          Basic Settings
+        </NavLink>
+        <NavLink onClick={onNavigation} end to='/settings/tts' >
+          <Icon aria-hidden icon="mingcute:announcement-line" />
+          Text to speech
+        </NavLink>
+        {/*
       <NavLink end to='/settings/advance-settings' >
         <Icon aria-hidden icon="mingcute:tool-line" />
         Advance settings
       </NavLink>
       */}
-      <NavLink onClick={onNavigation} end to='/settings/custom-theme' >
-        <Icon aria-hidden icon="mingcute:palette-line" />
-        Custom theme
-      </NavLink>
 
-      <Divider />
+        <Divider />
 
-      <NavLink
-        data-umami-event='outbound link'
-        data-umami-event-url='https://ko-fi.com/emydev'
-        data-umami-event-from='side nav'
-        onClick={onNavigation}
-        end
-        target='_blank'
-        to='https://ko-fi.com/emydev'
-      >
-        <Icon aria-hidden icon="simple-icons:kofi" />
-        Support Me :3
-      </NavLink>
+        <NavLink
+          data-umami-event='outbound link'
+          data-umami-event-url='https://ko-fi.com/emydev'
+          data-umami-event-from='side nav'
+          onClick={onNavigation}
+          end
+          target='_blank'
+          to='https://ko-fi.com/emydev'
+        >
+          <Icon aria-hidden icon="simple-icons:kofi" />
+          Support Me :3
+        </NavLink>
 
-      <NavLink
-        data-umami-event='outbound link'
-        data-umami-event-url='https://github.com/em1dev/streamchatoverlay'
-        data-umami-event-from='side nav'
-        onClick={onNavigation}
-        end
-        target='_blank'
-        to='https://github.com/em1dev/StreamChatOverlay'
-      >
-        <Icon aria-hidden icon="mingcute:github-line" />
-        Github
-      </NavLink>
+        <NavLink
+          data-umami-event='outbound link'
+          data-umami-event-url='https://github.com/em1dev/streamchatoverlay'
+          data-umami-event-from='side nav'
+          onClick={onNavigation}
+          end
+          target='_blank'
+          to='https://github.com/em1dev/StreamChatOverlay'
+        >
+          <Icon aria-hidden icon="mingcute:github-line" />
+          Github
+        </NavLink>
+      </>)}
 
       <S.BottomSection>
 

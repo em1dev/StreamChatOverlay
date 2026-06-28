@@ -1,15 +1,15 @@
 import { ChatMessageData } from '@/types';
 import ChatMsgHeader from './chatHeader';
 import ChatMsgContent from './chatMsgContent';
-import { UserConfiguration } from '@/types/userConfigurationTypes';
+import { ChatSettings } from '@/types/settingsTypes';
 
 import * as S from './styles';
 
 
 export interface ChatMsgProps {
   showBadges: boolean,
-  headerOrdering: UserConfiguration['headerOrdering'],
-  chatDirection: UserConfiguration['chatDirection'],
+  headerOrdering: ChatSettings['headerOrdering'],
+  chatDirection: ChatSettings['chatDirection'],
   message: ChatMessageData
 }
 

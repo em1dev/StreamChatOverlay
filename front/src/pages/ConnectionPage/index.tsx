@@ -4,16 +4,17 @@ import { Icon } from '@iconify/react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useSearchParams } from 'react-router';
-import { setAuthIsLoading, useAuth } from '@/store/authStore';
+import { useStore } from '@/store';
+import { setAuthIsLoading } from '@/store/actions/authActions';
 
 
 export const ConnectionPage = () => {
-  const { session, isLoading } = useAuth();
+  const { session, isLoadingSession } = useStore();
   const [search, setSearch] = useSearchParams();
   const params = useParams<{ provider: string }>();
 
   useEffect(() => {
-    if (isLoading) return;
+    if (isLoadingSession) return;
     if (!session) {
       window.close();
       return;
@@ -40,7 +41,7 @@ export const ConnectionPage = () => {
         window.umami?.track('service connection completed');
         window.close();
       });
-  }, [session, search, setSearch, params, isLoading]);
+  }, [session, search, setSearch, params, isLoadingSession]);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>

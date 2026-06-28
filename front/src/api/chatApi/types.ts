@@ -59,7 +59,16 @@ export interface UserTwitchConnectionDetails {
 }
 
 export interface SecretResponse {
+  id: number,
+  name: string,
   settingsJsonString: string,
   twitchConnection?: UserTwitchConnectionDetails,
   youtubeConnection?: UserYoutubeConnectionDetails
+}
+
+export interface Chat
+{
+  id: number,
+  name: string,
+  settingsJson: string
 }

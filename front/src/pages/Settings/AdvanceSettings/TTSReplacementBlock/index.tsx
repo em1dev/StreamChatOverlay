@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import * as S from './styles';
-import { TTSReplacement } from '@/types/userConfigurationTypes';
+import { TTSReplacement } from '@/types/settingsTypes';
 import { Divider } from '@/components/Divider';
 import { Icon } from '@iconify/react';
 import { ToggleInput } from '@/components/ToggleInput';
@@ -17,7 +17,7 @@ export const TTSReplacementBlock = ({ replacement, onChange, onDelete, canAddSub
 
   const update = useCallback((newValues: Partial<TTSReplacement>) => {
 
-    const newReplacement: TTSReplacement = { 
+    const newReplacement: TTSReplacement = {
       ...replacement,
       ...newValues
     };
@@ -30,7 +30,7 @@ export const TTSReplacementBlock = ({ replacement, onChange, onDelete, canAddSub
       <header>
         {canAddSubReplacement && (
 
-          <ToggleInput 
+          <ToggleInput
             isChecked={replacement.isEnabled}
             onChange={(v) => {update({ isEnabled:  v });}}
           >
@@ -50,7 +50,7 @@ export const TTSReplacementBlock = ({ replacement, onChange, onDelete, canAddSub
       <S.RegexInputContainer>
         <input
           id={`replacement-${replacement.id}-regex`}
-          value={replacement.regex} 
+          value={replacement.regex}
           onChange={(e) => {
             update({ regex: e.target.value });
           }}
@@ -91,7 +91,7 @@ export const TTSReplacementBlock = ({ replacement, onChange, onDelete, canAddSub
       />
 
       { replacement.replacement && (
-        <TTSReplacementBlock 
+        <TTSReplacementBlock
           canAddSubReplacement={false}
           replacement={replacement.replacement}
           onChange={(newR) => {

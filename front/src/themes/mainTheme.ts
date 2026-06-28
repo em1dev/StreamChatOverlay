@@ -21,6 +21,10 @@ export const mainTheme: DefaultTheme = {
       secondary_text: '#a64b63',
       secondary_border: 'solid 3px #f6d5d5',
 
+      nav_bg_hover: '#f5e5de',
+
+      button_bg_hover: '#f5e5de',
+
       input_bg: '#f6d5d5',
       input_bg_hover: '#f6cccc',
       input_text: '#963e54',

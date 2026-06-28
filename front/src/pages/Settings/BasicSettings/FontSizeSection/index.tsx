@@ -1,17 +1,17 @@
-import { updateUserConfiguration } from '@/store/configurationStore/actions';
-import { useConfigurationStore } from '@/store/configurationStore';
+import { useChatSettings } from '@/store';
 import { Icon } from '@iconify/react';
-
+import { updateChatSettings } from '@/store/actions/settingsActions';
 import * as S from './styles';
+
 
 const MIN_FONT_SIZE = 5;
 const MAX_FONT_SIZE = 25;
 
 export const FontSizeSection = () => {
-  const fontSize = useConfigurationStore(state => state.userConfiguration.fontSize);
+  const fontSize = useChatSettings(state => state.fontSize);
 
   const updateFontSize = (newValue: number) => {
-    updateUserConfiguration({
+    updateChatSettings({
       fontSize: Math.min(Math.max(newValue, MIN_FONT_SIZE), MAX_FONT_SIZE)
     });
   };

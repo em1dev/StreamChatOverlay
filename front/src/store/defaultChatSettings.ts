@@ -1,7 +1,7 @@
-import { TTSConfiguration, UserConfiguration } from '@/types/userConfigurationTypes';
+import { ChatSettings, TTSSettings, } from '@/types/settingsTypes';
 import { textVariables } from '@/utils/variableReplacementEngine';
 
-const ttsDefaultConfig: TTSConfiguration = {
+const defaultTTSSettings: TTSSettings = {
   isTTSEnabled: false,
 
   onlyReadMessagesThatStartWithTtsCommand: false,
@@ -26,7 +26,7 @@ const ttsDefaultConfig: TTSConfiguration = {
   replacements: [],
 };
 
-export const defaultUserConfiguration: UserConfiguration = {
+export const defaultChatSettings: ChatSettings = {
   chatTheme: 'duck',
   ignoredUsers: [],
   chatDirection: 'right',
@@ -38,7 +38,7 @@ export const defaultUserConfiguration: UserConfiguration = {
   hideBotMessages: true,
   hideCommands: true,
   showChatterBadges: true,
-  ttsConfiguration: ttsDefaultConfig,
+  ttsConfiguration: defaultTTSSettings,
   lowerOpacityOnTop: true,
   headerOrdering: ['badges', 'pronouns', 'name'],
   fontSize: 12,

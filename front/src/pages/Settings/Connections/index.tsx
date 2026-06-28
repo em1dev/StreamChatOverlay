@@ -3,15 +3,15 @@ import { chatApi } from '@/api/chatApi';
 import { Connection } from '@/api/chatApi/types';
 import { useCallback, useEffect, useState } from 'react';
 import { ConnectionItem } from './ConnectionItem';
-import { updateUserConfiguration } from '@/store/configurationStore/actions';
-import { useConfigurationStore } from '@/store/configurationStore';
-import { useAuth } from '@/store/authStore';
+import { useChatSettings, useStore } from '@/store';
+import { updateChatSettings } from '@/store/actions/settingsActions';
+
 
 type LoadingState = Record<Connection['type'], boolean>;
 
 export const Connections = () => {
-  const { session } = useAuth();
-  const allowedConnections = useConfigurationStore(state => state.userConfiguration.allowedConnections);
+  const { session } = useStore();
+  const allowedConnections = useChatSettings(state => state.allowedConnections);
   const [connections, setConnections] = useState<Connection[]>([]);
   const [isLoading, setIsLoading] = useState<LoadingState>({
     twitch: true,
@@ -60,7 +60,7 @@ export const Connections = () => {
   }, [session, getConnections]);
 
   const onEnableService = useCallback(async (type: Connection['type'], isEnabled: boolean) => {
-    updateUserConfiguration({
+    updateChatSettings({
       allowedConnections: {
         ...allowedConnections,
         [type]: isEnabled
@@ -95,6 +95,7 @@ export const Connections = () => {
   return (
     <>
       <h1>Connections</h1>
+      <p>Connections are shared between configurations but can be disable individually.</p>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5em' }}>
         <ConnectionItem
