@@ -3,7 +3,7 @@ import { HandlerApiResult } from '../../../HandlerApiResult';
 import { db } from '../../../repository/prismaDb';
 import { TokenStore } from '../../../TwitchTokenStore';
 
-export interface UserTwitchConnection
+export interface TwitchConnection
 {
   clientId: string,
   username: string,
@@ -11,34 +11,36 @@ export interface UserTwitchConnection
   accessToken: string
 }
 
-export interface UserYoutubeConnection
+export interface YoutubeConnection
 {
   clientId: string,
   accessToken: string,
   channelId: string
 }
 
-export interface SecretResult
+export interface ChatResult
 {
-  settingName: string,
+  id: number,
+  name: string,
   settingsJsonString: string,
-  twitchConnection?: UserTwitchConnection,
-  youtubeConnection?: UserYoutubeConnection
+  twitchConnection?: TwitchConnection,
+  youtubeConnection?: YoutubeConnection
 }
 
-export const getSecretTokensHandler = async (userId: number, secret: string): Promise<HandlerApiResult<SecretResult>> => {
-  const userSettings = await db.chat.findFirst({
+export const getChatDetailsFromSecretHandler = async (userId: number, secret: string): Promise<HandlerApiResult<ChatResult>> => {
+  const chat = await db.chat.findFirst({
     where: {
       userId: userId,
       secretKey: secret
     }
   });
 
-  if (!userSettings) return HandlerApiResult.Error(404, 'No settings found');
+  if (!chat) return HandlerApiResult.Error(404, 'Not found');
 
-  const secretResult:SecretResult = {
-    settingsJsonString: userSettings.settingsJson,
-    settingName: userSettings.name
+  const chatResult:ChatResult = {
+    settingsJsonString: chat.settingsJson,
+    name: chat.name,
+    id: chat.id,
   };
 
   const connections = await AuthApi.getConnections(userId);
@@ -47,7 +49,7 @@ export const getSecretTokensHandler = async (userId: number, secret: string): Pr
     const twitchConnection = connections.find(c => c.type == 'twitch');
     if (twitchConnection) {
       const twitchCredentials = await TokenStore.getInstance().getTwitchCredentials();
-      secretResult.twitchConnection = {
+      chatResult.twitchConnection = {
         accessToken: twitchConnection.token,
         clientId: twitchCredentials.clientId,
         userId: twitchConnection.userId,
@@ -58,7 +60,7 @@ export const getSecretTokensHandler = async (userId: number, secret: string): Pr
     const youtubeConnection = connections.find(c => c.type == 'youtube');
     if (youtubeConnection) {
       const youtubeCredentials = await TokenStore.getInstance().getYoutubeCredentials();
-      secretResult.youtubeConnection = {
+      chatResult.youtubeConnection = {
         accessToken: youtubeConnection.token,
         channelId: youtubeConnection.userId,
         clientId: youtubeCredentials.clientId,
@@ -66,5 +68,5 @@ export const getSecretTokensHandler = async (userId: number, secret: string): Pr
     }
   }
 
-  return HandlerApiResult.Success(200, secretResult);
+  return HandlerApiResult.Success(200, chatResult);
 };

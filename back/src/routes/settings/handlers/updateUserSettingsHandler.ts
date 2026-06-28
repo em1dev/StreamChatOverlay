@@ -7,7 +7,7 @@ export const updateUserSettingsHandler = async (
   changeId: string,
   settingsAsJson: string
 ): Promise<HandlerApiResult<boolean>> => {
-  const settings = await db.setting
+  const settings = await db.chat
     .findFirst({
       where: {
         userId
@@ -20,7 +20,7 @@ export const updateUserSettingsHandler = async (
   if (!settings)
     return HandlerApiResult.Success(404, false);
 
-  await db.setting
+  await db.chat
     .update({
       data: {
         settingsJson: settingsAsJson

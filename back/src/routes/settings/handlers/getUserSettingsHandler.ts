@@ -10,7 +10,7 @@ export interface SettingItem {
 }
 
 export const getUserSettingsHandler = async (userId: number):Promise<HandlerApiResult<SettingItem>> => {
-  let settings = await db.setting
+  let settings = await db.chat
     .findFirst({
       where: {
         userId
@@ -21,7 +21,7 @@ export const getUserSettingsHandler = async (userId: number):Promise<HandlerApiR
     });
 
   if (!settings) {
-    settings = await db.setting.create({
+    settings = await db.chat.create({
       data: {
         userId,
         name: 'Settings 1',

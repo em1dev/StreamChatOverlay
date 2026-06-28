@@ -1,14 +1,17 @@
 import { HandlerApiResult } from '../../../HandlerApiResult';
 import { db } from '../../../repository/prismaDb';
 
+
 interface CreatedResult {
   id: number,
   name: string,
   settingsJson: string
 }
 
-export const createSettingsHandler = async (userId: number, name: string):Promise<HandlerApiResult<CreatedResult>> => {
-  const created = await db.setting.create({
+export const createChatHandler = async (
+  userId: number, name: string
+): Promise<HandlerApiResult<CreatedResult>> => {
+  const created = await db.chat.create({
     data: {
       name,
       userId,

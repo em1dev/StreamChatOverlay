@@ -9,7 +9,7 @@ import { router as authenticatioRouter } from './routes/authentication/routes';
 import { router as settingsRouter } from './routes/settings/routes';
 import { router as connectionRouter } from './routes/connection/routes';
 import { router as secretRouter } from './routes/secret/routes';
-import { router as settingsRouterV2 } from './routes/settingsV2/routes';
+import { router as chatRouter } from './routes/chat/routes';
 import { wsHandler } from './routes/ws';
 
 
@@ -30,8 +30,7 @@ api.use(authenticatioRouter);
 api.use(settingsRouter);
 api.use(connectionRouter);
 api.use(secretRouter);
-
-api.use('/v2', settingsRouterV2);
+api.use(chatRouter);
 
 api.ws('/', wsHandler);
 

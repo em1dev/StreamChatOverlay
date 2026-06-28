@@ -3,7 +3,7 @@ import { HandlerApiResult } from '../../../HandlerApiResult';
 import { db } from '../../../repository/prismaDb';
 
 export const recreateUserSettingSecretHandler = async (userId: number): Promise<HandlerApiResult<{ secret: string }>> => {
-  const settings = await db.setting
+  const settings = await db.chat
     .findFirst({
       where: {
         userId
@@ -18,7 +18,7 @@ export const recreateUserSettingSecretHandler = async (userId: number): Promise<
 
   const newSecret = crypto.randomUUID();
 
-  await db.setting.update({
+  await db.chat.update({
     data: {
       secretKey: newSecret
     },

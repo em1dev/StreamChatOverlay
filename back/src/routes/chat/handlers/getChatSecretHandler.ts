@@ -2,14 +2,14 @@ import { HandlerApiResult } from '../../../HandlerApiResult';
 import { db } from '../../../repository/prismaDb';
 
 
-export const getSettingsSecretHandler = async (
+export const getChatSecretHandler = async (
   userId: number,
-  settingsId: number
+  chatId: number
 ): Promise<HandlerApiResult<{ secret: string }>> => {
 
-  const result = await db.setting.findUnique({
+  const result = await db.chat.findUnique({
     where: {
-      id: settingsId,
+      id: chatId,
       userId
     },
     select: {

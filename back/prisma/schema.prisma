@@ -7,10 +7,10 @@ generator client {
   output   = "./client"
 }
 
-model Setting {
-  id     Int     @id @default(autoincrement())
-  name   String
-  userId Int
+model Chat {
+  id            Int     @id @default(autoincrement())
+  name          String
+  userId        Int
   settingsJson  String
-  secretKey String
+  secretKey     String
 }

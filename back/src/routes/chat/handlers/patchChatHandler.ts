@@ -1,32 +1,33 @@
 import { HandlerApiResult } from '../../../HandlerApiResult';
 import { db } from '../../../repository/prismaDb';
 
-interface UpdateSettingsResult
+
+interface PatchChatResult
 {
   id: number,
   name: string,
   settingsJson: string
 }
 
-export const updateSettingsHandler = async (
+export const patchChatHandler = async (
   userId: number,
-  settingsId: number,
+  chatId: number,
   settingsJson?: string,
   name?: string
-):Promise<HandlerApiResult<UpdateSettingsResult>> => {
+):Promise<HandlerApiResult<PatchChatResult>> => {
 
-  const settings = await db.setting.findUnique({
+  const chat = await db.chat.findUnique({
     where: {
-      id: settingsId,
+      id: chatId,
       userId: userId
     }
   });
 
-  if (!settings) return HandlerApiResult.Error(404, 'Not found');
+  if (!chat) return HandlerApiResult.Error(404, 'Not found');
 
-  const result = await db.setting.update({
+  const result = await db.chat.update({
     where: {
-      id: settingsId,
+      id: chatId,
       userId: userId
     },
     data: {

@@ -3,34 +3,34 @@ import { HandlerApiResult } from '../../../HandlerApiResult';
 import { db } from '../../../repository/prismaDb';
 
 
-export const revokeSettingsSecretHandler = async (
+export const revokeChatSecretHandler = async (
   userId: number,
-  settingsId: number
+  chatId: number
 ): Promise<HandlerApiResult<{ secret: string }>> => {
 
-  const settings = await db.setting.findUnique({
+  const chat = await db.chat.findUnique({
     where: {
-      id: settingsId,
+      id: chatId,
       userId: userId
     }
   });
 
-  if (!settings)
+  if (!chat)
     return HandlerApiResult.Error(404, 'Not found');
 
   const newSecret = crypto.randomUUID();
 
-  await db.setting.update({
+  await db.chat.update({
     data: {
       secretKey: newSecret
     },
     where: {
-      id: settingsId,
+      id: chatId,
       userId: userId
     }
   });
 
-  // notify connection change to ws clients
+  // TODO - notify connection change to ws clients
   await AuthApi.revokeConnectionToken(userId);
 
   return HandlerApiResult.Success(200, { secret: newSecret });

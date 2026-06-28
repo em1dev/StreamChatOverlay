@@ -2,14 +2,14 @@ import { HandlerApiResult } from '../../../HandlerApiResult';
 import { db } from '../../../repository/prismaDb';
 
 
-export interface SettingItem {
+export interface Chat {
   id: number,
   name: string,
   settingsJson: string,
 }
 
-export const getSettingsHandler = async (userId: number): Promise<HandlerApiResult<SettingItem[]>> => {
-  const settings = await db.setting.findMany({
+export const getChatHandler = async (userId: number): Promise<HandlerApiResult<Chat[]>> => {
+  const settings = await db.chat.findMany({
     where: {
       userId: {
         equals: userId
