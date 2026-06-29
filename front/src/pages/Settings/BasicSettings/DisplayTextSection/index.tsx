@@ -1,4 +1,4 @@
-import { Input } from '@/components/Input';
+import { Input } from '@/components/core/Input';
 import { MessagePreview } from '@/components/MessagePreview';
 import { chatUsers } from '@/examples/users';
 import { useChatSettings } from '@/store';

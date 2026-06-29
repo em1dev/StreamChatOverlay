@@ -1,4 +1,4 @@
-import { Button } from '@/components/Button';
+import { Button } from '@/components/core/Button';
 import styled from 'styled-components';
 
 

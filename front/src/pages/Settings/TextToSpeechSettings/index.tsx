@@ -1,13 +1,13 @@
-import { Select } from '@/components/Select';
-import { ToggleInput } from '@/components/ToggleInput';
+import { Select } from '@/components/core/Select';
+import { ToggleInput } from '@/components/core/ToggleInput';
 import { useChatSettings , useStore } from '@/store';
 import { setTtsVoices } from '@/store/actions/voiceActions';
 import { useCallback, useEffect, useState } from 'react';
 import { UserPronunciationBlock } from './UserPronounciationBlock';
 import { Icon } from '@iconify/react';
 import { useTTS } from '@/hooks/useTTS/useTTS';
-import { IconButton } from '@/components/IconButton';
-import { Input } from '@/components/Input';
+import { IconButton } from '@/components/core/IconButton';
+import { Input } from '@/components/core/Input';
 import { MessagePart } from '@/types';
 import { updateChatSettings } from '@/store/actions/chatActions';
 import * as S from './styles';

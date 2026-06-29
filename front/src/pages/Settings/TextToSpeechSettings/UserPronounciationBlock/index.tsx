@@ -1,8 +1,8 @@
 import { Icon } from '@iconify/react';
 import { useCallback, useMemo } from 'react';
 import { TTSReplacement } from '@/types/settingsTypes';
-import { Input } from '@/components/Input';
-import { IconButton } from '@/components/IconButton';
+import { Input } from '@/components/core/Input';
+import { IconButton } from '@/components/core/IconButton';
 import { removeRegexCharacters } from '@/utils/regexUtils';
 import { useChatSettings } from '@/store';
 import { updateChatSettings } from '@/store/actions/chatActions';

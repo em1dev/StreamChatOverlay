@@ -1,4 +1,4 @@
-import { Button } from '@/components/Button';
+import { Button } from '@/components/core/Button';
 import { useStore } from '@/store';
 import { setChatToDelete } from '@/store/actions/pageActions';
 import { removeChat } from '@/store/actions/chatActions';

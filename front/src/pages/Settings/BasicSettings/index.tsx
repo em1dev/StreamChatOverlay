@@ -1,4 +1,4 @@
-import { ToggleInput } from '@/components/ToggleInput';
+import { ToggleInput } from '@/components/core/ToggleInput';
 import { useChatSettings } from '@/store';
 import { Icon } from '@iconify/react';
 import { HeaderOrdering } from './HeaderOrdering';

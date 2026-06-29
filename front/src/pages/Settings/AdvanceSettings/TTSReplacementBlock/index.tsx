@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
 import * as S from './styles';
 import { TTSReplacement } from '@/types/settingsTypes';
-import { Divider } from '@/components/Divider';
+import { Divider } from '@/components/core/Divider';
 import { Icon } from '@iconify/react';
-import { ToggleInput } from '@/components/ToggleInput';
+import { ToggleInput } from '@/components/core/ToggleInput';
 
 
 export interface TTSReplacementBlockProps {

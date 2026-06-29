@@ -1,5 +1,5 @@
 import { themeKeyMap, ThemeKeys, themeKeyWithDisplayName } from '@/themes/chatThemes';
-import { Select } from '../Select';
+import { Select } from '../core/Select';
 import { useId, useMemo } from 'react';
 
 

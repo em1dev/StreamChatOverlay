@@ -1,4 +1,4 @@
-import { Button } from '@/components/Button';
+import { Button } from '@/components/core/Button';
 import { Icon } from '@iconify/react';
 import { useStore } from '@/store';
 import { addChat } from '@/store/actions/chatActions';

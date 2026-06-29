@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react';
 import { NavLink } from 'react-router';
-import { Divider } from '@/components/Divider';
+import { Divider } from '@/components/core/Divider';
 import { useCallback } from 'react';
 import { logOut } from '@/store/actions/authActions';
 import { useStore } from '@/store';

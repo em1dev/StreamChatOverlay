@@ -1,5 +1,5 @@
-import { Button } from '@/components/Button';
-import { Input } from '@/components/Input';
+import { Button } from '@/components/core/Button';
+import { Input } from '@/components/core/Input';
 import { useStore } from '@/store';
 import { setChatToRename } from '@/store/actions/pageActions';
 import { setChatName } from '@/store/actions/chatActions';

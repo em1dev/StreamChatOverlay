@@ -3,7 +3,7 @@ import { ChatMessageHeaderType } from '@/types/settingsTypes';
 import { Fragment } from 'react/jsx-runtime';
 import { useCallback } from 'react';
 import { landingExamplesMessages } from '@/examples/landingExamplesMessages';
-import { ToggleInput } from '@/components/ToggleInput';
+import { ToggleInput } from '@/components/core/ToggleInput';
 import { MessagePreview } from '@/components/MessagePreview';
 
 import * as S from './styles';

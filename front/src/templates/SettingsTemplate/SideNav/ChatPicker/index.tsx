@@ -1,8 +1,8 @@
 import { Icon } from '@iconify/react';
-import { IconButton } from '@/components/IconButton';
+import { IconButton } from '@/components/core/IconButton';
 import { DropdownButton } from './DropdownButton';
 import { useEffect, useRef, useState } from 'react';
-import { Divider } from '@/components/Divider';
+import { Divider } from '@/components/core/Divider';
 import { useStore } from '@/store';
 import { addChat, setActiveChat } from '@/store/actions/chatActions';
 import { setChatToDelete, setChatToRename } from '@/store/actions/pageActions';

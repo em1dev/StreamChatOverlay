@@ -1,5 +1,5 @@
 import { FontKeys, FontMap, FontWeights, useAllChatFonts, useChatSettingsFont } from '@/fonts/ChatFonts';
-import { Select } from '../Select';
+import { Select } from '../core/Select';
 import { Fragment, useId } from 'react';
 import { useChatSettings } from '@/store';
 import { updateChatSettings } from '@/store/actions/chatActions';
