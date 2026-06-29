@@ -24,7 +24,7 @@ services:
     environment:
       - PORT=80
       - APP_ID=${APP_ID}
-      - AUTH_API_URL=${AUTH_API_URL}
+      - AUTH_API_URL=http://auth-api:80
       - POSTGRESQL_URL=postgresql://chat:chat@chat-db:5432/chatdb
     networks:
       - shared
