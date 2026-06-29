@@ -20,7 +20,6 @@ export const NoChats = () => {
     <S.Container>
       <Icon aria-hidden fontSize="1.5em" icon="mingcute:chat-1-line" />
       <h1>No Chat Settings</h1>
-      <p>Create a chat settings to begin</p>
       <Button onClick={onChatCreate}>
         <Icon aria-hidden icon="mingcute:add-fill" />
         Create chat
