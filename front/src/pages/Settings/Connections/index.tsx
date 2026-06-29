@@ -4,7 +4,7 @@ import { Connection } from '@/api/chatApi/types';
 import { useCallback, useEffect, useState } from 'react';
 import { ConnectionItem } from './ConnectionItem';
 import { useChatSettings, useStore } from '@/store';
-import { updateChatSettings } from '@/store/actions/settingsActions';
+import { updateChatSettings } from '@/store/actions/chatActions';
 
 
 type LoadingState = Record<Connection['type'], boolean>;

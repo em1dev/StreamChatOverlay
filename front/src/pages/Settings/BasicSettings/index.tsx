@@ -7,7 +7,7 @@ import { ThemePicker } from '@/components/ThemePicker';
 import FontPicker from '@/components/FontPicker';
 import { DisplayTextSection } from './DisplayTextSection';
 import { ChatPreview } from './ChatPreview';
-import { updateChatSettings } from '@/store/actions/settingsActions';
+import { updateChatSettings } from '@/store/actions/chatActions';
 import * as S from './styles';
 
 

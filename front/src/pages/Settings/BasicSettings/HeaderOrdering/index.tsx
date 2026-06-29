@@ -8,7 +8,7 @@ import { MessagePreview } from '@/components/MessagePreview';
 
 import * as S from './styles';
 import { useChatSettings } from '@/store';
-import { updateChatSettings } from '@/store/actions/settingsActions';
+import { updateChatSettings } from '@/store/actions/chatActions';
 
 
 const headerTypeToDisplayName: Record<ChatMessageHeaderType, string> = {

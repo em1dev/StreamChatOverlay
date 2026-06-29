@@ -5,7 +5,7 @@ const authLoginUrl = `${BASE_URL}/authenticate?redirectUrl=${location.origin}/au
 
 const authenticateWithCode = async (code: string) => {
   const redirectUrl = location.origin + '/auth';
-  const resp = await fetch('login', {
+  const resp = await fetch(`${BASE_URL}/login`, {
     method: 'POST',
     headers: {
       'content-type': 'application/json'

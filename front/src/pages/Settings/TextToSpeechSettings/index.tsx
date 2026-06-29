@@ -9,7 +9,7 @@ import { useTTS } from '@/hooks/useTTS/useTTS';
 import { IconButton } from '@/components/IconButton';
 import { Input } from '@/components/Input';
 import { MessagePart } from '@/types';
-import { updateChatSettings } from '@/store/actions/settingsActions';
+import { updateChatSettings } from '@/store/actions/chatActions';
 import * as S from './styles';
 
 

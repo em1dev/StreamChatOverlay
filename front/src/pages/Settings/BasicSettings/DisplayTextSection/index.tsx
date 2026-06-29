@@ -2,7 +2,7 @@ import { Input } from '@/components/Input';
 import { MessagePreview } from '@/components/MessagePreview';
 import { chatUsers } from '@/examples/users';
 import { useChatSettings } from '@/store';
-import { updateChatSettings } from '@/store/actions/settingsActions';
+import { updateChatSettings } from '@/store/actions/chatActions';
 import { ChatMessageData } from '@/types';
 import { variableReplacementEngine } from '@/utils/variableReplacementEngine';
 

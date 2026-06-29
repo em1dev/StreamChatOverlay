@@ -4,7 +4,6 @@ import { SideNav } from './SideNav';
 import { Outlet, useNavigate } from 'react-router';
 import { useEffect } from 'react';
 import { Footer } from '@/components/Footer';
-import { SettingsSynchronizer } from '@/utils/SettingsSynchronizer';
 import { NoChats } from './NoChats';
 import { useStore } from '@/store';
 
@@ -32,7 +31,6 @@ export const SettingsTemplate = () => {
 
   return (
     <S.Container>
-      <SettingsSynchronizer />
       <Header />
       <SideNav />
       { hasChats ? (

@@ -5,7 +5,7 @@ import { Input } from '@/components/Input';
 import { IconButton } from '@/components/IconButton';
 import { removeRegexCharacters } from '@/utils/regexUtils';
 import { useChatSettings } from '@/store';
-import { updateChatSettings } from '@/store/actions/settingsActions';
+import { updateChatSettings } from '@/store/actions/chatActions';
 import * as S from './styles';
 
 

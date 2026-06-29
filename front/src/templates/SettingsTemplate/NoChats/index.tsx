@@ -1,12 +1,19 @@
 import { Button } from '@/components/Button';
 import { Icon } from '@iconify/react';
-import { createChat } from '@/store/actions/settingsActions';
+import { useStore } from '@/store';
+import { addChat } from '@/store/actions/chatActions';
+import { chatApi } from '@/api/chatApi';
 import * as S from './styles';
 
 
 export const NoChats = () => {
-  const onCreate = async () => {
-    await createChat();
+  const session = useStore(s => s.session);
+
+  const onChatCreate = async () => {
+    if (!session) return;
+    const resp = await chatApi.createChat(session.token, 'Main chat');
+    if (!resp.data) return;
+    addChat(resp.data);
   };
 
   return (
@@ -14,9 +21,9 @@ export const NoChats = () => {
       <Icon aria-hidden fontSize="1.5em" icon="mingcute:chat-1-line" />
       <h1>No Chat Settings</h1>
       <p>Create a chat settings to begin</p>
-      <Button onClick={onCreate}>
+      <Button onClick={onChatCreate}>
         <Icon aria-hidden icon="mingcute:add-fill" />
-        Create chat settings
+        Create chat
       </Button>
     </S.Container>
   );

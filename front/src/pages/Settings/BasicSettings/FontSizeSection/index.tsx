@@ -1,6 +1,6 @@
 import { useChatSettings } from '@/store';
 import { Icon } from '@iconify/react';
-import { updateChatSettings } from '@/store/actions/settingsActions';
+import { updateChatSettings } from '@/store/actions/chatActions';
 import * as S from './styles';
 
 

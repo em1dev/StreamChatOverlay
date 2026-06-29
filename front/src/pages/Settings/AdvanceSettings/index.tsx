@@ -1,4 +1,4 @@
-import { updateChatSettings } from '@/store/actions/settingsActions';
+import { updateChatSettings } from '@/store/actions/chatActions';
 import { TTSReplacementBlock } from './TTSReplacementBlock';
 import { useChatSettings } from '@/store';
 import * as S from './style';

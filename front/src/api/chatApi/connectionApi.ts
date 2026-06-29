@@ -9,7 +9,7 @@ const getConnectionDetailsFromSecret = async (userId: number, secret: string) =>
 {
   const body = JSON.stringify({ userId, secret });
   return await chatApiClient.fetch<SecretResponse>(
-    'secret', 'POST', undefined, body
+    'chat/secret', 'POST', undefined, body
   );
 };
 

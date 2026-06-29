@@ -1,10 +1,11 @@
 import { Button } from '@/components/Button';
 import { useStore } from '@/store';
 import { setChatToDelete } from '@/store/actions/pageActions';
-import { deleteChat } from '@/store/actions/settingsActions';
+import { removeChat } from '@/store/actions/chatActions';
+import { chatApi } from '@/api/chatApi';
 
 export const DeleteConfirmationModal = () => {
-
+  const session = useStore(s => s.session);
   const toDelete = useStore(c => c.chatToDelete);
 
   const onCancel = () => {
@@ -13,7 +14,12 @@ export const DeleteConfirmationModal = () => {
 
   const onConfirmDelete = async () => {
     if (!toDelete) return;
-    await deleteChat(toDelete.chatId);
+    if (!session) return;
+
+    const result = await chatApi.deleteChat(session.token, toDelete.chatId);
+    if (result.hasError) return;
+
+    await removeChat(toDelete.chatId);
     setChatToDelete(null);
   };
 

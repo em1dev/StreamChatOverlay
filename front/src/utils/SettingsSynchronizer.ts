@@ -1,7 +1,7 @@
 import { chatApi } from '@/api/chatApi';
 import { useSettingsChangeListener } from '@/hooks/useSettingsChangeListener';
 import { useStore } from '@/store';
-import { resetState, setActiveChat, setChats } from '@/store/actions/settingsActions';
+import { resetState, setActiveChat, setChats } from '@/store/actions/chatActions';
 import { useCallback, useEffect } from 'react';
 
 export const SettingsSynchronizer = () => {

@@ -1,7 +1,7 @@
 import { chatApi } from '@/api/chatApi';
-import { useSettingsChangeListener } from '@/hooks/useSettingsChangeListener';
-import { setActiveChat, setChats } from '@/store/actions/settingsActions';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { setActiveChat, setChats } from '@/store/actions/chatActions';
+import { connectToWebsocket } from '@/store/actions/websocketActions';
+import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router';
 import { useParams } from 'react-router';
 
@@ -44,7 +44,7 @@ export const useSecret = (): SecretResult => {
     let ignoreResp = false;
 
     (async () => {
-      const resp =await chatApi
+      const resp = await chatApi
         .getConnectionDetailsFromSecret(userIdParsed, secret);
 
       if (ignoreResp) return;
@@ -64,6 +64,7 @@ export const useSecret = (): SecretResult => {
         settingsJson: data.settingsJsonString
       }]);
       setActiveChat(data.id);
+      connectToWebsocket(null, secret);
 
       window.umami?.identify(userIdParsed.toString());
 
@@ -85,31 +86,6 @@ export const useSecret = (): SecretResult => {
     };
 
   }, [secret, userIdParsed]);
-
-  const onSettingsChanged = useCallback(async () => {
-    if (!secret || userIdParsed == null) return;
-    const resp = await chatApi
-      .getConnectionDetailsFromSecret(userIdParsed, secret);
-
-    if (resp.hasError) {
-      setState(prev => ({
-        ...prev,
-        isLoading: false,
-        hasError: true
-      }));
-      return;
-    }
-
-    const data = resp.data!;
-    setChats([{
-      id: data.id,
-      name: data.name,
-      settingsJson: data.settingsJsonString
-    }]);
-    setActiveChat(data.id);
-  }, [secret, userIdParsed]);
-
-  useSettingsChangeListener(userIdParsed, onSettingsChanged);
 
   const result = useMemo(() => ({
     ...state,

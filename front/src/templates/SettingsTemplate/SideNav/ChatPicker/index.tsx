@@ -4,8 +4,9 @@ import { DropdownButton } from './DropdownButton';
 import { useEffect, useRef, useState } from 'react';
 import { Divider } from '@/components/Divider';
 import { useStore } from '@/store';
-import { createChat, setActiveChat } from '@/store/actions/settingsActions';
+import { addChat, setActiveChat } from '@/store/actions/chatActions';
 import { setChatToDelete, setChatToRename } from '@/store/actions/pageActions';
+import { chatApi } from '@/api/chatApi';
 import * as S from './styles';
 
 
@@ -14,6 +15,7 @@ const MAX_ITEMS = 10;
 export const ChatPicker = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const activeChat = useStore(s => s.activeChat);
+  const session = useStore(s => s.session);
   const chats = useStore(s => s.chats);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -35,6 +37,16 @@ export const ChatPicker = () => {
   const onItemEdit = (id: number) => {
     setIsOpen(false);
     setChatToRename(id);
+  };
+
+  const onChatCreate = async () => {
+    if (!session) return;
+    const count = chats.length;
+    const name = count == 0 ? 'Main chat' : `Chat ${count + 1}`;
+    const resp = await chatApi.createChat(session.token, name);
+    if (!resp.data) return;
+    addChat(resp.data);
+    setActiveChat(resp.data.id);
   };
 
   useEffect(() => {
@@ -85,9 +97,9 @@ export const ChatPicker = () => {
         }
         <Divider />
         { !maxItemsReached && (
-          <S.MenuButton disabled={maxItemsReached} onClick={createChat}>
+          <S.MenuButton disabled={maxItemsReached} onClick={onChatCreate}>
             <Icon icon="mingcute:add-fill" />
-            New configuration
+            New chat
           </S.MenuButton>
         )}
       </S.Menu>

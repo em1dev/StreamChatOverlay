@@ -1,7 +1,8 @@
 import { chatApi } from '@/api/chatApi';
 import router from '@/app/routes';
-import { decodeJwt } from 'jose';
 import { useStore } from '../';
+import { closeWebsocket, connectToWebsocket } from './websocketActions';
+import { resetState, setActiveChat, setChats } from './chatActions';
 
 
 export const LOCAL_STORAGE_AUTH_KEY = 'CHAT_SESSION';
@@ -44,49 +45,22 @@ export const setToken = (token: string) => {
 
 export const setSession = (session: Session | null) => {
   useStore.setState({ session });
+  if (!session)
+  {
+    resetState();
+    closeWebsocket();
+    return;
+  }
+
+  (async () => {
+    const result = await chatApi.getChat(session.token);
+    if (!result.data) return;
+    setChats(result.data);
+    setActiveChat(result.data.at(0)?.id);
+    connectToWebsocket(session, null);
+  })();
 };
 
 export const setAuthIsLoading = (isLoading: boolean) => {
   useStore.setState({ isLoadingSession: isLoading });
 };
-
-// Auth Listener
-const loadTokenFromLocalStorage = async () => {
-  setAuthIsLoading(true);
-  const token = localStorage.getItem(LOCAL_STORAGE_AUTH_KEY);
-  if (!token) {
-    setSession(null);
-    setAuthIsLoading(false);
-    return;
-  }
-
-  const isValid = await chatApi.verifyToken(token);
-  if (!isValid) {
-    window.umami?.track('Auth session expired');
-    localStorage.removeItem(LOCAL_STORAGE_AUTH_KEY);
-    setSession(null);
-    setAuthIsLoading(false);
-    return;
-  }
-
-  const user = decodeJwt<User>(token);
-  const session:Session = { token, user };
-  setSession(session);
-  setAuthIsLoading(false);
-  window.umami?.identify(user.id.toString());
-  return session;
-};
-
-const onStorageChange = async (e: StorageEvent) => {
-  if (e.key !== LOCAL_STORAGE_AUTH_KEY) return;
-  const newSession = await loadTokenFromLocalStorage();
-  if (newSession) {
-    router.navigate('/settings');
-  } else {
-    router.navigate('/');
-  }
-};
-
-window.addEventListener('storage', onStorageChange);
-
-loadTokenFromLocalStorage();

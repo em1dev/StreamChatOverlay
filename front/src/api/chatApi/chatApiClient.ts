@@ -1,3 +1,4 @@
+import { useStore } from '@/store';
 import { ApiResponse } from '../ApiResponse';
 
 
@@ -10,8 +11,10 @@ export const fetchApi = async <T>(
   token?: string,
   body?: string
 ): Promise<ApiResponse<T>> => {
+  const clientId = useStore.getState().clientIdentifier;
   const headers = new Headers({
     'content-type': 'application/json',
+    'client_id': clientId
   }) ;
 
   if (token) {

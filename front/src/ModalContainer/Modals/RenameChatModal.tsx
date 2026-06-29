@@ -2,26 +2,39 @@ import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 import { useStore } from '@/store';
 import { setChatToRename } from '@/store/actions/pageActions';
-import { renameChat } from '@/store/actions/settingsActions';
+import { setChatName } from '@/store/actions/chatActions';
 import { useEffect, useState } from 'react';
+import { chatApi } from '@/api/chatApi';
 
 
 export const RenameChatModal = () => {
-  const [title, setTitle] = useState<string>('');
+  const session = useStore(s => s.session);
   const chatToRename = useStore(s => s.chatToRename);
+  const [name, setName] = useState<string>('');
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setTitle(chatToRename?.name ?? '');
+    setName(chatToRename?.name ?? '');
   }, [chatToRename]);
 
   const onSave = async () => {
     if (!chatToRename) return;
-    await renameChat(chatToRename.chatId, title);
+    if (!session) return;
+
+    const result = await chatApi.updateChatName(
+      chatToRename.chatId,
+      name,
+      session.token
+    );
+
+    if (result.hasError) return;
+
+    setChatName(chatToRename.chatId, name);
+    setChatToRename(null);
   };
 
   const onCancel = () => {
-    setTitle('');
+    setName('');
     setChatToRename(null);
   };
 
@@ -36,9 +49,9 @@ export const RenameChatModal = () => {
       </label>
       <Input
         id='chat-rename-input'
-        value={title}
+        value={name}
         maxLength={20}
-        onChange={(e) => setTitle(e.target.value)}
+        onChange={(e) => setName(e.target.value)}
       />
 
       <footer>

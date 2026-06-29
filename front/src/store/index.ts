@@ -5,6 +5,9 @@ import { Chat } from '@/api/chatApi/types';
 
 
 interface Store {
+  websocketReconnectionTimeout: NodeJS.Timeout | null,
+  backendWebsocket: WebSocket | null,
+
   isLoadingSession: boolean,
   session: Session | null,
 
@@ -35,6 +38,9 @@ interface Store {
 
 export const useStore = create<Store>()(() => {
   return {
+    websocketReconnectionTimeout: null,
+    backendWebsocket: null,
+
     isLoadingSession: true,
     session: null,
 
