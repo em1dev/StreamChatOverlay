@@ -1,9 +1,8 @@
 import { Connection } from '@/api/chatApi/types';
 import { Icon } from '@iconify/react';
-
-import * as S from './styles';
 import { ToggleInput } from '@/components/ToggleInput';
 import { LiveServiceIcon } from '@/components/LiveServiceIcon';
+import * as S from './styles';
 
 
 export interface ConnectionItemProps {

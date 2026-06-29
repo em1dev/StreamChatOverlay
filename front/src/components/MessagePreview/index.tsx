@@ -1,11 +1,11 @@
-import { FontMap } from '@/fonts/ChatFonts';
 import { useChatTheme } from '@/hooks/useChatTheme';
-import { useConfiguration } from '@/store/configuration';
 import { ThemeProvider } from 'styled-components';
 import ChatMsg from '../ChatVisualizerCore/ChatBubble';
 import { ChatMessageData } from '@/types';
-
+import { useChatSettings } from '@/store';
+import { useChatSettingsFont } from '@/fonts/ChatFonts';
 import * as S from './styles';
+
 
 export interface MessagePreviewProps {
   message: ChatMessageData;
@@ -14,10 +14,12 @@ export interface MessagePreviewProps {
 export const MessagePreview = ({
   message
 }: MessagePreviewProps) => {
-  const fontKey = useConfiguration(c => c.userConfiguration.chatFont);
-  const font = FontMap[fontKey] || FontMap.itim;
-  const fontWeight = useConfiguration(c => c.userConfiguration.chatFontWeight);
-  const fontSize = useConfiguration(c => c.userConfiguration.fontSize);
+  const { font } = useChatSettingsFont();
+  const fontWeight = useChatSettings(c => c.chatFontWeight);
+  const chatDirection = useChatSettings(c => c.chatDirection);
+  const headerOrdering = useChatSettings(c => c.headerOrdering);
+  const showChatterBadges = useChatSettings(c => c.showChatterBadges);
+  const fontSize = useChatSettings(c => c.fontSize);
   const chatTheme = useChatTheme();
 
   return (
@@ -27,7 +29,12 @@ export const MessagePreview = ({
       fontSize: fontSize
     }}>
       <ThemeProvider theme={chatTheme}>
-        <ChatMsg {...message}  />
+        <ChatMsg
+          chatDirection={chatDirection}
+          headerOrdering={headerOrdering}
+          showBadges={showChatterBadges}
+          message={message}
+        />
       </ThemeProvider>
     </S.Container>
   );

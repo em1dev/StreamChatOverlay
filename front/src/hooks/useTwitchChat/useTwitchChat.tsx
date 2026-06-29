@@ -7,14 +7,15 @@ import { useBadges } from '../useBadges';
 import { TwitchChatParser } from './twitchChatParser';
 import { useCustomEmotes } from '../useCustomEmotes';
 import { useTTS } from '../useTTS/useTTS';
-import { useConfiguration } from '../../store/configuration';
+import { useChatSettings } from '@/store';
+
 
 const MAX_MESSAGES = 20;
 
 type OnChatMessageEventHandler = (channel: string, user:string, text:string, msg: TwurpleChatMessage) => Promise<void>;
 
 export const useTwitchChat = (channelId: string, channelLogin: string) => {
-  const configuration = useConfiguration(state => state);
+  const settings = useChatSettings(state => state);
 
   const {
     clearQueue: ttsClearQueue,
@@ -101,20 +102,20 @@ export const useTwitchChat = (channelId: string, channelLogin: string) => {
 
   useEffect(() => {
     onMessageHandlerRef.current = async (channel: string, user: string, text: string, msg: TwurpleChatMessage) => {
-      if (configuration.userConfiguration.ignoredUsers.find(ignoredUser => ignoredUser.value === user)) return;
+      if (settings.ignoredUsers.find(ignoredUser => ignoredUser.value === user)) return;
       const pronoun = await getPronounsFromTwitchName(user);
       const msgParts = TwitchChatParser.parseMessage(
         msg.text,
         msg.emoteOffsets,
         customEmotes,
         msg,
-        configuration.userConfiguration
+        settings
       );
 
       const isBot = msg.userInfo.badges.get('bot-badge') == '1';
       const isCommand = text.trim().startsWith('!');
 
-      const badges = configuration.userConfiguration.showChatterBadges ? parseBadges(msg.userInfo.badges) : [];
+      const badges = settings.showChatterBadges ? parseBadges(msg.userInfo.badges) : [];
       const effect = TwitchChatParser.parseMessageEffect(msg);
       const newMessage: ChatMessageData = {
         id: msg.id,
@@ -130,7 +131,7 @@ export const useTwitchChat = (channelId: string, channelLogin: string) => {
         isCommand
       };
 
-      const ttsConfiguration = configuration.userConfiguration.ttsConfiguration;
+      const ttsConfiguration = settings.ttsConfiguration;
       const isTTSEnabled = ttsConfiguration.isTTSEnabled;
 
       let hasReadMessage = false;
@@ -144,8 +145,8 @@ export const useTwitchChat = (channelId: string, channelLogin: string) => {
         }) !== null;
       }
 
-      const shouldIgnoreBotMsgDisplay = configuration.userConfiguration.hideBotMessages && isBot;
-      const shouldIgnoreCommandMsgDisplay = configuration.userConfiguration.hideCommands && isCommand;
+      const shouldIgnoreBotMsgDisplay = settings.hideBotMessages && isBot;
+      const shouldIgnoreCommandMsgDisplay = settings.hideCommands && isCommand;
       let shouldDisplayMessage = !shouldIgnoreBotMsgDisplay && !shouldIgnoreCommandMsgDisplay;
 
       // display messages that have been read overriding normal config
@@ -157,15 +158,15 @@ export const useTwitchChat = (channelId: string, channelLogin: string) => {
         ));
       }
     };
-  }, [getPronounsFromTwitchName, parseBadges, customEmotes, ttsSpeak, configuration]);
+  }, [getPronounsFromTwitchName, parseBadges, customEmotes, ttsSpeak, settings]);
 
   useEffect(() => {
     onMessageRemovedRef.current = (msgId: string) => {
-      if (configuration.userConfiguration.ttsConfiguration.isTTSEnabled) {
+      if (settings.ttsConfiguration.isTTSEnabled) {
         ttsRemoveMessage([msgId]);
       }
     };
-  }, [ttsRemoveMessage, configuration]);
+  }, [ttsRemoveMessage, settings]);
 
   useEffect(() => {
     onChatClearRef.current = ttsClearQueue;

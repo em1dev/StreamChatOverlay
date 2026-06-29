@@ -1,28 +1,39 @@
 import { AnimatePresence, LayoutGroup, motion } from 'motion/react';
 import { ChatMessageData } from '../../types';
 import ChatMsg from './ChatBubble';
+import { useFont } from '@/fonts/ChatFonts';
+import { ChatSettings } from '@/types/settingsTypes';
 import * as S from './styles';
-import { useConfiguration } from '../../store/configuration';
-import { FontMap, useChatFontLoader } from '@/fonts/ChatFonts';
+
 
 export interface ChatProps {
   msgs: Array<ChatMessageData>,
+  chatDirection: ChatSettings['chatDirection'],
+  fontSize: ChatSettings['fontSize'],
+  chatFont: ChatSettings['chatFont'],
+  fontWeight: ChatSettings['chatFontWeight'],
+  lowerOpacityOnTop: ChatSettings['lowerOpacityOnTop'],
+  showBadges: ChatSettings['showChatterBadges'],
+  headerOrdering: ChatSettings['headerOrdering'];
 }
 
-const Chat = ({ msgs }: ChatProps) => {
-  const chatDirection = useConfiguration(state => state.userConfiguration.chatDirection);
-  const fontSize = useConfiguration(state => state.userConfiguration.fontSize);
-  const fontKey = useConfiguration(state => state.userConfiguration.chatFont);
-  const fontWeight = useConfiguration(state => state.userConfiguration.chatFontWeight);
-  const font = FontMap[fontKey];
-  const showOpacityMask = useConfiguration(state => state.userConfiguration.lowerOpacityOnTop);
-  useChatFontLoader();
+const Chat = ({
+  msgs,
+  chatDirection,
+  chatFont,
+  fontSize,
+  fontWeight,
+  lowerOpacityOnTop,
+  headerOrdering,
+  showBadges
+}: ChatProps) => {
+  const { font } = useFont(chatFont);
 
   return (
     <S.Container
       $fontFamily={font.fontFamily}
       $fontWeight={fontWeight}
-      $showOpacityMask={showOpacityMask}
+      $showOpacityMask={lowerOpacityOnTop}
       $fontSize={fontSize}
       $direction={chatDirection}
     >
@@ -36,7 +47,13 @@ const Chat = ({ msgs }: ChatProps) => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: chatDirection == 'left' ? -100 : 100 }}
             >
-              <ChatMsg key={msg.id} {...msg}   />
+              <ChatMsg
+                key={msg.id}
+                chatDirection={chatDirection}
+                headerOrdering={headerOrdering}
+                showBadges={showBadges}
+                message={msg}
+              />
             </motion.div>
           ))}
         </AnimatePresence>

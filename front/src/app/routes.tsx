@@ -14,7 +14,7 @@ const router = createBrowserRouter([
 
   {
     path: '/',
-    lazy: { Component: async () => (await import('@/app/SettingsWrapper')).default },
+    lazy: { Component: async () => (await import('@/app/MainWrapper')).MainWrapper }, // includes fonts
     children: [
       { index: true, lazy: { Component: async () => (await import('@Pages/Landing')).Landing } },
       {
@@ -24,7 +24,6 @@ const router = createBrowserRouter([
           { path: 'terms',  Component: Terms },
         ]
       },
-
       {
         Component: SettingsTemplate,
         path: 'settings',
@@ -34,7 +33,6 @@ const router = createBrowserRouter([
           { path: 'connections', lazy: { Component: async () => (await import('@Pages/Settings/Connections')).Connections } },
           { path: 'tts', lazy: { Component: async () => (await import('@Pages/Settings/TextToSpeechSettings')).TextToSpeechSettings } },
           { path: 'advance-settings', lazy: { Component: async () => (await import('@Pages/Settings/AdvanceSettings')).AdvanceSettings } },
-          { path: 'custom-theme', lazy: { Component: async () => (await import('@Pages/Settings/CustomThemeSettings')).CustomThemeSettings } },
         ]
       },
       { path: '/auth', Component: AuthenticationPage },

@@ -1,38 +1,49 @@
 import * as S from './style';
 import { Header } from '@/components/Header';
 import { SideNav } from './SideNav';
-import { useAuth } from '@/context/authContext/useAuth';
 import { Outlet, useNavigate } from 'react-router';
 import { useEffect } from 'react';
 import { Footer } from '@/components/Footer';
-import { useSideMenuStore } from '@/store/sideMenuStore';
+import { NoChats } from './NoChats';
+import { useStore } from '@/store';
 
 
 export const SettingsTemplate = () => {
-  const isOpen = useSideMenuStore(s => s.isOpen);
-  const { session, isLoading } = useAuth();
+  const isSideMenuOpen = useStore(s => s.isSideMenuOpen);
+  const isLoadingSession = useStore(s => s.isLoadingSession);
+  const session = useStore(s => s.session);
+  const hasChats = useStore(s => s.chats.length > 0);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!session && !isLoading) {
-      navigate('/');
-    }
-  }, [session, navigate, isLoading]);
+    if (isLoadingSession) return;
+    if (session) return;
+    // unauth so go home
+    navigate('/');
+  }, [session, isLoadingSession, navigate]);
 
   useEffect(() => {
-    document.body.classList = isOpen ? 'noScroll' : '';
+    document.body.classList = isSideMenuOpen ? 'noScroll' : '';
     return () => {
       document.body.classList = '';
     };
-  }, [isOpen]);
+  }, [isSideMenuOpen]);
 
   return (
     <S.Container>
       <Header />
       <SideNav />
-      <S.ContentContainer>
-        <Outlet />
-      </S.ContentContainer>
+      { hasChats ? (
+        <>
+          <S.ContentContainer>
+            <Outlet />
+          </S.ContentContainer>
+        </>
+      ): (
+        <S.NoContentContainer>
+          <NoChats />
+        </S.NoContentContainer>
+      )}
       <Footer />
     </S.Container>
   );

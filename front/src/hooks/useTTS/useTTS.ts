@@ -1,26 +1,26 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { applyTTSMessageTransformations } from './configuration';
 import { TTSMessage } from '../../types';
-import { useConfiguration } from '../../store/configuration';
-import { useTtsVoices } from '../../store/ttsVoices';
-import { TTSConfiguration } from '@/types/userConfigurationTypes';
+import { useChatSettings, useStore } from '@/store';
+import { TTSSettings } from '@/types/settingsTypes';
+import { setTtsVoices } from '@/store/actions/voiceActions';
 
 
 export const useTTS = () => {
-  const configuration = useConfiguration(state => state.userConfiguration.ttsConfiguration);
+  const voices = useStore(state => state.voices);
+  const ttsSettings = useChatSettings(state => state.ttsConfiguration);
   const [messagesToRead, setMessagesToRead] = useState<Array<{
     id: string,
     text: string
   }>>([]);
   const [currentMessageId, setCurrentMessageId] = useState<string | null>(null);
-  const { setVoices, voices } = useTtsVoices(state => state);
 
-  const validTTSConfiguration: TTSConfiguration = useMemo(() => ({
-    ...configuration,
-    userReplacement: configuration
+  const validTTSConfiguration: TTSSettings = useMemo(() => ({
+    ...ttsSettings,
+    userReplacement: ttsSettings
       .userReplacement
       .filter(r => r.regex.length > 0) // avoid empty rules to stop it from replacing everything
-  }), [configuration]);
+  }), [ttsSettings]);
 
   useEffect(() => {
     if (typeof speechSynthesis === 'undefined') {
@@ -30,7 +30,7 @@ export const useTTS = () => {
 
     const onVoicesChange = () => {
       const voices = speechSynthesis.getVoices();
-      setVoices(voices);
+      setTtsVoices(voices);
     };
 
     onVoicesChange();
@@ -40,7 +40,7 @@ export const useTTS = () => {
     return () => {
       speechSynthesis.removeEventListener('voiceschanged', onVoicesChange);
     };
-  }, [setVoices]);
+  }, []);
 
   const speakInternal = useCallback((text: string, onEnd: () => void) => {
     // speak

@@ -1,29 +1,28 @@
-import * as S from './styles';
-import { useAuth } from '@/context/authContext/useAuth';
 import { Icon } from '@iconify/react';
-import { useSideMenuStore } from '@/store/sideMenuStore';
+import { useStore } from '@/store';
+import { setIsSideMenuOpen } from '@/store/actions/pageActions';
+import { logOut, signIn } from '@/store/actions/authActions';
+import * as S from './styles';
 
 export const Header = () => {
-  const { logOut, signIn, session } = useAuth();
-  const isOpen = useSideMenuStore((s) => s.isOpen);
-  const setIsOpen = useSideMenuStore((s) => s.setIsOpen);
+  const { session, isLoadingSession } = useStore();
 
   return (
     <S.Header>
       <S.Logo to='/'>Stream Chat Overlay</S.Logo>
 
       { session ?
-        <S.MenuButton title='open menu' onClick={() => setIsOpen(!isOpen)}>
+        <S.MenuButton title='open menu' onClick={() => setIsSideMenuOpen((isOpen) => !isOpen)}>
           <Icon fontSize='1.5em' aria-hidden icon={'mingcute:menu-fill'} />
         </S.MenuButton>
         : (
-          <button onClick={signIn}>
+          <button disabled={isLoadingSession} onClick={signIn}>
             Log in
           </button>
         )
       }
 
-      {session && (
+      { session && (
         <S.ProfileDetailsContainer>
           <div>
             <span>{session.user.provider.displayName}</span>

@@ -1,17 +1,17 @@
 import { CONNECTIONS_STORAGE_KEY } from '@/store/connectionStorageKey';
 import { chatApi } from '@/api/chatApi';
 import { Connection } from '@/api/chatApi/types';
-import { useAuth } from '@/context/authContext/useAuth';
 import { useCallback, useEffect, useState } from 'react';
 import { ConnectionItem } from './ConnectionItem';
-import { useConfiguration } from '@/store/configuration';
+import { useChatSettings, useStore } from '@/store';
+import { updateChatSettings } from '@/store/actions/chatActions';
+
 
 type LoadingState = Record<Connection['type'], boolean>;
 
 export const Connections = () => {
-  const { session } = useAuth();
-  const allowedConnections = useConfiguration(state => state.userConfiguration.allowedConnections);
-  const updateConfiguration = useConfiguration(state => state.updateUserConfiguration);
+  const { session } = useStore();
+  const allowedConnections = useChatSettings(state => state.allowedConnections);
   const [connections, setConnections] = useState<Connection[]>([]);
   const [isLoading, setIsLoading] = useState<LoadingState>({
     twitch: true,
@@ -60,13 +60,13 @@ export const Connections = () => {
   }, [session, getConnections]);
 
   const onEnableService = useCallback(async (type: Connection['type'], isEnabled: boolean) => {
-    updateConfiguration({
+    updateChatSettings({
       allowedConnections: {
         ...allowedConnections,
         [type]: isEnabled
       }
-    }, session);
-  }, [session, updateConfiguration,allowedConnections]);
+    });
+  }, [allowedConnections]);
 
   const onDeleteConnection = useCallback(async (type: Connection['type']) => {
     setIsLoading(v => ({ ...v, [type]: true }));
@@ -95,6 +95,7 @@ export const Connections = () => {
   return (
     <>
       <h1>Connections</h1>
+      <p>Connections are shared between configurations but can be disable individually.</p>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5em' }}>
         <ConnectionItem

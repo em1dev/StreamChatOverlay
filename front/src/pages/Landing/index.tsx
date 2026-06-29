@@ -1,19 +1,32 @@
 import Chat from '@/components/ChatVisualizerCore';
 import { landingExamplesMessages } from '@/examples/landingExamplesMessages';
-import { ThemeProvider } from 'styled-components';
-import { useAuth } from '@/context/authContext/useAuth';
-import { useNavigate } from 'react-router';
-import { useChatTheme } from '@/hooks/useChatTheme';
+import { DefaultTheme, ThemeProvider, useTheme } from 'styled-components';
 import { ThemePicker } from '@/components/ThemePicker';
-
-import * as S from './styles';
 import { Footer } from '@/components/Footer';
+import { useState } from 'react';
+import { themeKeyMap, ThemeKeys } from '@/themes/chatThemes';
+import { CTAButton } from './CTAButton';
+import { defaultChatSettings } from '@/store/defaultChatSettings';
+import * as S from './styles';
+
 
 export const Landing = () =>
 {
-  const navigate = useNavigate();
-  const { session, signIn } = useAuth();
-  const chatTheme = useChatTheme();
+  const [selectedTheme, setSelectedTheme] = useState<{
+    themeKey: ThemeKeys,
+    variant: string
+  }>({
+    themeKey: 'duck',
+    variant: 'default'
+  });
+  const baseTheme = useTheme();
+  const theme = themeKeyMap[selectedTheme.themeKey];
+  const chatVariantTheme = theme[selectedTheme.variant].theme;
+
+  const chatTheme:DefaultTheme = {
+    ...baseTheme,
+    chat: chatVariantTheme
+  };
 
   return (
     <S.Main>
@@ -33,20 +46,19 @@ export const Landing = () =>
           </ul>
 
           <S.ThemePickerContainer>
-            <ThemePicker label='Theme preview' />
+            <ThemePicker
+              label='Theme preview'
+              themeKey={selectedTheme.themeKey}
+              themeVariant={selectedTheme.variant}
+              onChange={(newKey, newVariant) =>
+                setSelectedTheme({ themeKey: newKey, variant: newVariant })
+              }
+            />
           </S.ThemePickerContainer>
 
           <S.CTAContainer>
 
-            { !session ? (
-              <button onClick={signIn}>
-                Log in
-              </button>
-            ): (
-              <button onClick={() => { navigate('settings'); }}>
-                Go to settings
-              </button>
-            )}
+            <CTAButton />
 
             <a
               data-umami-event='outbound link'
@@ -69,9 +81,17 @@ export const Landing = () =>
           </S.Blob>
 
           <ThemeProvider theme={chatTheme}>
-            <Chat msgs={[
-              ...landingExamplesMessages
-            ]} />
+            <Chat
+              chatDirection='right'
+              chatFont={defaultChatSettings.chatFont}
+              fontSize={defaultChatSettings.fontSize}
+              fontWeight={defaultChatSettings.chatFontWeight}
+              headerOrdering={defaultChatSettings.headerOrdering}
+              lowerOpacityOnTop={false}
+              showBadges={true}
+              msgs={[
+                ...landingExamplesMessages
+              ]} />
           </ThemeProvider>
         </S.ChatContainer>
       </section>

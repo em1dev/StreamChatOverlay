@@ -1,14 +1,10 @@
-import * as S from './style';
-import { useConfiguration } from '@/store/configuration';
+import { updateChatSettings } from '@/store/actions/chatActions';
 import { TTSReplacementBlock } from './TTSReplacementBlock';
-import { useAuth } from '@/context/authContext/useAuth';
+import { useChatSettings } from '@/store';
+import * as S from './style';
 
 export const AdvanceSettings = () => {
-  const { session } = useAuth();
-  const configuration = useConfiguration(state => state.userConfiguration);
-  const updateUserConfiguration = useConfiguration(state => state.updateUserConfiguration);
-
-  if (configuration == null) return null;
+  const configuration = useChatSettings(state => state);
 
   return (
     <>
@@ -31,11 +27,11 @@ export const AdvanceSettings = () => {
           configuration.ttsConfiguration.replacements
             .sort((a,b) => (a.ordinal - b.ordinal))
             .map((r) => (
-              <TTSReplacementBlock 
+              <TTSReplacementBlock
                 canAddSubReplacement
                 key={r.id}
                 onDelete={() => {
-                  updateUserConfiguration({
+                  updateChatSettings({
                     ttsConfiguration: {
                       ...configuration.ttsConfiguration,
                       replacements: [
@@ -43,10 +39,10 @@ export const AdvanceSettings = () => {
                           .filter(re => re.id !== r.id),
                       ]
                     }
-                  }, session);
+                  });
                 }}
                 onChange={(newR) => {
-                  updateUserConfiguration({
+                  updateChatSettings({
                     ttsConfiguration: {
                       ...configuration.ttsConfiguration,
                       replacements: [
@@ -55,7 +51,7 @@ export const AdvanceSettings = () => {
                         newR
                       ]
                     }
-                  }, session);
+                  });
                 }}
                 replacement={r}
               />
@@ -63,7 +59,7 @@ export const AdvanceSettings = () => {
         }
 
         <button onClick={() => {
-          updateUserConfiguration({
+          updateChatSettings({
             ttsConfiguration: {
               ...configuration.ttsConfiguration,
               replacements: [
@@ -79,13 +75,11 @@ export const AdvanceSettings = () => {
                   replaceFullMessage: false,
                 }
               ]
-            }},
-          session);
+            }});
         }}>
           Add new block
         </button>
       </S.BlockContainer>
     </>
   );
-
 };

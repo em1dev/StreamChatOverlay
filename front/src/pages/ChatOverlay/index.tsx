@@ -2,13 +2,13 @@ import { ThemeProvider } from 'styled-components';
 import { useChatTheme } from '@/hooks/useChatTheme';
 import { ChatWithTwitchConnection } from './ChatWithTwitchConnection';
 import { useSecret } from './useSecret';
-import { useConfiguration } from '@/store/configuration';
+import { useStore } from '@/store';
 
 
 export const ChatOverlay = () => {
   const { hasError, isLoading, twitch } = useSecret();
-  const allowedConnections = useConfiguration(s => s.userConfiguration.allowedConnections);
-  const chatTheme = useChatTheme();
+  const hasActiveChat = useStore(s => s.activeChat !== null);
+  const twitchConnectionEnabled = useStore(s => s.activeChat?.settings.allowedConnections.twitch);
 
   if (hasError) return (
     <div style={{ background: '#ffd0d0', color: '#934040', padding: '1em', borderRadius: '1em', border: 'solid 2px #bd8888'}}>
@@ -18,12 +18,22 @@ export const ChatOverlay = () => {
   );
 
   if (isLoading) return;
+  if (!hasActiveChat) return;
+  if (!twitchConnectionEnabled || !twitch) return;
 
-  if (twitch && allowedConnections.twitch) return (
+  return (
+    <ChatOverlayWithSettings channelId={twitch.channelId} channelName={twitch.channelName}  />
+  );
+};
+
+export const ChatOverlayWithSettings = ({ channelId, channelName }: { channelId: string, channelName: string}) => {
+  const chatTheme = useChatTheme();
+
+  return (
     <ThemeProvider theme={chatTheme}>
       <ChatWithTwitchConnection
-        channelId={twitch.channelId}
-        channelLogin={twitch.channelName}
+        channelId={channelId}
+        channelLogin={channelName}
       />
     </ThemeProvider>
   );

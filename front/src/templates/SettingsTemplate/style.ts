@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+
 export const Container = styled.main`
   display: grid;
   min-height: inherit;
@@ -14,9 +15,6 @@ export const Container = styled.main`
   > :first-child {
     grid-area: header;
   }
-  > :nth-child(2) {
-    grid-area: nav;
-  }
 
   > :last-child {
     font-size: 1.3em;
@@ -27,6 +25,8 @@ export const Container = styled.main`
     gap: 0.5em;
   }
 `;
+
+
 
 export const ContentContainer = styled.div`
   font-size: 1.3em;
@@ -68,3 +68,10 @@ export const ContentContainer = styled.div`
     }
   }
 `;
+
+export const NoContentContainer = styled(ContentContainer)`
+  grid-area: nav / nav / body / body;
+  @media (${({ theme }) => theme.page.query.mobile}) {
+    grid-area: body;
+  }
+  `;

@@ -1,4 +1,4 @@
-import { TTSConfiguration, TTSReplacement } from '@/types/userConfigurationTypes';
+import { TTSReplacement, TTSSettings } from '@/types/settingsTypes';
 import { TTSMessage } from '../../types';
 import { variableReplacementEngine } from '@/utils/variableReplacementEngine';
 
@@ -20,7 +20,7 @@ const roleplay = { id: crypto.randomUUID(), isEnabled: true, ordinal: 9, regex: 
   }
 };
 
-const buildInternalReplacementRules = (configuration: TTSConfiguration) => {
+const buildInternalReplacementRules = (configuration: TTSSettings) => {
   const replacementRules: Array<TTSReplacement> = [];
 
   if (configuration.readUnderscoresAsSpaces)
@@ -41,7 +41,7 @@ const buildInternalReplacementRules = (configuration: TTSConfiguration) => {
   return replacementRules;
 };
 
-export const applyTTSMessageTransformations = (message: TTSMessage, configuration: TTSConfiguration): string | null => {
+export const applyTTSMessageTransformations = (message: TTSMessage, configuration: TTSSettings): string | null => {
   if (configuration.ignoreBotMessages && message.isFromBot) return null;
 
   if (configuration.onlyReadMessagesThatStartWithTtsCommand && configuration.ttsCommand.length > 0) {

@@ -1,5 +1,6 @@
-import { useConfiguration } from '@/store/configuration';
+import { useStore } from '@/store';
 import { useEffect } from 'react';
+import { create } from 'zustand';
 
 export interface ChatFont {
   fontFamily: string,
@@ -41,17 +42,17 @@ export const FontMap: Record<FontKeys, ChatFont> = {
   },
 };
 
-const loadedFonts: Record<FontKeys, boolean> = {
+const fontLoadedStore = create<Record<FontKeys, boolean> >()(() => ({
   gaegu: false,
   itim: false,
   outfit: false,
   poppins: false
-};
+}));
 
 // needs to be a switch for static analysis
 const loadFont = async (fontKey: FontKeys) => {
   console.log(`Loading font ${fontKey}`);
-  loadedFonts[fontKey] = true;
+  fontLoadedStore.setState({ [fontKey]: true });
 
   switch (fontKey) {
     case 'gaegu':
@@ -78,21 +79,26 @@ export const useAllChatFonts = () => {
   useEffect(() => {
     Promise.all(
       Object
-        .entries(loadedFonts)
+        .entries(fontLoadedStore.getState())
         .filter(([,loaded]) => !loaded)
         .map(([key]) => loadFont(key as FontKeys))
     );
   }, []);
 };
 
-export const useChatFontLoader = () => {
-  const selectedFont = useConfiguration(s => s.userConfiguration.chatFont);
+export const useChatSettingsFont = () => {
+  const selectedFont = useStore(s => s.activeChat!.settings.chatFont);
+  return useFont(selectedFont);
+};
 
+export const useFont = (fontKey: FontKeys) => {
   useEffect(() => {
-    const hasLoaded = loadedFonts[selectedFont];
+    const hasLoaded = fontLoadedStore.getState()[fontKey];
     if (hasLoaded) return;
 
-    loadFont(selectedFont);
+    loadFont(fontKey);
 
-  }, [selectedFont]);
+  }, [fontKey]);
+
+  return { font: FontMap[fontKey], fontKey: fontKey };
 };

@@ -1,20 +1,20 @@
 import { Icon } from '@iconify/react';
-import { useConfiguration } from '@/store/configuration';
+import { useStore } from '@/store';
 import { useCallback, useRef, useState } from 'react';
-import { useAuth } from '@/context/authContext/useAuth';
 import { chatApi } from '@/api/chatApi';
 import step2ImgUrl from './img/step2.png';
 import step3ImgUrl from './img/step3.png';
 
 import * as S from './styles';
+import { logOut } from '@/store/actions/authActions';
 
 
 export const AddToStream = () =>
 {
-  const { session, logOut } = useAuth();
-  const secretKey = useConfiguration(s => s.secretKey);
-  const setSecret = useConfiguration(s => s.setSecret);
+  const session = useStore(s => s.session);
+  const activeChat = useStore(s => s.activeChat);
 
+  const [isRecreatingSecret, setIsRecreatingSecret] = useState(false);
   const [isLoadingSecret, setIsLoadingSecret] = useState(false);
   const [hasErrorLoadingSecret, setHasErrorLoadingSecret] = useState(false);
 
@@ -25,33 +25,41 @@ export const AddToStream = () =>
   const onResetSecretKey = useCallback(() => {
     (async () => {
       if (!session) return;
+      if (!activeChat) return;
+
       window.umami?.track('generated new secret url');
-      setIsLoadingSecret(true);
-      const resp = await chatApi.revokeSecret(session.token);
+      setIsRecreatingSecret(true);
+      const resp = await chatApi.revokeSecret(activeChat.metadata.id, session.token);
       if (resp.status == 403) {
         logOut();
         return;
       }
 
       if (!resp.hasError && resp.data) {
-        setSecret(resp.data.secret);
-        setIsLoadingSecret(false);
+        setIsRecreatingSecret(false);
         return;
       }
       setHasErrorLoadingSecret(true);
     })();
-  }, [session, logOut, setSecret]);
+  }, [session, activeChat]);
 
-  const onCopySecretUrlClick = useCallback(() => {
+  const onCopySecretUrlClick = useCallback(async () => {
     if (!session) return;
-    if (!secretKey) return;
+    if (!activeChat) return;
     if (isLoadingSecret) return;
     if (hasErrorLoadingSecret) return;
+
+    const chatId = activeChat.metadata.id;
+    setIsLoadingSecret(true);
+    const result = await chatApi.getSecret(chatId, session.token);
+    if (!result.data) return;
+    const secretKey = result.data.secret;
 
     const url = `${location.origin}/o/${session.user.id}/?s=${secretKey}`;
     navigator.clipboard.writeText(url);
     window.umami?.track('copied secret url');
 
+    setIsLoadingSecret(false);
     setCopiedAnimationDelay(true);
     if (copiedAnimationRef.current) {
       window.clearTimeout(copiedAnimationRef.current);
@@ -59,7 +67,7 @@ export const AddToStream = () =>
     copiedAnimationRef.current = window.setTimeout(() => {
       setCopiedAnimationDelay(false);
     }, 1 * 1000);
-  }, [session, secretKey, hasErrorLoadingSecret, isLoadingSecret]);
+  }, [session, activeChat, hasErrorLoadingSecret, isLoadingSecret]);
 
   const clickToCopyText = () => {
     if (copiedAnimationDelay) return (
@@ -70,6 +78,10 @@ export const AddToStream = () =>
     );
 
     if (isLoadingSecret) return (
+      'Fetching url...'
+    );
+
+    if (isRecreatingSecret) return (
       'Recreating secret url...'
     );
 
@@ -85,7 +97,7 @@ export const AddToStream = () =>
       <h1>Add chat overlay to stream</h1>
 
       <S.ClickToCopyBtn
-        disabled={isLoadingSecret || hasErrorLoadingSecret}
+        disabled={isLoadingSecret || isRecreatingSecret || hasErrorLoadingSecret}
         onClick={onCopySecretUrlClick}
         type='button'
       >
@@ -101,11 +113,11 @@ export const AddToStream = () =>
           <p>This url should not be shared with anyone or exposed to your stream</p>
           <p>In the case of leaking the secret url. Generate a new secret url to destroy the old one.</p>
           <button
-            disabled={isLoadingSecret}
+            disabled={isRecreatingSecret}
             type='button'
             onClick={onResetSecretKey}
           >
-            {isLoadingSecret ? 'Generating secret url...' : 'Generate new secret url'}
+            {isRecreatingSecret ? 'Generating secret url...' : 'Generate new secret url'}
           </button>
         </div>
       </S.WarningContainer>
@@ -135,5 +147,4 @@ export const AddToStream = () =>
       </S.StepContainer>
     </>
   );
-
 };
