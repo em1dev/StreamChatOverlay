@@ -34,7 +34,7 @@ export const logOut = () => {
   window.umami?.track('Sign out');
   window.umami?.identify('');
   localStorage.removeItem(LOCAL_STORAGE_AUTH_KEY);
-  useStore.setState({ session: null });
+  setSession(null);
   router.navigate('/');
 };
 
