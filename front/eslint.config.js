@@ -43,4 +43,4 @@ export default defineConfig([{
     'semi': ['error', 'always'],
     '@typescript-eslint/no-empty-object-type': 'off'
   },
-}, globalIgnores(['**/dist', '**/.eslintrc.cjs', 'node_modules'])]);
+}, globalIgnores(['**/dist', '**/.eslintrc.cjs'])]);
