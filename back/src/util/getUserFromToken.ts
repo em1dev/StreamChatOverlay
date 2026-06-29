@@ -1,7 +1,7 @@
 import { IncomingHttpHeaders } from 'http';
 import { decodeJwt } from 'jose';
 import { z } from 'zod';
-import { AuthApi } from './api/authApi';
+import { AuthApi } from '../api/authApi';
 
 export const getUserIdFromToken = async (headers: IncomingHttpHeaders) => {
   try {

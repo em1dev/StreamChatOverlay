@@ -1,9 +1,10 @@
 import { HandlerApiResult } from '../../../HandlerApiResult';
 import { db } from '../../../repository/prismaDb';
+import { WsConnectionManager } from '../../ws/wsConnectionManager';
 
 
 export const deleteChatHandler = async (
-  userId: number, chatId: number
+  userId: number, clientId: string, chatId: number
 ): Promise<HandlerApiResult<null>> => {
 
   const chat = await db.chat.findUnique({
@@ -20,6 +21,14 @@ export const deleteChatHandler = async (
       id: chatId
     }
   });
+
+  WsConnectionManager.GetInstance().sendEvent({
+    type: 'chat:delete',
+    from: clientId,
+    data: {
+      id: chatId,
+    }
+  }, userId);
 
   return HandlerApiResult.Success(200, null);
 };

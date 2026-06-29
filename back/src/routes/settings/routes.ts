@@ -1,5 +1,5 @@
 import z from 'zod';
-import { getUserIdFromToken } from '../../getUserFromToken';
+import { getUserIdFromToken } from '../../util/getUserFromToken';
 import { getUserSettingsHandler } from './handlers/getUserSettingsHandler';
 import { updateUserSettingsHandler } from './handlers/updateUserSettingsHandler';
 import { recreateUserSettingSecretHandler } from './handlers/recreateUserSettingSecretHandler';

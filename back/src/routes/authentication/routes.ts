@@ -1,7 +1,7 @@
 import z from 'zod';
 import { LoginServices } from '../../api/authApi';
 import { loginHandler } from './handlers/loginHandler';
-import { getTokenIfValid } from '../../getUserFromToken';
+import { getTokenIfValid } from '../../util/getUserFromToken';
 import { getAuthUrl } from './handlers/getAuthUrl';
 import { Router } from 'express';
 

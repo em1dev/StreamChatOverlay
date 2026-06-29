@@ -1,5 +1,6 @@
 import { HandlerApiResult } from '../../../HandlerApiResult';
 import { db } from '../../../repository/prismaDb';
+import { WsConnectionManager } from '../../ws/wsConnectionManager';
 
 
 interface CreatedResult {
@@ -9,7 +10,7 @@ interface CreatedResult {
 }
 
 export const createChatHandler = async (
-  userId: number, name: string
+  userId: number, clientId: string, name: string
 ): Promise<HandlerApiResult<CreatedResult>> => {
   const created = await db.chat.create({
     data: {
@@ -19,6 +20,16 @@ export const createChatHandler = async (
       settingsJson: '',
     }
   });
+
+  WsConnectionManager.GetInstance().sendEvent({
+    type: 'chat:new',
+    from: clientId,
+    data: {
+      id: created.id,
+      name: created.name,
+      settingsJson: created.settingsJson
+    }
+  }, userId);
 
   return HandlerApiResult.Success(201, {
     id: created.id,

@@ -1,11 +1,13 @@
 import { AuthApi } from '../../../api/authApi';
 import { HandlerApiResult } from '../../../HandlerApiResult';
 import { db } from '../../../repository/prismaDb';
+import { WsConnectionManager } from '../../ws/wsConnectionManager';
 
 
 export const revokeChatSecretHandler = async (
   userId: number,
-  chatId: number
+  chatId: number,
+  clientId: string
 ): Promise<HandlerApiResult<{ secret: string }>> => {
 
   const chat = await db.chat.findUnique({
@@ -30,8 +32,15 @@ export const revokeChatSecretHandler = async (
     }
   });
 
-  // TODO - notify connection change to ws clients
   await AuthApi.revokeConnectionToken(userId);
+
+  WsConnectionManager.GetInstance().sendEvent({
+    type: 'chat:secret_revoke',
+    from: clientId,
+    data: {
+      id: chatId,
+    }
+  }, userId);
 
   return HandlerApiResult.Success(200, { secret: newSecret });
 };
