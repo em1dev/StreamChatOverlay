@@ -10,14 +10,4 @@ export const EmoteToggleContainer = styled.div`
 export const DirectionContainer = styled.div`
   display: flex;
   align-items: center;
-  button {
-    cursor: pointer;
-    font-size: 1.5em;
-    font-family: inherit;
-    background-color: transparent;
-    border: none;
-    color: inherit;
-    display: flex;
-    align-items: center;
-  }
 `;

@@ -22,10 +22,14 @@ export const WeightRadioGroup = styled.div`
   > label {
     padding: 0.1em 0.3em;
     border: solid 0.1em;
-    border-radius: 5.8em;
+    border-radius: ${({ theme }) => theme.page.borderRadius};
     cursor: pointer;
     color: ${({ theme }) => theme.page.colors.secondary_text };
     border-color: ${({ theme }) => theme.page.colors.secondary_text };
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   input:checked + label {

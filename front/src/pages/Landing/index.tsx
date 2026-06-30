@@ -8,6 +8,7 @@ import { themeKeyMap, ThemeKeys } from '@/themes/chatThemes';
 import { CTAButton } from './CTAButton';
 import { defaultChatSettings } from '@/store/defaultChatSettings';
 import * as S from './styles';
+import { Button } from '@/components/core/Button';
 
 
 export const Landing = () =>
@@ -60,7 +61,10 @@ export const Landing = () =>
 
             <CTAButton />
 
-            <a
+            <Button
+              as='a'
+              $size='big'
+              $variant='outline'
               data-umami-event='outbound link'
               data-umami-event-url='https://ko-fi.com/emydev'
               data-umami-event-from='landing btn'
@@ -68,7 +72,7 @@ export const Landing = () =>
               href='https://ko-fi.com/emydev'
             >
               Support me :3
-            </a>
+            </Button>
           </S.CTAContainer>
         </div>
 

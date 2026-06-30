@@ -37,8 +37,8 @@ export const DeleteConfirmationModal = () => {
       </p>
 
       <footer>
-        <Button onClick={onCancel}>Cancel</Button>
-        <Button onClick={onConfirmDelete}>Yes, Delete</Button>
+        <Button $variant='ghost' onClick={onCancel}>Cancel</Button>
+        <Button $variant='destructive' onClick={onConfirmDelete}>Yes, Delete</Button>
       </footer>
     </div>
   );

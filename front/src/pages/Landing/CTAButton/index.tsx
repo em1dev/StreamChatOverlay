@@ -1,3 +1,4 @@
+import { Button } from '@/components/core/Button';
 import { useStore } from '@/store';
 import { signIn } from '@/store/actions/authActions';
 import { useNavigate } from 'react-router';
@@ -7,14 +8,25 @@ export const CTAButton = () => {
   const { session, isLoadingSession } = useStore();
 
   if (session) return (
-    <button onClick={() => { navigate('settings'); }}>
+    <Button
+      $variant='primary'
+      $size='big'
+      onClick={() => {
+        navigate('settings');
+      }}
+    >
       Go to settings
-    </button>
+    </Button>
   );
 
   return (
-    <button disabled={isLoadingSession} onClick={signIn}>
+    <Button
+      $variant='primary'
+      $size='big'
+      disabled={isLoadingSession}
+      onClick={signIn}
+    >
       Log in
-    </button>
+    </Button>
   );
 };

@@ -3,6 +3,7 @@ import { Icon } from '@iconify/react';
 import { ToggleInput } from '@/components/core/ToggleInput';
 import { LiveServiceIcon } from '@/components/core/LiveServiceIcon';
 import * as S from './styles';
+import { Button } from '@/components/core/Button';
 
 
 export interface ConnectionItemProps {
@@ -41,13 +42,15 @@ export const ConnectionItem = ({
   );
 
   if (!existingConnection) return (
-    <S.ConnectButton disabled={isLoading} onClick={() => onNewConnection(type)}>
+    <Button $size='big' $variant='outline' disabled={isLoading} onClick={() => onNewConnection(type)}>
       <LiveServiceIcon type={type} />
-      Connect to
-      <span style={{ textTransform: 'capitalize' }}>
-        {type}
+      <span>
+        Connect to {' '}
+        <span style={{ textTransform: 'capitalize' }}>
+          {type}
+        </span>
       </span>
-    </ S.ConnectButton>
+    </Button>
   );
 
   return (
@@ -63,9 +66,15 @@ export const ConnectionItem = ({
           { existingConnection.type }
         </S.TypeLabel>
       </div>
-      <button title={`delete ${type} connection`} disabled={isLoading} onClick={() => onDeleteConnection(type)}>
+      <Button
+        $variant='ghost'
+        $size='icon-round'
+        title={`delete ${type} connection`}
+        disabled={isLoading}
+        onClick={() => onDeleteConnection(type)}
+      >
         <Icon aria-hidden icon="mingcute:close-fill" />
-      </button>
+      </Button>
     </S.Container>
   );
 };

@@ -2,6 +2,7 @@ import { useChatSettings } from '@/store';
 import { Icon } from '@iconify/react';
 import { updateChatSettings } from '@/store/actions/chatActions';
 import * as S from './styles';
+import { Button } from '@/components/core/Button';
 
 
 const MIN_FONT_SIZE = 5;
@@ -23,21 +24,25 @@ export const FontSizeSection = () => {
       </h2>
 
       <S.FontSizeContainer>
-        <button
+        <Button
+          $size='icon-sm'
+          $variant='ghost'
           title='decrease font size'
           disabled={fontSize == MIN_FONT_SIZE}
           onClick={() => updateFontSize( fontSize - 1 )}
         >
           <Icon icon="mingcute:minimize-fill" />
-        </button>
+        </Button>
         <span>{fontSize}</span>
-        <button
+        <Button
+          $size='icon-sm'
+          $variant='ghost'
           title='increase font size'
           disabled={fontSize == MAX_FONT_SIZE}
           onClick={() => updateFontSize( fontSize + 1 )}
         >
           <Icon icon="mingcute:add-fill" />
-        </button>
+        </Button>
       </S.FontSizeContainer>
     </>
   );

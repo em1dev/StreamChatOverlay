@@ -3,17 +3,18 @@ import styled from 'styled-components';
 
 
 export const Container = styled.div`
-
+  font-size: 1.2rem;
 `;
 
 export const Menu = styled.div<{ $isOpen: boolean }>`
+  z-index: 2;
   display: ${({ $isOpen }) => $isOpen ? 'flex' : 'none'};
   flex-direction: column;
-  gap: 0.rem;
-  border-radius: 0.5rem;
+  border-radius: 0.8rem;
   border: solid 0.1rem #f6d5d5;
   position: absolute;
-  width: 100%;
+  max-width: min(500px, 100vw);
+  min-width: 100%;
   background-color: white;
   margin-top: 0.2rem;
 
@@ -22,45 +23,41 @@ export const Menu = styled.div<{ $isOpen: boolean }>`
   overflow: auto;
   max-height: 20rem;
 
+
   @media (${({ theme }) => theme.page.query.mobile}) {
     left: 0;
     margin: 1%;
     width: 98%;
     max-height: 60vh;
+    min-width: auto;
   }
 `;
 
 export const MenuSelectItem = styled.div`
   margin: 0.5rem;
-  font-size: 1.2rem;
   display: flex;
+  align-items:center;
   > button:first-child {
+    justify-content: flex-start;
     word-break:break-word;
-    display: flex;
-    align-items: center;
-    gap: 0.3em;
-    margin: 0;
-    padding: 0.5rem;
-    background: transparent;
-    border: none;
-    width: 100%;
-    text-align: left;
-    border-radius: 0.4rem;
-    color: inherit;
-    &:hover {
-        background-color: ${({ theme }) => theme.page.colors.button_bg_hover};
+    flex: 1;
+    gap: 0;
+
+    overflow: hidden;
+
+    > span {
+        overflow: hidden;
+        word-break:break-word;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
-  }
-  > button:not(:first-child){
-      width: 2.5em;
+
+    > svg {
+      min-width: 1.2em;
+    }
   }
 `;
 
 export const MenuButton = styled(Button)`
   margin: 0.5rem;
-  font-size: 1.2rem;
-  align-items: center;
-  display: flex;
-  gap: 0.5rem;
-  justify-content: center;
 `;

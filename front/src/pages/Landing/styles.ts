@@ -53,42 +53,11 @@ export const Main = styled.main`
 
 export const CTAContainer = styled.div`
   display: flex;
+  > * {
+      flex: 1;
+  }
   gap: 0.5em;
   margin-top: 1em;
-
-  button, a {
-    text-align: center;
-    text-decoration: none;
-    border: none;
-    border-radius: 5em;
-    padding: 1em;
-    width: 100%;
-    display: block;
-    font-size: inherit;
-    font-family: inherit;
-    cursor: pointer;
-  }
-
-  button {
-    color: ${({ theme }) => theme.page.colors.primary_text };
-    background-color: ${({ theme }) => theme.page.colors.primary_bg };
-    &:hover
-    {
-      background-color: ${({ theme }) => theme.page.colors.primary_bg_hover };
-    }
-  }
-
-  a {
-    color: ${({ theme }) => theme.page.colors.secondary_text };
-    background-color: ${({ theme }) => theme.page.colors.secondary_bg };
-    border: ${({ theme }) => theme.page.colors.secondary_border };
-    &:hover
-    {
-      background-color: ${({ theme }) => theme.page.colors.secondary_bg_hover };
-    }
-  }
-
-
 `;
 
 export const ThemePickerContainer = styled.div`

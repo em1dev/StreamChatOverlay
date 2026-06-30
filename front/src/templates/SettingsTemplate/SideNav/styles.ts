@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-const navButton = css`
+export const navButtonCss = css`
   display: flex;
   align-items: center;
   gap: 0.5em;
@@ -12,6 +12,13 @@ const navButton = css`
   border-radius: 1em;
   padding: 0.8em 2em;
   color: inherit;
+
+  transition: translate 0.1s ease-out, opacity 0.1s ease-out, background-color 0.1s ease-out, color 0.1s ease-out;
+
+  &:active {
+      translate: 0 1px;
+      opacity: 0.8;
+  }
 
   &.active {
     color: ${({ theme }) => theme.page.colors.input_text};
@@ -26,6 +33,7 @@ const navButton = css`
 
 export const NavContainer = styled.nav<{ $isOpen: boolean }>`
   background-color: ${({ theme }) => theme.page.colors.bg};
+  z-index: 1;
   display: flex;
   flex-direction: column;
   gap: 0.5em;
@@ -37,7 +45,7 @@ export const NavContainer = styled.nav<{ $isOpen: boolean }>`
   grid-area: nav;
 
   a {
-    ${navButton}
+    ${navButtonCss}
   }
 
   transition: left ease-out 0.2s;
@@ -100,7 +108,7 @@ export const BottomSection = styled.div`
       background: transparent;
       outline: none;
       border: none;
-      ${navButton}
+      ${navButtonCss}
     }
   }
 `;

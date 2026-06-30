@@ -1,4 +1,5 @@
 import 'styled-components';
+import { ButtonVariantKey } from  '@/components/core/Button';
 
 
 interface Box {
@@ -34,10 +35,24 @@ export interface ChatTheme
   }
 }
 
+export interface ButtonVariant {
+  color: string,
+  bg: string,
+  bg_hover: string,
+  color_hover: string,
+  outline: string,
+}
+
 declare module 'styled-components' {
   export interface DefaultTheme {
     chat: ChatTheme,
     page: {
+      buttons: Record<ButtonVariantKey, ButtonVariant>,
+      outlines: {
+        section: string,
+        input: string
+      },
+      borderRadius: string,
       query: {
         mobile: string,
       },

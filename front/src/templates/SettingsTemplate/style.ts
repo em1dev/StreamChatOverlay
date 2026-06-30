@@ -26,8 +26,6 @@ export const Container = styled.main`
   }
 `;
 
-
-
 export const ContentContainer = styled.div`
   font-size: 1.3em;
   grid-area: body;
@@ -53,7 +51,8 @@ export const ContentContainer = styled.div`
   }
 
   section {
-    outline: solid 1px;
+    background-color: #fbf6ee;
+    outline: ${({ theme }) => theme.page.outlines.section };
     border-radius: 1em;
     padding: 1em;
     margin-bottom: 1.5em;

@@ -6,6 +6,8 @@ export const Container = styled.table`
   border-radius: 1em;
   text-align: left;
 
+  font-size: 0.8em;
+
   svg {
     font-size: 1.3em;
   }
@@ -14,25 +16,11 @@ export const Container = styled.table`
     font-weight: inherit;
   }
 
-  tbody input {
-    font-size: 0.8em;
-  }
-
   input {
     width: 100%;
   }
 
-  tfoot button {
+  tfoot td button {
     width: 100%;
-    padding: 0.5em;
-    border: none;
-    border-radius: 0.5em;
-
-    background-color: ${(props) => props.theme.page.colors.input_bg};
-    color: ${(props) => props.theme.page.colors.input_text};
-
-    &:hover {
-      background-color: ${(props) => props.theme.page.colors.input_bg_hover};
-    }
   }
 `;

@@ -2,11 +2,11 @@ import { Icon } from '@iconify/react';
 import { useCallback, useMemo } from 'react';
 import { TTSReplacement } from '@/types/settingsTypes';
 import { Input } from '@/components/core/Input';
-import { IconButton } from '@/components/core/IconButton';
 import { removeRegexCharacters } from '@/utils/regexUtils';
 import { useChatSettings } from '@/store';
 import { updateChatSettings } from '@/store/actions/chatActions';
 import * as S from './styles';
+import { Button } from '@/components/core/Button';
 
 
 export interface UserPronunciationBlockProps
@@ -90,9 +90,9 @@ export const UserPronunciationBlock = ({
             .map(item => (
               <tr key={item.id}>
                 <td>
-                  <IconButton title='remove row' onClick={() => removeReplacement(item)}>
+                  <Button $size='icon-sm' $variant='ghost' title='remove row' onClick={() => removeReplacement(item)}>
                     <Icon icon="mingcute:close-fill" />
-                  </IconButton>
+                  </Button>
                 </td>
                 <td>
                   <Input
@@ -107,9 +107,9 @@ export const UserPronunciationBlock = ({
                   />
                 </td>
                 <td>
-                  <IconButton title='speak name' onClick={() => speak(item.replaceWith)} >
+                  <Button $size='icon-sm' $variant='ghost' title='speak name' onClick={() => speak(item.replaceWith)} >
                     <Icon icon="mingcute:announcement-line" />
-                  </IconButton>
+                  </Button>
                 </td>
               </tr>
             ))
@@ -120,7 +120,9 @@ export const UserPronunciationBlock = ({
         <tr>
           <td></td>
           <td colSpan={2}>
-            <button onClick={() => addNewReplacement()}>Add new row</button>
+            <Button onClick={() => addNewReplacement()}>
+              Add new row
+            </Button>
           </td>
           <td></td>
         </tr>

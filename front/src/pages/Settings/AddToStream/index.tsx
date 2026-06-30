@@ -7,6 +7,8 @@ import step3ImgUrl from './img/step3.png';
 
 import * as S from './styles';
 import { logOut } from '@/store/actions/authActions';
+import { Button } from '@/components/core/Button';
+import { HorizontalCenter } from '@/components/core/HorizontalCenter';
 
 
 export const AddToStream = () =>
@@ -96,13 +98,17 @@ export const AddToStream = () =>
     <>
       <h1>Add chat overlay to stream</h1>
 
-      <S.ClickToCopyBtn
-        disabled={isLoadingSecret || isRecreatingSecret || hasErrorLoadingSecret}
-        onClick={onCopySecretUrlClick}
-        type='button'
-      >
-        {clickToCopyText()}
-      </S.ClickToCopyBtn>
+      <HorizontalCenter>
+        <Button
+          $variant='secondary'
+          $size='big'
+          disabled={isLoadingSecret || isRecreatingSecret || hasErrorLoadingSecret}
+          onClick={onCopySecretUrlClick}
+          type='button'
+        >
+          {clickToCopyText()}
+        </Button>
+      </HorizontalCenter>
 
       <S.WarningContainer>
         <div>
@@ -112,13 +118,14 @@ export const AddToStream = () =>
           <p>The secret url contains your credential information</p>
           <p>This url should not be shared with anyone or exposed to your stream</p>
           <p>In the case of leaking the secret url. Generate a new secret url to destroy the old one.</p>
-          <button
+          <Button
+            $variant='destructive'
             disabled={isRecreatingSecret}
             type='button'
             onClick={onResetSecretKey}
           >
             {isRecreatingSecret ? 'Generating secret url...' : 'Generate new secret url'}
-          </button>
+          </Button>
         </div>
       </S.WarningContainer>
 

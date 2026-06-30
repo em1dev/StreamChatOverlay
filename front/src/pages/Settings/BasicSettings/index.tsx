@@ -9,6 +9,7 @@ import { DisplayTextSection } from './DisplayTextSection';
 import { ChatPreview } from './ChatPreview';
 import { updateChatSettings } from '@/store/actions/chatActions';
 import * as S from './styles';
+import { Button } from '@/components/core/Button';
 
 
 export const BasicSettings = () => {
@@ -31,7 +32,9 @@ export const BasicSettings = () => {
 
         <div role="radiogroup">
           <S.DirectionContainer>
-            <button
+            <Button
+              $size='icon'
+              $variant='ghost'
               aria-label='left'
               aria-checked={chatDirection == 'left'}
               onClick={() => updateChatSettings({ chatDirection: 'left' })}
@@ -40,14 +43,16 @@ export const BasicSettings = () => {
             >
               {
                 chatDirection == 'left' ? (
-                  <Icon aria-hidden="true" icon="mingcute:arrow-left-circle-fill" />
+                  <Icon aria-hidden icon="mingcute:arrow-left-circle-fill" />
                 ) : (
-                  <Icon aria-hidden="true" icon="mingcute:arrow-left-circle-line" />
+                  <Icon aria-hidden icon="mingcute:arrow-left-circle-line" />
                 )
               }
-            </button>
+            </Button>
 
-            <button
+            <Button
+              $size='icon'
+              $variant='ghost'
               aria-label='right'
               aria-checked={chatDirection == 'right'}
               onClick={() => updateChatSettings({ chatDirection: 'right' })}
@@ -56,12 +61,12 @@ export const BasicSettings = () => {
             >
               {
                 chatDirection == 'right' ? (
-                  <Icon aria-hidden="true" icon="mingcute:arrow-right-circle-fill" />
+                  <Icon aria-hidden icon="mingcute:arrow-right-circle-fill" />
                 ) : (
-                  <Icon aria-hidden="true" icon="mingcute:arrow-right-circle-line" />
+                  <Icon aria-hidden icon="mingcute:arrow-right-circle-line" />
                 )
               }
-            </button>
+            </Button>
           </S.DirectionContainer>
         </div>
 

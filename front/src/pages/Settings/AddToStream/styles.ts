@@ -20,25 +20,6 @@ export const WarningContainer = styled.div`
   p:first-child {
     margin-top: 0;
   }
-
-  button {
-    cursor: pointer;
-    border: none;
-    border-radius: 1em;
-    padding: 0.8em 1em;
-
-    color: ${({ theme }) => theme.page.colors.danger_text };
-    background-color: ${({ theme }) => theme.page.colors.danger_bg };
-    &:hover:not(:disabled)
-    {
-      background-color: ${({ theme }) => theme.page.colors.danger_bg_hover };
-    }
-
-    &:disabled {
-      cursor: not-allowed;
-      opacity: 0.5;
-    }
-  }
 `;
 
 export const ClickToCopyBtn = styled.button`

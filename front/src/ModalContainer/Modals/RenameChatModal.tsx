@@ -50,12 +50,13 @@ export const RenameChatModal = () => {
       <Input
         id='chat-rename-input'
         value={name}
-        maxLength={20}
+        maxLength={30}
         onChange={(e) => setName(e.target.value)}
       />
 
       <footer>
         <Button
+          $variant='ghost'
           onClick={onCancel}
         >
           Cancel

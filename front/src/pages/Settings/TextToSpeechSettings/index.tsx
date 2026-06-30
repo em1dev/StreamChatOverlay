@@ -6,11 +6,11 @@ import { useCallback, useEffect, useState } from 'react';
 import { UserPronunciationBlock } from './UserPronounciationBlock';
 import { Icon } from '@iconify/react';
 import { useTTS } from '@/hooks/useTTS/useTTS';
-import { IconButton } from '@/components/core/IconButton';
 import { Input } from '@/components/core/Input';
 import { MessagePart } from '@/types';
 import { updateChatSettings } from '@/store/actions/chatActions';
 import * as S from './styles';
+import { Button } from '@/components/core/Button';
 
 
 export const TextToSpeechSettings = () => {
@@ -111,9 +111,13 @@ export const TextToSpeechSettings = () => {
           <label htmlFor='try-out-tts-input'>Try out tts</label>
           <div>
             <Input id="try-out-tts-input" value={testTtsMessage} onChange={(e) => { setTestTtsMessage(e.target.value); }} />
-            <IconButton onClick={() => speak(testTtsMessage)}>
+            <Button
+              $size='icon'
+              $variant='ghost'
+              onClick={() => speak(testTtsMessage)}
+            >
               <Icon icon="mingcute:announcement-line" />
-            </IconButton>
+            </Button>
           </div>
         </S.TryTtsContainer>
       </section>
@@ -167,9 +171,9 @@ export const TextToSpeechSettings = () => {
         <p>Underscores will be subtituted by spaces improving the readability of names like 'emy_is_here'</p>
         <S.TTSExampleBlock>
           <span>emy_is_here</span>
-          <IconButton onClick={() => speak('emy_is_here')}>
+          <Button $variant='ghost' $size='icon-sm' onClick={() => speak('emy_is_here')}>
             <Icon icon="mingcute:announcement-line" />
-          </IconButton>
+          </Button>
         </S.TTSExampleBlock>
       </section>
 
@@ -211,9 +215,9 @@ export const TextToSpeechSettings = () => {
 
         <S.TTSExampleBlock>
           <span>*says hi*</span>
-          <IconButton onClick={() => speak('*says hi*')}>
+          <Button $variant='ghost' $size='icon-sm' onClick={() => speak('*says hi*')}>
             <Icon icon="mingcute:announcement-line" />
-          </IconButton>
+          </Button>
         </S.TTSExampleBlock>
       </section>
 
@@ -239,9 +243,9 @@ export const TextToSpeechSettings = () => {
 
         <S.TTSExampleBlock>
           <span>{ location.origin }</span>
-          <IconButton onClick={() => speak(location.origin)}>
+          <Button $variant='ghost' $size='icon-sm' onClick={() => speak(location.origin)}>
             <Icon icon="mingcute:announcement-line" />
-          </IconButton>
+          </Button>
         </S.TTSExampleBlock>
       </section>
 

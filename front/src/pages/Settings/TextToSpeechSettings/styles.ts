@@ -20,9 +20,6 @@ export const TryTtsContainer = styled.div`
     align-items: center;
     gap: 0.5em;
   }
-  svg {
-    font-size: 1.5em;
-  }
 `;
 
 export const EmotesToReadContainer = styled.p`
@@ -50,7 +47,4 @@ export const TTSExampleBlock = styled.div`
   margin: auto;
   gap: 0.2em;
   padding: 0.5em;
-  svg {
-    font-size: 1.3em;
-  }
 `;

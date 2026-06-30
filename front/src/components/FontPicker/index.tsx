@@ -70,7 +70,9 @@ const FontPicker = () => {
               id={`weight_${w}`}
               type='radio'
             />
-            <label htmlFor={`weight_${w}`}>{w}</label>
+            <label htmlFor={`weight_${w}`}>
+              {w}
+            </label>
           </Fragment>
         ))}
       </S.WeightRadioGroup>

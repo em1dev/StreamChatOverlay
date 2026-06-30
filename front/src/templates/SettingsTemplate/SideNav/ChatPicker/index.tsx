@@ -1,5 +1,4 @@
 import { Icon } from '@iconify/react';
-import { IconButton } from '@/components/core/IconButton';
 import { DropdownButton } from './DropdownButton';
 import { useEffect, useRef, useState } from 'react';
 import { Divider } from '@/components/core/Divider';
@@ -8,6 +7,7 @@ import { addChat, setActiveChat } from '@/store/actions/chatActions';
 import { setChatToDelete, setChatToRename } from '@/store/actions/pageActions';
 import { chatApi } from '@/api/chatApi';
 import * as S from './styles';
+import { Button } from '@/components/core/Button';
 
 
 const MAX_ITEMS = 10;
@@ -80,24 +80,30 @@ export const ChatPicker = () => {
             .sort((a,b) => a.id - b.id)
             .map(m => (
               <S.MenuSelectItem key={m.id} >
-                <button onClick={() => onItemSelect(m.id)}>
+                <Button $variant='ghost' onClick={() => onItemSelect(m.id)}>
                   {m.id == activeChat?.metadata.id && (
                     <Icon aria-hidden icon="mingcute:right-fill" />
                   )}
-                  {m.name}
-                </button>
-                <IconButton title='edit' onClick={() => onItemEdit(m.id)}>
+                  <span>
+                    {m.name}
+                  </span>
+                </Button>
+                <Button $size='normal' $variant='ghost' title='edit' onClick={() => onItemEdit(m.id)}>
                   <Icon aria-hidden icon='mingcute:pencil-line' />
-                </IconButton>
-                <IconButton title='delete' onClick={() => onItemDelete(m.id)}>
+                </Button>
+                <Button $size='normal' $variant='ghost' title='delete' onClick={() => onItemDelete(m.id)}>
                   <Icon aria-hidden icon="mingcute:delete-2-line" />
-                </IconButton>
+                </Button>
               </S.MenuSelectItem>
             ))
         }
         <Divider />
         { !maxItemsReached && (
-          <S.MenuButton disabled={maxItemsReached} onClick={onChatCreate}>
+          <S.MenuButton
+            $variant='ghost'
+            disabled={maxItemsReached}
+            onClick={onChatCreate}
+          >
             <Icon icon="mingcute:add-fill" />
             New chat
           </S.MenuButton>

@@ -1,5 +1,4 @@
 import * as S from './styles';
-import { Icon } from '@iconify/react';
 
 export interface ToggleInputProps
 {
@@ -16,11 +15,9 @@ export const ToggleInput = ({ isChecked, onChange, children }: ToggleInputProps)
       checked={isChecked}
       onChange={(e) => onChange(e.target.checked)}
     />
-    {isChecked ? 
-      <Icon aria-hidden icon="mingcute:toggle-right-fill" />
-      :
-      <Icon aria-hidden icon="mingcute:toggle-left-line" />
-    }
+
+    <S.Switch $on={isChecked} />
+
     {children}
   </S.Label>
 );

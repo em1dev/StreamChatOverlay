@@ -53,21 +53,6 @@ export const Container = styled.div`
 
   button {
       margin-left: auto;
-      width: 2em;
-      height: 2em;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0;
-      border-radius: 5em;
-      outline: none;
-      border: none;
-      background: none;
-      color: ${({ theme }) => theme.page.colors.primary_text };
-      &:hover,
-      &:focus {
-        background: #e6dad1;
-      }
   }
 
   border: solid 2px ${({ theme }) => theme.page.colors.primary_text };
