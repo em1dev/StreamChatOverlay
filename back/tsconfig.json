@@ -17,7 +17,7 @@
     "noImplicitThis": true, /* Enable error reporting when 'this' is given the type 'any'. */
     "useUnknownInCatchVariables": true, /* Default catch clause variables as 'unknown' instead of 'any'. */
     "alwaysStrict": true, /* Ensure 'use strict' is always emitted. */
-    "noUnusedLocals": false, /* Enable error reporting when local variables aren't read. */
+    "noUnusedLocals": true, /* Enable error reporting when local variables aren't read. */
     "noUnusedParameters": false, /* Raise an error when a function parameter isn't read. */
     "noFallthroughCasesInSwitch": true, /* Enable error reporting for fallthrough cases in switch statements. */
     "noUncheckedIndexedAccess": true, /* Add 'undefined' to a type when accessed using an index. */

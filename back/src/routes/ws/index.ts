@@ -57,14 +57,6 @@ export const wsHandler = (ws: WebSocket) => {
       const event = parseReceivedMsg(msgRaw);
       if (!event) return;
 
-      if (event.type == 'subscribe')
-      {
-        const userId = event.data.userId;
-        WsConnectionManager.GetInstance().AddConnection(userId, ws, 'v1');
-        clearTimeout(authTimeout);
-        return;
-      }
-
       if (event.type == 'subscribe-v2')
       {
         const userId = await getUserIdFromSubscribeEvent(event);

@@ -6,9 +6,7 @@ import { httpLogger, logger } from './logger';
 import z, { ZodError } from 'zod';
 import { router as channelRouter } from './routes/channel/routes';
 import { router as authenticatioRouter } from './routes/authentication/routes';
-import { router as settingsRouter } from './routes/settings/routes';
 import { router as connectionRouter } from './routes/connection/routes';
-import { router as secretRouter } from './routes/secret/routes';
 import { router as chatRouter } from './routes/chat/routes';
 import { wsHandler } from './routes/ws';
 
@@ -27,9 +25,7 @@ api.use(express.json());
 
 api.use(channelRouter);
 api.use(authenticatioRouter);
-api.use(settingsRouter);
 api.use(connectionRouter);
-api.use(secretRouter);
 api.use(chatRouter);
 
 api.ws('/', wsHandler);

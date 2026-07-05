@@ -27,12 +27,6 @@ export interface Event<K extends EventType, T>
   from: string, // identifier of who emitted the event
 }
 
-// legacy event
-export type ChangeEvent = Event<'change', {
-  userId: number,
-  changeId: string // id of the change to avoid updating the client which emits the event
-}>;
-
 export type ChatCreateEvent = Event<'chat:new', {
   id: number
   name: string,
@@ -60,4 +54,4 @@ export type ChatSecretRevokeEvent = Event<'chat:secret_revoke', {
 // expect client to re-fetch connection details
 export type ConnectionChangeEvent = Event<'connection:change', null>;
 
-export type WebsocketEvent = ChangeEvent | ChatCreateEvent | ChatRenameEvent | ChatSettingsUpdateEvent | ChatDeleteEvent | ConnectionChangeEvent | ChatSecretRevokeEvent;
+export type WebsocketEvent = ChatCreateEvent | ChatRenameEvent | ChatSettingsUpdateEvent | ChatDeleteEvent | ConnectionChangeEvent | ChatSecretRevokeEvent;

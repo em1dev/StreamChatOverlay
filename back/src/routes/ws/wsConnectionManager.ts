@@ -1,8 +1,8 @@
 import { logger } from '../../logger';
-import { ChangeEvent, WebsocketEvent } from './events';
+import { WebsocketEvent } from './events';
 import { WebSocket as WS } from 'ws';
 
-type WSVersion = 'v1' | 'v2';
+type WSVersion = 'v2';
 
 export class WsConnectionManager {
   // userId to connection arrays
@@ -76,30 +76,6 @@ export class WsConnectionManager {
         connection.ws.send(payload);
       } catch{
         logger.info('Unable to send ev to client');
-      }
-    }
-  }
-
-  // legacy change event
-  public SendChangeEvent(userId: number, changeId: string)
-  {
-    const connections = this.GetConnections(userId, 'v1');
-    const changeEv:ChangeEvent = {
-      type: 'change',
-      from: changeId,
-      data: {
-        changeId,
-        userId
-      }
-    };
-    const evPayload = JSON.stringify(changeEv);
-
-    for (const connection of connections)
-    {
-      try {
-        connection.ws.send(evPayload);
-      } catch{
-        logger.info('Unable to send change ev to client');
       }
     }
   }
