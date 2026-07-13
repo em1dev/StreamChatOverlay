@@ -70,8 +70,6 @@ export const ThemePickerContainer = styled.div`
 
 export const ChatContainer = styled.div`
   padding: 0 5em;
-  width: 600px;
-  height: 600px;
   position: relative;
   > img {
     width: 100%;
@@ -79,6 +77,10 @@ export const ChatContainer = styled.div`
     position: absolute;
     top: 0;
     right: 0;
+  }
+
+  @media (${({ theme }) => theme.page.query.mobile}) {
+    padding: 0;
   }
 `;
 
