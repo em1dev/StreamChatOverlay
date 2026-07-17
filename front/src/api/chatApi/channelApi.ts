@@ -1,6 +1,6 @@
 import { ApiResponse } from '../ApiResponse';
 import { chatApiClient } from './chatApiClient';
-import { Badge, CustomEmote } from './types';
+import { BadgeVersion, CustomEmote } from './types';
 
 
 const getEmotes = async (channelId: string,
@@ -14,9 +14,11 @@ const getEmotes = async (channelId: string,
   )
 );
 
-const getChannelBadges = async (channelId: string):Promise<ApiResponse<Array<Badge>>> => (
-  chatApiClient.fetch(`${channelId}/badges`, 'GET')
-);
+const getChannelBadges = async (channelId: string)
+: Promise<ApiResponse<Record<string, BadgeVersion[]>>> =>
+  (
+    chatApiClient.fetch(`${channelId}/badges`, 'GET')
+  );
 
 export const channelApi = {
   getEmotes,
