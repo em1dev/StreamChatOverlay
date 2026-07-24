@@ -9,6 +9,17 @@
 </p>
 
 <p align="center">
+  <a target="_blank" href="https://uptime.emy.dev/status/chat"><img
+      alt="API Status Badge"
+      src="https://uptime.emy.dev/api/badge/1/status?label=API%20Status"
+  /></a>
+  <a target="_blank" href="https://uptime.emy.dev/status/chat"><img
+      alt="UI Status Badge"
+      src="https://uptime.emy.dev/api/badge/3/status?label=UI%20Status"
+  /></a>
+<p>
+
+<p align="center">
   Live at <a target="_blank" href="https://chat.emy.dev">chat.emy.dev</a>
 </p>
 
